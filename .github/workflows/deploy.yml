@@ -39,6 +39,8 @@ jobs:
             - run: npm run test
 
             - run: npm run build
+              env:
+                ENDPOINT: https://draftkings-optimizer.herokuapp.com
 
     # Uncomment if project is set up in AWS
             # - name: Generate deployment package
