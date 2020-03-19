@@ -81,4 +81,4 @@ jobs:
                   environment_name: DraftkingsOptimizer-env
                   region: ca-central-1
                   version_label: "DraftkingsOptimizer-env-${{ steps.format-time.outputs.replaced }}"
-                  deployment_package: app
+                  deployment_package: app.zip
