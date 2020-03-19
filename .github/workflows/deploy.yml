@@ -49,7 +49,7 @@ jobs:
               uses: actions/upload-artifact@v2-preview
               with:
                   name: app
-                  path: /
+                  path: app.zip
 
     deploy:
         needs: [build]
@@ -59,7 +59,7 @@ jobs:
               uses: actions/download-artifact@v1
               with:
                   name: app
-                  path: /
+                  path: app/app.zip
 
             - name: Get timestamp
               uses: gerred/actions/current-time@master
