@@ -59,7 +59,6 @@ jobs:
               uses: actions/download-artifact@v1
               with:
                   name: app
-                  path: app/app.zip
 
             - name: Get timestamp
               uses: gerred/actions/current-time@master
@@ -83,4 +82,4 @@ jobs:
                   environment_name: DraftkingsOptimizer-env
                   region: ca-central-1
                   version_label: "DraftkingsOptimizer-env-${{ steps.format-time.outputs.replaced }}"
-                  deployment_package: app.zip
+                  deployment_package: app
