@@ -42,26 +42,34 @@ jobs:
               env:
                 ENDPOINT: https://draftkings-optimizer.herokuapp.com
 
-#             - name: Generate deployment package
-#               run: zip -r app.zip * -x "**node_modules**"
-
-            - name: Upload artifact
-              uses: actions/upload-artifact@v2-preview
-              with:
-                  name: app
-                  path: / 
 
     deploy:
         needs: [build]
         runs-on: ubuntu-latest
         steps:
-            - name: Download artifact
-              uses: actions/download-artifact@v2-preview
-              with:
-                  name: app
-                  
-            - run: cat app
+            - uses: actions/checkout@v2
 
+            - name: Cache node modules
+              uses: actions/cache@v1
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-${{ env.cache-name }}-
+                      ${{ runner.os }}-build-
+                      ${{ runner.os }}-
+
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+
+            - run: npm ci
+          
+            - name: Generate deployment package
+              run: zip -r app.zip * -x "**node_modules**"
+ 
             - name: Get timestamp
               uses: gerred/actions/current-time@master
               id: current-time
