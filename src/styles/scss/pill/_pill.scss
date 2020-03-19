@@ -1,0 +1,25 @@
+@import '../reference/index';
+
+$block: 'pill';
+
+.#{$block} {
+    @include font-weight(600);
+
+    border-radius: 0.5rem;
+    padding: 0.625rem 1rem;
+
+    &--active {
+        background-color: $green-light;
+        color: $green;
+    }
+
+    &--O {
+        background-color: $red-light;
+        color: $red;
+    }
+
+    &--Q {
+        background-color: $orange-light;
+        color: $orange;
+    }
+}

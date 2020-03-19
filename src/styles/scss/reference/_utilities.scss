@@ -1,15 +1,26 @@
-@mixin clean-list {
-	list-style: none;
-	margin-bottom: 0;
-	margin-top: 0;
-	padding-left: 0;
+@mixin hidden {
+    position: absolute !important;
+    height: 1px; 
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap; /* added line */
 }
 
-@mixin clean-anchor($color: inherit) {
-	color: $color;
-	text-decoration: none;
+/// Make an element's text nodes be invisible.
+@mixin image-replacement {
+	background-color: transparent;
+	border: 0;
+	color: transparent;
+	font: #{0/0} a;
+	text-shadow: none;
+}
 
-	&:hover {
-		text-decoration: underline;
-	}
+@mixin reset-button {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
 }

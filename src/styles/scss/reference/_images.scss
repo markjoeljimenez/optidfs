@@ -1,0 +1,64 @@
+﻿/// Adds SVG images to a specified CSS property.
+/// Note: by default, most SVGs will need to be manually edited since attributes are added to the root SVG
+/// element. Child elements that have their own attributes won't be overwritten.
+/// @param $property The property name to add the loaded SVG image to.
+/// @param $filename The filename of the SVG background image, without the extension.
+/// @param $attributes... Additional attributes to add to the root SVG element.
+@mixin svg-load($property, $filename, $attributes) { // sass-lint:disable-line
+	@if length($attributes) > 0 {
+		#{$property}: svg-load('#{$filename}', $attributes);
+	}
+	@else {
+		#{$property}: svg-load('#{$filename}');
+	}
+}
+
+/// Adds SVG images to backgrounds, while adding fills, strokes and other SVG attributes to the inlined SVG.
+/// @param $name The initial attribute name to add to the root SVG element. E.g. 'fill', 'stroke', 'opacity'.
+/// @param $filename The filename of the SVG background image, without the extension.
+/// @param $value The value of the initial attribute to add to the SVG inlining.
+/// @param $width The background-size width of the image.
+/// @param $height The background-size height of the image.
+/// @param $position-x: The position in the x-axis for the background image.
+/// @param $position-y: The position in the y-axis for the background image.
+/// @param $repeat Whether or not to repeat the background.
+/// @param $attributes... Additional attributes to add to the root SVG element.
+@mixin background-image-svg($filename, $width: 0, $height: 0, $position-x: 0, $position-y: 0, $repeat: no-repeat, $attributes...) { // sass-lint:disable-line
+	@include svg-load('background-image', $filename, $attributes);
+
+	@if $position-x != 0 or $position-y != 0 {
+		background-position: $position-x $position-y;
+	}
+
+	background-repeat: $repeat;
+
+	@if $width != 0 or $height != 0 {
+		background-size: $width $height;
+	}
+}
+
+/// A helper for the `background-image-svg` mixin that auto-selects fill as the first attribute.
+/// @param $filename The filename of the SVG background image, without the extension.
+/// @param $color The color of the initial fill to add to the SVG inlining.
+/// @param $width The background-size width of the image.
+/// @param $height The background-size height of the image.
+/// @param $position-x: The position in the x-axis for the background image.
+/// @param $position-y: The position in the y-axis for the background image.
+/// @param $repeat Whether or not to repeat the background. Defaults to `no-repeat`.
+/// @param $attributes... Additional attributes to add to the root SVG element.
+@mixin background-image-fill($filename, $color, $width: 0, $height: 0, $position-x: 0, $position-y: 0, $repeat: no-repeat, $attributes...) {
+	@include background-image-svg($filename, $width, $height, $position-x, $position-y, $repeat, 'fill=#{$color}', $attributes...);
+}
+
+/// A helper for the `background-image-svg` mixin that auto-selects stroke as the first attribute.
+/// @param $filename The filename of the SVG background image, without the extension.
+/// @param $color The color of the initial stroke to add to the SVG inlining.
+/// @param $width The background-size width of the image.
+/// @param $height The background-size height of the image.
+/// @param $position-x: The position in the x-axis for the background image.
+/// @param $position-y: The position in the y-axis for the background image.
+/// @param $repeat Whether or not to repeat the background. Defaults to `no-repeat`.
+/// @param $attributes... Additional attributes to add to the root SVG element.
+@mixin background-image-stroke($filename, $color, $width: 0, $height: 0, $position-x: 0, $position-y: 0, $repeat: no-repeat, $attributes...) {
+	@include background-image-svg($filename, $width, $height, $position-x, $position-y, $repeat, 'stroke=#{$color}', $attributes...);
+}

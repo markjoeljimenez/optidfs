@@ -1,0 +1,9 @@
+@import '../reference/index';
+
+$block: 'main';
+
+.#{$block} {
+	&__container {
+		@include container;
+	}
+}

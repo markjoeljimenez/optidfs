@@ -1,0 +1,34 @@
+@import '../reference/index';
+
+$block: 'panel';
+
+.#{$block} {
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+
+    @include media-min(md) {
+        margin-bottom: 5rem;
+        margin-top: 5rem;
+    }
+
+    > * {
+        margin-top: 1.5rem;
+    }
+
+    .table-wrapper {
+        margin-left: -$padding-horizontal;
+        margin-right: -$padding-horizontal;
+
+        @include media-min(md) {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+
+    &__heading {
+        @include font-weight(200);
+        @include font-size-36;
+
+        margin: 0;
+    }
+}

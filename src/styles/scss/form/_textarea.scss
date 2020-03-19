@@ -1,0 +1,8 @@
+@import '../reference/index';
+
+$block: 'textarea';
+
+.#{$block} {
+	@include input;
+	@include input-border;
+}

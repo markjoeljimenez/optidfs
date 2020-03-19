@@ -1,0 +1,29 @@
+@import '../reference/index';
+
+$block: 'button';
+
+.#{$block} {
+    @include button;
+
+    &[disabled] {
+        background-color: $grey-400;
+        color: $white;
+        cursor: default;
+    }
+
+    & + & {
+        margin-left: 1rem;
+    }
+
+    &--light {
+        @include button-light;
+    }
+
+    &--dark {
+        @include button-dark;
+    }
+
+    &--sm-bord-rad {
+        border-radius: 4px;
+    }
+}

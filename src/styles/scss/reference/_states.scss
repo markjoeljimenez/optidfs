@@ -1,0 +1,88 @@
+/// A color mixin for setting hover and active states
+/// $param {color} $base The base color for the element
+/// $param {color} $hover The hover color for the element
+/// $param {color} $active The active color for the element
+@mixin property-color-states($property, $base, $hover: darken($base, 12.5%), $active: darken($hover, 12.5%)) {
+	@if $property == 'color' {
+		&,
+		&:visited {
+			#{$property}: $base;
+		}
+	} @else {
+		#{$property}: $base;
+	}
+
+	&:hover,
+	&:focus {
+		#{$property}: $hover;
+	}
+
+	&:active {
+		#{$property}: $active;
+	}
+}
+
+/// A background color mixin for setting hover and active states
+/// $param {color} $base The base color for the element
+/// $param {color} $hover The hover color for the element
+/// $param {color} $active The active color for the element
+@mixin background-color-states($base, $hover: darken($base, 12.5%), $active: darken($hover, 12.5%)) {
+	@include property-color-states('background-color', $base, $hover, $active);
+}
+
+/// A color mixin for setting hover and active states
+/// $param {color} $base The base color for the element
+/// $param {color} $hover The hover color for the element
+/// $param {color} $active The active color for the element
+@mixin color-states($base, $hover: darken($base, 12.5%), $active: darken($hover, 12.5%)) {
+	@include property-color-states('color', $base, $hover, $active);
+}
+
+/// For all hover states.
+/// @content
+@mixin hover {
+	&:hover,
+	&.u-on-hover {
+		@content;
+	}
+}
+
+/// For all focus states.
+/// @content
+@mixin focus {
+	&:focus,
+	&.u-on-focus {
+		@content;
+	}
+}
+
+/// For hover and focusable styles.
+/// @content
+@mixin hover-focus {
+	&:focus,
+	&:hover,
+	&.u-on-focus,
+	&.u-on-hover {
+		@content;
+	}
+}
+
+/// For active styles.
+/// @content
+@mixin active {
+	&:active,
+	&.u-on-active {
+		@content;
+	}
+}
+
+/// For styles when the parent block is hovered or focused.
+/// @content
+@mixin block-hover-focus($block) {
+	.#{$block}:focus &,
+	.#{$block}:hover &,
+	.#{$block}.u-on-focus &,
+	.#{$block}.u-on-hover & {
+		@content;
+	}
+}

@@ -4,14 +4,14 @@ $breakpoints: (
 	sm: 36rem,
 	md: 48rem,
 	lg: 60rem,
-	xl: 82rem,
+	xl: 82rem
 );
 
 // Resolution/DPI
 $screen-resolution-hdpi: 1.5;
 
 // Media query for high resolution screens
-$media-hdpi: '(min-resolution: (' ($screen-resolution-hdpi * 1dppx) '))';
+$media-hdpi: '(min-resolution: ('($screen-resolution-hdpi * 1dppx)'))';
 
 /// Surround content with a minimum window width media query.
 /// @content
@@ -37,7 +37,7 @@ $media-hdpi: '(min-resolution: (' ($screen-resolution-hdpi * 1dppx) '))';
 ///                                    value.
 @mixin media-max($breakpoint) {
 	@if map-has-key($breakpoints, $breakpoint) {
-		@media (max-width: (map-get($breakpoints, $breakpoint) - 0.0625rem)) {
+		@media (max-width: (map-get($breakpoints, $breakpoint) - .0625rem)) {
 			@content;
 		}
 	} @else {
@@ -46,6 +46,7 @@ $media-hdpi: '(min-resolution: (' ($screen-resolution-hdpi * 1dppx) '))';
 		}
 	}
 }
+
 
 /// Surround content with a high resolution media query.
 /// @content

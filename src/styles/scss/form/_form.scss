@@ -1,0 +1,85 @@
+@import '../reference/index';
+
+$block: 'form';
+
+.#{$block} {
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+
+    &--white {
+        background-color: $white;
+    }
+
+    &__row + &__row {
+        margin-top: 1.5rem;
+    }
+
+    &__col {
+        &--inline {
+            align-items: baseline;
+            display: flex;
+        }
+    }
+
+    &__heading {
+        margin-bottom: 0;
+        margin-top: 0;
+
+        & + p {
+            margin-bottom: 1.5rem;
+            margin-top: 0.5rem;
+        }
+    }
+
+    &__label {
+        @include hidden;
+    }
+
+    &__button {
+        & + .#{$block}__filter {
+            margin-left: 1.625rem;
+            padding-left: 1.625rem;
+            position: relative;
+
+            &::before {
+                content: '';
+                border-left: 1px solid $grey-400;
+                height: 1.5rem;
+                left: 0;
+                position: absolute;
+                top: 50%;
+                width: 1px;
+                transform: translateY(-50%);
+            }
+        }
+    }
+
+    &__input,
+    &__textarea {
+        width: 100%;
+    }
+
+    &__textarea {
+        min-height: 10rem;
+    }
+
+    &__bar {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    // &__optimize {
+    //     @include box-shadow;
+
+    //     position: fixed;
+    //     bottom: 1rem;
+    //     left: 50%;
+    //     transform: translate3d(-50%, 0, 0);
+
+    //     @include media-min(md) {
+    //         // bottom: 0;
+    //         position: static;
+    //     }
+    // }
+}

@@ -1,0 +1,11 @@
+@import '../reference/index';
+
+$block: 'table-wrapper';
+
+.#{$block} {
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

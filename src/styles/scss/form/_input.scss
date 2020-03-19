@@ -1,0 +1,8 @@
+@import '../reference/index';
+
+$block: 'input';
+
+.#{$block} {
+	@include input;
+	@include input-border;
+}

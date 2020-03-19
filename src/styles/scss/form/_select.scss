@@ -1,0 +1,12 @@
+@import '../reference/index';
+
+$block: 'select';
+
+.#{$block} {
+    display: inline-block;
+    position: relative;
+
+    &__input {
+        @include input;
+    }
+}

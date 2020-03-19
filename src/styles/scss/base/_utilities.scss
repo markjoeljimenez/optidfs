@@ -1,0 +1,15 @@
+@import '../reference/index';
+
+.u-hidden {
+    @include hidden;
+}
+
+.text-align {
+	&-left {
+		text-align: left;
+	}
+
+	&-right {
+		text-align: right;
+	}
+}
