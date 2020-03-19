@@ -6,6 +6,8 @@ module.exports = {
 	},
 	extends: [
 		'eslint:recommended',
+		'prettier',
+		'prettier/@typescript-eslint',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:react/recommended',
 		'airbnb',
@@ -59,7 +61,7 @@ module.exports = {
 		],
 		'react/react-in-jsx-scope': 'off',
 		'react/jsx-indent': [2, 'tab'],
-		indent: [2, 'tab'],
+		indent: [0],
 		'react/jsx-indent-props': [0],
 		'react/no-array-index-key': [0],
 		'no-console': 'off', // @TODO; Remove in production
@@ -67,5 +69,7 @@ module.exports = {
 		'linebreak-style': [0],
 		'@typescript-eslint/no-unused-vars': [0],
 		'comma-dangle': [0],
+		'max-len': [0],
+		'no-nested-ternary': [0],
 	},
 };
