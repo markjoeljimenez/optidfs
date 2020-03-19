@@ -49,7 +49,6 @@ jobs:
               uses: actions/upload-artifact@v2-preview
               with:
                   name: app
-                  path: app.zip
 
     deploy:
         needs: [build]
