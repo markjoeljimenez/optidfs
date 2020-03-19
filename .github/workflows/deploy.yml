@@ -42,14 +42,14 @@ jobs:
               env:
                 ENDPOINT: https://draftkings-optimizer.herokuapp.com
 
-            - name: Generate deployment package
-              run: zip -r app.zip * -x "**node_modules**"
+#             - name: Generate deployment package
+#               run: zip -r app.zip * -x "**node_modules**"
 
             - name: Upload artifact
               uses: actions/upload-artifact@v2-preview
               with:
                   name: app
-                  path: app 
+                  path: / 
 
     deploy:
         needs: [build]
