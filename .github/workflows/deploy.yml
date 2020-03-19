@@ -40,7 +40,7 @@ jobs:
 
             - run: npm run build
               env:
-                ENDPOINT: https://draftkings-optimizer.herokuapp.com
+                ENDPOINT: ${{ secrets.ENDPOINT }}
           
             - name: Generate deployment package
               run: zip -r app.zip * -x "**node_modules**"
