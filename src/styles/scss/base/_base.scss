@@ -1,0 +1,11 @@
+@import '../reference/index';
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Avenir Next', 'Avenir',
+		'Helvetica', sans-serif;
+	position: relative;
+}
+
+.container {
+	@include container;
+}

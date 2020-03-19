@@ -1,0 +1,81 @@
+name: Deploy
+
+on:
+    push:
+        branches:
+            - master
+    pull_request:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Cache node modules
+              uses: actions/cache@v1
+              env:
+                  cache-name: cache-node-modules
+              with:
+                  path: ~/.npm # npm cache files are stored in `~/.npm` on Linux/macOS
+                  key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-build-${{ env.cache-name }}-
+                      ${{ runner.os }}-build-
+                      ${{ runner.os }}-
+
+            - uses: actions/setup-node@v1
+              with:
+                  node-version: 12
+
+            - run: npm ci
+
+            - run: npm run fix:eslint
+
+            - run: npm run fix:stylelint
+
+            - run: npm run test
+
+            - run: npm run build
+
+    # Uncomment if project is set up in AWS
+            # - name: Generate deployment package
+            #   run: zip -r app.zip * -x "**node_modules**"
+
+            # - name: Upload artifact
+            #   uses: actions/upload-artifact@v2-preview
+            #   with:
+            #       name: app
+            #       path: app.zip
+
+    # deploy:
+    #     needs: [build]
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - name: Download artifact
+    #           uses: actions/download-artifact@v1
+    #           with:
+    #               name: app
+    #         - name: Get timestamp
+    #               uses: gerred/actions/current-time@master
+    #               id: current-time
+    #         - name: Run string replace
+    #           uses: frabert/replace-string-action@master
+    #           id: format-time
+    #           with:
+    #               pattern: '[:\.]+'
+    #               string: "${{ steps.current-time.outputs.time }}"
+    #               replace-with: '-'
+    #               flags: 'g'
+    #         - name: Deploy to EB
+    #           uses: einaregilsson/beanstalk-deploy@v3
+    #           with:
+    #               aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
+    #               aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
+    #               application_name: <app-name>
+    #               environment_name: <beanstalk-env-name>
+    #               region: <aws_region>
+    #               version_label: "my-app-${{ steps.format-time.outputs.replaced }}"
+    #               deployment_package: deploy.zip

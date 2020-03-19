@@ -1,0 +1,7 @@
+$max-width: 90rem;
+
+@mixin container($max-width: $max-width) {
+	max-width: $max-width;
+	padding-left: 2rem;
+	padding-right: 2rem;
+}

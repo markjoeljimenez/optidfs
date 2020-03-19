@@ -1,0 +1,15 @@
+@mixin clean-list {
+	list-style: none;
+	margin-bottom: 0;
+	margin-top: 0;
+	padding-left: 0;
+}
+
+@mixin clean-anchor($color: inherit) {
+	color: $color;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
