@@ -38,6 +38,7 @@
 		"normalize.css": "^8.0.1",
 		"react-dom": "^16.13.0",
 		"react": "^16.13.0",
+		"stylelint-webpack-plugin": "^1.1.2",
 		"tippy.js": "^6.1.0"
 	},
 	"devDependencies": {
@@ -73,7 +74,6 @@
 		"postcss-loader": "^3.0.0",
 		"sass-loader": "^8.0.0",
 		"stylelint-scss": "^3.13.0",
-		"stylelint-webpack-plugin": "^1.1.2",
 		"stylelint": "^12.0.0",
 		"typescript": "^3.7.3"
 	}
