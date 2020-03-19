@@ -305,6 +305,10 @@ const Index = ({ data }: { data: IResponse }) => {
 };
 
 export async function getStaticProps() {
+	if (!API) {
+		return null;
+	}
+
 	const response = await fetch(API);
 	const data = (await response.json()) as IResponse;
 
