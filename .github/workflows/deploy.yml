@@ -63,8 +63,8 @@ jobs:
               with:
                   aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
                   aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-                  application_name: draftkings-optimizer
-                  environment_name: DraftkingsOptimizer-env
-                  region: ca-central-1
-                  version_label: "DraftkingsOptimizer-env-${{ steps.format-time.outputs.replaced }}"
+                  application_name: ${{ secrets.AWS_APP_NAME }}
+                  environment_name:  ${{ secrets.AWS_ENV_NAME }}
+                  region: ${{ secrets.AWS_REGION }}
+                  version_label: " ${{ secrets.AWS_ENV_NAME }}-${{ steps.format-time.outputs.replaced }}"
                   deployment_package: app.zip
