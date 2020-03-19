@@ -1,11 +1,9 @@
 import Head from 'next/head';
 
-import SkipLink from '../components/skiplink';
-
-import 'normalize.css';
-import '../styles/style.scss';
+import SkipLink from '../components/global/skiplink';
 
 import config from '../data/site.json';
+import Header from '../components/global/header';
 
 export interface ILayoutProps {
 	children: React.ReactNode;
@@ -21,7 +19,11 @@ const Layout = ({ children }: ILayoutProps) => (
 
 		<SkipLink text="Skip to content" />
 
-		<main>{children}</main>
+		<Header />
+
+		<main className="main">
+			<div className="main__container">{children}</div>
+		</main>
 	</>
 );
 

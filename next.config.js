@@ -8,6 +8,9 @@ const StylelintPlugin = require('stylelint-webpack-plugin');
 require('dotenv').config();
 
 const config = {
+	env: {
+		ENDPOINT: 'http://127.0.0.1:5000/',
+	},
 	webpack: (config, { dev }) => {
 		// ESLint config
 		config.module.rules.push({

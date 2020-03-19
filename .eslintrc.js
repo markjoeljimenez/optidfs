@@ -65,5 +65,7 @@ module.exports = {
 		'no-console': 'off', // @TODO; Remove in production
 		'no-unused-vars': [0],
 		'linebreak-style': [0],
+		'@typescript-eslint/no-unused-vars': [0],
+		'comma-dangle': [0],
 	},
 };
