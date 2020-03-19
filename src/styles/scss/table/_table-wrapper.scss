@@ -3,9 +3,9 @@
 $block: 'table-wrapper';
 
 .#{$block} {
-    overflow-x: auto;
+	overflow-x: auto;
 
-    &::-webkit-scrollbar {
-        display: none;
-    }
+	&::-webkit-scrollbar {
+		display: none;
+	}
 }

@@ -3,27 +3,27 @@
 $block: 'button';
 
 .#{$block} {
-    @include button;
+	@include button;
 
-    &[disabled] {
-        background-color: $grey-400;
-        color: $white;
-        cursor: default;
-    }
+	&[disabled] {
+		background-color: $grey-400;
+		color: $white;
+		cursor: default;
+	}
 
-    & + & {
-        margin-left: 1rem;
-    }
+	& + & {
+		margin-left: 1rem;
+	}
 
-    &--light {
-        @include button-light;
-    }
+	&--light {
+		@include button-light;
+	}
 
-    &--dark {
-        @include button-dark;
-    }
+	&--dark {
+		@include button-dark;
+	}
 
-    &--sm-bord-rad {
-        border-radius: 4px;
-    }
+	&--sm-bord-rad {
+		border-radius: 4px;
+	}
 }

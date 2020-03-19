@@ -9,9 +9,9 @@ $grid-column-width: 5rem !default;
 
 // Width of a column gutter.
 $grid-gutter-width: (
-    xs: 0.5rem,
-    sm: 1rem,
-    xl: 2rem,
+	xs: 0.5rem,
+	sm: 1rem,
+	xl: 2rem,
 );
 
 $padding-horizontal: 2rem;
@@ -21,72 +21,72 @@ $grid-max-width: 68rem !default;
 
 /// A container of rows, preventing grids from taking full-width of the page.
 @mixin container {
-    margin-left: auto;
-    margin-right: auto;
-    max-width: $grid-max-width;
-    padding-left: $padding-horizontal;
-    padding-right: $padding-horizontal;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: $grid-max-width;
+	padding-left: $padding-horizontal;
+	padding-right: $padding-horizontal;
 }
 
 /// Creates a row, allowing columns to fit within it.
 @mixin row {
-    display: flex;
-    flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
 
-    @each $breakpoint in map-keys($grid-gutter-width) {
-        @include media-min($breakpoint) {
-            $gutter: map-get($grid-gutter-width, $breakpoint) / 2;
-            margin-left: -$gutter;
-            margin-right: -$gutter;
-        }
-    }
+	@each $breakpoint in map-keys($grid-gutter-width) {
+		@include media-min($breakpoint) {
+			$gutter: map-get($grid-gutter-width, $breakpoint) / 2;
+			margin-left: -$gutter;
+			margin-right: -$gutter;
+		}
+	}
 }
 
 /// Create a column of a specific size.
 /// @param {Number} [null] $size The number of columns the column should span.
 /// @param {Number} [$grid-columns] $columns The number of columns in the grid.
 @mixin column($size: null, $columns: $grid-columns) {
-    box-sizing: border-box;
-    // Prevent columns from becoming too narrow when at smaller grid tiers by
-    // always setting `width: 100%;`. This works because we use `flex` values
-    // later on to override this initial width.
-    min-height: 1px; // Prevent collapsing
-    position: relative;
+	box-sizing: border-box;
+	// Prevent columns from becoming too narrow when at smaller grid tiers by
+	// always setting `width: 100%;`. This works because we use `flex` values
+	// later on to override this initial width.
+	min-height: 1px; // Prevent collapsing
+	position: relative;
 
-    @if $size != null {
-        @include column-width($size, $columns);
-    } @else {
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-    }
+	@if $size != null {
+		@include column-width($size, $columns);
+	} @else {
+		flex-basis: 0;
+		flex-grow: 1;
+		max-width: 100%;
+	}
 
-    @each $breakpoint in map-keys($grid-gutter-width) {
-        @include media-min($breakpoint) {
-            $gutter: map-get($grid-gutter-width, $breakpoint) / 2;
-            padding-left: $gutter;
-            padding-right: $gutter;
-        }
-    }
+	@each $breakpoint in map-keys($grid-gutter-width) {
+		@include media-min($breakpoint) {
+			$gutter: map-get($grid-gutter-width, $breakpoint) / 2;
+			padding-left: $gutter;
+			padding-right: $gutter;
+		}
+	}
 }
 
 /// Change the number of columns a column should span.
 /// @param {Number} $size The number of columns the column should span.
 /// @param {Number} [$grid-columns] $columns The number of columns in the grid.
 @mixin column-width($size, $columns: $grid-columns) {
-    flex: 0 0 percentage($size / $columns);
-    // Add a `max-width` to ensure content within each column does not blow out
-    // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
-    // do not appear to require this.
-    max-width: percentage($size / $columns);
-    width: percentage($size / $columns);
+	flex: 0 0 percentage($size / $columns);
+	// Add a `max-width` to ensure content within each column does not blow out
+	// the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+	// do not appear to require this.
+	max-width: percentage($size / $columns);
+	width: percentage($size / $columns);
 }
 
 /// Offset the column by a number of column widths. Used to put space between columns.
 /// @param {Number} $size The number of columns the column should offset by.
 /// @param {Number} [$grid-columns] $columns The number of columns in the grid.
 @mixin column-offset($size, $columns: $grid-columns) {
-    margin-left: percentage($size / $columns);
+	margin-left: percentage($size / $columns);
 }
 
 /// Push a column over to the left. Used to re-arrange column positioning, while maintaining
@@ -94,7 +94,7 @@ $grid-max-width: 68rem !default;
 /// @param {Number} $size The number of columns the column should be pulled left.
 /// @param {Number} [$grid-columns] $columns The number of columns in the grid.
 @mixin column-push($size, $columns: $grid-columns) {
-    left: if($size > 0, percentage($size / $columns), auto);
+	left: if($size > 0, percentage($size / $columns), auto);
 }
 
 /// Push a column over to the right. Used to re-arrange column positioning, while maintaining
@@ -102,5 +102,5 @@ $grid-max-width: 68rem !default;
 /// @param {Number} $size The number of columns the column should be pulled right.
 /// @param {Number} [$grid-columns] $columns The number of columns in the grid.
 @mixin column-pull($size, $columns: $grid-columns) {
-    right: if($size > 0, percentage($size / $columns), auto);
+	right: if($size > 0, percentage($size / $columns), auto);
 }

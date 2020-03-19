@@ -1,13 +1,13 @@
 @import '../reference/index';
 
 body {
-    @include default-font;
+	@include default-font;
 
-    background-color: $grey-100;
-    color: $primary-dark;
-    line-height: 1.5;
+	background-color: $grey-100;
+	color: $primary-dark;
+	line-height: 1.5;
 }
 
 a {
-    text-decoration: none;
+	text-decoration: none;
 }

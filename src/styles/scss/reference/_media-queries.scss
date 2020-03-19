@@ -37,7 +37,7 @@ $media-hdpi: '(min-resolution: ('($screen-resolution-hdpi * 1dppx)'))';
 ///                                    value.
 @mixin media-max($breakpoint) {
 	@if map-has-key($breakpoints, $breakpoint) {
-		@media (max-width: (map-get($breakpoints, $breakpoint) - .0625rem)) {
+		@media (max-width: (map-get($breakpoints, $breakpoint) - 0.0625rem)) {
 			@content;
 		}
 	} @else {

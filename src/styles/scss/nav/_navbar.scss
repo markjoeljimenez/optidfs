@@ -3,12 +3,12 @@
 $block: 'navbar';
 
 .#{$block} {
-    border-bottom: 1px solid grey;
-    display: none;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+	border-bottom: 1px solid grey;
+	display: none;
+	padding-bottom: 1rem;
+	padding-top: 1rem;
 
-    &__container {
-        display: flex;
-    }
+	&__container {
+		display: flex;
+	}
 }

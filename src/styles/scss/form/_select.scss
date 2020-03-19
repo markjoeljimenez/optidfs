@@ -3,10 +3,10 @@
 $block: 'select';
 
 .#{$block} {
-    display: inline-block;
-    position: relative;
+	display: inline-block;
+	position: relative;
 
-    &__input {
-        @include input;
-    }
+	&__input {
+		@include input;
+	}
 }
