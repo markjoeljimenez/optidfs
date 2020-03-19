@@ -74,10 +74,10 @@ jobs:
                   flags: 'g'
 
             - name: Deploy to EB
-              uses: einaregilsson/beanstalk-deploy@v3
+              uses: einaregilsson/beanstalk-deploy@v8
               with:
-                  aws_access_key: ${{secrets.AWS_ACCESS_KEY}}
-                  aws_secret_key: ${{secrets.AWS_SECRET_KEY}}
+                  aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+                  aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
                   application_name: DraftkingsOptimizer-env
                   environment_name: DraftkingsOptimizer-env
                   region: ca-central-1
