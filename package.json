@@ -9,6 +9,7 @@
 	"scripts": {
 		"develop": "next dev",
 		"start": "NODE_ENV=production next build && NODE_ENV=production pm2 start ./server.js",
+		"stop": "npx pm2 stop all",
 		"build": "next build",
 		"serve": "pm2 start ./server.js",
 		"test": "jest --verbose",
