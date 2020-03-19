@@ -29,7 +29,7 @@ $block: 'input-dropdown';
 			color: $grey-800;
 		}
 
-		&::-webkit-input-placeholder {
+		&::input-placeholder {
 			line-height: normal;
 		}
 	}

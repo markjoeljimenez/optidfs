@@ -13,7 +13,11 @@ const Nav = () => {
 			<div className="nav__container">
 				<h1 className="nav__heading">DK Optimizer</h1>
 				<div className="nav__main">
-					<button className="nav__mobile-button" onClick={onClick}>
+					<button
+						className="nav__mobile-button"
+						onClick={onClick}
+						type="button"
+					>
 						{isActive ? (
 							<svg
 								xmlns="http://www.w3.org/2000/svg"

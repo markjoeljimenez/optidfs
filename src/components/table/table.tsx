@@ -14,7 +14,7 @@ interface ITableProps {
 	setPlayers?: React.Dispatch<React.SetStateAction<IDraftKingsPlayer[]>>;
 }
 
-export function Table({ optimizedLineups, players, setPlayers }: ITableProps) {
+const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
 	const [viewMore, setViewMore] = useState(false);
 
 	const onMoreButtonClick = (e: React.MouseEvent) => {
@@ -26,7 +26,9 @@ export function Table({ optimizedLineups, players, setPlayers }: ITableProps) {
 			<table className="table">
 				<thead>
 					<tr className="table__row table__row--header">
-						<th className="table__cell" />
+						<th className="table__cell">
+							<span hidden>Select</span>
+						</th>
 						<th className="table__cell table__cell--center">
 							Status
 						</th>
@@ -36,7 +38,9 @@ export function Table({ optimizedLineups, players, setPlayers }: ITableProps) {
 						<th className="table__cell">Team</th>
 						<th className="table__cell text-align-right">Salary</th>
 						<th className="table__cell text-align-right">FPPG</th>
-						<th className="table__cell" />
+						<th className="table__cell">
+							<span hidden>Options</span>
+						</th>
 					</tr>
 				</thead>
 				{/* {players && !isOptimized ? (
@@ -179,14 +183,11 @@ export function Table({ optimizedLineups, players, setPlayers }: ITableProps) {
 				{optimizedLineups ? (
 					optimizedLineups.lineups.map((lineup, i) => (
 						<React.Fragment key={i}>
-							<tbody className="table__tbody" key={i}>
-								{lineup.players.map((player, i) => (
+							<tbody className="table__tbody">
+								{lineup.players.map((player) => (
 									<tr
 										className={`table__row ${
-											player.isExcluded
-												? 'table__row--excluded'
-												: player.status &&
-												  player.status !== 'None'
+											player.status !== 'None'
 												? `table__row--${player.status}`
 												: ''
 										}`}
@@ -210,12 +211,10 @@ export function Table({ optimizedLineups, players, setPlayers }: ITableProps) {
 														: 'pill--active'
 												}`}
 											>
-												{player.status
-													? player.status === 'O'
-														? 'Injured'
-														: player.status === 'Q'
-														? 'GTD'
-														: player.status
+												{player.status === 'O'
+													? 'Injured'
+													: player.status === 'Q'
+													? 'GTD'
 													: 'Active'}
 											</span>
 										</td>
@@ -315,4 +314,6 @@ export function Table({ optimizedLineups, players, setPlayers }: ITableProps) {
 			</table>
 		</div>
 	);
-}
+};
+
+export default Table;

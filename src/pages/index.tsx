@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from 'react';
 // import Downshift from 'downshift';
 // import uniqBy from 'lodash.uniqby';
+import fetch from 'node-fetch';
 
 import { get, post } from '../scripts/utilities/fetch';
+import { transformPlayers } from '../scripts/utilities/transformPlayers';
 import { IContest, IGroup, IResponse } from '../interfaces/IApp';
-
-import Layout from '../layouts/default';
-import { Table } from '../components/table/table';
 import {
 	IDraftKingsResponse,
 	IDraftKingsPlayer,
 } from '../interfaces/IDraftKingsResponse';
-import { transformPlayers } from '../scripts/utilities/transformPlayers';
+
+import Layout from '../layouts/default';
 import Panel from '../templates/panel';
+import Table from '../components/table/table';
 
 interface IContestResponse {
 	contests: IContest[];
 	groups: IGroup[];
 }
 
-const API = process.env.ENPDPOINT;
+const API = process.env.ENDPOINT;
 
-export default function IndexPage() {
+const Index = ({ data }: { data: IResponse }) => {
 	const [draftGroupId, setDraftGroupId] = useState<number | null>(null);
 
 	const [contests, setContests] = useState<IContest[]>();
@@ -32,75 +33,35 @@ export default function IndexPage() {
 	const [excludedPlayers, setExcludedPlayers] = useState<number[]>([]);
 
 	const [optimizedLineups, setOptimizedLineups] = useState<IResponse | null>(
-		null
+		data
 	);
 	const [isError, setIsError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState<string | null>('');
 
-	// Update only when isLoadingContests changes
-	useEffect(() => {
-		(async () => {
-			// @TODO: Uncomment when NBA season resumes
-			// try {
-			//     const response = await get(API);
-			//     const data = (await response.json()) as IContestResponse;
-
-			//     setContests(uniqBy(data.contests, 'name'));
-			// } catch (e) {
-			//     console.error(
-			//         `A problem occured when trying to retrieve API: ${e}`
-			//     );
-			// }
-
-			if (!API) {
-				return;
-			}
-
-			try {
-				const response = await get(API);
-				const data = (await response.json()) as IResponse;
-
-				if (data.success) {
-					setOptimizedLineups(data);
-					setIsError(data.success);
-				} else {
-					setIsError(!data.success);
-					setErrorMessage(data.message);
-				}
-			} catch (e) {
-				console.error(
-					`A problem occured when trying to retrieve API: ${e}`
-				);
-			}
-
-			setLoadingContests(false);
-		})();
-	}, []);
-
 	// Get players
-	useEffect(() => {
-		if (!draftGroupId) {
-			return;
-		}
+	// useEffect(() => {
+	// 	if (!draftGroupId) {
+	// 		return;
+	// 	}
 
-		(async () => {
-			try {
-				const response = await get(`${API}/players?id=${draftGroupId}`);
-				const data = (await response.json()) as IDraftKingsResponse;
+	// 	(async () => {
+	// 		try {
+	// 			const response = await get(`${API}/players?id=${draftGroupId}`);
+	// 			const data = (await response.json()) as IDraftKingsResponse;
 
-				if (data.players.length > 0) {
-					setPlayers(transformPlayers(data.players));
-				} else {
-					setErrorMessage('No players found');
-					setIsError(true);
-				}
-			} catch (e) {
-				console.error(
-					`A problem occured when trying to retrieve API: ${e}`
-				);
-			}
-		})();
-	}, [draftGroupId]);
+	// 			if (data.players.length > 0) {
+	// 				setPlayers(transformPlayers(data.players));
+	// 			} else {
+	// 				setErrorMessage('No players found');
+	// 				setIsError(true);
+	// 			}
+	// 		} catch (e) {
+	// 			console.error(
+	// 				`A problem occured when trying to retrieve API: ${e}`
+	// 			);
+	// 		}
+	// 	})();
+	// }, [draftGroupId]);
 
 	//
 	const onContestChange = (draftSelection: IContest) => {
@@ -117,46 +78,46 @@ export default function IndexPage() {
 	};
 
 	// Request from API once contest is chosen
-	const optimizeLineups = async (
-		e: React.FormEvent<HTMLFormElement>,
-		OPTIMIZE = 'optimize'
-	) => {
-		e.preventDefault();
+	// const optimizeLineups = async (
+	// 	e: React.FormEvent<HTMLFormElement>,
+	// 	OPTIMIZE = 'optimize'
+	// ) => {
+	// 	e.preventDefault();
 
-		// @TODO: Uncomment this when NBA season is back
-		// if (!draftGroupId) {
-		//     return;
-		// }
+	// 	// @TODO: Uncomment this when NBA season is back
+	// 	// if (!draftGroupId) {
+	// 	//     return;
+	// 	// }
 
-		const URL = `${API}/${OPTIMIZE}`;
+	// 	const URL = `${API}/${OPTIMIZE}`;
 
-		const BODY = {
-			locked: lockedPlayers.length > 0 ? lockedPlayers : null,
-			excluded: excludedPlayers.length > 0 ? excludedPlayers : null,
-		};
+	// 	const BODY = {
+	// 		locked: lockedPlayers.length > 0 ? lockedPlayers : null,
+	// 		excluded: excludedPlayers.length > 0 ? excludedPlayers : null,
+	// 	};
 
-		try {
-			const response = await post(URL, BODY);
-			const data = (await response.json()) as IResponse;
+	// 	try {
+	// 		const response = await post(URL, BODY);
+	// 		const data = (await response.json()) as IResponse;
 
-			if (data.success) {
-				setOptimizedLineups(data);
-				setIsError(data.success);
-			} else {
-				setIsError(!data.success);
-				setErrorMessage(data.message);
-			}
-		} catch (e) {
-			console.error(
-				`A problem occured when trying to retrieve API: ${e}`
-			);
-		}
-	};
+	// 		if (data.success) {
+	// 			setOptimizedLineups(data);
+	// 			setIsError(data.success);
+	// 		} else {
+	// 			setIsError(!data.success);
+	// 			setErrorMessage(data.message);
+	// 		}
+	// 	} catch (e) {
+	// 		console.error(
+	// 			`A problem occured when trying to retrieve API: ${e}`
+	// 		);
+	// 	}
+	// };
 
 	return (
 		<Layout>
 			<Panel heading="Optimize">
-				<form className="form" onSubmit={optimizeLineups}>
+				<form className="form">
 					{/* <div className="form__row row">
                         <div className="form__col form__col--inline col">
                             <Downshift
@@ -341,4 +302,17 @@ export default function IndexPage() {
 			</Panel>
 		</Layout>
 	);
+};
+
+export async function getStaticProps() {
+	const response = await fetch(API);
+	const data = (await response.json()) as IResponse;
+
+	return {
+		props: {
+			data,
+		},
+	};
 }
+
+export default Index;
