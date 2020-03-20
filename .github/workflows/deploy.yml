@@ -43,7 +43,7 @@ jobs:
                 ENDPOINT: ${{ secrets.ENDPOINT }}
           
             - name: Generate deployment package
-              run: zip -r app.zip -x "**node_modules**"
+              run: zip -r app.zip . -x "**node_modules**"
  
             - name: Get timestamp
               uses: gerred/actions/current-time@master
