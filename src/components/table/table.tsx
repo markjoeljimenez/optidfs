@@ -14,13 +14,13 @@ interface ITableProps {
 }
 
 const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
-	const [currentTippy, setCurrentTippy] = useState<number>(-1);
+	const [currentTippy, setCurrentTippy] = useState<string | null>(null);
 
 	const onMoreButtonClick = (e: React.MouseEvent) => {
 		if (e.currentTarget instanceof HTMLButtonElement) {
-			const value = parseInt(e.currentTarget.value);
+			const { value } = e.currentTarget;
 
-			setCurrentTippy(currentTippy !== value ? value : -1);
+			setCurrentTippy(currentTippy !== value ? value : null);
 		}
 	};
 
@@ -108,14 +108,16 @@ const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
 										</td>
 										<td className="table__cell">
 											<Tooltip
+												onHidden={() => {
+													setCurrentTippy(null);
+												}}
 												handleVisiblity={
 													onMoreButtonClick
 												}
 												visible={
-													currentTippy ===
-													parseInt(player.id)
+													currentTippy === player.id
 												}
-												value={parseInt(player.id)}
+												value={player.id}
 											/>
 										</td>
 									</tr>

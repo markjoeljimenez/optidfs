@@ -2,13 +2,15 @@ import React from 'react';
 import Tippy from '@tippy.js/react';
 
 interface ITooltip {
+	onHidden: () => void;
 	handleVisiblity: (e: React.MouseEvent<Element, MouseEvent>) => void;
 	handleStatsClick?: (e: React.MouseEvent<Element, MouseEvent>) => void;
 	visible?: boolean;
-	value?: number;
+	value?: string;
 }
 
 const Tooltip = ({
+	onHidden,
 	handleVisiblity,
 	handleStatsClick,
 	visible,
@@ -50,6 +52,7 @@ const Tooltip = ({
 		<Tippy
 			className="tooltip"
 			content={content}
+			onHidden={onHidden}
 			visible={visible}
 			duration={0}
 			placement="bottom"
