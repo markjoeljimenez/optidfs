@@ -1,0 +1,29 @@
+@import '../reference/index';
+
+$block: 'tooltip';
+
+.#{$block} {
+	&__list {
+		@include reset-list;
+	}
+
+	&__item {
+		border-top: 1px solid $grey-300;
+
+		&:first-child {
+			border-top: 0;
+		}
+	}
+
+	&__button {
+		@include reset-button;
+
+		width: 100%;
+		padding: 1rem;
+		text-align: left;
+
+		@include hover-focus {
+			background-color: $grey-100;
+		}
+	}
+}

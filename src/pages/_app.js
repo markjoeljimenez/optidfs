@@ -1,6 +1,9 @@
 import * as Sentry from '@sentry/browser';
 
 import 'normalize.css';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/light.css';
+
 import '../styles/styles.scss';
 
 const App = ({ Component, pageProps }) => {

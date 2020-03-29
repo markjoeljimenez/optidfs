@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import Tippy from '@tippy.js/react';
-import 'tippy.js/dist/tippy.css';
-import 'tippy.js/themes/light.css';
 
 import { IResponse, ILineup } from '../../interfaces/IApp';
 import {
 	IDraftKingsResponse,
 	IDraftKingsPlayer,
 } from '../../interfaces/IDraftKingsResponse';
+import Tooltip from '../global/tooltip';
 
 interface ITableProps {
 	optimizedLineups?: IResponse;
@@ -16,13 +14,13 @@ interface ITableProps {
 }
 
 const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
-	const [currentTippy, setCurrentTippy] = useState<number | null>(null);
+	const [currentTippy, setCurrentTippy] = useState<number>(-1);
 
 	const onMoreButtonClick = (e: React.MouseEvent) => {
 		if (e.currentTarget instanceof HTMLButtonElement) {
 			const value = parseInt(e.currentTarget.value);
 
-			setCurrentTippy(currentTippy !== value ? value : null);
+			setCurrentTippy(currentTippy !== value ? value : -1);
 		}
 	};
 
@@ -109,54 +107,16 @@ const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
 											{player.points_per_contest}
 										</td>
 										<td className="table__cell">
-											<Tippy
-												content={<span>Tooltip</span>}
-												visible={currentTippy === _i}
-												duration={0}
-												placement="bottom"
-												theme="light"
-												interactive
-											>
-												<button
-													type="button"
-													className="table__button"
-													onClick={onMoreButtonClick}
-													value={_i}
-												>
-													<svg
-														xmlns="http://www.w3.org/2000/svg"
-														viewBox="0 0 24 24"
-														width="24"
-														height="24"
-													>
-														<g data-name="Layer 2">
-															<g data-name="more-vertical">
-																<rect
-																	width="24"
-																	height="24"
-																	transform="rotate(-90 12 12)"
-																	opacity="0"
-																/>
-																<circle
-																	cx="12"
-																	cy="12"
-																	r="2"
-																/>
-																<circle
-																	cx="12"
-																	cy="5"
-																	r="2"
-																/>
-																<circle
-																	cx="12"
-																	cy="19"
-																	r="2"
-																/>
-															</g>
-														</g>
-													</svg>
-												</button>
-											</Tippy>
+											<Tooltip
+												handleVisiblity={
+													onMoreButtonClick
+												}
+												visible={
+													currentTippy ===
+													parseInt(player.id)
+												}
+												value={parseInt(player.id)}
+											/>
 										</td>
 									</tr>
 								))}
@@ -250,69 +210,6 @@ const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
                                     {player.points_per_contest}
                                 </td>
                                 <td className="table__cell">
-                                    <Manager>
-                                        <Reference>
-                                            {({ ref }) => (
-                                                <button
-                                                    type="button"
-                                                    ref={ref}
-                                                    className="table__button"
-                                                >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 24 24"
-                                                        width="24"
-                                                        height="24"
-                                                    >
-                                                        <g data-name="Layer 2">
-                                                            <g data-name="more-vertical">
-                                                                <rect
-                                                                    width="24"
-                                                                    height="24"
-                                                                    transform="rotate(-90 12 12)"
-                                                                    opacity="0"
-                                                                />
-                                                                <circle
-                                                                    cx="12"
-                                                                    cy="12"
-                                                                    r="2"
-                                                                />
-                                                                <circle
-                                                                    cx="12"
-                                                                    cy="5"
-                                                                    r="2"
-                                                                />
-                                                                <circle
-                                                                    cx="12"
-                                                                    cy="19"
-                                                                    r="2"
-                                                                />
-                                                            </g>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                            )}
-                                        </Reference>
-                                        <Popper placement="right">
-                                            {({
-                                                ref,
-                                                arrowProps,
-                                                placement,
-                                            }) => (
-                                                <div
-                                                    ref={ref}
-                                                    // style={style}
-                                                    data-placement={placement}
-                                                >
-                                                    Popper element
-                                                    <div
-                                                        ref={arrowProps.ref}
-                                                        style={arrowProps.style}
-                                                    />
-                                                </div>
-                                            )}
-                                        </Popper>
-                                    </Manager>
                                 </td>
                             </tr>
                         ))}

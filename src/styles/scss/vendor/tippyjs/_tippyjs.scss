@@ -1,0 +1,9 @@
+@import '../../reference/index';
+
+$block: 'tippy';
+
+.#{$block} {
+	&-content {
+		padding: 0;
+	}
+}
