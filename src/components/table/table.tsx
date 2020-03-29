@@ -113,9 +113,9 @@ const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
 												content={<span>Tooltip</span>}
 												visible={currentTippy === _i}
 												duration={0}
-												placement={'bottom'}
+												placement="bottom"
 												theme="light"
-												interactive={true}
+												interactive
 											>
 												<button
 													type="button"

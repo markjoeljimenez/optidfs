@@ -71,5 +71,7 @@ module.exports = {
 		'comma-dangle': [0],
 		'max-len': [0],
 		'no-nested-ternary': [0],
+		'import/no-extraneous-dependencies': [0],
+		radix: [0],
 	},
 };
