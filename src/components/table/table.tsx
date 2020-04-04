@@ -153,7 +153,6 @@ const Table = ({
 											<Tooltip
 												onHidden={() => {
 													setCurrentTippy(null);
-													console.log(currentTippy);
 												}}
 												handleVisiblity={
 													onMoreButtonClick

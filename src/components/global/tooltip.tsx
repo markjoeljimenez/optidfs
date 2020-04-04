@@ -1,5 +1,5 @@
 import React from 'react';
-import Tippy from '@tippy.js/react';
+import Tippy from '@tippyjs/react';
 
 interface ITooltip {
 	onHidden: () => void;
@@ -52,7 +52,7 @@ const Tooltip = ({
 		<Tippy
 			className="tooltip"
 			content={content}
-			onHidden={onHidden}
+			onClickOutside={onHidden}
 			visible={visible}
 			duration={0}
 			placement="bottom"
