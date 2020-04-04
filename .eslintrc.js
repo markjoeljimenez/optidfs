@@ -74,5 +74,9 @@ module.exports = {
 		'import/no-extraneous-dependencies': [0],
 		radix: [0],
 		'operator-linebreak': [0],
+		'no-confusing-arrow': [0],
+		'object-curly-newline': [0],
+		'implicit-arrow-linebreak': [0],
+		'function-paren-newline': [0],
 	},
 };
