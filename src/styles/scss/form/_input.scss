@@ -3,6 +3,41 @@
 $block: 'input';
 
 .#{$block} {
-	@include input;
-	@include input-border;
+	position: relative;
+
+	input {
+		@include input;
+		@include input-border;
+	}
+
+	&--icon {
+		&-left {
+			input {
+				padding-left: 3.25rem;
+			}
+
+			.#{$block}__icon {
+				left: 1rem;
+			}
+		}
+
+		&-right {
+			input {
+				padding-right: 3.25rem;
+			}
+
+			.#{$block}__icon {
+				right: 1rem;
+			}
+		}
+	}
+
+	&__icon {
+		height: 1.5rem;
+		fill: $primary-light;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 1.5rem;
+	}
 }
