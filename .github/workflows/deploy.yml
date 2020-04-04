@@ -37,7 +37,7 @@ jobs:
                   flags: 'g'
 
             - name: Generate deployment package
-              run: zip -r ${{ secrets.AWS_ENV_NAME }}-${{ steps.format-time.outputs.replaced }}.zip . -x "**node_modules**" "**.next**" "**.github**" "**.git**"
+              run: zip -r ${{ secrets.AWS_ENV_NAME }}-${{ steps.format-time.outputs.replaced }}.zip . -x "**node_modules**" "**.next**" "**.github**" "**.git**" ".env"
 
             - name: Deploy to EB
               uses: einaregilsson/beanstalk-deploy@v8
