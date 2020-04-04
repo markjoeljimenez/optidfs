@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { IResponse, ILineup } from '../../interfaces/IApp';
 import {
@@ -6,23 +6,38 @@ import {
 	IDraftKingsPlayer,
 } from '../../interfaces/IDraftKingsResponse';
 import Tooltip from '../global/tooltip';
+import Chevron from '../global/chevron';
 
 interface ITableProps {
-	optimizedLineups?: IResponse;
+	optimizedLineups?: ILineup[];
 	players?: IDraftKingsPlayer[];
 	setPlayers?: React.Dispatch<React.SetStateAction<IDraftKingsPlayer[]>>;
+	handleSort: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+	currentSort?: string | null;
+	ascending: boolean;
 }
 
-const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
+const Table = ({
+	optimizedLineups,
+	handleSort,
+	currentSort,
+	ascending,
+	players,
+	setPlayers,
+}: ITableProps) => {
 	const [currentTippy, setCurrentTippy] = useState<string | null>(null);
 
 	const onMoreButtonClick = (e: React.MouseEvent) => {
 		if (e.currentTarget instanceof HTMLButtonElement) {
 			const { value } = e.currentTarget;
 
-			setCurrentTippy(currentTippy !== value ? value : null);
+			setCurrentTippy(currentTippy === value ? null : value);
 		}
 	};
+
+	useEffect(() => {
+		// console.log(currentTippy);
+	}, [currentTippy]);
 
 	return (
 		<div className="table-wrapper">
@@ -39,15 +54,43 @@ const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
 						<th className="table__cell">Last name</th>
 						<th className="table__cell">Positions</th>
 						<th className="table__cell">Team</th>
-						<th className="table__cell text-align-right">Salary</th>
-						<th className="table__cell text-align-right">FPPG</th>
+						<th className="table__cell text-align-right">
+							<button
+								onClick={handleSort}
+								className="table__link"
+								type="button"
+								data-sort="draft.salary"
+							>
+								Salary
+								{currentSort === 'draft.salary' ? (
+									<Chevron active={ascending} />
+								) : (
+									<></>
+								)}
+							</button>
+						</th>
+						<th className="table__cell text-align-right">
+							<button
+								onClick={handleSort}
+								className="table__link"
+								type="button"
+								data-sort="points_per_contest"
+							>
+								FPPG
+								{currentSort === 'points_per_contest' ? (
+									<Chevron active={ascending} />
+								) : (
+									<></>
+								)}
+							</button>
+						</th>
 						<th className="table__cell">
 							<span hidden>Options</span>
 						</th>
 					</tr>
 				</thead>
 				{optimizedLineups ? (
-					optimizedLineups.lineups.map((lineup, i) => (
+					optimizedLineups.map((lineup, i) => (
 						<React.Fragment key={i}>
 							<tbody className="table__tbody">
 								{lineup.players.map((player, _i) => (
@@ -110,6 +153,7 @@ const Table = ({ optimizedLineups, players, setPlayers }: ITableProps) => {
 											<Tooltip
 												onHidden={() => {
 													setCurrentTippy(null);
+													console.log(currentTippy);
 												}}
 												handleVisiblity={
 													onMoreButtonClick

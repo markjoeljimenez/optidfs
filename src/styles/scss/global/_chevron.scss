@@ -1,0 +1,13 @@
+@import '../reference/index';
+
+$block: 'chevron';
+
+.#{$block} {
+	height: 100%;
+	// transition: all 0.15s ease-in;
+	transform: rotate(0);
+
+	&--ascend {
+		transform: rotate(180deg);
+	}
+}

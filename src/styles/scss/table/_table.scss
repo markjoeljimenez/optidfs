@@ -23,9 +23,12 @@ $block: 'table';
 		box-sizing: border-box;
 
 		&--header {
-			font-weight: 600;
-			white-space: nowrap;
 			text-align: left;
+
+			.#{$block}__cell {
+				font-weight: 600;
+				white-space: nowrap;
+			}
 		}
 
 		&--total {
@@ -58,11 +61,31 @@ $block: 'table';
 	}
 
 	&__button {
-		@include clear-button;
+		@include reset-button;
 
 		svg {
 			fill: $primary-lighter;
 			vertical-align: middle;
+		}
+	}
+
+	&__link {
+		@include reset-button;
+
+		padding-left: 9px;
+		padding-right: 4.5px;
+		margin-right: -4.5px;
+		position: relative;
+
+		svg {
+			fill: $primary-lighter;
+			position: absolute;
+			right: -1.5rem;
+			width: 1.5rem;
+		}
+
+		@include hover-focus {
+			text-decoration: underline;
 		}
 	}
 }

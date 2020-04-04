@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 // import Downshift from 'downshift';
 // import uniqBy from 'lodash.uniqby';
 import fetch from 'node-fetch';
+import get from 'lodash.get';
 
-import { get, post } from '../scripts/utilities/fetch';
 import { transformPlayers } from '../scripts/utilities/transformPlayers';
-import { IContest, IGroup, IResponse } from '../interfaces/IApp';
+import { IContest, IGroup, IResponse, ILineup } from '../interfaces/IApp';
 import {
 	IDraftKingsResponse,
 	IDraftKingsPlayer,
@@ -32,9 +32,12 @@ const Index = ({ data }: { data: IResponse }) => {
 	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
 	const [excludedPlayers, setExcludedPlayers] = useState<number[]>([]);
 
-	const [optimizedLineups, setOptimizedLineups] = useState<IResponse | null>(
-		data
+	const [optimizedLineups, setOptimizedLineups] = useState<ILineup[] | null>(
+		data.lineups
 	);
+	const [currentSort, setCurrentSort] = useState<string | null>();
+	const [ascending, setAscending] = useState(false);
+
 	const [isError, setIsError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState<string | null>('');
 
@@ -113,6 +116,29 @@ const Index = ({ data }: { data: IResponse }) => {
 	// 		);
 	// 	}
 	// };
+
+	const handleSort = (e: React.MouseEvent<HTMLButtonElement>) => {
+		if (e.currentTarget instanceof HTMLButtonElement) {
+			const sort = e.currentTarget.getAttribute('data-sort');
+
+			setAscending(!ascending);
+
+			if (optimizedLineups) {
+				setOptimizedLineups([
+					{
+						...optimizedLineups[0],
+						...optimizedLineups[0].players.sort((a, b) =>
+							ascending && currentSort === sort
+								? get(b, sort) - get(a, sort)
+								: get(a, sort) - get(b, sort)
+						),
+					},
+				]);
+
+				setCurrentSort(sort);
+			}
+		}
+	};
 
 	return (
 		<Layout>
@@ -294,6 +320,9 @@ const Index = ({ data }: { data: IResponse }) => {
 					<Table
 						// players={players}
 						optimizedLineups={optimizedLineups}
+						handleSort={handleSort}
+						currentSort={currentSort}
+						ascending={ascending}
 						// setPlayers={setPlayers}
 					/>
 				) : (
