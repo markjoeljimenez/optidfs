@@ -10,7 +10,7 @@
 		"develop": "next dev",
 		"start": "next build && next start",
 		"build": "next build",
-		"serve": "pm2-runtime start ./server.js",
+		"serve": "pm2-runtime next start",
 		"test": "jest --verbose",
 		"test:watch": "jest --watch --verbose",
 		"fix:eslint": "npx eslint --fix **/*.tsx",
