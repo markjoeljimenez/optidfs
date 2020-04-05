@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 // import Downshift from 'downshift';
 // import uniqBy from 'lodash.uniqby';
 import fetch from 'node-fetch';
-import get from 'lodash.get';
 import Fuse from 'fuse.js';
 
 import { transformPlayers } from '../scripts/utilities/transformPlayers';
+import sort from '../scripts/utilities/sort';
 import { IContest, IGroup, IResponse, ILineup } from '../interfaces/IApp';
 import {
 	IDraftKingsResponse,
@@ -120,23 +120,16 @@ const Index = ({ data }: { data: IResponse }) => {
 
 	const handleSort = (e: React.MouseEvent<HTMLButtonElement>) => {
 		if (e.currentTarget instanceof HTMLButtonElement) {
-			const sort = e.currentTarget.getAttribute('data-sort');
+			const value = e.currentTarget.getAttribute('data-sort');
 
 			setAscending(!ascending);
 
 			if (optimizedLineups) {
-				setOptimizedLineups([
-					{
-						...optimizedLineups[0],
-						...optimizedLineups[0].players.sort((a, b) =>
-							ascending && currentSort === sort
-								? get(b, sort) - get(a, sort)
-								: get(a, sort) - get(b, sort)
-						),
-					},
-				]);
+				setOptimizedLineups(
+					sort(optimizedLineups, ascending, currentSort!, value!)
+				);
 
-				setCurrentSort(sort);
+				setCurrentSort(value);
 			}
 		}
 	};
@@ -153,7 +146,7 @@ const Index = ({ data }: { data: IResponse }) => {
 
 			const result = fuse.search(e.currentTarget.value);
 
-			const transformedSearch = [
+			let transformedSearch = [
 				{
 					...data.lineups[0],
 					players: e.currentTarget.value
@@ -161,6 +154,15 @@ const Index = ({ data }: { data: IResponse }) => {
 						: data.lineups[0].players,
 				},
 			];
+
+			// If sort has been previously set, we should sort the transformedSearch automatically
+			if (currentSort) {
+				transformedSearch = sort(
+					transformedSearch,
+					!ascending,
+					currentSort
+				);
+			}
 
 			setOptimizedLineups(transformedSearch);
 		}

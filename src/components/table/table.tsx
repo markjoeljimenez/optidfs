@@ -35,10 +35,6 @@ const Table = ({
 		}
 	};
 
-	useEffect(() => {
-		// console.log(currentTippy);
-	}, [currentTippy]);
-
 	return (
 		<div className="table-wrapper">
 			<table className="table">
@@ -93,78 +89,95 @@ const Table = ({
 					optimizedLineups.map((lineup, i) => (
 						<React.Fragment key={i}>
 							<tbody className="table__tbody">
-								{lineup.players.map((player, _i) => (
-									<tr
-										className={`table__row ${
-											player.status !== 'None'
-												? `table__row--${player.status}`
-												: ''
-										}`}
-										key={player.id}
-										id={`${player.id}`}
-									>
-										<td className="table__cell table__cell--lock">
-											<input
-												className="checkbox"
-												type="checkbox"
-												// onChange={onLock}
-												value={player.id}
-												defaultChecked={player.isLocked}
-											/>
-										</td>
-										<td className="table__cell table__cell--center">
-											<span
-												className={`pill ${
-													player.status
-														? `pill--${player.status}`
-														: 'pill--active'
-												}`}
-											>
-												{player.status === 'O'
-													? 'Injured'
-													: player.status === 'Q'
-													? 'GTD'
-													: 'Active'}
-											</span>
-										</td>
-										<td className="table__cell">
-											{player.first_name}
-										</td>
-										<td className="table__cell">
-											{player.last_name}
-										</td>
-										<td className="table__cell">
-											{player.position.name}
-										</td>
-										<td className="table__cell">
-											{player.team}
-										</td>
-										<td className="table__cell text-align-right">
-											{new Intl.NumberFormat('en-US', {
-												style: 'currency',
-												currency: 'USD',
-												minimumFractionDigits: 0,
-											}).format(player.draft.salary)}
-										</td>
-										<td className="table__cell text-align-right">
-											{player.points_per_contest}
-										</td>
-										<td className="table__cell">
-											<Tooltip
-												onHidden={() => {
-													setCurrentTippy(null);
-												}}
-												handleVisiblity={
-													onMoreButtonClick
-												}
-												visible={
-													currentTippy === player.id
-												}
-												value={player.id}
-											/>
+								{lineup.players.length ? (
+									lineup.players.map((player, _i) => (
+										<tr
+											className={`table__row ${
+												player.status !== 'None'
+													? `table__row--${player.status}`
+													: ''
+											}`}
+											key={player.id}
+											id={`${player.id}`}
+										>
+											<td className="table__cell table__cell--lock">
+												<input
+													className="checkbox"
+													type="checkbox"
+													// onChange={onLock}
+													value={player.id}
+													defaultChecked={
+														player.isLocked
+													}
+												/>
+											</td>
+											<td className="table__cell table__cell--center">
+												<span
+													className={`pill ${
+														player.status
+															? `pill--${player.status}`
+															: 'pill--active'
+													}`}
+												>
+													{player.status === 'O'
+														? 'Injured'
+														: player.status === 'Q'
+														? 'GTD'
+														: 'Active'}
+												</span>
+											</td>
+											<td className="table__cell">
+												{player.first_name}
+											</td>
+											<td className="table__cell">
+												{player.last_name}
+											</td>
+											<td className="table__cell">
+												{player.position.name}
+											</td>
+											<td className="table__cell">
+												{player.team}
+											</td>
+											<td className="table__cell text-align-right">
+												{new Intl.NumberFormat(
+													'en-US',
+													{
+														style: 'currency',
+														currency: 'USD',
+														minimumFractionDigits: 0,
+													}
+												).format(player.draft.salary)}
+											</td>
+											<td className="table__cell text-align-right">
+												{player.points_per_contest}
+											</td>
+											<td className="table__cell">
+												<Tooltip
+													onHidden={() => {
+														setCurrentTippy(null);
+													}}
+													handleVisiblity={
+														onMoreButtonClick
+													}
+													visible={
+														currentTippy ===
+														player.id
+													}
+													value={player.id}
+												/>
+											</td>
+										</tr>
+									))
+								) : (
+									<tr className="table__row">
+										<td
+											className="table__cell text-align-center"
+											colSpan={9}
+										>
+											No players found
 										</td>
 									</tr>
-								))}
+								)}
 							</tbody>
 							<tfoot>
 								<tr className="table__row table__row--total">
