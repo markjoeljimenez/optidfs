@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import uniqBy from 'lodash.uniqby';
 import fetch from 'node-fetch';
 import get from 'lodash.get';
+import Fuse from 'fuse.js';
 
 import { transformPlayers } from '../scripts/utilities/transformPlayers';
 import { IContest, IGroup, IResponse, ILineup } from '../interfaces/IApp';
@@ -140,8 +141,29 @@ const Index = ({ data }: { data: IResponse }) => {
 		}
 	};
 
-	const handleSearch = (e) => {
-		console.log(e);
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const options = {
+			includeScore: true,
+			keys: ['first_name', 'last_name', 'team'],
+			threshold: 0.2,
+		};
+
+		if (optimizedLineups) {
+			const fuse = new Fuse(data.lineups[0].players, options);
+
+			const result = fuse.search(e.currentTarget.value);
+
+			const transformedSearch = [
+				{
+					...data.lineups[0],
+					players: e.currentTarget.value
+						? result.map((player) => player.item)
+						: data.lineups[0].players,
+				},
+			];
+
+			setOptimizedLineups(transformedSearch);
+		}
 	};
 
 	return (
