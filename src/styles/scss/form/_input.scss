@@ -6,8 +6,8 @@ $block: 'input';
 	position: relative;
 
 	input {
+		@include box-shadow;
 		@include input;
-		@include input-border;
 	}
 
 	&--icon {
