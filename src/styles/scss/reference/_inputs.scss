@@ -31,6 +31,16 @@
 
 	border-radius: 2rem;
 	padding: 1rem 1.75rem;
+
+	svg {
+		fill: $primary;
+	}
+
+	@include hover-focus {
+		svg {
+			fill: $white;
+		}
+	}
 }
 
 @mixin button-light {

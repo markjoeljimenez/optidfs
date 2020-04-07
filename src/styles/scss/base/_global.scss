@@ -10,3 +10,7 @@
 		padding-right: 2rem;
 	}
 }
+
+.hidden {
+	@include hidden;
+}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import Downshift from 'downshift';
-// import uniqBy from 'lodash.uniqby';
+import uniqBy from 'lodash.uniqby';
 import fetch from 'node-fetch';
 import Fuse from 'fuse.js';
 
@@ -15,10 +15,16 @@ import {
 import Layout from '../layouts/default';
 import Panel from '../templates/panel';
 import Table from '../components/table/table';
+import Filter from '../components/filter/filter';
 
 interface IContestResponse {
 	contests: IContest[];
 	groups: IGroup[];
+}
+
+export interface IFilterValue {
+	category?: string;
+	value?: string;
 }
 
 const API = process.env.ENDPOINT;
@@ -26,12 +32,12 @@ const API = process.env.ENDPOINT;
 const Index = ({ data }: { data: IResponse }) => {
 	const [draftGroupId, setDraftGroupId] = useState<number | null>(null);
 
-	const [contests, setContests] = useState<IContest[]>();
-	const [isLoadingContests, setLoadingContests] = useState(true);
+	// const [contests, setContests] = useState<IContest[]>();
+	// const [isLoadingContests, setLoadingContests] = useState(true);
 
-	const [players, setPlayers] = useState<IDraftKingsPlayer[] | null>(null);
-	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
-	const [excludedPlayers, setExcludedPlayers] = useState<number[]>([]);
+	// const [players, setPlayers] = useState<IDraftKingsPlayer[] | null>(null);
+	// const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
+	// const [excludedPlayers, setExcludedPlayers] = useState<number[]>([]);
 
 	const [optimizedLineups, setOptimizedLineups] = useState<ILineup[] | null>(
 		data.lineups
@@ -39,8 +45,11 @@ const Index = ({ data }: { data: IResponse }) => {
 	const [currentSort, setCurrentSort] = useState<string | null>();
 	const [ascending, setAscending] = useState(false);
 
-	const [isError, setIsError] = useState(false);
-	const [errorMessage, setErrorMessage] = useState<string | null>('');
+	// const [isError, setIsError] = useState(false);
+	// const [errorMessage, setErrorMessage] = useState<string | null>('');
+
+	// Filtering
+	const [filters, setFilters] = useState<IFilterValue[]>([]);
 
 	// Get players
 	// useEffect(() => {
@@ -168,10 +177,88 @@ const Index = ({ data }: { data: IResponse }) => {
 		}
 	};
 
+	/**
+	 * Set filters
+	 * @param position IFilterValue
+	 * @param team IFilterValue
+	 */
+	const submitFilters = (position: IFilterValue, team: IFilterValue) => {
+		setFilters(
+			uniqBy(
+				[...filters, position, team]
+					.filter((item) => item.value !== '')
+					.sort((a, b) => a.category!.localeCompare(b.category!)),
+				'value'
+			)
+		);
+	};
+
+	// Filter players
+	useEffect(() => {
+		if (!filters.length) {
+			return;
+		}
+
+		// const transformedFilters = filters.map((filter) => filter.value);
+
+		// const players = optimizedLineups![0].players.filter(
+		// 	(player) =>
+		// 		transformedFilters.includes(player.position.name) ||
+		// 		transformedFilters.includes(player.team)
+		// );
+
+		const options = {
+			includeScore: true,
+			threshold: 0.6,
+		};
+
+		let players: IDraftKingsPlayer[] = data.lineups[0].players;
+
+		filters.forEach((filter) => {
+			const fuse = new Fuse(players, {
+				...options,
+				keys: [
+					filter.category === 'position' ? 'position.name' : 'team',
+				],
+			});
+
+			const result = fuse.search(filter.value!);
+
+			players = result.map((player) => player.item);
+		});
+
+		setOptimizedLineups([
+			{
+				...optimizedLineups![0],
+				players,
+			},
+		]);
+	}, [filters]);
+
+	const handleRemoveFromFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const value = e.currentTarget.innerText;
+
+		const transformedFilters = filters.map((filter) => filter.value);
+
+		const players = data.lineups[0].players.filter(
+			(player) =>
+				!transformedFilters.includes(player.position.name) ||
+				!transformedFilters.includes(player.team)
+		);
+
+		setFilters(filters.filter((item) => item.value !== value));
+		setOptimizedLineups([
+			{
+				...optimizedLineups![0],
+				players,
+			},
+		]);
+	};
+
 	return (
 		<Layout>
 			<Panel heading="Optimize">
-				<form className="form">
+				<div className="form">
 					{/* <div className="form__row row">
                         <div className="form__col form__col--inline col">
                             <Downshift
@@ -321,15 +408,21 @@ const Index = ({ data }: { data: IResponse }) => {
 					<div className="form__row row">
 						<div className="form__col col">
 							<div className="form__bar">
-								<button
-									className="form__button button button--sm-bord-rad"
-									type="submit"
-								>
-									Bulk Actions
-								</button>
-								{/* <div className="form__filter">
-                                        <p>Filter</p>
-                                    </div> */}
+								<div>
+									<button
+										className="form__button button button--sm-bord-rad"
+										type="submit"
+									>
+										Bulk Actions
+									</button>
+									<Filter
+										filters={filters}
+										submitFilters={submitFilters}
+										handleRemoveFromFilter={
+											handleRemoveFromFilter
+										}
+									/>
+								</div>
 								{/* <button
                                     className="form__optimize button button--light"
                                     type="submit"
@@ -365,7 +458,7 @@ const Index = ({ data }: { data: IResponse }) => {
 					{/* ) : (
                         <></>
                     )} */}
-				</form>
+				</div>
 
 				{optimizedLineups ? (
 					<Table

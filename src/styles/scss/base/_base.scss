@@ -1,5 +1,9 @@
 @import '../reference/index';
 
+html {
+	position: relative;
+}
+
 body {
 	@include default-font;
 
