@@ -212,7 +212,7 @@ const Index = ({ data }: { data: IResponse }) => {
 			threshold: 0.6,
 		};
 
-		let players: IDraftKingsPlayer[] = data.lineups[0].players;
+		let { players } = data.lineups[0];
 
 		filters.forEach((filter) => {
 			const fuse = new Fuse(players, {
