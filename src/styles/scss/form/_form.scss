@@ -39,17 +39,14 @@ $block: 'form';
 		& + .#{$block}__filter {
 			margin-left: 1.625rem;
 			padding-left: 1.625rem;
-			position: relative;
 
 			&::before {
 				content: '';
 				border-left: 1px solid $grey-400;
+				margin-left: -1.625rem;
+				padding-right: 1.5rem;
 				height: 1.5rem;
-				left: 0;
-				position: absolute;
-				top: 50%;
 				width: 1px;
-				transform: translateY(-50%);
 			}
 		}
 	}
@@ -67,6 +64,14 @@ $block: 'form';
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
+
+		> * {
+			display: flex;
+		}
+	}
+
+	&__filter {
+		display: inline-block;
 	}
 
 	// &__optimize {

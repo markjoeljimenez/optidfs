@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 // import Downshift from 'downshift';
-// import uniqBy from 'lodash.uniqby';
+import uniqBy from 'lodash.uniqby';
 import fetch from 'node-fetch';
-import get from 'lodash.get';
+import Fuse from 'fuse.js';
 
 import { transformPlayers } from '../scripts/utilities/transformPlayers';
+import sort from '../scripts/utilities/sort';
 import { IContest, IGroup, IResponse, ILineup } from '../interfaces/IApp';
 import {
 	IDraftKingsResponse,
@@ -14,23 +15,33 @@ import {
 import Layout from '../layouts/default';
 import Panel from '../templates/panel';
 import Table from '../components/table/table';
+import Filter from '../components/filter/filter';
 
 interface IContestResponse {
 	contests: IContest[];
 	groups: IGroup[];
 }
 
+export interface IFilterValue {
+	category?: string;
+	value?: string;
+}
+
 const API = process.env.ENDPOINT;
+const options = {
+	includeScore: true,
+	threshold: 0.2,
+};
 
 const Index = ({ data }: { data: IResponse }) => {
 	const [draftGroupId, setDraftGroupId] = useState<number | null>(null);
 
-	const [contests, setContests] = useState<IContest[]>();
-	const [isLoadingContests, setLoadingContests] = useState(true);
+	// const [contests, setContests] = useState<IContest[]>();
+	// const [isLoadingContests, setLoadingContests] = useState(true);
 
-	const [players, setPlayers] = useState<IDraftKingsPlayer[] | null>(null);
-	const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
-	const [excludedPlayers, setExcludedPlayers] = useState<number[]>([]);
+	// const [players, setPlayers] = useState<IDraftKingsPlayer[] | null>(null);
+	// const [lockedPlayers, setLockedPlayers] = useState<number[]>([]);
+	// const [excludedPlayers, setExcludedPlayers] = useState<number[]>([]);
 
 	const [optimizedLineups, setOptimizedLineups] = useState<ILineup[] | null>(
 		data.lineups
@@ -38,8 +49,11 @@ const Index = ({ data }: { data: IResponse }) => {
 	const [currentSort, setCurrentSort] = useState<string | null>();
 	const [ascending, setAscending] = useState(false);
 
-	const [isError, setIsError] = useState(false);
-	const [errorMessage, setErrorMessage] = useState<string | null>('');
+	// const [isError, setIsError] = useState(false);
+	// const [errorMessage, setErrorMessage] = useState<string | null>('');
+
+	// Filtering
+	const [filters, setFilters] = useState<IFilterValue[]>([]);
 
 	// Get players
 	// useEffect(() => {
@@ -119,31 +133,120 @@ const Index = ({ data }: { data: IResponse }) => {
 
 	const handleSort = (e: React.MouseEvent<HTMLButtonElement>) => {
 		if (e.currentTarget instanceof HTMLButtonElement) {
-			const sort = e.currentTarget.getAttribute('data-sort');
+			const value = e.currentTarget.getAttribute('data-sort');
 
 			setAscending(!ascending);
 
 			if (optimizedLineups) {
-				setOptimizedLineups([
-					{
-						...optimizedLineups[0],
-						...optimizedLineups[0].players.sort((a, b) =>
-							ascending && currentSort === sort
-								? get(b, sort) - get(a, sort)
-								: get(a, sort) - get(b, sort)
-						),
-					},
-				]);
+				setOptimizedLineups(
+					sort(optimizedLineups, ascending, currentSort!, value!)
+				);
 
-				setCurrentSort(sort);
+				setCurrentSort(value);
 			}
 		}
+	};
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (optimizedLineups) {
+			const fuse = new Fuse(data.lineups[0].players, {
+				...options,
+				keys: ['first_name', 'last_name', 'team'],
+			});
+
+			const result = fuse.search(e.currentTarget.value);
+
+			let transformedSearch = [
+				{
+					...data.lineups[0],
+					players: e.currentTarget.value
+						? result.map((player) => player.item)
+						: data.lineups[0].players,
+				},
+			];
+
+			// If sort has been previously set, we should sort the transformedSearch automatically
+			if (currentSort) {
+				transformedSearch = sort(
+					transformedSearch,
+					!ascending,
+					currentSort
+				);
+			}
+
+			setOptimizedLineups(transformedSearch);
+		}
+	};
+
+	/**
+	 * Set filters
+	 * @param position IFilterValue
+	 * @param team IFilterValue
+	 */
+	const submitFilters = (position: IFilterValue, team: IFilterValue) => {
+		setFilters(
+			uniqBy(
+				[...filters, position, team]
+					.filter((item) => item.value !== '')
+					.sort((a, b) => a.category!.localeCompare(b.category!)),
+				'value'
+			)
+		);
+	};
+
+	// Filter players
+	useEffect(() => {
+		if (!filters.length) {
+			return;
+		}
+
+		const players = filters
+			.map((filter) => {
+				const fuse = new Fuse(data.lineups[0].players, {
+					...options,
+					keys: [
+						filter.category === 'position'
+							? 'position.name'
+							: 'team',
+					],
+				});
+
+				return fuse.search(filter.value!).map((player) => player.item);
+			})
+			.reduce((a, b) => uniqBy([...a, ...b]));
+
+		setOptimizedLineups([
+			{
+				...optimizedLineups![0],
+				players,
+			},
+		]);
+	}, [filters]);
+
+	const handleRemoveFromFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const value = e.currentTarget.innerText;
+
+		const transformedFilters = filters.map((filter) => filter.value);
+
+		const players = data.lineups[0].players.filter(
+			(player) =>
+				!transformedFilters.includes(player.position.name) ||
+				!transformedFilters.includes(player.team)
+		);
+
+		setFilters(filters.filter((item) => item.value !== value));
+		setOptimizedLineups([
+			{
+				...optimizedLineups![0],
+				players,
+			},
+		]);
 	};
 
 	return (
 		<Layout>
 			<Panel heading="Optimize">
-				<form className="form">
+				<div className="form">
 					{/* <div className="form__row row">
                         <div className="form__col form__col--inline col">
                             <Downshift
@@ -293,28 +396,57 @@ const Index = ({ data }: { data: IResponse }) => {
 					<div className="form__row row">
 						<div className="form__col col">
 							<div className="form__bar">
-								<button
-									className="form__button button button--sm-bord-rad"
-									type="submit"
-								>
-									Bulk Actions
-								</button>
-								{/* <div className="form__filter">
-                                        <p>Filter</p>
-                                    </div> */}
+								<div>
+									<button
+										className="form__button button button--sm-bord-rad"
+										type="submit"
+									>
+										Bulk Actions
+									</button>
+									<Filter
+										filters={filters}
+										submitFilters={submitFilters}
+										handleRemoveFromFilter={
+											handleRemoveFromFilter
+										}
+									/>
+								</div>
 								{/* <button
                                     className="form__optimize button button--light"
                                     type="submit"
                                 >
                                     Optimize
                                 </button> */}
+								<div className="input input--icon-left search">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										className="input__icon"
+									>
+										<g data-name="Layer 2">
+											<g data-name="search">
+												<rect
+													width="24"
+													height="24"
+													opacity="0"
+												/>
+												<path d="M20.71 19.29l-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z" />
+											</g>
+										</g>
+									</svg>
+									<input
+										type="search"
+										placeholder="Search"
+										onChange={handleSearch}
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
 					{/* ) : (
                         <></>
                     )} */}
-				</form>
+				</div>
 
 				{optimizedLineups ? (
 					<Table
