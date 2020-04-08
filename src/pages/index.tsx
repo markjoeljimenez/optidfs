@@ -28,6 +28,10 @@ export interface IFilterValue {
 }
 
 const API = process.env.ENDPOINT;
+const options = {
+	includeScore: true,
+	threshold: 0.2,
+};
 
 const Index = ({ data }: { data: IResponse }) => {
 	const [draftGroupId, setDraftGroupId] = useState<number | null>(null);
@@ -144,14 +148,11 @@ const Index = ({ data }: { data: IResponse }) => {
 	};
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const options = {
-			includeScore: true,
-			keys: ['first_name', 'last_name', 'team'],
-			threshold: 0.2,
-		};
-
 		if (optimizedLineups) {
-			const fuse = new Fuse(data.lineups[0].players, options);
+			const fuse = new Fuse(data.lineups[0].players, {
+				...options,
+				keys: ['first_name', 'last_name', 'team'],
+			});
 
 			const result = fuse.search(e.currentTarget.value);
 
@@ -199,33 +200,20 @@ const Index = ({ data }: { data: IResponse }) => {
 			return;
 		}
 
-		// const transformedFilters = filters.map((filter) => filter.value);
+		const players = filters
+			.map((filter) => {
+				const fuse = new Fuse(data.lineups[0].players, {
+					...options,
+					keys: [
+						filter.category === 'position'
+							? 'position.name'
+							: 'team',
+					],
+				});
 
-		// const players = optimizedLineups![0].players.filter(
-		// 	(player) =>
-		// 		transformedFilters.includes(player.position.name) ||
-		// 		transformedFilters.includes(player.team)
-		// );
-
-		const options = {
-			includeScore: true,
-			threshold: 0.6,
-		};
-
-		let { players } = data.lineups[0];
-
-		filters.forEach((filter) => {
-			const fuse = new Fuse(players, {
-				...options,
-				keys: [
-					filter.category === 'position' ? 'position.name' : 'team',
-				],
-			});
-
-			const result = fuse.search(filter.value!);
-
-			players = result.map((player) => player.item);
-		});
+				return fuse.search(filter.value!).map((player) => player.item);
+			})
+			.reduce((a, b) => uniqBy([...a, ...b]));
 
 		setOptimizedLineups([
 			{
