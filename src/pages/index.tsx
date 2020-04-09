@@ -201,6 +201,14 @@ const Index = ({ data }: { data: IResponse }) => {
 		}
 
 		const players = data.lineups[0].players.filter((player) => {
+			const bothTeamAndPosition =
+				filters.some((filter) => filter.value === player.team) &&
+				filters.some((filter) =>
+					filter.category === 'position' && filter.value
+						? player.position.name.includes(filter.value)
+						: false
+				);
+
 			const hasTeam = filters.some(
 				(filter) => filter.category === 'team'
 			);
@@ -209,7 +217,7 @@ const Index = ({ data }: { data: IResponse }) => {
 			);
 
 			if (
-				(hasTeam && hasPosition) ||
+				bothTeamAndPosition ||
 				(filters.some((filter) => filter.value === player.team) &&
 					!hasPosition) ||
 				(filters.some((filter) =>
