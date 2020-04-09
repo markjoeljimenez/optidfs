@@ -200,20 +200,28 @@ const Index = ({ data }: { data: IResponse }) => {
 			return;
 		}
 
-		const players = filters
-			.map((filter) => {
-				const fuse = new Fuse(data.lineups[0].players, {
-					...options,
-					keys: [
-						filter.category === 'position'
-							? 'position.name'
-							: 'team',
-					],
-				});
+		const players = data.lineups[0].players.filter((player) => {
+			const hasTeam = filters.some(
+				(filter) => filter.category === 'team'
+			);
+			const hasPosition = filters.some(
+				(filter) => filter.category === 'position'
+			);
 
-				return fuse.search(filter.value!).map((player) => player.item);
-			})
-			.reduce((a, b) => uniqBy([...a, ...b]));
+			if (
+				(hasTeam && hasPosition) ||
+				(filters.some((filter) => filter.value === player.team) &&
+					!hasPosition) ||
+				(filters.some((filter) =>
+					player.position.name.includes(filter.value!)
+				) &&
+					!hasTeam)
+			) {
+				return true;
+			}
+
+			return false;
+		});
 
 		setOptimizedLineups([
 			{
