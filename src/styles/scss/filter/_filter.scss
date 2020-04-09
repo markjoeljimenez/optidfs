@@ -33,20 +33,22 @@ $block: 'filter';
 		.#{$block}__button {
 			@include box-shadow;
 
-			background-color: $white;
+			align-items: center;
 			border: 0;
 			border-radius: 0.75rem;
+			display: flex;
 			cursor: pointer;
 			font-weight: 700;
 			padding: 0.25rem 0.75rem;
 			margin-left: 0;
 
-			// @include hover-focus {
-			// 	@include background-image-fill(
-			// 		'../../images/close.svg',
-			// 		$white
-			// 	);
-			// }
+			svg {
+				fill: $white;
+				margin-left: 0.5rem;
+				margin-right: -0.25rem;
+				height: 1rem;
+				width: 1rem;
+			}
 		}
 
 		&--position {
