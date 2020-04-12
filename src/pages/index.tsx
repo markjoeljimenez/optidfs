@@ -27,7 +27,6 @@ export interface IFilterValue {
 	value?: string;
 }
 
-const API = process.env.ENDPOINT;
 const options = {
 	includeScore: true,
 	threshold: 0.2,
@@ -482,11 +481,11 @@ const Index = ({ data }: { data: IResponse }) => {
 };
 
 export async function getStaticProps() {
-	if (!API) {
+	if (!process.env.API) {
 		return null;
 	}
 
-	const response = await fetch(API);
+	const response = await fetch(process.env.API);
 	const data = (await response.json()) as IResponse;
 
 	return {

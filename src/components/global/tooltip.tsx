@@ -4,25 +4,28 @@ import Tippy from '@tippyjs/react';
 interface ITooltip {
 	onHidden: () => void;
 	handleVisiblity: (e: React.MouseEvent<Element, MouseEvent>) => void;
-	handleStatsClick?: (e: React.MouseEvent<Element, MouseEvent>) => void;
 	visible?: boolean;
+	setCurrentPlayer?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 	value?: string;
+	player?: string;
 }
 
 const Tooltip = ({
 	onHidden,
 	handleVisiblity,
-	handleStatsClick,
+	setCurrentPlayer,
 	visible,
 	value,
+	player,
 }: ITooltip) => {
 	const content = (
 		<ul className="tooltip__list">
 			<li className="tooltip__item">
 				<button
 					className="tooltip__button"
-					onClick={handleStatsClick}
+					onClick={setCurrentPlayer}
 					type="button"
+					value={player}
 				>
 					View Stats
 				</button>
@@ -30,8 +33,9 @@ const Tooltip = ({
 			<li className="tooltip__item">
 				<button
 					className="tooltip__button"
-					onClick={handleStatsClick}
+					onClick={setCurrentPlayer}
 					type="button"
+					value={player}
 				>
 					Remove
 				</button>
@@ -39,8 +43,9 @@ const Tooltip = ({
 			<li className="tooltip__item">
 				<button
 					className="tooltip__button"
-					onClick={handleStatsClick}
+					onClick={setCurrentPlayer}
 					type="button"
+					value={player}
 				>
 					Lock
 				</button>
