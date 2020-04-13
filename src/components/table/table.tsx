@@ -323,6 +323,9 @@ const Table = ({
 										{`#${currentPlayer.JERSEY} ${currentPlayer.DISPLAY_FIRST_LAST}`}
 									</h1>
 									<p>{`${currentPlayer.POSITION} | ${currentPlayer.TEAM_CITY} ${currentPlayer.TEAM_NAME}`}</p>
+									<p>
+										{`${currentPlayer.PTS} PTS, ${currentPlayer.AST} AST, ${currentPlayer.REB} REB`}
+									</p>
 								</div>
 							</div>
 							<div className="stats__content">
@@ -404,7 +407,9 @@ const Table = ({
 														{season.FGA}
 													</td>
 													<td className="table__cell">
-														{season.FG_PCT}
+														{(
+															season.FG_PCT * 100
+														).toFixed(1)}
 													</td>
 													<td className="table__cell">
 														{season.FG3M}
@@ -413,7 +418,9 @@ const Table = ({
 														{season.FG3A}
 													</td>
 													<td className="table__cell">
-														{season.FG3_PCT}
+														{(
+															season.FG3_PCT * 100
+														).toFixed(1)}
 													</td>
 													<td className="table__cell">
 														{season.FTM}
@@ -422,7 +429,9 @@ const Table = ({
 														{season.FTA}
 													</td>
 													<td className="table__cell">
-														{season.FT_PCT}
+														{(
+															season.FT_PCT * 100
+														).toFixed(1)}
 													</td>
 													<td className="table__cell">
 														{season.OREB}
