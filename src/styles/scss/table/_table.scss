@@ -6,6 +6,7 @@ $block: 'table';
 	$border-radius: 0.25rem;
 
 	border-collapse: collapse;
+	color: $grey-900;
 
 	@include media-min(md) {
 		margin-left: auto;

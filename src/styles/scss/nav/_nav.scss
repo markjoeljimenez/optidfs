@@ -103,11 +103,11 @@ $block: 'nav';
 	}
 
 	&__link {
-		color: $primary-light;
+		color: $white;
 
-		@include hover-focus {
-			color: $white;
-		}
+		// @include hover-focus {
+		// 	color: $white;
+		// }
 
 		&--active {
 			&:visited {
