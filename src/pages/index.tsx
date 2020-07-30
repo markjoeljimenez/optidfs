@@ -3,7 +3,6 @@ import uniqBy from 'lodash.uniqby';
 import fetch from 'node-fetch';
 import Fuse from 'fuse.js';
 
-import { transformPlayers } from '../scripts/utilities/transformPlayers';
 import sort from '../scripts/utilities/sort';
 import { IContest, IGroup, IResponse, ILineup } from '../interfaces/IApp';
 import {
@@ -331,12 +330,11 @@ const Index = ({ data }: IIndex) => {
 
 				{players && (
 					<Table
-						players={players}
-						handleSort={handleSort}
-						currentSort={currentSort}
 						ascending={ascending}
+						currentSort={currentSort}
+						handleSort={handleSort}
+						players={players}
 						totals={totals}
-						// setPlayers={setPlayers}
 					/>
 				)}
 			</Panel>
@@ -345,11 +343,11 @@ const Index = ({ data }: IIndex) => {
 };
 
 export async function getStaticProps() {
-	if (!process.env.API) {
+	if (!API) {
 		return null;
 	}
 
-	const response = await fetch(process.env.API);
+	const response = await fetch(API);
 	const data = (await response.json()) as IResponse;
 
 	return {

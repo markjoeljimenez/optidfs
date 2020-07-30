@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { IResponse, ILineup } from '../interfaces/IApp';
-import {
-	IDraftKingsResponse,
-	IDraftKingsPlayer,
-} from '../interfaces/IDraftKingsResponse';
-import Tooltip from './global/tooltip';
-import Chevron from './global/chevron';
+import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 import { ITotals } from '../pages';
+import { IPlayerStats } from '../interfaces/IPlayerStats';
+
+import Chevron from './global/chevron';
+import Modal from './global/modal';
 
 interface ITableProps {
 	ascending: boolean;
 	currentSort?: string | null;
 	handleSort: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 	players?: IDraftKingsPlayer[];
-	setPlayers?: React.Dispatch<React.SetStateAction<IDraftKingsPlayer[]>>;
 	totals?: ITotals;
 }
 
@@ -23,16 +20,41 @@ const Table = ({
 	currentSort,
 	handleSort,
 	players,
-	setPlayers,
 	totals,
 }: ITableProps) => {
 	const [currentTippy, setCurrentTippy] = useState<string | null>(null);
+	const [currentPlayer, setCurrentPlayer] = useState<IPlayerStats | null>(
+		null
+	);
+	const [modal, setModal] = useState(false);
+	const [isLoading, setLoading] = useState(false);
 
 	const onMoreButtonClick = (e: React.MouseEvent) => {
 		if (e.currentTarget instanceof HTMLButtonElement) {
 			const { value } = e.currentTarget;
 
 			setCurrentTippy(currentTippy === value ? null : value);
+		}
+	};
+
+	const viewStats = async (e: React.MouseEvent<HTMLButtonElement>) => {
+		setModal(!modal);
+
+		const { value } = e.currentTarget;
+
+		if (value) {
+			setLoading(true);
+
+			const response = await fetch(
+				`${process.env.ENDPOINT}/stats?player=${value}`
+			);
+
+			const data = await response.json();
+
+			if (data) {
+				setCurrentPlayer(data);
+				setLoading(false);
+			}
 		}
 	};
 
@@ -143,7 +165,16 @@ const Table = ({
 							<td className="table__cell text-align-right">
 								{player.points_per_contest}
 							</td>
-							<td className="table__cell" />
+							<td className="table__cell">
+								<button
+									className="table__link"
+									type="button"
+									value={`${player.first_name} ${player.last_name}`}
+									onClick={viewStats}
+								>
+									Stats
+								</button>
+							</td>
 						</tr>
 					))}
 				</tbody>
@@ -169,6 +200,169 @@ const Table = ({
 					</tfoot>
 				)}
 			</table>
+
+			{modal && currentPlayer ? (
+				<Modal openModal={viewStats}>
+					{!isLoading ? (
+						<div className="stats">
+							<div className="stats__header">
+								<picture className="stats__picture">
+									<img
+										className="stats__image"
+										src={currentPlayer.profile_picture}
+										alt={currentPlayer.DISPLAY_FIRST_LAST}
+									/>
+								</picture>
+								<div className="stats__info">
+									<h1 className="stats__name">
+										{`#${currentPlayer.JERSEY} ${currentPlayer.DISPLAY_FIRST_LAST}`}
+									</h1>
+									<p>{`${currentPlayer.POSITION} | ${currentPlayer.TEAM_CITY} ${currentPlayer.TEAM_NAME}`}</p>
+									<p>
+										{`${currentPlayer.PTS} PTS, ${currentPlayer.AST} AST, ${currentPlayer.REB} REB`}
+									</p>
+								</div>
+							</div>
+							<div className="stats__content">
+								<table className="stats__table table">
+									<thead>
+										<tr className="table__row table__row--header">
+											<th className="table__cell  text-align-left">
+												BY YEAR
+											</th>
+											<th className="table__cell  text-align-left">
+												TEAM
+											</th>
+											<th className="table__cell">GP</th>
+											<th className="table__cell">MIN</th>
+											<th className="table__cell">PTS</th>
+											<th className="table__cell">FGM</th>
+											<th className="table__cell">FGA</th>
+											<th className="table__cell">FG%</th>
+											<th className="table__cell">
+												FG3M
+											</th>
+											<th className="table__cell">
+												FG3A
+											</th>
+											<th className="table__cell">
+												FG3%
+											</th>
+											<th className="table__cell">FTM</th>
+											<th className="table__cell">FTA</th>
+											<th className="table__cell">FT%</th>
+											<th className="table__cell">
+												OREB
+											</th>
+											<th className="table__cell">
+												DREB
+											</th>
+											<th className="table__cell">REB</th>
+											<th className="table__cell">AST</th>
+											<th className="table__cell">TOV</th>
+											<th className="table__cell">STL</th>
+											<th className="table__cell">BLK</th>
+
+											{/* <td>GS</td>
+											<td>LEAGUE_ID</td>
+											<td>PLAYER_AGE</td>
+											<td>PLAYER_ID</td>
+											<td>EFF</td>
+											<td>TEAM_ID</td> */}
+										</tr>
+									</thead>
+									<tbody>
+										{currentPlayer.SeasonTotalsRegularSeason.map(
+											(season, i) => (
+												<tr
+													className="table__row"
+													key={i}
+												>
+													<td className="table__cell text-align-left">
+														{season.SEASON_ID}
+													</td>
+													<td className="table__cell text-align-left">
+														{
+															season.TEAM_ABBREVIATION
+														}
+													</td>
+													<td className="table__cell">
+														{season.GP}
+													</td>
+													<td className="table__cell">
+														{season.MIN}
+													</td>
+													<td className="table__cell">
+														{season.PTS}
+													</td>
+													<td className="table__cell">
+														{season.FGM}
+													</td>
+													<td className="table__cell">
+														{season.FGA}
+													</td>
+													<td className="table__cell">
+														{(
+															season.FG_PCT * 100
+														).toFixed(1)}
+													</td>
+													<td className="table__cell">
+														{season.FG3M}
+													</td>
+													<td className="table__cell">
+														{season.FG3A}
+													</td>
+													<td className="table__cell">
+														{(
+															season.FG3_PCT * 100
+														).toFixed(1)}
+													</td>
+													<td className="table__cell">
+														{season.FTM}
+													</td>
+													<td className="table__cell">
+														{season.FTA}
+													</td>
+													<td className="table__cell">
+														{(
+															season.FT_PCT * 100
+														).toFixed(1)}
+													</td>
+													<td className="table__cell">
+														{season.OREB}
+													</td>
+													<td className="table__cell">
+														{season.DREB}
+													</td>
+													<td className="table__cell">
+														{season.REB}
+													</td>
+													<td className="table__cell">
+														{season.AST}
+													</td>
+													<td className="table__cell">
+														{season.TOV}
+													</td>
+													<td className="table__cell">
+														{season.STL}
+													</td>
+													<td className="table__cell">
+														{season.BLK}
+													</td>
+												</tr>
+											)
+										).reverse()}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					) : (
+						<>Loading...</>
+					)}
+				</Modal>
+			) : (
+				<></>
+			)}
 		</div>
 	);
 };
