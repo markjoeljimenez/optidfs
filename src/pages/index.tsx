@@ -345,11 +345,11 @@ const Index = ({ data }: IIndex) => {
 };
 
 export async function getStaticProps() {
-	if (!API) {
+	if (!process.env.API) {
 		return null;
 	}
 
-	const response = await fetch(API);
+	const response = await fetch(process.env.API);
 	const data = (await response.json()) as IResponse;
 
 	return {

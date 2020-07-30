@@ -10,7 +10,7 @@ $block: 'modal';
 	position: absolute;
 	right: 0;
 	top: 0;
-	z-index: 999;
+	z-index: 99999;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -23,7 +23,6 @@ $block: 'modal';
 		position: relative;
 		background-color: $white;
 		padding: 2.5rem 3rem;
-		padding-right: 6rem;
 
 		> * {
 			&:first-child {

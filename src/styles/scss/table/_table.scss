@@ -24,6 +24,7 @@ $block: 'table';
 		box-sizing: border-box;
 
 		&--header {
+			border-top: 0;
 			text-align: left;
 
 			.#{$block}__cell {

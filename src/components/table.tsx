@@ -81,9 +81,9 @@ const Table = ({
 								)}
 							</button>
 						</th>
-						{/* <th className="table__cell">
-								<span hidden>Options</span>
-							</th> */}
+						<th className="table__cell">
+							<span hidden>Options</span>
+						</th>
 					</tr>
 				</thead>
 				<tbody className="table__tbody">
@@ -143,7 +143,7 @@ const Table = ({
 							<td className="table__cell text-align-right">
 								{player.points_per_contest}
 							</td>
-							{/* <td className="table__cell" /> */}
+							<td className="table__cell" />
 						</tr>
 					))}
 				</tbody>
@@ -164,7 +164,7 @@ const Table = ({
 							<td className="table__cell text-align-right">
 								{totals.totalFppg}
 							</td>
-							{/* <td className="table__cell" /> */}
+							<td className="table__cell" />
 						</tr>
 					</tfoot>
 				)}

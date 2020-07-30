@@ -1,0 +1,58 @@
+@import '../reference/index';
+
+$block: 'stats';
+
+.#{$block} {
+	&__header {
+		display: flex;
+	}
+
+	&__picture {
+		& + * {
+			margin-left: 1rem;
+		}
+	}
+
+	&__info {
+		* {
+			margin-bottom: 0;
+			margin-top: 0;
+		}
+	}
+
+	&__content {
+		margin-left: -3rem;
+		margin-right: -3rem;
+		// max-width: 50rem;
+		// overflow-x: scroll;
+	}
+
+	&__table {
+		font-size: 0.75rem;
+		margin-top: 2rem;
+		white-space: nowrap;
+
+		.table__row {
+			&:nth-child(odd) {
+				background-color: $grey-200;
+			}
+
+			&--header {
+				background-color: transparent !important;
+			}
+		}
+
+		.table__cell {
+			padding: 0.5rem 0.75rem;
+			text-align: right;
+
+			&:first-child {
+				padding-left: 3rem;
+			}
+
+			&:last-child {
+				padding-right: 3rem;
+			}
+		}
+	}
+}
