@@ -45,9 +45,46 @@ const options = {
 	threshold: 0.2,
 };
 
+const filterPlayers = (
+	filters: IFilterValue[],
+	players?: IDraftKingsPlayer[]
+) =>
+	players?.filter((player) => {
+		const bothTeamAndPosition =
+			filters.some((filter) => filter.value === player.team) &&
+			filters.some((filter) =>
+				filter.category === 'position' && filter.value
+					? player.position.includes(filter.value)
+					: false
+			);
+
+		const hasTeam = filters.some((filter) => filter.category === 'team');
+		const hasPosition = filters.some(
+			(filter) => filter.category === 'position'
+		);
+
+		if (
+			bothTeamAndPosition ||
+			(filters.some((filter) => filter.value === player.team) &&
+				!hasPosition) ||
+			(filters.some((filter) =>
+				player.position.includes(filter.value!)
+			) &&
+				!hasTeam)
+		) {
+			return true;
+		}
+
+		return false;
+	});
+
 const Index = ({ data }: IIndex) => {
 	const [draftGroupId, setDraftGroupId] = useState<number | null>(null);
 
+	const [defaultPlayers, setDefaultPlayers] = useState<IDraftKingsPlayer[]>();
+	const [optimizedPlayers, setOptimizedPlayers] = useState<
+		IDraftKingsPlayer[]
+	>();
 	const [players, setPlayers] = useState<IDraftKingsPlayer[]>();
 	const [totals, setTotals] = useState<ITotals>();
 
@@ -97,6 +134,7 @@ const Index = ({ data }: IIndex) => {
 			);
 
 			if (success) {
+				setOptimizedPlayers(transformedPlayers as any);
 				setPlayers(transformedPlayers as any);
 				setTotals({
 					totalFppg: lineups[0].totalFppg,
@@ -104,8 +142,10 @@ const Index = ({ data }: IIndex) => {
 				});
 				setIsError(success);
 			} else {
-				setIsError(!success);
+				setOptimizedPlayers(undefined);
+				setPlayers(undefined);
 				setTotals(undefined);
+				setIsError(!success);
 				setErrorMessage(message);
 			}
 		} catch (e) {
@@ -132,30 +172,37 @@ const Index = ({ data }: IIndex) => {
 	};
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-		// if (optimizedLineups) {
-		// 	const fuse = new Fuse(optimizedLineups[0].players, {
-		// 		...options,
-		// 		keys: ['first_name', 'last_name', 'team'],
-		// 	});
-		// 	const result = fuse.search(e.currentTarget.value);
-		// 	let transformedSearch = [
-		// 		{
-		// 			...optimizedLineups[0],
-		// 			players: e.currentTarget.value
-		// 				? result.map((player) => player.item)
-		// 				: optimizedLineups[0].players,
-		// 		},
-		// 	];
-		// 	// If sort has been previously set, we should sort the transformedSearch automatically
-		// 	if (currentSort) {
-		// 		transformedSearch = sort(
-		// 			transformedSearch,
-		// 			!ascending,
-		// 			currentSort
-		// 		);
-		// 	}
-		// 	setOptimizedLineups(transformedSearch);
+		if (!players) {
+			return;
+		}
+
+		const { value } = e.currentTarget;
+
+		const fuse = new Fuse(players, {
+			...options,
+			keys: ['first_name', 'last_name', 'team'],
+		});
+
+		const result = fuse.search(value);
+
+		let transformedSearch = uniqBy(
+			value
+				? result.map((player) => player.item)
+				: optimizedPlayers?.length
+				? optimizedPlayers
+				: defaultPlayers
+		);
+
+		// // If sort has been previously set, we should sort the transformedSearch automatically
+		// if (currentSort) {
+		// 	transformedSearch = sort(
+		// 		transformedSearch,
+		// 		!ascending,
+		// 		currentSort
+		// 	);
 		// }
+
+		setPlayers(transformedSearch);
 	};
 
 	/**
@@ -175,17 +222,9 @@ const Index = ({ data }: IIndex) => {
 	};
 
 	const handleRemoveFromFilter = (e: React.MouseEvent<HTMLButtonElement>) => {
-		const value = e.currentTarget.innerText;
+		const { value } = e.currentTarget;
 
-		const transformedFilters = filters.map((filter) => filter.value);
-
-		// const players = optimizeLineups[0].players.filter(
-		// 	(player) =>
-		// 		!transformedFilters.includes(player.position.name) ||
-		// 		!transformedFilters.includes(player.team)
-		// );
-
-		setFilters(filters.filter((item) => item.value !== value));
+		setFilters(filters?.filter((filter) => filter.value !== value));
 	};
 
 	// Get players
@@ -200,7 +239,8 @@ const Index = ({ data }: IIndex) => {
 				const data = (await response.json()) as IDraftKingsResponse;
 
 				if (data.players.length > 0) {
-					setPlayers(transformPlayers(data.players));
+					setDefaultPlayers(data.players);
+					setPlayers(data.players);
 				} else {
 					setErrorMessage('No players found');
 					setIsError(true);
@@ -215,40 +255,13 @@ const Index = ({ data }: IIndex) => {
 
 	// Filter players
 	useEffect(() => {
-		if (!filters.length) {
+		if (!filters.length || filters.length === 0) {
+			setPlayers(optimizedPlayers || defaultPlayers);
+
 			return;
 		}
 
-		const filteredPlayers = players?.filter((player) => {
-			const bothTeamAndPosition =
-				filters.some((filter) => filter.value === player.team) &&
-				filters.some((filter) =>
-					filter.category === 'position' && filter.value
-						? player.position.name.includes(filter.value)
-						: false
-				);
-
-			const hasTeam = filters.some(
-				(filter) => filter.category === 'team'
-			);
-			const hasPosition = filters.some(
-				(filter) => filter.category === 'position'
-			);
-
-			if (
-				bothTeamAndPosition ||
-				(filters.some((filter) => filter.value === player.team) &&
-					!hasPosition) ||
-				(filters.some((filter) =>
-					player.position.name.includes(filter.value!)
-				) &&
-					!hasTeam)
-			) {
-				return true;
-			}
-
-			return false;
-		});
+		setPlayers(filterPlayers(filters, optimizedPlayers || defaultPlayers));
 	}, [filters]);
 
 	return (
@@ -264,6 +277,8 @@ const Index = ({ data }: IIndex) => {
 									setIsError(false);
 									setErrorMessage('');
 									setPlayers(undefined);
+									setDefaultPlayers(undefined);
+									setOptimizedPlayers(undefined);
 									setTotals(undefined);
 								}}
 								onContestChange={onContestChange}

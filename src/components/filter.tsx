@@ -66,6 +66,7 @@ const Filter = ({
 								className="filter__button"
 								type="button"
 								onClick={handleRemoveFromFilter}
+								value={filter.value}
 							>
 								{filter.value}
 								<svg

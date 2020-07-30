@@ -22,10 +22,7 @@ export interface IDraftKingsPlayer {
 	};
 	salary: number;
 	points_per_contest: number;
-	position: {
-		id: number;
-		name: string;
-	};
+	position: string;
 	team: string;
 	status: string | null;
 	isLocked: boolean;
