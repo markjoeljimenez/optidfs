@@ -79,5 +79,6 @@ module.exports = {
 		'implicit-arrow-linebreak': [0],
 		'function-paren-newline': [0],
 		'@typescript-eslint/no-non-null-assertion': [0],
+		'react/jsx-props-no-spreading': [0],
 	},
 };

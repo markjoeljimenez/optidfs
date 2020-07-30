@@ -36,6 +36,8 @@ $block: 'form';
 	}
 
 	&__button {
+		color: $white;
+
 		& + .#{$block}__filter {
 			margin-left: 1.625rem;
 			padding-left: 1.625rem;
@@ -72,19 +74,6 @@ $block: 'form';
 
 	&__filter {
 		display: inline-block;
+		margin-left: 1rem;
 	}
-
-	// &__optimize {
-	//     @include box-shadow;
-
-	//     position: fixed;
-	//     bottom: 1rem;
-	//     left: 50%;
-	//     transform: translate3d(-50%, 0, 0);
-
-	//     @include media-min(md) {
-	//         // bottom: 0;
-	//         position: static;
-	//     }
-	// }
 }

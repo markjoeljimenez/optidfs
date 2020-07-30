@@ -47,7 +47,7 @@
 	@include button;
 
 	@include background-color-states($primary-light, $primary-dark);
-	@include color-states($primary, $white);
+	@include color-states($white, $white);
 
 	// background-color: $primary-light;
 	border: 0;
