@@ -147,9 +147,9 @@ const Index = ({ data }: IIndex) => {
 				setIsError(!success);
 				setErrorMessage(message);
 			}
-		} catch (e) {
+		} catch (c) {
 			console.error(
-				`A problem occured when trying to retrieve API: ${e}`
+				`A problem occured when trying to retrieve API: ${c}`
 			);
 		}
 	};
@@ -184,7 +184,7 @@ const Index = ({ data }: IIndex) => {
 
 		const result = fuse.search(value);
 
-		let transformedSearch = uniqBy(
+		const transformedSearch = uniqBy(
 			value
 				? result.map((player) => player.item)
 				: optimizedPlayers?.length
@@ -235,11 +235,11 @@ const Index = ({ data }: IIndex) => {
 		(async () => {
 			try {
 				const response = await get(`${API}/players?id=${draftGroupId}`);
-				const data = (await response.json()) as IDraftKingsResponse;
+				const json = (await response.json()) as IDraftKingsResponse;
 
-				if (data.players.length > 0) {
-					setDefaultPlayers(data.players);
-					setPlayers(data.players);
+				if (json.players.length > 0) {
+					setDefaultPlayers(json.players);
+					setPlayers(json.players);
 				} else {
 					setErrorMessage('No players found');
 					setIsError(true);

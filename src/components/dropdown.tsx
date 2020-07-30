@@ -30,6 +30,7 @@ const Dropdown = ({
 			highlightedIndex,
 		}) => (
 			<div className="input-dropdown">
+				{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 				<label
 					className="form__label u-hidden"
 					htmlFor="select-contest"
@@ -110,7 +111,9 @@ const Dropdown = ({
 									item,
 								})}
 							>
-								{item.draft_group_id}-{item.name}
+								{item.draft_group_id}
+								-
+								{item.name}
 							</li>
 						))}
 					</ul>
