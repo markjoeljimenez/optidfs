@@ -138,13 +138,13 @@ const Index = ({ data }: IIndex) => {
 		setLoading(true);
 
 		try {
-			const response = await post(`${API}/${OPTIMIZE}?n=${value}`).then(
-				(res) => {
-					setLoading(false);
+			const response = await post(
+				`${API}/${OPTIMIZE}?id=${draftGroupId}&n=${value}`
+			).then((res) => {
+				setLoading(false);
 
-					return res;
-				}
-			);
+				return res;
+			});
 
 			const {
 				lineups,
