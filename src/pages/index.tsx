@@ -10,7 +10,6 @@ import {
 	IDraftKingsPlayer,
 } from '../interfaces/IDraftKingsResponse';
 
-import Layout from '../layouts/default';
 import Panel from '../templates/panel';
 import Table from '../components/table';
 import Filter from '../components/filter';
@@ -331,112 +330,110 @@ const Index = ({ data }: IIndex) => {
 	}, [optimizedLineups, pagination]);
 
 	return (
-		<Layout>
-			<Panel heading="Optimize">
-				<div className="form">
+		<Panel heading="Optimize">
+			<div className="form">
+				<div className="form__row row">
+					<div className="form__col form__col--inline col">
+						<Dropdown
+							data={data}
+							handleClearContestSelection={() => {
+								setDraftGroupId(null);
+								setIsError(false);
+								setErrorMessage(null);
+								setPlayers(undefined);
+								setDefaultPlayers(undefined);
+								// setOptimizedPlayers(undefined);
+								setOptimizedLineups(undefined);
+								setTotals(undefined);
+							}}
+							onContestChange={onContestChange}
+						/>
+					</div>
+				</div>
+				{isError && errorMessage ? (
 					<div className="form__row row">
-						<div className="form__col form__col--inline col">
-							<Dropdown
-								data={data}
-								handleClearContestSelection={() => {
-									setDraftGroupId(null);
-									setIsError(false);
-									setErrorMessage(null);
-									setPlayers(undefined);
-									setDefaultPlayers(undefined);
-									// setOptimizedPlayers(undefined);
-									setOptimizedLineups(undefined);
-									setTotals(undefined);
-								}}
-								onContestChange={onContestChange}
-							/>
+						<div className="form__col col">
+							<p role="alert" className="alert">
+								{errorMessage}
+							</p>
 						</div>
 					</div>
-					{isError && errorMessage ? (
-						<div className="form__row row">
-							<div className="form__col col">
-								<p role="alert" className="alert">
-									{errorMessage}
-								</p>
-							</div>
-						</div>
-					) : (
-						<></>
-					)}
-					{players ? (
-						<div className="form__row row">
-							<div className="form__col col">
-								<div className="form__bar">
-									<div className="form__left">
-										<Input onChange={handleSearch} />
-										{/* <button
+				) : (
+					<></>
+				)}
+				{players ? (
+					<div className="form__row row">
+						<div className="form__col col">
+							<div className="form__bar">
+								<div className="form__left">
+									<Input onChange={handleSearch} />
+									{/* <button
 											className="form__button button button--sm-bord-rad"
 											type="submit"
 											>
 											Bulk Actions
 										</button> */}
-										<Filter
-											filters={filters}
-											submitFilters={submitFilters}
-											handleRemoveFromFilter={
-												handleRemoveFromFilter
-											}
-										/>
+									<Filter
+										filters={filters}
+										submitFilters={submitFilters}
+										handleRemoveFromFilter={
+											handleRemoveFromFilter
+										}
+									/>
+								</div>
+								<div className="form__right">
+									<div className="input">
+										<label htmlFor="numberOfGenerations">
+											<span className="u-hidden">
+												Number of generations
+											</span>
+											<input
+												id="numberOfGenerations"
+												type="number"
+												ref={numberOfOptimizations}
+												placeholder="Number of generations"
+												disabled={
+													optimizedLineups !==
+													undefined
+												}
+												min={1}
+												required
+											/>
+										</label>
 									</div>
-									<div className="form__right">
-										<div className="input">
-											<label htmlFor="numberOfGenerations">
-												<span className="u-hidden">
-													Number of generations
-												</span>
-												<input
-													id="numberOfGenerations"
-													type="number"
-													ref={numberOfOptimizations}
-													placeholder="Number of generations"
-													disabled={
-														optimizedLineups !==
-														undefined
-													}
-													min={1}
-													required
-												/>
-											</label>
-										</div>
-										<button
-											className="form__optimize button button--light"
-											type="submit"
-											onClick={optimizeLineups}
-											disabled={
-												optimizedLineups !== undefined
-											}
-										>
-											Optimize
-										</button>
-									</div>
+									<button
+										className="form__optimize button button--light"
+										type="submit"
+										onClick={optimizeLineups}
+										disabled={
+											optimizedLineups !== undefined
+										}
+									>
+										Optimize
+									</button>
 								</div>
 							</div>
 						</div>
-					) : (
-						<></>
-					)}
-				</div>
-
-				{players && (
-					<Table
-						ascending={ascending}
-						currentSort={currentSort}
-						handleSort={handleSort}
-						players={players}
-						totals={totals}
-						lineupLength={optimizedLineups?.length}
-						handlePagination={handlePagination}
-						pagination={pagination + 1}
-						loading={loading}
-					/>
+					</div>
+				) : (
+					<></>
 				)}
-			</Panel>
-		</Layout>
+			</div>
+
+			{players && (
+				<Table
+					ascending={ascending}
+					currentSort={currentSort}
+					handleSort={handleSort}
+					players={players}
+					totals={totals}
+					lineupLength={optimizedLineups?.length}
+					handlePagination={handlePagination}
+					pagination={pagination + 1}
+					loading={loading}
+				/>
+			)}
+		</Panel>
 	);
 };
 

@@ -103,13 +103,17 @@ $block: 'nav';
 	}
 
 	&__link {
-		color: $white;
+		@include font-weight(600);
 
-		// @include hover-focus {
-		// 	color: $white;
-		// }
+		color: rgba($white, 0.75);
+
+		@include hover-focus {
+			color: $white;
+		}
 
 		&--active {
+			color: $white;
+
 			&:visited {
 				color: $white;
 			}

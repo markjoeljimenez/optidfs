@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 const Nav = () => {
+	const router = useRouter();
+
 	const [isActive, setActiveState] = useState(false);
 
 	const onClick = () => {
@@ -85,7 +88,26 @@ const Nav = () => {
 					<ul className="nav__list">
 						<li className="nav__item">
 							<Link href="/">
-								<a className="nav__link">Optimize</a>
+								<a
+									className={`nav__link ${
+										router.pathname === '/' &&
+										'nav__link--active'
+									}`}
+								>
+									Optimize
+								</a>
+							</Link>
+						</li>
+						<li className="nav__item">
+							<Link href="/faq">
+								<a
+									className={`nav__link ${
+										router.pathname === '/faq' &&
+										'nav__link--active'
+									}`}
+								>
+									FAQ
+								</a>
 							</Link>
 						</li>
 						{/* <li className="nav__item">

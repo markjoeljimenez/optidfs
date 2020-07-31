@@ -1,5 +1,7 @@
 import * as Sentry from '@sentry/browser';
 
+import Layout from '../layouts/default';
+
 import 'normalize.css';
 import '@tippyjs/react/node_modules/tippy.js/dist/tippy.css';
 import '@tippyjs/react/node_modules/tippy.js/themes/light.css';
@@ -14,7 +16,11 @@ const App = ({ Component, pageProps }) => {
 		});
 	}
 
-	return <Component {...pageProps} />;
+	return (
+		<Layout>
+			<Component {...pageProps} />
+		</Layout>
+	);
 };
 
 export default App;
