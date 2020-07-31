@@ -205,15 +205,15 @@ const Index = ({ data }: IIndex) => {
 
 		const result = fuse.search(value);
 
-		// const transformedSearch = uniqBy(
-		// 	value
-		// 		? result.map((player) => player.item)
-		// 		: optimizedPlayers?.length
-		// 		? optimizedPlayers
-		// 		: defaultPlayers
-		// );
+		const transformedSearch = uniqBy(
+			value
+				? result.map((player) => player.item)
+				: optimizedLineups?.[pagination].players.length
+				? optimizedLineups?.[pagination].players
+				: defaultPlayers
+		);
 
-		// // If sort has been previously set, we should sort the transformedSearch automatically
+		// If sort has been previously set, we should sort the transformedSearch automatically
 		// if (currentSort) {
 		// 	transformedSearch = sort(
 		// 		transformedSearch,
@@ -222,7 +222,7 @@ const Index = ({ data }: IIndex) => {
 		// 	);
 		// }
 
-		// setPlayers(transformedSearch);
+		setPlayers(transformedSearch);
 	};
 
 	/**
