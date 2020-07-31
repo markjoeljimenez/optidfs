@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import uniqBy from 'lodash.uniqby';
 import fetch from 'node-fetch';
 import Fuse from 'fuse.js';
@@ -17,6 +17,7 @@ import Filter from '../components/filter';
 import { get, post } from '../scripts/utilities/fetch';
 import Dropdown from '../components/dropdown';
 import Input from '../components/input';
+import { resetIdCounter } from 'downshift';
 
 export interface IContestResponse {
 	contests: IContest[];
@@ -78,12 +79,17 @@ const filterPlayers = (
 	});
 
 const Index = ({ data }: IIndex) => {
+	const numberOfOptimizations = useRef<HTMLInputElement>(null);
+
 	const [draftGroupId, setDraftGroupId] = useState<number | null>(null);
 
+	const [pagination, setPagination] = useState<number>(0);
+
 	const [defaultPlayers, setDefaultPlayers] = useState<IDraftKingsPlayer[]>();
-	const [optimizedPlayers, setOptimizedPlayers] = useState<
-		IDraftKingsPlayer[]
+	const [optimizedLineups, setOptimizedLineups] = useState<
+		IResponse['lineups']
 	>();
+	// const [optimizedPlayers, setOptimizedPlayers] = useState<IDraftKingsPlayer[]>();
 	const [players, setPlayers] = useState<IDraftKingsPlayer[]>();
 	const [totals, setTotals] = useState<ITotals>();
 
@@ -92,6 +98,7 @@ const Index = ({ data }: IIndex) => {
 
 	const [isError, setIsError] = useState(false);
 	const [errorMessage, setErrorMessage] = useState<string | null>('');
+	const [loading, setLoading] = useState<boolean>(false);
 
 	// Filtering
 	const [filters, setFilters] = useState<IFilterValue[]>([]);
@@ -114,36 +121,50 @@ const Index = ({ data }: IIndex) => {
 	) => {
 		e.preventDefault();
 
+		const value = numberOfOptimizations.current?.value;
+
 		if (!draftGroupId) {
 			return;
 		}
 
-		const URL = `${API}/${OPTIMIZE}`;
+		if (!value) {
+			setIsError(true);
+			setErrorMessage('Invalid input for number of generations');
+
+			return;
+		}
+
+		setIsError(false);
+		setErrorMessage(null);
+		setLoading(true);
 
 		try {
-			const response = await post(URL);
+			const response = await post(`${API}/${OPTIMIZE}?n=${value}`).then(
+				(res) => {
+					setLoading(false);
+
+					return res;
+				}
+			);
+
 			const {
 				lineups,
 				success,
 				message,
 			} = (await response.json()) as IResponse;
 
-			const transformedPlayers = lineups[0].players.map((_player) =>
-				players?.find((player) => player.id === _player)
-			);
+			const transformedLineups = lineups.map((lineup) => ({
+				...lineup,
+				players: lineup.players.map((_player) =>
+					players?.find((player) => player.id === _player)
+				),
+			}));
 
 			if (success) {
-				setOptimizedPlayers(transformedPlayers as any);
-				setPlayers(transformedPlayers as any);
-				setTotals({
-					totalFppg: lineups[0].totalFppg,
-					totalSalary: lineups[0].totalSalary,
-				});
+				setOptimizedLineups(transformedLineups as any);
 				setIsError(success);
 			} else {
-				setOptimizedPlayers(undefined);
-				setPlayers(undefined);
-				setTotals(undefined);
+				setOptimizedLineups(undefined);
 				setIsError(!success);
 				setErrorMessage(message);
 			}
@@ -184,13 +205,13 @@ const Index = ({ data }: IIndex) => {
 
 		const result = fuse.search(value);
 
-		const transformedSearch = uniqBy(
-			value
-				? result.map((player) => player.item)
-				: optimizedPlayers?.length
-				? optimizedPlayers
-				: defaultPlayers
-		);
+		// const transformedSearch = uniqBy(
+		// 	value
+		// 		? result.map((player) => player.item)
+		// 		: optimizedPlayers?.length
+		// 		? optimizedPlayers
+		// 		: defaultPlayers
+		// );
 
 		// // If sort has been previously set, we should sort the transformedSearch automatically
 		// if (currentSort) {
@@ -201,7 +222,7 @@ const Index = ({ data }: IIndex) => {
 		// 	);
 		// }
 
-		setPlayers(transformedSearch);
+		// setPlayers(transformedSearch);
 	};
 
 	/**
@@ -224,6 +245,21 @@ const Index = ({ data }: IIndex) => {
 		const { value } = e.currentTarget;
 
 		setFilters(filters?.filter((filter) => filter.value !== value));
+	};
+
+	const handlePagination = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const { value } = e.currentTarget;
+
+		if (pagination + parseInt(value) < 0) {
+			setPagination(0);
+		} else if (
+			pagination + parseInt(value) >=
+			optimizedLineups?.length! - 1
+		) {
+			setPagination(optimizedLineups?.length! - 1);
+		} else {
+			setPagination(pagination + parseInt(value));
+		}
 	};
 
 	// Get players
@@ -255,13 +291,44 @@ const Index = ({ data }: IIndex) => {
 	// Filter players
 	useEffect(() => {
 		if (!filters.length || filters.length === 0) {
-			setPlayers(optimizedPlayers || defaultPlayers);
+			setPlayers(
+				(optimizedLineups?.[pagination]
+					.players as IDraftKingsPlayer[]) || defaultPlayers
+			);
 
 			return;
 		}
 
-		setPlayers(filterPlayers(filters, optimizedPlayers || defaultPlayers));
+		setPlayers(
+			filterPlayers(
+				filters,
+				(optimizedLineups?.[pagination]
+					.players as IDraftKingsPlayer[]) || defaultPlayers
+			)
+		);
 	}, [filters]);
+
+	// Pagination
+	useEffect(() => {
+		if (!optimizedLineups || pagination >= optimizedLineups.length) {
+			return;
+		}
+
+		const { players, totalFppg, totalSalary } = optimizedLineups[
+			pagination
+		];
+
+		// If there are any filters, filter players first before setting
+		setPlayers(
+			filters?.length !== 0
+				? filterPlayers(filters, players as IDraftKingsPlayer[])
+				: (players as IDraftKingsPlayer[])
+		);
+		setTotals({
+			totalFppg,
+			totalSalary,
+		});
+	}, [optimizedLineups, pagination]);
 
 	return (
 		<Layout>
@@ -274,10 +341,11 @@ const Index = ({ data }: IIndex) => {
 								handleClearContestSelection={() => {
 									setDraftGroupId(null);
 									setIsError(false);
-									setErrorMessage('');
+									setErrorMessage(null);
 									setPlayers(undefined);
 									setDefaultPlayers(undefined);
-									setOptimizedPlayers(undefined);
+									// setOptimizedPlayers(undefined);
+									setOptimizedLineups(undefined);
 									setTotals(undefined);
 								}}
 								onContestChange={onContestChange}
@@ -287,7 +355,9 @@ const Index = ({ data }: IIndex) => {
 					{isError && errorMessage ? (
 						<div className="form__row row">
 							<div className="form__col col">
-								<p role="alert">{errorMessage}</p>
+								<p role="alert" className="alert">
+									{errorMessage}
+								</p>
 							</div>
 						</div>
 					) : (
@@ -297,12 +367,12 @@ const Index = ({ data }: IIndex) => {
 						<div className="form__row row">
 							<div className="form__col col">
 								<div className="form__bar">
-									<div>
+									<div className="form__left">
 										<Input onChange={handleSearch} />
 										{/* <button
 											className="form__button button button--sm-bord-rad"
 											type="submit"
-										>
+											>
 											Bulk Actions
 										</button> */}
 										<Filter
@@ -313,13 +383,37 @@ const Index = ({ data }: IIndex) => {
 											}
 										/>
 									</div>
-									<button
-										className="form__optimize button button--light"
-										type="submit"
-										onClick={optimizeLineups}
-									>
-										Optimize
-									</button>
+									<div className="form__right">
+										<div className="input">
+											<label htmlFor="numberOfGenerations">
+												<span className="u-hidden">
+													Number of generations
+												</span>
+												<input
+													id="numberOfGenerations"
+													type="number"
+													ref={numberOfOptimizations}
+													placeholder="Number of generations"
+													disabled={
+														optimizedLineups !==
+														undefined
+													}
+													min={1}
+													required
+												/>
+											</label>
+										</div>
+										<button
+											className="form__optimize button button--light"
+											type="submit"
+											onClick={optimizeLineups}
+											disabled={
+												optimizedLineups !== undefined
+											}
+										>
+											Optimize
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -335,6 +429,10 @@ const Index = ({ data }: IIndex) => {
 						handleSort={handleSort}
 						players={players}
 						totals={totals}
+						lineupLength={optimizedLineups?.length}
+						handlePagination={handlePagination}
+						pagination={pagination + 1}
+						loading={loading}
 					/>
 				)}
 			</Panel>

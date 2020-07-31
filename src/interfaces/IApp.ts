@@ -7,8 +7,8 @@ export interface IResponse {
 }
 
 export interface ILineup {
-	// players: IDraftKingsPlayer[];
-	players: string[];
+	players: (string | IDraftKingsPlayer)[];
+	// players: string[];
 	totalSalary: number;
 	totalFppg: number;
 }

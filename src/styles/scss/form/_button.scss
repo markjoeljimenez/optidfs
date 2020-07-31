@@ -9,6 +9,11 @@ $block: 'button';
 		background-color: $grey-400;
 		color: $white;
 		cursor: default;
+
+		&:hover,
+		&:focus {
+			background-color: $grey-400;
+		}
 	}
 
 	& + & {

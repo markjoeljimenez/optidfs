@@ -36,6 +36,15 @@ $block: 'table';
 		&--total {
 			font-weight: 600;
 		}
+
+		&--pagination {
+			button {
+				@include image-replacement;
+
+				cursor: pointer;
+				fill: $primary;
+			}
+		}
 	}
 
 	&__cell {
@@ -89,5 +98,13 @@ $block: 'table';
 		@include hover-focus {
 			text-decoration: underline;
 		}
+	}
+
+	&__stats {
+		@include font-weight(600);
+
+		color: $primary;
+		font-size: 0.875rem;
+		text-transform: uppercase;
 	}
 }

@@ -1,0 +1,8 @@
+@import '../reference/index';
+
+$block: 'alert';
+
+.#{$block} {
+	color: $red;
+	font-size: 500;
+}

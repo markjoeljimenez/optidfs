@@ -11,7 +11,7 @@ $block: 'form';
 	}
 
 	&__row + &__row {
-		margin-top: 1.5rem;
+		margin-top: 1rem;
 	}
 
 	&__col {
@@ -64,16 +64,36 @@ $block: 'form';
 
 	&__bar {
 		display: flex;
+		flex-direction: column;
 		justify-content: space-between;
 		width: 100%;
+
+		@include media-min(md) {
+			flex-direction: row;
+		}
 
 		> * {
 			display: flex;
 		}
 	}
 
+	&__left {
+		flex-direction: column;
+
+		@include media-min(md) {
+			flex-direction: row;
+		}
+	}
+
+	&__right {
+	}
+
 	&__filter {
 		display: inline-block;
+		margin-left: 1rem;
+	}
+
+	&__optimize {
 		margin-left: 1rem;
 	}
 }

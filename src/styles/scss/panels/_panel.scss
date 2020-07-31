@@ -3,8 +3,8 @@
 $block: 'panel';
 
 .#{$block} {
-	margin-bottom: 2rem;
-	margin-top: 2rem;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
 
 	@include media-min(md) {
 		margin-bottom: 5rem;
@@ -12,7 +12,7 @@ $block: 'panel';
 	}
 
 	> * {
-		margin-top: 1.5rem;
+		margin-top: 1rem;
 	}
 
 	.table-wrapper {

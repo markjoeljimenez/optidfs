@@ -18,7 +18,7 @@ class MyDocument extends Document {
 	render() {
 		return (
 			<Html>
-				<Head />
+				<Head title="DraftKings NBA Optimizer" />
 				<body>
 					<Main />
 					<NextScript />
