@@ -10,6 +10,7 @@ require('dotenv').config();
 const config = {
 	env: {
 		ENDPOINT: process.env.ENDPOINT,
+		GA_TRACKING_ID: process.env.GA_TRACKING_ID,
 	},
 	webpack: (config, { dev }) => {
 		// ESLint config

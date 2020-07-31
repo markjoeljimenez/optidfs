@@ -19,7 +19,24 @@ class MyDocument extends Document {
 	render() {
 		return (
 			<Html>
-				<Head />
+				<Head>
+					<script
+						async
+						src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_TRACKING_ID}`}
+					/>
+
+					<script
+						// eslint-disable-next-line react/no-danger
+						dangerouslySetInnerHTML={{
+							__html: `
+							window.dataLayer = window.dataLayer || [];
+							function gtag(){dataLayer.push(arguments);}
+							gtag('js', new Date());
+							gtag('config', '${process.env.GA_TRACKING_ID}');
+						`,
+						}}
+					/>
+				</Head>
 				<NextSeo
 					title="DraftKings NBA Optimizer"
 					description="A tool to help you generate the best NBA lineups for DraftKings"
