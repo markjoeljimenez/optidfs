@@ -209,7 +209,6 @@ const Table = ({
 							{lineupLength && lineupLength > 1 ? (
 								<tr className="table__row table__row--total table__row--pagination">
 									<td className="table__cell">
-										{console.log(pagination)}
 										{pagination !== 1 ? (
 											<button
 												type="button"

@@ -17,7 +17,6 @@ import Filter from '../components/filter';
 import { get, post } from '../scripts/utilities/fetch';
 import Dropdown from '../components/dropdown';
 import Input from '../components/input';
-import { resetIdCounter } from 'downshift';
 
 export interface IContestResponse {
 	contests: IContest[];
@@ -314,6 +313,7 @@ const Index = ({ data }: IIndex) => {
 			return;
 		}
 
+		// eslint-disable-next-line no-shadow
 		const { players, totalFppg, totalSalary } = optimizedLineups[
 			pagination
 		];
