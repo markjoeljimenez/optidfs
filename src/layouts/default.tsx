@@ -1,8 +1,5 @@
-import Head from 'next/head';
-
 import SkipLink from '../components/global/skiplink';
 
-import config from '../data/site.json';
 import Header from '../components/global/header';
 
 export interface ILayoutProps {
@@ -11,12 +8,6 @@ export interface ILayoutProps {
 
 const Layout = ({ children }: ILayoutProps) => (
 	<>
-		<Head>
-			<title>{config.title}</title>
-			<link rel="icon" href="/favicon.ico" />
-			<meta name="description" content={config.description} />
-		</Head>
-
 		<SkipLink text="Skip to content" />
 
 		<Header />

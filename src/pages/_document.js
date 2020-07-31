@@ -1,5 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import * as Sentry from '@sentry/browser';
+import { NextSeo } from 'next-seo';
 
 process.on('unhandledRejection', (err) => {
 	Sentry.captureException(err);
@@ -18,7 +19,11 @@ class MyDocument extends Document {
 	render() {
 		return (
 			<Html>
-				<Head title="DraftKings NBA Optimizer" />
+				<Head />
+				<NextSeo
+					title="DraftKings NBA Optimizer"
+					description="A tool to help you generate the best NBA lineups for DraftKings"
+				/>
 				<body>
 					<Main />
 					<NextScript />

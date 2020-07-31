@@ -11,7 +11,7 @@ const Nav = () => {
 	return (
 		<nav className={`nav ${isActive ? 'nav--active' : ''}`}>
 			<div className="nav__container">
-				<h1 className="nav__heading">DK Optimizer</h1>
+				<h1 className="nav__heading">DK NBA Optimizer</h1>
 				<div className="nav__main">
 					<button
 						className="nav__mobile-button"
