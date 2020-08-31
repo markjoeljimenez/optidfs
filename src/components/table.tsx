@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
-import { ITotals } from '../pages';
+import { ITotals } from '../pages/index.old';
 import { IPlayerStats } from '../interfaces/IPlayerStats';
 
 import Chevron from './global/chevron';

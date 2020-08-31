@@ -2,38 +2,19 @@ import createSagaMiddleware from 'redux-saga';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { useMemo } from 'react';
 
-import { IContest } from './interfaces/IApp';
 import table from './containers/Table/Table.reducers';
+import dropdown from './containers/Dropdown/Dropdown.reducers';
+
 import rootSaga from './sagas';
 
 let store;
-
-export interface IInitialState {
-	contests?: IContest[] | null;
-}
-
-const initialState: IInitialState = {
-	contests: [],
-};
-
-const dropdown = (state = initialState, { type, contests }) => {
-	switch (type) {
-		case 'SET_CONTESTS':
-			return {
-				...state,
-				contests,
-			};
-		default:
-			return state;
-	}
-};
 
 const reducer = combineReducers({
 	dropdown,
 	table,
 });
 
-function initStore(preloadedState = initialState) {
+function initStore(preloadedState = {}) {
 	const saga = createSagaMiddleware();
 
 	const _store = createStore(reducer, preloadedState, applyMiddleware(saga));

@@ -42,10 +42,8 @@ const Dropdown = (props: any) => (
 					<button
 						className="input-dropdown__button"
 						onClick={() => {
-							// clearSelection();
-							// if (handleClearContestSelection) {
-							// 	handleClearContestSelection();
-							// }
+							clearSelection();
+							props.resetPlayers();
 						}}
 						aria-label="clear selection"
 						type="button"
