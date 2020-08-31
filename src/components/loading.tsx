@@ -1,6 +1,6 @@
 interface ILoading {
 	children: React.ReactNode;
-	loading: boolean;
+	loading?: boolean;
 }
 
 const Loading = ({ children, loading }: ILoading) =>

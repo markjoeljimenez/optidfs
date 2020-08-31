@@ -6,7 +6,7 @@ import Table from '../containers/Table/Table';
 
 const API = process.env.ENDPOINT;
 
-const App = () => (
+const App = ({ initialReduxState }: any) => (
 	<Panel>
 		<div className="row">
 			<div className="column">
