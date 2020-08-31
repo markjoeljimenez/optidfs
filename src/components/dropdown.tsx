@@ -1,21 +1,14 @@
 import Downshift from 'downshift';
-import { IContestResponse } from '../pages';
+import { IContest } from '../interfaces/IApp';
 
-interface IDropdown {
-	data: IContestResponse;
-	onContestChange?: (selectedItem: any) => void;
-	handleClearContestSelection?: () => void;
-}
-
-const Dropdown = ({
-	data,
-	onContestChange,
-	handleClearContestSelection,
-}: IDropdown) => (
+const Dropdown = (props: any) => (
 	<Downshift
-		onChange={
-			onContestChange && ((selection) => onContestChange(selection))
+		onChange={(selection: IContest | null) =>
+			props.getPlayers(selection?.draft_group_id)
 		}
+		// onChange={
+		// 	onContestChange && ((selection) => onContestChange(selection))
+		// }
 		itemToString={(item) => (item ? item.name : '')}
 	>
 		{({
@@ -49,11 +42,10 @@ const Dropdown = ({
 					<button
 						className="input-dropdown__button"
 						onClick={() => {
-							clearSelection();
-
-							if (handleClearContestSelection) {
-								handleClearContestSelection();
-							}
+							// clearSelection();
+							// if (handleClearContestSelection) {
+							// 	handleClearContestSelection();
+							// }
 						}}
 						aria-label="clear selection"
 						type="button"
@@ -102,7 +94,7 @@ const Dropdown = ({
 				)}
 				{isOpen ? (
 					<ul className="input-dropdown__list" {...getMenuProps()}>
-						{data.contests?.map((item, index) => (
+						{props.contests?.map((item, index) => (
 							<li
 								className="input-dropdown__item"
 								{...getItemProps({
@@ -111,9 +103,7 @@ const Dropdown = ({
 									item,
 								})}
 							>
-								{item.draft_group_id}
-								-
-								{item.name}
+								{item.draft_group_id}-{item.name}
 							</li>
 						))}
 					</ul>

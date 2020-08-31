@@ -80,5 +80,6 @@ module.exports = {
 		'function-paren-newline': [0],
 		'@typescript-eslint/no-non-null-assertion': [0],
 		'react/jsx-props-no-spreading': [0],
+		'no-underscore-dangle': [0],
 	},
 };

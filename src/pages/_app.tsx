@@ -1,4 +1,6 @@
 import * as Sentry from '@sentry/browser';
+import { Provider } from 'react-redux';
+import { useStore } from '../store';
 
 import Layout from '../layouts/default';
 
@@ -7,8 +9,14 @@ import '@tippyjs/react/node_modules/tippy.js/dist/tippy.css';
 import '@tippyjs/react/node_modules/tippy.js/themes/light.css';
 
 import '../styles/styles.scss';
+import Dashboard from '../layouts/dashboard';
 
-const App = ({ Component, pageProps }) => {
+interface IApp {
+	Component: any;
+	pageProps: any;
+}
+
+const App = ({ Component, pageProps }: IApp) => {
 	if (process.env.NODE_ENV !== 'development' && process.env.SENTRY_DSN) {
 		Sentry.init({
 			dsn: process.env.SENTRY_DSN,
@@ -16,10 +24,14 @@ const App = ({ Component, pageProps }) => {
 		});
 	}
 
+	const store = useStore(pageProps.initialReduxState);
+
 	return (
-		<Layout>
-			<Component {...pageProps} />
-		</Layout>
+		<Provider store={store}>
+			<Dashboard>
+				<Component {...pageProps} />
+			</Dashboard>
+		</Provider>
 	);
 };
 
