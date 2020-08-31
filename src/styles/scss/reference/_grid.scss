@@ -14,7 +14,7 @@ $grid-gutter-width: (
 	xl: 2rem,
 );
 
-$padding-horizontal: 1rem;
+$padding-horizontal: 3rem;
 
 // Maximum width of the grid.
 $grid-max-width: 68rem !default;
@@ -24,8 +24,13 @@ $grid-max-width: 68rem !default;
 	margin-left: auto;
 	margin-right: auto;
 	max-width: $grid-max-width;
-	padding-left: $padding-horizontal;
-	padding-right: $padding-horizontal;
+	padding-left: 1rem;
+	padding-right: 1rem;
+
+	@include media-min(md) {
+		padding-left: $padding-horizontal;
+		padding-right: $padding-horizontal;
+	}
 }
 
 /// Creates a row, allowing columns to fit within it.

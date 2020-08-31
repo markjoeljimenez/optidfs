@@ -13,9 +13,8 @@ const Nav = () => {
 
 	return (
 		<nav className={`nav ${isActive ? 'nav--active' : ''}`}>
-			<div className="nav__container">
-				<h1 className="nav__heading">DK NBA Optimizer</h1>
-				<div className="nav__main">
+			<div className="nav__heading-container">
+				<div className="nav__container">
 					<button
 						className="nav__mobile-button"
 						onClick={onClick}
@@ -85,32 +84,35 @@ const Nav = () => {
 						)}
 						Menu
 					</button>
-					<ul className="nav__list">
-						<li className="nav__item">
-							<Link href="/">
-								<a
-									className={`nav__link ${
-										router.pathname === '/' &&
-										'nav__link--active'
-									}`}
-								>
-									Optimize
-								</a>
-							</Link>
-						</li>
-						<li className="nav__item">
-							<Link href="/faq">
-								<a
-									className={`nav__link ${
-										router.pathname === '/faq' &&
-										'nav__link--active'
-									}`}
-								>
-									FAQ
-								</a>
-							</Link>
-						</li>
-						{/* <li className="nav__item">
+					<h1 className="nav__heading">DK NBA Optimizer</h1>
+				</div>
+			</div>
+			<ul className="nav__list">
+				<li className="nav__item">
+					<Link href="/">
+						<a
+							className={`nav__link ${
+								router.pathname === '/' && 'nav__link--active'
+							}`}
+						>
+							Optimize
+						</a>
+					</Link>
+				</li>
+				<li className="nav__item">
+					<Link href="/faq">
+						<a
+							className={`nav__link ${
+								router.pathname === '/faq' &&
+								'nav__link--active'
+							}`}
+						>
+							FAQ
+						</a>
+					</Link>
+				</li>
+
+				{/* <li className="nav__item">
                                 <Link
                                     to="/statistics"
                                     className="nav__link"
@@ -128,9 +130,7 @@ const Nav = () => {
                                     Help
                                 </Link>
                             </li> */}
-					</ul>
-				</div>
-			</div>
+			</ul>
 		</nav>
 	);
 };

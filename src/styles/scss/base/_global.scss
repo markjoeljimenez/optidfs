@@ -1,5 +1,12 @@
 @import '../reference/index';
 
+#__next {
+	@include media-min(md) {
+		display: flex;
+		min-height: 100vh;
+	}
+}
+
 .container {
 	max-width: 55rem;
 	padding-left: 1rem;

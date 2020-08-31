@@ -3,11 +3,9 @@
 $block: 'nav';
 
 .#{$block} {
-	$horizontal-spacing: 1rem;
-
 	background-color: $primary;
-	padding-bottom: $horizontal-spacing;
-	padding-top: $horizontal-spacing;
+	// padding-bottom: $horizontal-spacing;
+	// padding-top: $horizontal-spacing;
 
 	&--active {
 		.#{$block}__list {
@@ -18,8 +16,12 @@ $block: 'nav';
 	&__container {
 		@include container;
 
-		display: flex;
-		justify-content: space-between;
+		margin-left: initial;
+		margin-right: initial;
+		position: relative;
+
+		// display: flex;
+		// justify-content: space-between;
 	}
 
 	&__main {
@@ -34,6 +36,10 @@ $block: 'nav';
 		cursor: pointer;
 		display: inline-block;
 		padding: 0;
+		position: absolute;
+		left: 1rem;
+		top: 50%;
+		transform: translateY(-50%);
 
 		@include media-min(md) {
 			display: none;
@@ -45,27 +51,35 @@ $block: 'nav';
 		}
 	}
 
+	&__heading-container {
+		background-color: $primary-dark;
+	}
+
 	&__heading {
 		color: $white;
-		display: inline-block;
 		font-size: 1.25rem;
 		margin: 0;
+		padding: 1rem 0;
+		text-align: center;
+
+		@include media-min(md) {
+			padding: 2rem 0;
+		}
 	}
 
 	&__list {
 		@include font-size-20;
-		@include container;
 
-		background-color: $primary-dark;
+		background-color: $primary;
 		bottom: 0;
 		left: 0;
 		list-style: none;
 		margin-bottom: 0;
 		margin-top: 0;
-		padding-top: 2rem;
+		padding-left: 0;
 		position: fixed;
 		right: 0;
-		top: 5.875rem;
+		top: 3.85rem;
 		transition: all 0.3s ease-in-out;
 		transform: translate3d(-100%, 0, 0);
 		z-index: 999;
@@ -74,31 +88,36 @@ $block: 'nav';
 			@include font-size-16;
 
 			background-color: transparent;
+			margin-left: initial;
+			margin-right: initial;
 			padding-left: 0;
 			padding-right: 0;
 			padding-top: 0;
 			position: static;
 			transition: none;
 			transform: none;
+			width: 100%;
 		}
 	}
 
 	&__item {
 		display: block;
-		margin-bottom: 1.5rem;
-		margin-top: 1.5rem;
+		// margin-bottom: 1.5rem;
+		// margin-top: 1.5rem;
 
 		@include media-min(md) {
-			display: inline-block;
-			margin: 0 1rem;
+			// margin-bottom: 2rem;
+			// margin-top: 2rem;
+			// display: inline-block;
+			// margin: 0 1rem;
 
-			&:first-child {
-				margin-left: 0;
-			}
+			// &:first-child {
+			// 	margin-left: 0;
+			// }
 
-			&:last-child {
-				margin-right: 0;
-			}
+			// &:last-child {
+			// 	margin-right: 0;
+			// }
 		}
 	}
 
@@ -106,12 +125,19 @@ $block: 'nav';
 		@include font-weight(600);
 
 		color: rgba($white, 0.75);
+		display: block;
+		padding: 1rem;
+
+		@include media-min(md) {
+			padding: 1rem $padding-horizontal;
+		}
 
 		@include hover-focus {
 			color: $white;
 		}
 
 		&--active {
+			background-color: $primary-dark;
 			color: $white;
 
 			&:visited {

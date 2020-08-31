@@ -1,0 +1,16 @@
+@import '../reference/index';
+
+$block: 'dashboard';
+
+.#{$block} {
+	@include media-min(md) {
+		margin-top: 5.875rem;
+		flex: 1;
+	}
+
+	.panel {
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
