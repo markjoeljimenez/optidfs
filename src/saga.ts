@@ -41,7 +41,7 @@ function* optimizePlayers(action) {
 	try {
 		const state = yield select((_state) => _state);
 
-		if (!action.draftGroupId || state.table.lineups) {
+		if (!action.draftGroupId) {
 			return;
 		}
 
