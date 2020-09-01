@@ -1,0 +1,11 @@
+@import '../reference/index';
+
+$block: 'row';
+
+.#{$block} {
+	margin-top: 1.5rem;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}

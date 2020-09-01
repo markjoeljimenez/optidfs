@@ -7,7 +7,7 @@ import Table from '../../components/table';
 const TableContainer = (props: any) => {
 	const { players, loading } = props;
 
-	return players?.length ? (
+	return players ? (
 		<Loading loading={loading}>
 			<Table {...props} />
 		</Loading>

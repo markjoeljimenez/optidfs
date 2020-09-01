@@ -11,13 +11,13 @@ const App = ({ initialReduxState }: any) => (
 	<Panel>
 		<div className="row">
 			<div className="col">
-				<div className="form__row row">
-					<div className="form__col form__col--inline col">
+				<div className="row">
+					<div className="col">
 						<Dropdown />
 					</div>
 				</div>
-				<div className="form__row row">
-					<div className="form__col form__col--inline col">
+				<div className="row">
+					<div className="col">
 						<Bar />
 					</div>
 				</div>

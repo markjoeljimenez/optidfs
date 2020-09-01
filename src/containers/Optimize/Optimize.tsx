@@ -25,7 +25,7 @@ const Optimize = (props: any) => {
 	};
 
 	return (
-		<>
+		<div className="optimize">
 			<div className="input">
 				<label htmlFor="numberOfGenerations">
 					<span className="u-hidden">Number of generations</span>
@@ -49,7 +49,7 @@ const Optimize = (props: any) => {
 			>
 				Optimize
 			</button>
-		</>
+		</div>
 	);
 };
 

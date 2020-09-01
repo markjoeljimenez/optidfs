@@ -5,8 +5,14 @@ import Optimize from '../Optimize/Optimize';
 const BarContainer = ({ draftGroupId }: any) =>
 	draftGroupId ? (
 		<>
-			<Search />
-			<Optimize />
+			<div className="row">
+				<div className="col col-md-9">
+					<Search />
+				</div>
+				<div className="col">
+					<Optimize />
+				</div>
+			</div>
 		</>
 	) : (
 		<></>
