@@ -4,8 +4,7 @@ import { IContest } from '../interfaces/IApp';
 const Dropdown = (props: any) => (
 	<Downshift
 		onChange={(selection: IContest | null) =>
-			props.getPlayers(selection?.draft_group_id)
-		}
+			props.getPlayers(selection?.draft_group_id)}
 		// onChange={
 		// 	onContestChange && ((selection) => onContestChange(selection))
 		// }
@@ -101,7 +100,9 @@ const Dropdown = (props: any) => (
 									item,
 								})}
 							>
-								{item.draft_group_id}-{item.name}
+								{item.draft_group_id}
+								-
+								{item.name}
 							</li>
 						))}
 					</ul>
