@@ -47,7 +47,7 @@ function* optimizePlayers(action) {
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
-		const res = yield get(`${API}/optimize?id=${action.draftGroupId}&n=1`);
+		const res = yield get(`${API}/optimize?id=${action.draftGroupId}&n=2`);
 		const { lineups } = yield res.json();
 
 		yield put({

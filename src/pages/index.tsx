@@ -9,8 +9,8 @@ const API = process.env.ENDPOINT;
 
 const App = ({ initialReduxState }: any) => (
 	<Panel>
-		<div className="row">
-			<div className="col">
+		<div className="form__row row">
+			<div className="form__col form__col--inline col">
 				<Dropdown />
 				<Optimize />
 			</div>

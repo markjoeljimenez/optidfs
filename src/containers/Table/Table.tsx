@@ -1,7 +1,17 @@
 import { connect } from 'react-redux';
 import Loading from '../../components/loading';
+import { nextPage, previousPage } from './Table.actions';
 
-const Table = ({ players, lineups, loading }: any) =>
+const Table = ({
+	players,
+	loading,
+	lineups,
+	page,
+	totalFppg,
+	totalSalary,
+	next,
+	previous,
+}: any) =>
 	players?.length ? (
 		<Loading loading={loading}>
 			<table className="table">
@@ -115,6 +125,91 @@ const Table = ({ players, lineups, loading }: any) =>
 						</tr>
 					))}
 				</tbody>
+
+				{lineups && (
+					<tfoot>
+						<tr className="table__row table__row--total">
+							<td className="table__cell" colSpan={5}>
+								Total
+							</td>
+							<td className="table__cell text-align-right">
+								{new Intl.NumberFormat('en-US', {
+									style: 'currency',
+									currency: 'USD',
+									minimumFractionDigits: 0,
+								}).format(totalSalary)}
+							</td>
+							<td className="table__cell text-align-right">
+								{totalFppg}
+							</td>
+							{/* <td className="table__cell" /> */}
+						</tr>
+						{lineups.length > 1 && (
+							<tr className="table__row table__row--total table__row--pagination">
+								<td className="table__cell">
+									<button
+										type="button"
+										onClick={() => previous()}
+									>
+										Previous
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											width="24"
+											height="24"
+										>
+											<g data-name="Layer 2">
+												<g data-name="arrow-ios-back">
+													<rect
+														width="24"
+														height="24"
+														transform="rotate(90 12 12)"
+														opacity="0"
+													/>
+													<path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z" />
+												</g>
+											</g>
+										</svg>
+									</button>
+								</td>
+								<td
+									className="table__cell text-align-center"
+									colSpan={5}
+								>
+									{`${page + 1} of ${
+										lineups.length
+									} generated lineups`}
+								</td>
+								<td className="table__cell">
+									<button
+										type="button"
+										onClick={() => next()}
+									>
+										Next
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											viewBox="0 0 24 24"
+											width="24"
+											height="24"
+										>
+											<g data-name="Layer 2">
+												<g data-name="arrow-ios-forward">
+													<rect
+														width="24"
+														height="24"
+														transform="rotate(-90 12 12)"
+														opacity="0"
+													/>
+													<path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z" />
+												</g>
+											</g>
+										</svg>
+									</button>
+								</td>
+							</tr>
+						)}
+					</tfoot>
+				)}
 			</table>
 		</Loading>
 	) : (
@@ -125,10 +220,14 @@ const mapStateToProps = ({ table }) => ({
 	players: table.players,
 	loading: table.loading,
 	lineups: table.lineups,
+	page: table.page,
+	totalFppg: table.totalFppg,
+	totalSalary: table.totalSalary,
 });
 
-// const mapDispatchToProps = (dispatch) => ({
-// 	getPlayers: (id) => dispatch(getPlayers(id)),
-// });
+const mapDispatchToProps = (dispatch) => ({
+	next: () => dispatch(nextPage()),
+	previous: () => dispatch(previousPage()),
+});
 
-export default connect(mapStateToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

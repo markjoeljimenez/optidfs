@@ -3,6 +3,8 @@ import {
 	GET_PLAYERS_FAILED,
 	RESET_PLAYERS,
 	LOADING_PLAYERS,
+	NEXT,
+	PREVIOUS,
 } from './Table.actions';
 import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
@@ -17,10 +19,15 @@ interface IActions {
 		totalFppg: number;
 		totalSalary: number;
 	}[];
+	page: number;
+	totalFppg?: number;
+	totalSalary?: number;
 }
 
 const table = (
-	state: IActions = {},
+	state: IActions = {
+		page: 0,
+	},
 	{ type, players, loading, draftGroupId, lineups }: IActions
 ) => {
 	switch (type) {
@@ -49,10 +56,54 @@ const table = (
 				),
 			}));
 
+			const lineup = transformedLineups?.[0];
+
 			return {
 				...state,
+				players: lineup?.players,
+				totalFppg: lineup?.totalFppg,
+				totalSalary: lineup?.totalSalary,
 				lineups: transformedLineups,
 				loading,
+			};
+		}
+
+		case PREVIOUS: {
+			const index = state.page - 1 <= 0 ? 0 : state.page - 1;
+
+			if (!state.lineups) {
+				return state;
+			}
+
+			const lineup = state.lineups[index];
+
+			return {
+				...state,
+				page: index,
+				players: lineup.players,
+				totalFppg: lineup.totalFppg,
+				totalSalary: lineup.totalSalary,
+			};
+		}
+
+		case NEXT: {
+			const index =
+				state.lineups && state.page + 1 >= state.lineups?.length
+					? state.page
+					: state.page + 1;
+
+			if (!state.lineups) {
+				return state;
+			}
+
+			const lineup = state.lineups[index];
+
+			return {
+				...state,
+				page: index,
+				players: lineup.players,
+				totalFppg: lineup.totalFppg,
+				totalSalary: lineup.totalSalary,
 			};
 		}
 

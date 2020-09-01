@@ -3,6 +3,7 @@ import { optimize } from './Optimize.actions';
 
 const Optimize = (props: any) => (
 	<button
+		className="form__optimize button button--light"
 		type="button"
 		onClick={() => {
 			props.optimize(props.draftGroupId);
