@@ -10,13 +10,13 @@ const API = process.env.ENDPOINT;
 const App = ({ initialReduxState }: any) => (
 	<Panel>
 		<div className="row">
-			<div className="column">
+			<div className="col">
 				<Dropdown />
 				<Optimize />
 			</div>
 		</div>
 		<div className="row">
-			<div className="column">
+			<div className="col">
 				<Table />
 			</div>
 		</div>
