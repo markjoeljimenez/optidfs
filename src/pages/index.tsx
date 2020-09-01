@@ -12,9 +12,7 @@ const App = ({ initialReduxState }: any) => (
 	<Panel>
 		<div className="form__row row">
 			<div className="form__col form__col--inline col">
-				<div style={{ marginRight: '1rem', minWidth: '14rem' }}>
-					<Search />
-				</div>
+				<Search />
 
 				<Dropdown />
 

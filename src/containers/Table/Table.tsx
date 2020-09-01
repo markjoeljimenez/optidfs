@@ -4,14 +4,17 @@ import { nextPage, previousPage } from './Table.actions';
 import Loading from '../../components/loading';
 import Table from '../../components/table';
 
-const TableContainer = (props) =>
-	props.players?.length ? (
-		<Loading loading={props.loading}>
+const TableContainer = (props: any) => {
+	const { players, loading } = props;
+
+	return players?.length ? (
+		<Loading loading={loading}>
 			<Table {...props} />
 		</Loading>
 	) : (
 		<></>
 	);
+};
 
 const mapStateToProps = ({ table }) => ({
 	players: table.players,
