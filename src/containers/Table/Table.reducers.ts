@@ -1,3 +1,5 @@
+import Fuse from 'fuse.js';
+
 import {
 	GET_PLAYERS_SUCCEEDED,
 	GET_PLAYERS_FAILED,
@@ -8,9 +10,12 @@ import {
 } from './Table.actions';
 import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
+import { SEARCH_PLAYERS } from '../Search/Search.actions';
 
 interface IActions {
 	type?: string;
+	defaultPlayers?: IDraftKingsPlayer[];
+	optimizedPlayers?: IDraftKingsPlayer[];
 	players?: IDraftKingsPlayer[];
 	loading?: boolean;
 	draftGroupId?: string;
@@ -22,13 +27,14 @@ interface IActions {
 	page: number;
 	totalFppg?: number;
 	totalSalary?: number;
+	searchTerm?: string;
 }
 
 const table = (
 	state: IActions = {
 		page: 0,
 	},
-	{ type, players, loading, draftGroupId, lineups }: IActions
+	{ type, players, loading, draftGroupId, lineups, searchTerm }: IActions
 ) => {
 	switch (type) {
 		case LOADING_PLAYERS:
@@ -40,6 +46,7 @@ const table = (
 		case GET_PLAYERS_SUCCEEDED:
 			return {
 				...state,
+				defaultPlayers: players,
 				players,
 				draftGroupId,
 				loading,
@@ -52,7 +59,9 @@ const table = (
 			const transformedLineups = lineups?.map((lineup) => ({
 				...lineup,
 				players: lineup.players.map((player) =>
-					state.players?.find((_player) => _player.id === player)
+					state.defaultPlayers?.find(
+						(_player) => _player.id === player
+					)
 				),
 			}));
 
@@ -60,6 +69,7 @@ const table = (
 
 			return {
 				...state,
+				optimizedPlayers: lineup?.players,
 				players: lineup?.players,
 				totalFppg: lineup?.totalFppg,
 				totalSalary: lineup?.totalSalary,
@@ -80,6 +90,7 @@ const table = (
 			return {
 				...state,
 				page: index,
+				optimizedPlayers: lineup.players,
 				players: lineup.players,
 				totalFppg: lineup.totalFppg,
 				totalSalary: lineup.totalSalary,
@@ -101,15 +112,51 @@ const table = (
 			return {
 				...state,
 				page: index,
+				optimizedPlayers: lineup.players,
 				players: lineup.players,
 				totalFppg: lineup.totalFppg,
 				totalSalary: lineup.totalSalary,
 			};
 		}
 
+		case SEARCH_PLAYERS: {
+			if (!searchTerm) {
+				return {
+					...state,
+					players: state.optimizedPlayers?.length
+						? state.optimizedPlayers
+						: state.defaultPlayers,
+				};
+			}
+
+			if (!state.players || !state.defaultPlayers) {
+				return state;
+			}
+
+			const fuse = new Fuse(
+				state.optimizedPlayers?.length
+					? state.optimizedPlayers
+					: state.defaultPlayers,
+				{
+					includeScore: true,
+					threshold: 0.2,
+					keys: ['first_name', 'last_name', 'team'],
+				}
+			);
+
+			const result = fuse.search(searchTerm);
+
+			return {
+				...state,
+				players: result.map((player) => player.item),
+			};
+		}
+
 		case RESET_PLAYERS:
 			return {
 				...state,
+				defaultPlayers: undefined,
+				optimizedPlayers: undefined,
 				players: undefined,
 				lineups: undefined,
 				page: 0,

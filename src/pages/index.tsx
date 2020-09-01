@@ -4,7 +4,7 @@ import Dropdown from '../containers/Dropdown/Dropdown';
 import Panel from '../templates/panel';
 import Table from '../containers/Table/Table';
 import Optimize from '../containers/Optimize/Optimize';
-import Input from '../components/input';
+import Search from '../containers/Search/Search';
 
 const API = process.env.ENDPOINT;
 
@@ -13,7 +13,7 @@ const App = ({ initialReduxState }: any) => (
 		<div className="form__row row">
 			<div className="form__col form__col--inline col">
 				<div style={{ marginRight: '1rem', minWidth: '14rem' }}>
-					<Input onChange={() => console.log('test')} />
+					<Search />
 				</div>
 
 				<Dropdown />
