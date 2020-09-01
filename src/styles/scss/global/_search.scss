@@ -7,6 +7,7 @@ $block: 'search';
 
 	@include media-min(md) {
 		display: block;
+		flex: 1;
 		margin-right: 1rem;
 		min-width: 16rem;
 	}

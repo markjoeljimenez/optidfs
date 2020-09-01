@@ -1,23 +1,25 @@
 import { initializeStore } from '../store';
 import { SET_CONTESTS } from '../containers/Dropdown/Dropdown.actions';
-import Dropdown from '../containers/Dropdown/Dropdown';
 import Panel from '../templates/panel';
 import Table from '../containers/Table/Table';
-import Optimize from '../containers/Optimize/Optimize';
-import Search from '../containers/Search/Search';
+import Bar from '../containers/Bar/Bar';
+import Dropdown from '../containers/Dropdown/Dropdown';
 
 const API = process.env.ENDPOINT;
 
 const App = ({ initialReduxState }: any) => (
 	<Panel>
-		<div className="form__row row">
-			<div className="form__col form__col--inline col">
-				<Search />
-
-				<Dropdown />
-
-				<div className="form__bar">
-					<Optimize />
+		<div className="row">
+			<div className="col">
+				<div className="form__row row">
+					<div className="form__col form__col--inline col">
+						<Dropdown />
+					</div>
+				</div>
+				<div className="form__row row">
+					<div className="form__col form__col--inline col">
+						<Bar />
+					</div>
 				</div>
 			</div>
 		</div>
