@@ -89,6 +89,7 @@ $block: 'form';
 
 			@include media-min(md) {
 				flex: initial;
+				min-width: 8rem;
 			}
 		}
 	}
