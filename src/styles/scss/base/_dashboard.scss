@@ -4,7 +4,7 @@ $block: 'dashboard';
 
 .#{$block} {
 	@include media-min(md) {
-		margin-top: 5.875rem;
+		margin-top: 6rem;
 		flex: 1;
 	}
 

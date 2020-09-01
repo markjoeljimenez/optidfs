@@ -16,12 +16,14 @@ $block: 'nav';
 	&__container {
 		@include container;
 
+		background-color: $primary-dark;
 		margin-left: initial;
 		margin-right: initial;
 		position: relative;
 
-		// display: flex;
-		// justify-content: space-between;
+		@include media-min(md) {
+			min-height: 6rem;
+		}
 	}
 
 	&__main {
@@ -49,10 +51,6 @@ $block: 'nav';
 		svg {
 			fill: $white;
 		}
-	}
-
-	&__heading-container {
-		background-color: $primary-dark;
 	}
 
 	&__heading {

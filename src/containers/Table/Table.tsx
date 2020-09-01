@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import Loading from '../../components/loading';
 
-const Table = ({ players, loading }: any) =>
+const Table = ({ players, lineups, loading }: any) =>
 	players?.length ? (
 		<Loading loading={loading}>
 			<table className="table">
@@ -124,6 +124,7 @@ const Table = ({ players, loading }: any) =>
 const mapStateToProps = ({ table }) => ({
 	players: table.players,
 	loading: table.loading,
+	lineups: table.lineups,
 });
 
 // const mapDispatchToProps = (dispatch) => ({

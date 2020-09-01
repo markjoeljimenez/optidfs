@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import table from './containers/Table/Table.reducers';
 import dropdown from './containers/Dropdown/Dropdown.reducers';
 
-import rootSaga from './sagas';
+import rootSaga from './saga';
 
 let store;
 

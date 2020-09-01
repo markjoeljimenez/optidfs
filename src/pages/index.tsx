@@ -3,6 +3,7 @@ import { SET_CONTESTS } from '../containers/Dropdown/Dropdown.actions';
 import Dropdown from '../containers/Dropdown/Dropdown';
 import Panel from '../templates/panel';
 import Table from '../containers/Table/Table';
+import Optimize from '../containers/Optimize/Optimize';
 
 const API = process.env.ENDPOINT;
 
@@ -11,6 +12,7 @@ const App = ({ initialReduxState }: any) => (
 		<div className="row">
 			<div className="column">
 				<Dropdown />
+				<Optimize />
 			</div>
 		</div>
 		<div className="row">

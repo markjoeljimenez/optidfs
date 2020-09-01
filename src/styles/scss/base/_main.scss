@@ -4,6 +4,8 @@ $block: 'main';
 
 .#{$block} {
 	&__container {
-		@include container;
+		// @include container;
+		padding-left: 3rem;
+		padding-right: 3rem;
 	}
 }
