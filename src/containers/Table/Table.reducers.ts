@@ -155,11 +155,13 @@ const table = (
 		case RESET_PLAYERS:
 			return {
 				...state,
+				contests: undefined,
 				defaultPlayers: undefined,
-				optimizedPlayers: undefined,
-				players: undefined,
+				draftGroupId: undefined,
 				lineups: undefined,
+				optimizedPlayers: undefined,
 				page: 0,
+				players: undefined,
 				totalFppg: undefined,
 				totalSalary: undefined,
 			};
