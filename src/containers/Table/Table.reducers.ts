@@ -110,7 +110,11 @@ const table = (
 		case RESET_PLAYERS:
 			return {
 				...state,
-				players: [],
+				players: undefined,
+				lineups: undefined,
+				page: 0,
+				totalFppg: undefined,
+				totalSalary: undefined,
 			};
 
 		default:
