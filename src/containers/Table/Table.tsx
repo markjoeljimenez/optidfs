@@ -14,8 +14,8 @@ const Table = ({
 }: any) =>
 	players?.length ? (
 		<Loading loading={loading}>
-			<div style={{ overflow: 'scroll' }}>
-				<table className="table">
+			<div className="table">
+				<table>
 					<thead>
 						<tr className="table__row table__row--header">
 							{/* <th className="table__cell">

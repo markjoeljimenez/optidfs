@@ -3,19 +3,23 @@
 $block: 'table';
 
 .#{$block} {
-	$border-radius: 0.25rem;
-
-	border-collapse: collapse;
-	color: $grey-900;
-
-	@include media-min(md) {
-		margin-left: auto;
-		margin-right: auto;
-		width: 100%;
-	}
+	overflow-x: scroll;
 
 	&::-webkit-scrollbar {
 		display: none;
+	}
+
+	table {
+		$border-radius: 0.25rem;
+
+		border-collapse: collapse;
+		color: $grey-900;
+
+		@include media-min(md) {
+			margin-left: auto;
+			margin-right: auto;
+			width: 100%;
+		}
 	}
 
 	&__row {

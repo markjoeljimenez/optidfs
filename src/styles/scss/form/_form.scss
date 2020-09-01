@@ -16,8 +16,10 @@ $block: 'form';
 
 	&__col {
 		&--inline {
-			align-items: baseline;
-			display: flex;
+			@include media-min(md) {
+				align-items: baseline;
+				display: flex;
+			}
 		}
 	}
 
@@ -64,34 +66,48 @@ $block: 'form';
 
 	&__bar {
 		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		width: 100%;
 
-		@include media-min(md) {
-			flex-direction: row;
+		// @include media-min(md) {
+		// 	display-
+		// }
+
+		// display: flex;
+		// flex-direction: column;
+		// justify-content: space-between;
+		// width: 100%;
+
+		// @include media-min(md) {
+		// 	flex-direction: row;
+		// }
+
+		// > * {
+		// 	display: flex;
+		// }
+
+		.input {
+			flex: 1;
+
+			@include media-min(md) {
+				flex: initial;
+			}
 		}
-
-		> * {
-			display: flex;
-		}
 	}
 
-	&__left {
-		flex-direction: column;
+	// &__left {
+	// 	flex-direction: column;
 
-		@include media-min(md) {
-			flex-direction: row;
-		}
-	}
+	// 	@include media-min(md) {
+	// 		flex-direction: row;
+	// 	}
+	// }
 
-	&__right {
-	}
+	// &__right {
+	// }
 
-	&__filter {
-		display: inline-block;
-		margin-left: 1rem;
-	}
+	// &__filter {
+	// 	display: inline-block;
+	// 	margin-left: 1rem;
+	// }
 
 	&__optimize {
 		margin-left: 1rem;

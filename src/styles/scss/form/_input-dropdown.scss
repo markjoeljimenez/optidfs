@@ -11,7 +11,12 @@ $block: 'input-dropdown';
 	width: 100%;
 
 	& + * {
-		margin-left: 1.5rem;
+		margin-top: 1rem;
+
+		@include media-min(md) {
+			margin-left: 1.5rem;
+			margin-top: 0;
+		}
 	}
 
 	&--disabled {

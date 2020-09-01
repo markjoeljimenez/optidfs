@@ -12,7 +12,10 @@ const App = ({ initialReduxState }: any) => (
 		<div className="form__row row">
 			<div className="form__col form__col--inline col">
 				<Dropdown />
-				<Optimize />
+
+				<div className="form__bar">
+					<Optimize />
+				</div>
 			</div>
 		</div>
 		<div className="row">
