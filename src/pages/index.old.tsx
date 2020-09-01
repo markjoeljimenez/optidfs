@@ -420,7 +420,7 @@ const Index = ({ data }: IIndex) => {
 				)}
 			</div>
 
-			{players && (
+			{/* {players && (
 				<Table
 					ascending={ascending}
 					currentSort={currentSort}
@@ -432,7 +432,7 @@ const Index = ({ data }: IIndex) => {
 					pagination={pagination + 1}
 					loading={loading}
 				/>
-			)}
+			)} */}
 		</Panel>
 	);
 };
