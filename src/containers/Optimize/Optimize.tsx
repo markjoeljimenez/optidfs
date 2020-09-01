@@ -3,14 +3,23 @@ import { connect } from 'react-redux';
 import { optimize } from './Optimize.actions';
 
 const Optimize = (props: any) => {
+	const max = 20;
 	const inputRef = useRef<HTMLInputElement>(null);
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const value = parseInt(e.currentTarget.value);
+
+		if (value > max) {
+			e.currentTarget.value = max.toString();
+		}
+	};
 
 	const handleClick = () => {
 		if (!inputRef.current) {
 			return;
 		}
 
-		const { value } = inputRef.current;
+		const value = parseInt(inputRef.current.value);
 
 		props.optimize(props.draftGroupId, value);
 	};
@@ -25,9 +34,11 @@ const Optimize = (props: any) => {
 						defaultValue={1}
 						id="numberOfGenerations"
 						min={1}
+						max={max}
 						placeholder="Number of generations"
 						required
 						type="number"
+						onChange={handleChange}
 					/>
 				</label>
 			</div>
