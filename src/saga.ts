@@ -41,20 +41,22 @@ function* optimizePlayers(action) {
 	try {
 		const { dropdown, table } = yield select((_state) => _state);
 
-		const { lockedPlayers } = table;
-
-		console.log(lockedPlayers);
+		const { lockedPlayers, defaultPlayers } = table;
 
 		if (!action.draftGroupId) {
 			return;
 		}
+
+		console.log(defaultPlayers);
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
 		const res = yield post(`${API}/optimize?id=${action.draftGroupId}`, {
 			generations: action.generations,
 			lockedPlayers: lockedPlayers.map((player) => player.id),
+			players: defaultPlayers,
 		});
+
 		const { lineups } = yield res.json();
 
 		yield put({

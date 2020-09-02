@@ -20,6 +20,10 @@ $block: 'table';
 			margin-right: auto;
 			width: 100%;
 		}
+
+		input {
+			max-width: 4rem;
+		}
 	}
 
 	&__row {
@@ -110,5 +114,11 @@ $block: 'table';
 		color: $primary;
 		font-size: 0.875rem;
 		text-transform: uppercase;
+	}
+
+	&__footer {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
 	}
 }

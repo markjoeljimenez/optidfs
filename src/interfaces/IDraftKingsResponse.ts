@@ -27,6 +27,7 @@ export interface IDraftKingsPlayer {
 	status: string | null;
 	isLocked: boolean;
 	isExcluded: boolean;
+	min_exposure?: number;
 }
 
 interface IDraftKingsTeamSeriesList {

@@ -8,6 +8,7 @@ import {
 	LOADING_PLAYERS,
 	NEXT,
 	PREVIOUS,
+	SET_PLAYER_EXPOSURE,
 } from './Table.actions';
 import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
@@ -32,6 +33,8 @@ interface IActions {
 	totalSalary?: number;
 	searchTerm?: string;
 	payload?: any;
+	playerId?: string;
+	value?: string;
 }
 
 const table = (
@@ -47,6 +50,8 @@ const table = (
 		lineups,
 		searchTerm,
 		payload,
+		playerId,
+		value,
 	}: IActions
 ) => {
 	switch (type) {
@@ -82,6 +87,7 @@ const table = (
 
 			return {
 				...state,
+				page: 0,
 				optimizedPlayers: lineup?.players,
 				players: lineup?.players,
 				totalFppg: lineup?.totalFppg,
@@ -178,6 +184,27 @@ const table = (
 							(_player) => _player.id !== parseInt(payload.value)
 					  ),
 			};
+		}
+
+		case SET_PLAYER_EXPOSURE: {
+			if (!playerId || !state.defaultPlayers) {
+				return state;
+			}
+
+			const player = state.defaultPlayers?.find(
+				(_player) => _player.id === parseInt(playerId)
+			);
+
+			if (player) {
+				player.min_exposure = value ? parseFloat(value) : undefined;
+
+				return {
+					...state,
+					defaultPlayers: uniq([...state.defaultPlayers, player]),
+				};
+			}
+
+			return state;
 		}
 
 		case RESET_PLAYERS:

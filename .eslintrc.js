@@ -82,5 +82,6 @@ module.exports = {
 		'react/jsx-props-no-spreading': [0],
 		'no-underscore-dangle': [0],
 		camelcase: [0],
+		'@typescript-eslint/camelcase': [0],
 	},
 };

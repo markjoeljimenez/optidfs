@@ -10,6 +10,7 @@ interface ITable {
 	previous: () => void;
 	next: () => void;
 	lock: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	setExposure: (id, value) => void;
 }
 
 const Table = ({
@@ -22,9 +23,19 @@ const Table = ({
 	previous,
 	next,
 	lock,
+	setExposure,
 }: ITable) => {
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		lock(e);
+	};
+
+	const handleExposureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const { value } = e.currentTarget;
+		const id = e.currentTarget.getAttribute('data-player-id');
+
+		if (id) {
+			setExposure(id, value);
+		}
 	};
 
 	return (
@@ -90,9 +101,9 @@ const Table = ({
 							)} */}
 							</button>
 						</th>
-						{/* <th className="table__cell">
-						<span hidden>Options</span>
-					</th> */}
+						<th className="table__cell text-align-right">
+							Exposure
+						</th>
 					</tr>
 				</thead>
 				<tbody className="table__tbody">
@@ -145,16 +156,19 @@ const Table = ({
 							<td className="table__cell text-align-right">
 								{player.points_per_contest}
 							</td>
-							{/* <td className="table__cell">
-							<button
-								className="table__link table__stats"
-								type="button"
-								value={`${player.first_name} ${player.last_name}`}
-								// onClick={viewStats}
-							>
-								Stats
-							</button>
-						</td> */}
+							<td className="table__cell text-align-right">
+								{player.status !== 'O' && (
+									<input
+										type="number"
+										min={0}
+										max={1}
+										step={0.1}
+										defaultValue={player.min_exposure}
+										data-player-id={player.id}
+										onChange={handleExposureChange}
+									/>
+								)}
+							</td>
 						</tr>
 					))}
 				</tbody>
@@ -176,69 +190,66 @@ const Table = ({
 							<td className="table__cell text-align-right">
 								{totalFppg}
 							</td>
-							{/* <td className="table__cell" /> */}
+							<td className="table__cell" />
 						</tr>
 						{lineups.length > 1 && (
 							<tr className="table__row table__row--total table__row--pagination">
-								<td className="table__cell">
-									<button
-										type="button"
-										onClick={() => previous()}
-									>
-										Previous
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 24 24"
-											width="24"
-											height="24"
+								<td className="table__cell" colSpan={9}>
+									<div className="table__footer">
+										<button
+											type="button"
+											onClick={() => previous()}
 										>
-											<g data-name="Layer 2">
-												<g data-name="arrow-ios-back">
-													<rect
-														width="24"
-														height="24"
-														transform="rotate(90 12 12)"
-														opacity="0"
-													/>
-													<path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z" />
+											Previous
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+												width="24"
+												height="24"
+											>
+												<g data-name="Layer 2">
+													<g data-name="arrow-ios-back">
+														<rect
+															width="24"
+															height="24"
+															transform="rotate(90 12 12)"
+															opacity="0"
+														/>
+														<path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z" />
+													</g>
 												</g>
-											</g>
-										</svg>
-									</button>
-								</td>
-								<td
-									className="table__cell text-align-center"
-									colSpan={6}
-								>
-									{`${page + 1} of ${
-										lineups.length
-									} generated lineups`}
-								</td>
-								<td className="table__cell">
-									<button
-										type="button"
-										onClick={() => next()}
-									>
-										Next
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											viewBox="0 0 24 24"
-											width="24"
-											height="24"
+											</svg>
+										</button>
+
+										{`${page + 1} of ${
+											lineups.length
+										} generated lineups`}
+
+										<button
+											type="button"
+											onClick={() => next()}
 										>
-											<g data-name="Layer 2">
-												<g data-name="arrow-ios-forward">
-													<rect
-														width="24"
-														height="24"
-														transform="rotate(-90 12 12)"
-														opacity="0"
-													/>
-													<path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z" />
+											Next
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+												width="24"
+												height="24"
+											>
+												<g data-name="Layer 2">
+													<g data-name="arrow-ios-forward">
+														<rect
+															width="24"
+															height="24"
+															transform="rotate(-90 12 12)"
+															opacity="0"
+														/>
+														<path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z" />
+													</g>
 												</g>
-											</g>
-										</svg>
-									</button>
+											</svg>
+										</button>
+									</div>
 								</td>
 							</tr>
 						)}
