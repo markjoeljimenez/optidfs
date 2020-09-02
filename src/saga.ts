@@ -41,6 +41,8 @@ function* optimizePlayers(action) {
 	try {
 		const state = yield select((_state) => _state);
 
+		console.log(state);
+
 		if (!action.draftGroupId) {
 			return;
 		}

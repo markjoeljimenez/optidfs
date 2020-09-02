@@ -1,4 +1,5 @@
 import Fuse from 'fuse.js';
+import uniq from 'lodash.uniqby';
 
 import {
 	GET_PLAYERS_SUCCEEDED,
@@ -11,11 +12,13 @@ import {
 import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
+import { LOCK_PLAYERS } from '../Bar/Bar.actions';
 
 interface IActions {
 	type?: string;
 	defaultPlayers?: IDraftKingsPlayer[];
 	optimizedPlayers?: IDraftKingsPlayer[];
+	lockedPlayers: IDraftKingsPlayer[];
 	players?: IDraftKingsPlayer[];
 	loading?: boolean;
 	draftGroupId?: string;
@@ -28,13 +31,23 @@ interface IActions {
 	totalFppg?: number;
 	totalSalary?: number;
 	searchTerm?: string;
+	payload?: any;
 }
 
 const table = (
 	state: IActions = {
 		page: 0,
+		lockedPlayers: [],
 	},
-	{ type, players, loading, draftGroupId, lineups, searchTerm }: IActions
+	{
+		type,
+		players,
+		loading,
+		draftGroupId,
+		lineups,
+		searchTerm,
+		payload,
+	}: IActions
 ) => {
 	switch (type) {
 		case LOADING_PLAYERS:
@@ -149,6 +162,21 @@ const table = (
 			return {
 				...state,
 				players: result.map((player) => player.item),
+			};
+		}
+
+		case LOCK_PLAYERS: {
+			const player = state.players?.find(
+				(_player) => _player.id === parseInt(payload.value)
+			);
+
+			return {
+				...state,
+				lockedPlayers: payload.checked
+					? uniq([...state.lockedPlayers, player])
+					: state.lockedPlayers.filter(
+							(_player) => _player.id !== parseInt(payload.value)
+					  ),
 			};
 		}
 
