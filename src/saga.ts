@@ -1,6 +1,6 @@
 import { put, takeLatest, all, select } from 'redux-saga/effects';
 
-import { get } from './scripts/utilities/fetch';
+import { get, post } from './scripts/utilities/fetch';
 import { GET_PLAYERS } from './containers/Dropdown/Dropdown.actions';
 import {
 	GET_PLAYERS_SUCCEEDED,
@@ -39,9 +39,11 @@ function* fetchPlayers(action) {
 
 function* optimizePlayers(action) {
 	try {
-		const state = yield select((_state) => _state);
+		const { dropdown, table } = yield select((_state) => _state);
 
-		console.log(state);
+		const { lockedPlayers } = table;
+
+		console.log(lockedPlayers);
 
 		if (!action.draftGroupId) {
 			return;
@@ -49,9 +51,10 @@ function* optimizePlayers(action) {
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
-		const res = yield get(
-			`${API}/optimize?id=${action.draftGroupId}&n=${action.generations}`
-		);
+		const res = yield post(`${API}/optimize?id=${action.draftGroupId}`, {
+			generations: action.generations,
+			lockedPlayers: lockedPlayers.map((player) => player.id),
+		});
 		const { lineups } = yield res.json();
 
 		yield put({

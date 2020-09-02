@@ -73,7 +73,7 @@ const table = (
 				...lineup,
 				players: lineup.players.map((player) =>
 					state.defaultPlayers?.find(
-						(_player) => _player.id === player
+						(_player) => _player.id === parseInt(player)
 					)
 				),
 			}));
@@ -185,6 +185,7 @@ const table = (
 				...state,
 				contests: undefined,
 				defaultPlayers: undefined,
+				lockedPlayers: [],
 				draftGroupId: undefined,
 				lineups: undefined,
 				optimizedPlayers: undefined,
