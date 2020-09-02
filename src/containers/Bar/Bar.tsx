@@ -23,8 +23,6 @@ const BarContainer = (props: any) => {
 
 const mapStateToProps = ({ table }) => ({
 	draftGroupId: table.draftGroupId,
-	selectedPlayers: table.selectedPlayers,
-	lockedPlayers: table.lockedPlayers,
 });
 
-export default connect(mapStateToProps, null)(BarContainer);
+export default connect(mapStateToProps)(BarContainer);

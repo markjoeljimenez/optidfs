@@ -21,7 +21,9 @@ const Optimize = (props: any) => {
 
 		const value = parseInt(inputRef.current.value);
 
-		props.optimize(props.draftGroupId, value);
+		console.log(value);
+
+		props.optimizeLineups(value);
 	};
 
 	return (
@@ -58,7 +60,7 @@ const mapStateToProps = ({ table }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	optimize: (id, value) => dispatch(optimize(id, value)),
+	optimizeLineups: (value) => dispatch(optimize(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Optimize);
