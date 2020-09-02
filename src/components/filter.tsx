@@ -1,6 +1,10 @@
 import React, { useState, useRef } from 'react';
 import Modal from './global/modal';
-import { IFilterValue } from '../pages/index.old';
+
+export interface IFilterValue {
+	category?: string;
+	value?: string;
+}
 
 interface IFilter {
 	filters?: IFilterValue[];

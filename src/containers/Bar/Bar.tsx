@@ -2,8 +2,10 @@ import { connect } from 'react-redux';
 import Search from '../Search/Search';
 import Optimize from '../Optimize/Optimize';
 
-const BarContainer = (props: any) =>
-	props.draftGroupId ? (
+const BarContainer = (props: any) => {
+	const { draftGroupId } = props;
+
+	return draftGroupId ? (
 		<>
 			<div className="row">
 				<div className="col col-md-9">
@@ -17,6 +19,7 @@ const BarContainer = (props: any) =>
 	) : (
 		<></>
 	);
+};
 
 const mapStateToProps = ({ table }) => ({
 	draftGroupId: table.draftGroupId,
