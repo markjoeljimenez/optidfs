@@ -18,7 +18,17 @@ const RulesReducer = (state: IRules = {}, { type, key, rule, value }) => {
 				return state;
 			}
 
-			// If the rules doesn't originally exist,
+			// If key is undefined,
+			// We're going to assume that there is no key/value object pair to mutate
+			// Simply assign the rule the value
+			if (!key) {
+				return {
+					...state,
+					[rule]: value,
+				};
+			}
+
+			// If the rule doesn't originally exist,
 			// Add it and the current key/value
 			if (!state[rule]) {
 				return {
@@ -26,7 +36,7 @@ const RulesReducer = (state: IRules = {}, { type, key, rule, value }) => {
 					[rule]: [
 						{
 							key,
-							value: parseInt(value),
+							value,
 						},
 					],
 				};
@@ -47,7 +57,7 @@ const RulesReducer = (state: IRules = {}, { type, key, rule, value }) => {
 						...state[rule],
 						{
 							key,
-							value: parseInt(value),
+							value,
 						},
 					],
 				};
@@ -58,7 +68,7 @@ const RulesReducer = (state: IRules = {}, { type, key, rule, value }) => {
 
 			PREV_STATE[existingRule] = {
 				...PREV_STATE[existingRule],
-				value: parseInt(value),
+				value,
 			};
 
 			return {

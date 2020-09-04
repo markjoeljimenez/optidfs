@@ -44,6 +44,8 @@ function* optimizePlayers(action) {
 
 		const { lockedPlayers, defaultPlayers } = table;
 
+		console.log({ ...rules });
+
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
 		const res = yield post(`${API}/optimize`, {

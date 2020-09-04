@@ -42,6 +42,14 @@ const BarContainer = (props: any) => {
 		props.setRule(RULE.NUMBER_OF_SPECIFIC_POSITIONS, team, value);
 	};
 
+	const handleMinSalaryCapChange = (
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const { value } = e.currentTarget;
+
+		props.setRule(RULE.MINIMUM_SALARY_CAP, undefined, value);
+	};
+
 	return draftGroupId ? (
 		<>
 			<div className="row">
@@ -141,6 +149,24 @@ const BarContainer = (props: any) => {
 							>
 								Add
 							</button>
+						</div>
+					</div>
+					<div className="input-group">
+						Minimum Salary Cap
+						<div className="input input-group__input">
+							<label htmlFor="minSalaryCap">
+								<span className="u-hidden">
+									Minimum Salary Cap
+								</span>
+								<input
+									id="minSalaryCap"
+									placeholder="Minimum salary cap"
+									type="number"
+									min={0}
+									step={5000}
+									onChange={handleMinSalaryCapChange}
+								/>
+							</label>
 						</div>
 					</div>
 				</div>
