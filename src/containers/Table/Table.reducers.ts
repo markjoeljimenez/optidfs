@@ -236,6 +236,7 @@ const table = (
 				return {
 					...state,
 					rules: {
+						...state.rules,
 						NUMBER_OF_PLAYERS_FROM_SAME_TEAM: [
 							{
 								team,
@@ -246,16 +247,40 @@ const table = (
 				};
 			}
 
+			const existingRule = state.rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM?.findIndex(
+				(pos) => pos.team === team
+			);
+
+			if (existingRule === -1) {
+				return {
+					...state,
+					rules: {
+						...state.rules,
+						NUMBER_OF_PLAYERS_FROM_SAME_TEAM: [
+							...state.rules?.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
+							{
+								team,
+								value: parseInt(value),
+							},
+						],
+					},
+				};
+			}
+
+			const PREV_NUMBER_OF_PLAYERS_FROM_SAME_TEAM = [
+				...state.rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
+			];
+
+			PREV_NUMBER_OF_PLAYERS_FROM_SAME_TEAM[existingRule] = {
+				...PREV_NUMBER_OF_PLAYERS_FROM_SAME_TEAM[existingRule],
+				value: parseInt(value),
+			};
+
 			return {
 				...state,
 				rules: {
-					NUMBER_OF_PLAYERS_FROM_SAME_TEAM: uniq([
-						...state.rules?.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
-						{
-							team,
-							value: parseInt(value),
-						},
-					]),
+					...state.rules,
+					NUMBER_OF_PLAYERS_FROM_SAME_TEAM: PREV_NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
 				},
 			};
 		}
@@ -269,6 +294,7 @@ const table = (
 				return {
 					...state,
 					rules: {
+						...state.rules,
 						NUMBER_OF_SPECIFIC_POSITIONS: [
 							{
 								team,
@@ -287,6 +313,7 @@ const table = (
 				return {
 					...state,
 					rules: {
+						...state.rules,
 						NUMBER_OF_SPECIFIC_POSITIONS: [
 							...state.rules?.NUMBER_OF_SPECIFIC_POSITIONS,
 							{
@@ -310,6 +337,7 @@ const table = (
 			return {
 				...state,
 				rules: {
+					...state.rules,
 					NUMBER_OF_SPECIFIC_POSITIONS: PREV_NUMBER_OF_SPECIFIC_POSITIONS,
 				},
 			};
