@@ -13,7 +13,7 @@ import {
 import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
-import { LOCK_PLAYERS, SET_RULE } from '../Bar/Bar.actions';
+import { LOCK_PLAYERS } from '../Bar/Bar.actions';
 
 export interface IActions {
 	type?: string;
@@ -36,16 +36,6 @@ export interface IActions {
 	playerId?: string;
 	value?: string;
 	team?: string;
-	// rules: {
-	// 	NUMBER_OF_PLAYERS_FROM_SAME_TEAM?: {
-	// 		team: string;
-	// 		value: number;
-	// 	}[];
-	// 	NUMBER_OF_SPECIFIC_POSITIONS?: {
-	// 		team: string;
-	// 		value: number;
-	// 	}[];
-	// };
 	teamIds?: {
 		away_team_id: number;
 		home_team_id: number;

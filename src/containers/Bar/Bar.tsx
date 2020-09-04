@@ -1,9 +1,12 @@
 import { connect } from 'react-redux';
 import { useRef } from 'react';
+
+import { RULE, setRule } from '../Rules/Rules.actions';
+
 import Search from '../Search/Search';
 import Optimize from '../Optimize/Optimize';
+
 import teams from '../../data/teams';
-import { SET_RULE, setRule } from './Bar.actions';
 import positions from '../../data/positions';
 
 const BarContainer = (props: any) => {
@@ -22,7 +25,7 @@ const BarContainer = (props: any) => {
 		const team = playersFromSameTeamSelectRef.current?.value;
 		const value = playersFromSameTeamInputRef.current?.value;
 
-		props.setRule(SET_RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM, team, value);
+		props.setRule(RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM, team, value);
 	};
 
 	const handleNumberOfSpecificPositionsClick = () => {
@@ -36,7 +39,7 @@ const BarContainer = (props: any) => {
 		const team = numberOfSpecificPositionsSelectRef.current?.value;
 		const value = numberOfSpecificPositionsInputRef.current?.value;
 
-		props.setRule(SET_RULE.NUMBER_OF_SPECIFIC_POSITIONS, team, value);
+		props.setRule(RULE.NUMBER_OF_SPECIFIC_POSITIONS, team, value);
 	};
 
 	return draftGroupId ? (
@@ -154,7 +157,7 @@ const mapStateToProps = ({ table }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setRule: (type, team, value) => dispatch(setRule(type, team, value)),
+	setRule: (type, key, value) => dispatch(setRule(type, key, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BarContainer);
