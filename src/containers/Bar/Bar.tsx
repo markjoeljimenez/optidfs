@@ -63,7 +63,9 @@ const BarContainer = (props: any) => {
 									ref={playersFromSameTeamSelectRef}
 									id="team"
 								>
-									<option value="">Select team</option>
+									<option value="" disabled selected>
+										Select team
+									</option>
 									{teams.NBA.filter((team, i) =>
 										teamIds.some((teamId) => i === teamId)
 									).map(({ short, name }) => (
@@ -83,6 +85,7 @@ const BarContainer = (props: any) => {
 									placeholder="Number of players"
 									type="number"
 									min={0}
+									max={8}
 								/>
 							</label>
 
@@ -105,7 +108,9 @@ const BarContainer = (props: any) => {
 									ref={numberOfSpecificPositionsSelectRef}
 									id="numberOfSpecificPositionsSelect"
 								>
-									<option value="">Select position</option>
+									<option value="" disabled selected>
+										Select position
+									</option>
 									{positions.NBA.map(({ short, name }) => (
 										<option value={short} key={short}>
 											{name}
@@ -123,6 +128,7 @@ const BarContainer = (props: any) => {
 									placeholder="Number of players"
 									type="number"
 									min={0}
+									max={3}
 								/>
 							</label>
 

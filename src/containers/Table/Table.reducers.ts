@@ -41,7 +41,7 @@ interface IActions {
 			team: string;
 			value: number;
 		}[];
-		NUMBER_OF_SPECIFIC_POSITIONS: {
+		NUMBER_OF_SPECIFIC_POSITIONS?: {
 			team: string;
 			value: number;
 		}[];
@@ -228,7 +228,7 @@ const table = (
 		}
 
 		case SET_RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM: {
-			if (!value) {
+			if (!value || team === '') {
 				return state;
 			}
 
@@ -261,7 +261,7 @@ const table = (
 		}
 
 		case SET_RULE.NUMBER_OF_SPECIFIC_POSITIONS: {
-			if (!value) {
+			if (!value || team === '') {
 				return state;
 			}
 
@@ -279,16 +279,38 @@ const table = (
 				};
 			}
 
+			const existingRule = state.rules.NUMBER_OF_SPECIFIC_POSITIONS?.findIndex(
+				(pos) => pos.team === team
+			);
+
+			if (existingRule === -1) {
+				return {
+					...state,
+					rules: {
+						NUMBER_OF_SPECIFIC_POSITIONS: [
+							...state.rules?.NUMBER_OF_SPECIFIC_POSITIONS,
+							{
+								team,
+								value: parseInt(value),
+							},
+						],
+					},
+				};
+			}
+
+			const PREV_NUMBER_OF_SPECIFIC_POSITIONS = [
+				...state.rules.NUMBER_OF_SPECIFIC_POSITIONS,
+			];
+
+			PREV_NUMBER_OF_SPECIFIC_POSITIONS[existingRule] = {
+				...PREV_NUMBER_OF_SPECIFIC_POSITIONS[existingRule],
+				value: parseInt(value),
+			};
+
 			return {
 				...state,
 				rules: {
-					NUMBER_OF_SPECIFIC_POSITIONS: uniq([
-						...state.rules?.NUMBER_OF_SPECIFIC_POSITIONS,
-						{
-							team,
-							value: parseInt(value),
-						},
-					]),
+					NUMBER_OF_SPECIFIC_POSITIONS: PREV_NUMBER_OF_SPECIFIC_POSITIONS,
 				},
 			};
 		}
