@@ -7,6 +7,7 @@ const dropdown = (state = {}, { type, contests }) => {
 				...state,
 				contests,
 			};
+
 		default:
 			return state;
 	}

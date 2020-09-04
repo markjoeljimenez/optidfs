@@ -66,6 +66,7 @@ const RulesReducer = (state: IRules = {}, { type, key, rule, value }) => {
 			// Create new array due to unmutable state
 			const PREV_STATE = [...state[rule]];
 
+			// Replace position of existingRule with new value
 			PREV_STATE[existingRule] = {
 				...PREV_STATE[existingRule],
 				value,

@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
-import { getPlayers } from './Dropdown.actions';
+import { getPlayers, resetPlayers } from './Dropdown.actions';
 import Dropdown from '../../components/dropdown';
-import { resetPlayers } from '../Table/Table.actions';
 
 const mapStateToProps = ({ dropdown, table }: any) => ({
 	contests: dropdown.contests,

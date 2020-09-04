@@ -4,7 +4,6 @@ import uniq from 'lodash.uniqby';
 import {
 	GET_PLAYERS_SUCCEEDED,
 	GET_PLAYERS_FAILED,
-	RESET_PLAYERS,
 	LOADING_PLAYERS,
 	NEXT,
 	PREVIOUS,
@@ -14,6 +13,7 @@ import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
 import { LOCK_PLAYERS } from '../Bar/Bar.actions';
+import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
 
 export interface IActions {
 	type?: string;
