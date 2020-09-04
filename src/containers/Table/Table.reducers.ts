@@ -8,11 +8,11 @@ import {
 	NEXT,
 	PREVIOUS,
 	SET_PLAYER_EXPOSURE,
+	LOCK_PLAYERS,
 } from './Table.actions';
 import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
-import { LOCK_PLAYERS } from '../Bar/Bar.actions';
 import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
 
 export interface IActions {

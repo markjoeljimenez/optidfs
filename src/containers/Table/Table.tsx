@@ -1,9 +1,13 @@
 import { connect } from 'react-redux';
-import { nextPage, previousPage, setPlayerExposure } from './Table.actions';
+import {
+	nextPage,
+	previousPage,
+	setPlayerExposure,
+	lockPlayer,
+} from './Table.actions';
 
 import Loading from '../../components/loading';
 import Table from '../../components/table';
-import { lockPlayer } from '../Bar/Bar.actions';
 
 const TableContainer = (props: any) => {
 	const { players, loading } = props;
