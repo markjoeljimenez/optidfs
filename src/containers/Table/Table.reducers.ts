@@ -15,7 +15,7 @@ import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
 import { LOCK_PLAYERS, SET_RULE } from '../Bar/Bar.actions';
 
-interface IActions {
+export interface IActions {
 	type?: string;
 	defaultPlayers?: IDraftKingsPlayer[];
 	optimizedPlayers?: IDraftKingsPlayer[];
@@ -36,16 +36,16 @@ interface IActions {
 	playerId?: string;
 	value?: string;
 	team?: string;
-	rules: {
-		NUMBER_OF_PLAYERS_FROM_SAME_TEAM?: {
-			team: string;
-			value: number;
-		}[];
-		NUMBER_OF_SPECIFIC_POSITIONS?: {
-			team: string;
-			value: number;
-		}[];
-	};
+	// rules: {
+	// 	NUMBER_OF_PLAYERS_FROM_SAME_TEAM?: {
+	// 		team: string;
+	// 		value: number;
+	// 	}[];
+	// 	NUMBER_OF_SPECIFIC_POSITIONS?: {
+	// 		team: string;
+	// 		value: number;
+	// 	}[];
+	// };
 	teamIds?: {
 		away_team_id: number;
 		home_team_id: number;
@@ -56,7 +56,7 @@ const table = (
 	state: IActions = {
 		page: 0,
 		lockedPlayers: [],
-		rules: {},
+		// rules: {},
 	},
 	{
 		type,
@@ -69,7 +69,7 @@ const table = (
 		payload,
 		playerId,
 		value,
-		rules,
+		// rules,
 		teamIds,
 	}: IActions
 ) => {
@@ -225,122 +225,6 @@ const table = (
 			}
 
 			return state;
-		}
-
-		case SET_RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM: {
-			if (!value || team === '') {
-				return state;
-			}
-
-			if (!state.rules?.NUMBER_OF_PLAYERS_FROM_SAME_TEAM) {
-				return {
-					...state,
-					rules: {
-						...state.rules,
-						NUMBER_OF_PLAYERS_FROM_SAME_TEAM: [
-							{
-								team,
-								value: parseInt(value),
-							},
-						],
-					},
-				};
-			}
-
-			const existingRule = state.rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM?.findIndex(
-				(pos) => pos.team === team
-			);
-
-			if (existingRule === -1) {
-				return {
-					...state,
-					rules: {
-						...state.rules,
-						NUMBER_OF_PLAYERS_FROM_SAME_TEAM: [
-							...state.rules?.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
-							{
-								team,
-								value: parseInt(value),
-							},
-						],
-					},
-				};
-			}
-
-			const PREV_NUMBER_OF_PLAYERS_FROM_SAME_TEAM = [
-				...state.rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
-			];
-
-			PREV_NUMBER_OF_PLAYERS_FROM_SAME_TEAM[existingRule] = {
-				...PREV_NUMBER_OF_PLAYERS_FROM_SAME_TEAM[existingRule],
-				value: parseInt(value),
-			};
-
-			return {
-				...state,
-				rules: {
-					...state.rules,
-					NUMBER_OF_PLAYERS_FROM_SAME_TEAM: PREV_NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
-				},
-			};
-		}
-
-		case SET_RULE.NUMBER_OF_SPECIFIC_POSITIONS: {
-			if (!value || team === '') {
-				return state;
-			}
-
-			if (!state.rules?.NUMBER_OF_SPECIFIC_POSITIONS) {
-				return {
-					...state,
-					rules: {
-						...state.rules,
-						NUMBER_OF_SPECIFIC_POSITIONS: [
-							{
-								team,
-								value: parseInt(value),
-							},
-						],
-					},
-				};
-			}
-
-			const existingRule = state.rules.NUMBER_OF_SPECIFIC_POSITIONS?.findIndex(
-				(pos) => pos.team === team
-			);
-
-			if (existingRule === -1) {
-				return {
-					...state,
-					rules: {
-						...state.rules,
-						NUMBER_OF_SPECIFIC_POSITIONS: [
-							...state.rules?.NUMBER_OF_SPECIFIC_POSITIONS,
-							{
-								team,
-								value: parseInt(value),
-							},
-						],
-					},
-				};
-			}
-
-			const PREV_NUMBER_OF_SPECIFIC_POSITIONS = [
-				...state.rules.NUMBER_OF_SPECIFIC_POSITIONS,
-			];
-
-			PREV_NUMBER_OF_SPECIFIC_POSITIONS[existingRule] = {
-				...PREV_NUMBER_OF_SPECIFIC_POSITIONS[existingRule],
-				value: parseInt(value),
-			};
-
-			return {
-				...state,
-				rules: {
-					...state.rules,
-					NUMBER_OF_SPECIFIC_POSITIONS: PREV_NUMBER_OF_SPECIFIC_POSITIONS,
-				},
-			};
 		}
 
 		case RESET_PLAYERS:

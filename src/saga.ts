@@ -40,11 +40,9 @@ function* fetchPlayers(action) {
 
 function* optimizePlayers(action) {
 	try {
-		const { dropdown, table } = yield select((_state) => _state);
+		const { dropdown, table, rules } = yield select((_state) => _state);
 
-		const { lockedPlayers, defaultPlayers, rules } = table;
-
-		console.log(rules);
+		const { lockedPlayers, defaultPlayers } = table;
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
@@ -52,7 +50,9 @@ function* optimizePlayers(action) {
 			generations: action.generations,
 			lockedPlayers: lockedPlayers.map((player) => player.id),
 			players: defaultPlayers,
-			rules,
+			rules: {
+				...rules,
+			},
 		});
 
 		const { lineups } = yield res.json();
