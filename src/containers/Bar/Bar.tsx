@@ -50,6 +50,14 @@ const BarContainer = (props: any) => {
 		props.setRule(RULE.MINIMUM_SALARY_CAP, undefined, value);
 	};
 
+	const handleMaxRepeatingPlayers = (
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const { value } = e.currentTarget;
+
+		props.setRule(RULE.MAX_REPEATING_PLAYERS, undefined, value);
+	};
+
 	return draftGroupId ? (
 		<>
 			<div className="row">
@@ -165,6 +173,23 @@ const BarContainer = (props: any) => {
 									min={0}
 									step={5000}
 									onChange={handleMinSalaryCapChange}
+								/>
+							</label>
+						</div>
+					</div>
+					<div className="input-group">
+						Maximum repeating players
+						<div className="input input-group__input">
+							<label htmlFor="maxRepeatingPlayers">
+								<span className="u-hidden">
+									Maximum repeating players
+								</span>
+								<input
+									id="maxRepeatingPlayers"
+									placeholder="Maximum repeating players"
+									type="number"
+									min={0}
+									onChange={handleMaxRepeatingPlayers}
 								/>
 							</label>
 						</div>
