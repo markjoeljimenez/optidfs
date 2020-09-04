@@ -1,6 +1,7 @@
 export const LOCK_PLAYERS = 'LOCK_PLAYERS';
 export const SET_RULE = {
 	NUMBER_OF_PLAYERS_FROM_SAME_TEAM: 'NUMBER_OF_PLAYERS_FROM_SAME_TEAM',
+	NUMBER_OF_SPECIFIC_POSITIONS: 'NUMBER_OF_SPECIFIC_POSITIONS',
 };
 
 export const lockPlayer = (e: React.ChangeEvent<HTMLInputElement>) => ({

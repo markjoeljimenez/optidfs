@@ -41,6 +41,10 @@ interface IActions {
 			team: string;
 			value: number;
 		}[];
+		NUMBER_OF_SPECIFIC_POSITIONS: {
+			team: string;
+			value: number;
+		}[];
 	};
 	teamIds?: {
 		away_team_id: number;
@@ -247,6 +251,39 @@ const table = (
 				rules: {
 					NUMBER_OF_PLAYERS_FROM_SAME_TEAM: uniq([
 						...state.rules?.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
+						{
+							team,
+							value: parseInt(value),
+						},
+					]),
+				},
+			};
+		}
+
+		case SET_RULE.NUMBER_OF_SPECIFIC_POSITIONS: {
+			if (!value) {
+				return state;
+			}
+
+			if (!state.rules?.NUMBER_OF_SPECIFIC_POSITIONS) {
+				return {
+					...state,
+					rules: {
+						NUMBER_OF_SPECIFIC_POSITIONS: [
+							{
+								team,
+								value: parseInt(value),
+							},
+						],
+					},
+				};
+			}
+
+			return {
+				...state,
+				rules: {
+					NUMBER_OF_SPECIFIC_POSITIONS: uniq([
+						...state.rules?.NUMBER_OF_SPECIFIC_POSITIONS,
 						{
 							team,
 							value: parseInt(value),
