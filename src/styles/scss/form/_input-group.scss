@@ -1,0 +1,13 @@
+@import '../reference/index';
+
+$block: 'input-group';
+
+.#{$block} {
+	&__input {
+		display: flex;
+
+		input {
+			box-shadow: 0;
+		}
+	}
+}

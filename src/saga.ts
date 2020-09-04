@@ -24,13 +24,14 @@ function* fetchPlayers(action) {
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
 		const res = yield get(`${API}/players?id=${action.draftGroupId}`);
-		const { players } = yield res.json();
+		const { players, teamIds } = yield res.json();
 
 		yield put({
 			type: GET_PLAYERS_SUCCEEDED,
 			draftGroupId: action.draftGroupId,
 			players,
 			loading: false,
+			teamIds,
 		});
 	} catch (e) {
 		yield put({ type: GET_PLAYERS_FAILED, message: e.message });
@@ -41,7 +42,7 @@ function* optimizePlayers(action) {
 	try {
 		const { dropdown, table } = yield select((_state) => _state);
 
-		const { lockedPlayers, defaultPlayers } = table;
+		const { lockedPlayers, defaultPlayers, rules } = table;
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
@@ -49,6 +50,7 @@ function* optimizePlayers(action) {
 			generations: action.generations,
 			lockedPlayers: lockedPlayers.map((player) => player.id),
 			players: defaultPlayers,
+			rules,
 		});
 
 		const { lineups } = yield res.json();

@@ -21,8 +21,6 @@ const Optimize = (props: any) => {
 
 		const value = parseInt(inputRef.current.value);
 
-		console.log(value);
-
 		props.optimizeLineups(value);
 	};
 

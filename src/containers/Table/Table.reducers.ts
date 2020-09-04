@@ -13,7 +13,7 @@ import {
 import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
-import { LOCK_PLAYERS } from '../Bar/Bar.actions';
+import { LOCK_PLAYERS, SET_RULE } from '../Bar/Bar.actions';
 
 interface IActions {
 	type?: string;
@@ -35,15 +35,28 @@ interface IActions {
 	payload?: any;
 	playerId?: string;
 	value?: string;
+	team?: string;
+	rules: {
+		NUMBER_OF_PLAYERS_FROM_SAME_TEAM?: {
+			team: string;
+			value: number;
+		}[];
+	};
+	teamIds?: {
+		away_team_id: number;
+		home_team_id: number;
+	};
 }
 
 const table = (
 	state: IActions = {
 		page: 0,
 		lockedPlayers: [],
+		rules: {},
 	},
 	{
 		type,
+		team,
 		players,
 		loading,
 		draftGroupId,
@@ -52,6 +65,8 @@ const table = (
 		payload,
 		playerId,
 		value,
+		rules,
+		teamIds,
 	}: IActions
 ) => {
 	switch (type) {
@@ -68,6 +83,7 @@ const table = (
 				players,
 				draftGroupId,
 				loading,
+				teamIds,
 			};
 
 		case GET_PLAYERS_FAILED:
@@ -207,6 +223,39 @@ const table = (
 			return state;
 		}
 
+		case SET_RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM: {
+			if (!value) {
+				return state;
+			}
+
+			if (!state.rules?.NUMBER_OF_PLAYERS_FROM_SAME_TEAM) {
+				return {
+					...state,
+					rules: {
+						NUMBER_OF_PLAYERS_FROM_SAME_TEAM: [
+							{
+								team,
+								value: parseInt(value),
+							},
+						],
+					},
+				};
+			}
+
+			return {
+				...state,
+				rules: {
+					NUMBER_OF_PLAYERS_FROM_SAME_TEAM: uniq([
+						...state.rules?.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
+						{
+							team,
+							value: parseInt(value),
+						},
+					]),
+				},
+			};
+		}
+
 		case RESET_PLAYERS:
 			return {
 				...state,
@@ -220,6 +269,7 @@ const table = (
 				players: undefined,
 				totalFppg: undefined,
 				totalSalary: undefined,
+				rules: {},
 			};
 
 		default:
