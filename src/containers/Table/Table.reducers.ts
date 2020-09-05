@@ -46,7 +46,7 @@ export interface IActions {
 const table = (
 	state: IActions = {
 		page: 0,
-		lockedPlayers: [],
+		// lockedPlayers: [],
 		// rules: {},
 	},
 	{

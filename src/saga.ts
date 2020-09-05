@@ -4,6 +4,7 @@ import { get, post } from './scripts/utilities/fetch';
 import {
 	GET_PLAYERS,
 	SET_CONTESTS,
+	RESET_PLAYERS,
 } from './containers/Dropdown/Dropdown.actions';
 import {
 	GET_PLAYERS_SUCCEEDED,
@@ -32,9 +33,13 @@ function* fetchContests(action) {
 		const { contests } = yield res.json();
 
 		yield put({
+			type: RESET_PLAYERS,
+		});
+
+		yield put({
 			type: SET_CONTESTS,
 			contests,
-			draftGroupId: undefined,
+			sport: action.sport,
 		});
 	} catch (e) {
 		yield console.log(e);
@@ -46,6 +51,8 @@ function* fetchPlayers(action) {
 		if (!action.draftGroupId) {
 			return;
 		}
+
+		// const { header } = yield select((_state) => _state);
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
@@ -66,11 +73,12 @@ function* fetchPlayers(action) {
 
 function* optimizePlayers(action) {
 	try {
-		const { dropdown, table, rules } = yield select((_state) => _state);
+		const { dropdown, table, rules, header } = yield select(
+			(_state) => _state
+		);
 
 		const { lockedPlayers, defaultPlayers } = table;
-
-		console.log({ ...rules });
+		const { sport } = dropdown;
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
@@ -81,6 +89,7 @@ function* optimizePlayers(action) {
 			rules: {
 				...rules,
 			},
+			sport,
 		});
 
 		const { lineups } = yield res.json();

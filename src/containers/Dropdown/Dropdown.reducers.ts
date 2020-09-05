@@ -1,11 +1,12 @@
 import { SET_CONTESTS } from './Dropdown.actions';
 
-const dropdown = (state = {}, { type, contests }) => {
+const dropdown = (state = {}, { type, contests, sport }) => {
 	switch (type) {
 		case SET_CONTESTS:
 			return {
 				...state,
 				contests,
+				sport,
 			};
 
 		default:

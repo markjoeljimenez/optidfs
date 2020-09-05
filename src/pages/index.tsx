@@ -38,19 +38,20 @@ export const getServerSideProps = async () => {
 		return null;
 	}
 
+	const DEFAULT_SPORT = 'NBA';
+
 	const response = await post(API, {
-		sport: 'NBA',
+		sport: DEFAULT_SPORT,
 	});
 	const { contests } = await response.json();
 
 	const reduxStore = initializeStore();
 	const { dispatch } = reduxStore;
 
-	dispatch(setSport('NBA'));
-
 	dispatch({
 		type: SET_CONTESTS,
 		contests,
+		sport: DEFAULT_SPORT,
 	});
 
 	return { props: { initialReduxState: reduxStore.getState() } };

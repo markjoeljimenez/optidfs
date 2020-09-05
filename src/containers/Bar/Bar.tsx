@@ -15,7 +15,7 @@ const BarContainer = (props: any) => {
 	const numberOfSpecificPositionsSelectRef = useRef<HTMLSelectElement>(null);
 	const numberOfSpecificPositionsInputRef = useRef<HTMLInputElement>(null);
 
-	const { draftGroupId, teamIds, rules } = props;
+	const { players, teamIds, rules } = props;
 
 	const handleNumberOfPlayersFromTeamClick = () => {
 		if (!playersFromSameTeamSelectRef && !playersFromSameTeamInputRef) {
@@ -89,7 +89,7 @@ const BarContainer = (props: any) => {
 		props.removeRule(rule, value);
 	};
 
-	return draftGroupId ? (
+	return players ? (
 		<>
 			<div className="row">
 				<div className="col col-md-9">
@@ -324,11 +324,15 @@ const BarContainer = (props: any) => {
 	);
 };
 
-const mapStateToProps = ({ table, rules }) => ({
-	draftGroupId: table.draftGroupId,
-	teamIds: table.teamIds,
-	rules,
-});
+const mapStateToProps = (actions) => {
+	console.log(actions);
+
+	return {
+		teamIds: actions.table.teamIds,
+		players: actions.table.players,
+		rules: actions.rules,
+	};
+};
 
 const mapDispatchToProps = (dispatch) => ({
 	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
