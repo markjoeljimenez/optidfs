@@ -109,12 +109,12 @@ const teams = {
 			name: 'San Antonio Spurs',
 		},
 		{
-			short: 'TOR',
-			name: 'Toronto Raptors',
-		},
-		{
 			short: 'UTA',
 			name: 'Utah Jazz',
+		},
+		{
+			short: 'TOR',
+			name: 'Toronto Raptors',
 		},
 		{
 			short: 'WAS',

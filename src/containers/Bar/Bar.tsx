@@ -25,7 +25,13 @@ const BarContainer = (props: any) => {
 		const team = playersFromSameTeamSelectRef.current?.value;
 		const value = playersFromSameTeamInputRef.current?.value;
 
-		props.setRule(RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM, team, value);
+		if (team && value) {
+			props.setRule(
+				RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
+				team,
+				parseInt(value)
+			);
+		}
 	};
 
 	const handleNumberOfSpecificPositionsClick = () => {
@@ -39,7 +45,13 @@ const BarContainer = (props: any) => {
 		const team = numberOfSpecificPositionsSelectRef.current?.value;
 		const value = numberOfSpecificPositionsInputRef.current?.value;
 
-		props.setRule(RULE.NUMBER_OF_SPECIFIC_POSITIONS, team, value);
+		if (team && value) {
+			props.setRule(
+				RULE.NUMBER_OF_SPECIFIC_POSITIONS,
+				team,
+				parseInt(value)
+			);
+		}
 	};
 
 	const handleMinSalaryCapChange = (
