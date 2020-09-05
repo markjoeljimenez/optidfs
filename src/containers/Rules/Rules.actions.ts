@@ -1,4 +1,5 @@
 export const SET_RULE = 'SET_RULE';
+export const REMOVE_RULE = 'REMOVE_RULE';
 export const RULE = {
 	NUMBER_OF_PLAYERS_FROM_SAME_TEAM: 'NUMBER_OF_PLAYERS_FROM_SAME_TEAM',
 	NUMBER_OF_SPECIFIC_POSITIONS: 'NUMBER_OF_SPECIFIC_POSITIONS',
@@ -12,4 +13,10 @@ export const setRule = (rule: string, key: string, value: number) => ({
 	rule,
 	key,
 	value,
+});
+
+export const removeRule = (rule: string, key: string) => ({
+	type: REMOVE_RULE,
+	rule,
+	key,
 });

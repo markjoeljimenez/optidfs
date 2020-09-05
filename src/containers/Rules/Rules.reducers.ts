@@ -1,4 +1,4 @@
-import { SET_RULE } from './Rules.actions';
+import { SET_RULE, REMOVE_RULE } from './Rules.actions';
 
 interface IRules {
 	NUMBER_OF_PLAYERS_FROM_SAME_TEAM?: {
@@ -45,7 +45,7 @@ const RulesReducer = (state: IRules = {}, { type, rule, key, value }) => {
 			// If the user has modified the value of an already existing team,
 			// Find it
 			const existingRule = state[rule]?.findIndex(
-				(pos) => pos.team === key
+				(_rule) => _rule.key === key
 			);
 
 			// If existingRule doesn't exist,
@@ -75,6 +75,15 @@ const RulesReducer = (state: IRules = {}, { type, rule, key, value }) => {
 			return {
 				...state,
 				[rule]: PREV_STATE,
+			};
+		}
+
+		case REMOVE_RULE: {
+			const rules = state[rule].filter((_rule) => _rule.key !== key);
+
+			return {
+				...state,
+				[rule]: rules.length ? rules : undefined,
 			};
 		}
 

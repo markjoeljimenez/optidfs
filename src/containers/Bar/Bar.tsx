@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 
-import { RULE, setRule } from '../Rules/Rules.actions';
+import { RULE, setRule, removeRule } from '../Rules/Rules.actions';
 
 import Search from '../Search/Search';
 import Optimize from '../Optimize/Optimize';
@@ -15,7 +15,7 @@ const BarContainer = (props: any) => {
 	const numberOfSpecificPositionsSelectRef = useRef<HTMLSelectElement>(null);
 	const numberOfSpecificPositionsInputRef = useRef<HTMLInputElement>(null);
 
-	const { draftGroupId, teamIds } = props;
+	const { draftGroupId, teamIds, rules } = props;
 
 	const handleNumberOfPlayersFromTeamClick = () => {
 		if (!playersFromSameTeamSelectRef && !playersFromSameTeamInputRef) {
@@ -78,6 +78,17 @@ const BarContainer = (props: any) => {
 		props.setRule(RULE.PROJECTED_OWNERSHIP, undefined, parseFloat(value));
 	};
 
+	const handleRemoveRule = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const { value } = e.currentTarget;
+		const rule = e.currentTarget.getAttribute('data-rule');
+
+		if (!value || !rule) {
+			return;
+		}
+
+		props.removeRule(rule, value);
+	};
+
 	return draftGroupId ? (
 		<>
 			<div className="row">
@@ -135,6 +146,42 @@ const BarContainer = (props: any) => {
 								Add
 							</button>
 						</div>
+						{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM &&
+							rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
+								({ key, value }, i) => (
+									<div key={i}>
+										<span>{key}</span> -{' '}
+										<span>{value}</span>
+										<button
+											type="button"
+											onClick={handleRemoveRule}
+											value={key}
+											data-rule={
+												RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM
+											}
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+												width="24"
+												height="24"
+											>
+												<g data-name="Layer 2">
+													<g data-name="close">
+														<rect
+															width="24"
+															height="24"
+															transform="rotate(180 12 12)"
+															opacity="0"
+														/>
+														<path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
+													</g>
+												</g>
+											</svg>
+										</button>
+									</div>
+								)
+							)}
 					</div>
 					<div className="input-group">
 						Number of specific positions
@@ -178,6 +225,42 @@ const BarContainer = (props: any) => {
 								Add
 							</button>
 						</div>
+						{rules.NUMBER_OF_SPECIFIC_POSITIONS &&
+							rules.NUMBER_OF_SPECIFIC_POSITIONS.map(
+								({ key, value }, i) => (
+									<div key={i}>
+										<span>{key}</span> -{' '}
+										<span>{value}</span>
+										<button
+											type="button"
+											onClick={handleRemoveRule}
+											value={key}
+											data-rule={
+												RULE.NUMBER_OF_SPECIFIC_POSITIONS
+											}
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+												width="24"
+												height="24"
+											>
+												<g data-name="Layer 2">
+													<g data-name="close">
+														<rect
+															width="24"
+															height="24"
+															transform="rotate(180 12 12)"
+															opacity="0"
+														/>
+														<path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
+													</g>
+												</g>
+											</svg>
+										</button>
+									</div>
+								)
+							)}
 					</div>
 					<div className="input-group">
 						Minimum Salary Cap
@@ -241,13 +324,15 @@ const BarContainer = (props: any) => {
 	);
 };
 
-const mapStateToProps = ({ table }) => ({
+const mapStateToProps = ({ table, rules }) => ({
 	draftGroupId: table.draftGroupId,
 	teamIds: table.teamIds,
+	rules,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setRule: (type, key, value) => dispatch(setRule(type, key, value)),
+	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
+	removeRule: (rule, key) => dispatch(removeRule(rule, key)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BarContainer);
