@@ -12,6 +12,7 @@ interface ITable {
 	next: () => void;
 	lock: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	setExposure: (id, value) => void;
+	setProjectedOwnership: (id, value) => void;
 }
 
 const Table = ({
@@ -25,6 +26,7 @@ const Table = ({
 	next,
 	lock,
 	setExposure,
+	setProjectedOwnership,
 }: ITable) => {
 	const optionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -62,6 +64,15 @@ const Table = ({
 				row.setAttribute('aria-hidden', 'true');
 			}
 		}
+	};
+
+	const handleProjectedOwnershipChange = (
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const { value } = e.currentTarget;
+		const id = e.currentTarget.getAttribute('data-player-id');
+
+		setProjectedOwnership(id, value);
 	};
 
 	return (
@@ -316,6 +327,28 @@ const Table = ({
 												}
 												data-player-id={player.id}
 												onChange={handleExposureChange}
+											/>
+										</label>
+
+										<label
+											htmlFor={`set-ownership-projection-${player.id}`}
+										>
+											{/* <span className="u-hidden"> */}
+											Projected Ownership
+											{/* </span> */}
+											<input
+												id={`set-ownership-projection-${player.id}`}
+												type="number"
+												min={0}
+												max={1}
+												step={0.1}
+												defaultValue={
+													player.projected_ownership
+												}
+												data-player-id={player.id}
+												onChange={
+													handleProjectedOwnershipChange
+												}
 											/>
 										</label>
 									</div>

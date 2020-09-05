@@ -11,7 +11,7 @@ interface IRules {
 	}[];
 }
 
-const RulesReducer = (state: IRules = {}, { type, key, rule, value }) => {
+const RulesReducer = (state: IRules = {}, { type, rule, key, value }) => {
 	switch (type) {
 		case SET_RULE: {
 			if (!value || key === '') {

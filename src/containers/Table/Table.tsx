@@ -4,6 +4,7 @@ import {
 	previousPage,
 	setPlayerExposure,
 	lockPlayer,
+	setPlayerProjectedOwnership,
 } from './Table.actions';
 
 import Loading from '../../components/loading';
@@ -36,6 +37,8 @@ const mapDispatchToProps = (dispatch) => ({
 	previous: () => dispatch(previousPage()),
 	lock: (e) => dispatch(lockPlayer(e)),
 	setExposure: (id, value) => dispatch(setPlayerExposure(id, value)),
+	setProjectedOwnership: (id, value) =>
+		dispatch(setPlayerProjectedOwnership(id, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableContainer);

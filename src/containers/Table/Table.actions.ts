@@ -6,9 +6,16 @@ export const LOCK_PLAYERS = 'LOCK_PLAYERS';
 export const NEXT = 'NEXT';
 export const PREVIOUS = 'PREVIOUS';
 export const SET_PLAYER_EXPOSURE = 'SET_PLAYER_EXPOSURE';
+export const SET_PLAYER_PROJECTED_OWNERSHIP = 'SET_PLAYER_PROJECTED_OWNERSHIP';
 
 export const setPlayerExposure = (playerId, value) => ({
 	type: SET_PLAYER_EXPOSURE,
+	playerId,
+	value,
+});
+
+export const setPlayerProjectedOwnership = (playerId, value) => ({
+	type: SET_PLAYER_PROJECTED_OWNERSHIP,
 	playerId,
 	value,
 });

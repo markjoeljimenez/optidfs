@@ -50,7 +50,7 @@ function* optimizePlayers(action) {
 
 		const res = yield post(`${API}/optimize`, {
 			generations: action.generations,
-			lockedPlayers: lockedPlayers.map((player) => player.id),
+			lockedPlayers: lockedPlayers?.map((player) => player.id),
 			players: defaultPlayers,
 			rules: {
 				...rules,

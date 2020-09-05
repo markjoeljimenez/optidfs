@@ -9,6 +9,7 @@ import {
 	PREVIOUS,
 	SET_PLAYER_EXPOSURE,
 	LOCK_PLAYERS,
+	SET_PLAYER_PROJECTED_OWNERSHIP,
 } from './Table.actions';
 import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
@@ -19,7 +20,7 @@ export interface IActions {
 	type?: string;
 	defaultPlayers?: IDraftKingsPlayer[];
 	optimizedPlayers?: IDraftKingsPlayer[];
-	lockedPlayers: IDraftKingsPlayer[];
+	lockedPlayers?: IDraftKingsPlayer[];
 	players?: IDraftKingsPlayer[];
 	loading?: boolean;
 	draftGroupId?: string;
@@ -186,6 +187,13 @@ const table = (
 				(_player) => _player.id === parseInt(payload.value)
 			);
 
+			if (!state.lockedPlayers) {
+				return {
+					...state,
+					lockedPlayers: [player],
+				};
+			}
+
 			return {
 				...state,
 				lockedPlayers: payload.checked
@@ -217,12 +225,35 @@ const table = (
 			return state;
 		}
 
+		case SET_PLAYER_PROJECTED_OWNERSHIP: {
+			if (!playerId || !state.defaultPlayers) {
+				return state;
+			}
+
+			const player = state.defaultPlayers?.find(
+				(_player) => _player.id === parseInt(playerId)
+			);
+
+			if (player) {
+				player.projected_ownership = value
+					? parseFloat(value)
+					: undefined;
+
+				return {
+					...state,
+					defaultPlayers: uniq([...state.defaultPlayers, player]),
+				};
+			}
+
+			return state;
+		}
+
 		case RESET_PLAYERS:
 			return {
 				...state,
 				contests: undefined,
 				defaultPlayers: undefined,
-				lockedPlayers: [],
+				lockedPlayers: undefined,
 				draftGroupId: undefined,
 				lineups: undefined,
 				optimizedPlayers: undefined,

@@ -47,7 +47,7 @@ const BarContainer = (props: any) => {
 	) => {
 		const { value } = e.currentTarget;
 
-		props.setRule(RULE.MINIMUM_SALARY_CAP, undefined, value);
+		props.setRule(RULE.MINIMUM_SALARY_CAP, undefined, parseInt(value));
 	};
 
 	const handleMaxRepeatingPlayers = (
@@ -55,7 +55,15 @@ const BarContainer = (props: any) => {
 	) => {
 		const { value } = e.currentTarget;
 
-		props.setRule(RULE.MAX_REPEATING_PLAYERS, undefined, value);
+		props.setRule(RULE.MAX_REPEATING_PLAYERS, undefined, parseInt(value));
+	};
+
+	const handleProjectedOwnershipChange = (
+		e: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const { value } = e.currentTarget;
+
+		props.setRule(RULE.PROJECTED_OWNERSHIP, undefined, parseFloat(value));
 	};
 
 	return draftGroupId ? (
@@ -190,6 +198,25 @@ const BarContainer = (props: any) => {
 									type="number"
 									min={0}
 									onChange={handleMaxRepeatingPlayers}
+								/>
+							</label>
+						</div>
+					</div>
+					<div className="input-group">
+						Projected ownership
+						<div className="input input-group__input">
+							<label htmlFor="projectedOwnership">
+								<span className="u-hidden">
+									Projected ownership
+								</span>
+								<input
+									id="projectedOwnership"
+									placeholder="Projected ownership"
+									type="number"
+									min={0}
+									max={1}
+									step={0.1}
+									onChange={handleProjectedOwnershipChange}
 								/>
 							</label>
 						</div>
