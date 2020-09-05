@@ -1,7 +1,10 @@
 import { put, takeLatest, all, select } from 'redux-saga/effects';
 
 import { get, post } from './scripts/utilities/fetch';
-import { GET_PLAYERS } from './containers/Dropdown/Dropdown.actions';
+import {
+	GET_PLAYERS,
+	SET_CONTESTS,
+} from './containers/Dropdown/Dropdown.actions';
 import {
 	GET_PLAYERS_SUCCEEDED,
 	GET_PLAYERS_FAILED,
@@ -12,8 +15,31 @@ import {
 	OPTIMIZE_PLAYERS_FAILED,
 	OPTIMIZE_PLAYERS,
 } from './containers/Optimize/Optimize.actions';
+import { SET_SPORT } from './containers/Header/Header.actions';
 
 const API = process.env.ENDPOINT;
+
+function* fetchContests(action) {
+	try {
+		if (!action.sport) {
+			return;
+		}
+
+		const res = yield post(API!, {
+			sport: action.sport,
+		});
+
+		const { contests } = yield res.json();
+
+		yield put({
+			type: SET_CONTESTS,
+			contests,
+			draftGroupId: undefined,
+		});
+	} catch (e) {
+		yield console.log(e);
+	}
+}
 
 function* fetchPlayers(action) {
 	try {
@@ -70,6 +96,7 @@ function* optimizePlayers(action) {
 }
 
 export default function* rootSaga() {
+	yield takeLatest(SET_SPORT, fetchContests);
 	yield takeLatest(GET_PLAYERS, fetchPlayers);
 	yield takeLatest(OPTIMIZE_PLAYERS, optimizePlayers);
 }

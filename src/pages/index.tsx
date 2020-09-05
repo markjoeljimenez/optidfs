@@ -4,6 +4,8 @@ import Panel from '../templates/panel';
 import Table from '../containers/Table/Table';
 import Bar from '../containers/Bar/Bar';
 import Dropdown from '../containers/Dropdown/Dropdown';
+import { post } from '../scripts/utilities/fetch';
+import { setSport } from '../containers/Header/Header.actions';
 
 const API = process.env.ENDPOINT;
 
@@ -36,11 +38,15 @@ export const getServerSideProps = async () => {
 		return null;
 	}
 
-	const response = await fetch(API);
+	const response = await post(API, {
+		sport: 'NBA',
+	});
 	const { contests } = await response.json();
 
 	const reduxStore = initializeStore();
 	const { dispatch } = reduxStore;
+
+	dispatch(setSport('NBA'));
 
 	dispatch({
 		type: SET_CONTESTS,
