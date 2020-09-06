@@ -1,6 +1,6 @@
 import SkipLink from '../components/global/skiplink';
 
-import Header from '../components/global/header';
+import Header from '../containers/Header/Header';
 
 export interface ILayoutProps {
 	children: React.ReactNode;

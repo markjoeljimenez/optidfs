@@ -46,8 +46,6 @@ export interface IActions {
 const table = (
 	state: IActions = {
 		page: 0,
-		lockedPlayers: [],
-		// rules: {},
 	},
 	{
 		type,
@@ -60,7 +58,6 @@ const table = (
 		payload,
 		playerId,
 		value,
-		// rules,
 		teamIds,
 	}: IActions
 ) => {
@@ -253,15 +250,15 @@ const table = (
 				...state,
 				contests: undefined,
 				defaultPlayers: undefined,
-				lockedPlayers: undefined,
 				draftGroupId: undefined,
 				lineups: undefined,
+				lockedPlayers: undefined,
 				optimizedPlayers: undefined,
 				page: 0,
 				players: undefined,
+				teamIds: undefined,
 				totalFppg: undefined,
 				totalSalary: undefined,
-				rules: {},
 			};
 
 		default:

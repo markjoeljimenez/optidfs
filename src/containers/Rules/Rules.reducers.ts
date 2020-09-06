@@ -1,4 +1,4 @@
-import { SET_RULE, REMOVE_RULE } from './Rules.actions';
+import { SET_RULE, REMOVE_RULE, RESET_RULES } from './Rules.actions';
 
 interface IRules {
 	NUMBER_OF_PLAYERS_FROM_SAME_TEAM?: {
@@ -86,6 +86,9 @@ const RulesReducer = (state: IRules = {}, { type, rule, key, value }) => {
 				[rule]: rules.length ? rules : undefined,
 			};
 		}
+
+		case RESET_RULES:
+			return {};
 
 		default:
 			return state;

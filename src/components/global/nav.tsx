@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import sports from '../../data/sports';
 
-const Nav = () => {
+const Nav = (props: any) => {
 	const router = useRouter();
 
 	const [isActive, setActiveState] = useState(false);
 
 	const onClick = () => {
 		setActiveState(!isActive);
+	};
+
+	const handleSportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+		const { value } = e.currentTarget;
+
+		props.setSport(value);
 	};
 
 	return (
@@ -83,8 +90,15 @@ const Nav = () => {
 					)}
 					Menu
 				</button>
-				<h1 className="nav__heading">DK NBA Optimizer</h1>
+				<h1 className="nav__heading">DK Optimizer</h1>
 			</div>
+			<select onChange={handleSportChange}>
+				{sports.map((sport) => (
+					<option value={sport} key={sport}>
+						{sport}
+					</option>
+				))}
+			</select>
 			<ul className="nav__list">
 				<li className="nav__item">
 					<Link href="/">

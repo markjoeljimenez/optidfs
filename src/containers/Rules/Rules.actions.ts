@@ -7,6 +7,7 @@ export const RULE = {
 	MAX_REPEATING_PLAYERS: 'MAX_REPEATING_PLAYERS',
 	PROJECTED_OWNERSHIP: 'PROJECTED_OWNERSHIP',
 };
+export const RESET_RULES = 'RESET_RULES';
 
 export const setRule = (rule: string, key: string, value: number) => ({
 	type: SET_RULE,
@@ -19,4 +20,8 @@ export const removeRule = (rule: string, key: string) => ({
 	type: REMOVE_RULE,
 	rule,
 	key,
+});
+
+export const resetRules = () => ({
+	type: RESET_RULES,
 });
