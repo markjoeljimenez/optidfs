@@ -153,7 +153,10 @@ const BarContainer = (props: any) => {
 							rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
 								({ key, value }, i) => (
 									<div key={i}>
-										<span>{key}</span> -{' '}
+										<span>{key}</span>
+										{' '}
+										-
+										{' '}
 										<span>{value}</span>
 										<button
 											type="button"
@@ -232,7 +235,10 @@ const BarContainer = (props: any) => {
 							rules.NUMBER_OF_SPECIFIC_POSITIONS.map(
 								({ key, value }, i) => (
 									<div key={i}>
-										<span>{key}</span> -{' '}
+										<span>{key}</span>
+										{' '}
+										-
+										{' '}
 										<span>{value}</span>
 										<button
 											type="button"
@@ -327,15 +333,11 @@ const BarContainer = (props: any) => {
 	);
 };
 
-const mapStateToProps = (actions) => {
-	console.log(actions);
-
-	return {
-		teamIds: actions.table.teamIds,
-		players: actions.table.players,
-		rules: actions.rules,
-	};
-};
+const mapStateToProps = ({ table, rules }) => ({
+	teamIds: table.teamIds,
+	players: table.players,
+	rules,
+});
 
 const mapDispatchToProps = (dispatch) => ({
 	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
