@@ -7,9 +7,6 @@ import { RULE, setRule, removeRule } from '../Rules/Rules.actions';
 import Search from '../Search/Search';
 import Optimize from '../Optimize/Optimize';
 
-// import teams from '../../data/teams';
-// import positions from '../../data/positions';
-
 const BarContainer = (props: any) => {
 	const playersFromSameTeamSelectRef = useRef<HTMLSelectElement>(null);
 	const playersFromSameTeamInputRef = useRef<HTMLInputElement>(null);
@@ -20,7 +17,13 @@ const BarContainer = (props: any) => {
 
 	const teams = players && uniqBy(players, 'team').map(({ team }) => team);
 	const positions =
-		players && uniqBy(players, 'position').map(({ position }) => position);
+		players &&
+		uniqBy(
+			uniqBy(players, 'position')
+				.map(({ position }) => position)
+				.map((pos: string) => pos.split('/'))
+				.flat()
+		);
 
 	const handleNumberOfPlayersFromTeamClick = () => {
 		if (!playersFromSameTeamSelectRef && !playersFromSameTeamInputRef) {
@@ -153,10 +156,7 @@ const BarContainer = (props: any) => {
 							rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
 								({ key, value }, i) => (
 									<div key={i}>
-										<span>{key}</span>
-										{' '}
-										-
-										{' '}
+										<span>{key}</span> -{' '}
 										<span>{value}</span>
 										<button
 											type="button"
@@ -235,10 +235,7 @@ const BarContainer = (props: any) => {
 							rules.NUMBER_OF_SPECIFIC_POSITIONS.map(
 								({ key, value }, i) => (
 									<div key={i}>
-										<span>{key}</span>
-										{' '}
-										-
-										{' '}
+										<span>{key}</span> -{' '}
 										<span>{value}</span>
 										<button
 											type="button"
