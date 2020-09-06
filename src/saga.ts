@@ -17,6 +17,7 @@ import {
 	OPTIMIZE_PLAYERS,
 } from './containers/Optimize/Optimize.actions';
 import { SET_SPORT } from './containers/Header/Header.actions';
+import { RESET_RULES } from './containers/Rules/Rules.actions';
 
 const API = process.env.ENDPOINT;
 
@@ -34,6 +35,10 @@ function* fetchContests(action) {
 
 		yield put({
 			type: RESET_PLAYERS,
+		});
+
+		yield put({
+			type: RESET_RULES,
 		});
 
 		yield put({
