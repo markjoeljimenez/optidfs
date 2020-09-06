@@ -1,6 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 
+const API = process.env.ENDPOINT;
+
 interface ITable {
 	lineups?: IDraftKingsPlayer[];
 	lockedPlayers?: IDraftKingsPlayer[];
@@ -450,6 +452,14 @@ const Table = ({
 							</div>
 						</div>
 					)}
+
+					<div className="table__row table__row--child" role="row">
+						<div className="table__cell" role="cell">
+							<a href={`${API}/export`} download>
+								Download CSV
+							</a>
+						</div>
+					</div>
 				</div>
 			)}
 		</div>
