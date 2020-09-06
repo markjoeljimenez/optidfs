@@ -1,13 +1,14 @@
 import { connect } from 'react-redux';
 import { useRef } from 'react';
+import uniqBy from 'lodash.uniqby';
 
 import { RULE, setRule, removeRule } from '../Rules/Rules.actions';
 
 import Search from '../Search/Search';
 import Optimize from '../Optimize/Optimize';
 
-import teams from '../../data/teams';
-import positions from '../../data/positions';
+// import teams from '../../data/teams';
+// import positions from '../../data/positions';
 
 const BarContainer = (props: any) => {
 	const playersFromSameTeamSelectRef = useRef<HTMLSelectElement>(null);
@@ -15,7 +16,11 @@ const BarContainer = (props: any) => {
 	const numberOfSpecificPositionsSelectRef = useRef<HTMLSelectElement>(null);
 	const numberOfSpecificPositionsInputRef = useRef<HTMLInputElement>(null);
 
-	const { players, teamIds, rules } = props;
+	const { players, rules } = props;
+
+	const teams = players && uniqBy(players, 'team').map(({ team }) => team);
+	const positions =
+		players && uniqBy(players, 'position').map(({ position }) => position);
 
 	const handleNumberOfPlayersFromTeamClick = () => {
 		if (!playersFromSameTeamSelectRef && !playersFromSameTeamInputRef) {
@@ -116,11 +121,9 @@ const BarContainer = (props: any) => {
 									<option value="" disabled selected>
 										Select team
 									</option>
-									{teams.NBA.filter((team, i) =>
-										teamIds.some((teamId) => i === teamId)
-									).map(({ short, name }) => (
-										<option value={short} key={short}>
-											{name}
+									{teams?.map((team, i) => (
+										<option value={team} key={i}>
+											{team}
 										</option>
 									))}
 								</select>
@@ -150,10 +153,7 @@ const BarContainer = (props: any) => {
 							rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
 								({ key, value }, i) => (
 									<div key={i}>
-										<span>{key}</span>
-										{' '}
-										-
-										{' '}
+										<span>{key}</span> -{' '}
 										<span>{value}</span>
 										<button
 											type="button"
@@ -200,9 +200,9 @@ const BarContainer = (props: any) => {
 									<option value="" disabled selected>
 										Select position
 									</option>
-									{positions.NBA.map(({ short, name }) => (
-										<option value={short} key={short}>
-											{name}
+									{positions.map((position, i) => (
+										<option value={position} key={i}>
+											{position}
 										</option>
 									))}
 								</select>
@@ -232,10 +232,7 @@ const BarContainer = (props: any) => {
 							rules.NUMBER_OF_SPECIFIC_POSITIONS.map(
 								({ key, value }, i) => (
 									<div key={i}>
-										<span>{key}</span>
-										{' '}
-										-
-										{' '}
+										<span>{key}</span> -{' '}
 										<span>{value}</span>
 										<button
 											type="button"
