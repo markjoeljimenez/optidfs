@@ -33,8 +33,8 @@ $block: 'table';
 	&__cell {
 		$padding: 2.625rem;
 
-		display: flex;
 		align-items: center;
+		display: flex;
 		padding: $padding / 2 1rem;
 		white-space: nowrap;
 
@@ -99,6 +99,10 @@ $block: 'table';
 		&--pagination {
 			display: flex;
 			justify-content: space-between;
+			width: 100%;
+		}
+
+		&--csv {
 			width: 100%;
 		}
 	}

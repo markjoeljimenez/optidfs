@@ -1,5 +1,7 @@
 import { useRef, useEffect } from 'react';
+
 import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
+import { post } from '../scripts/utilities/fetch';
 
 const API = process.env.ENDPOINT;
 
@@ -452,9 +454,14 @@ const Table = ({
 							</div>
 						</div>
 					)}
-
 					<div className="table__row table__row--child" role="row">
-						<div className="table__cell" role="cell">
+						<div
+							className="table__cell table__cell--align-center"
+							role="cell"
+						>
+							{/* <a href={`${API}/export`} download>
+								Download CSV
+							</a> */}
 							<a href={`${API}/export`} download>
 								Download CSV
 							</a>

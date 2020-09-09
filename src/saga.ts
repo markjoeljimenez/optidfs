@@ -82,7 +82,7 @@ function* optimizePlayers(action) {
 			(_state) => _state
 		);
 
-		const { lockedPlayers, defaultPlayers } = table;
+		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
 		const { sport } = dropdown;
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
@@ -95,6 +95,7 @@ function* optimizePlayers(action) {
 				...rules,
 			},
 			sport,
+			draftGroupId,
 		});
 
 		const { lineups } = yield res.json();
