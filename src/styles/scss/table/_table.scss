@@ -104,6 +104,18 @@ $block: 'table';
 
 		&--csv {
 			width: 100%;
+
+			a {
+				&:visited {
+					color: inherit;
+				}
+			}
+
+			svg {
+				fill: $primary;
+				margin-right: 0.5rem;
+				vertical-align: middle;
+			}
 		}
 	}
 
