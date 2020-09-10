@@ -6,7 +6,7 @@ interface IRule {
 	teams: string[];
 	rules: any;
 	setRule: (rule: string, key: string | undefined, value: number) => void;
-	removeRule: (rule: string, value: number) => void;
+	removeRule: (rule: string, value: string) => void;
 }
 
 const Rule = (props: IRule) => {
@@ -40,7 +40,7 @@ const Rule = (props: IRule) => {
 			return;
 		}
 
-		props.removeRule(rule, parseInt(value));
+		props.removeRule(rule, value);
 	};
 
 	return (
