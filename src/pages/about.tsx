@@ -2,13 +2,13 @@
 import Panel from '../templates/panel';
 
 const About = () => (
-	<Panel heading="Frequently Asked Questions">
+	<Panel>
 		<div style={{ maxWidth: '35rem' }}>
 			<h2>What is this?</h2>
 
 			<p>
 				This tool aims to help you generate the best possible lineups
-				for DraftKings NBA daily contests.
+				for DraftKings daily contests.
 			</p>
 
 			<h2>Features:</h2>

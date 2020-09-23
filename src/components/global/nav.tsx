@@ -123,14 +123,14 @@ const Nav = (props: any) => {
 					</Link>
 				</li>
 				<li className="nav__item">
-					<Link href="/faq">
+					<Link href="/about">
 						<a
 							className={`nav__link ${
-								router.pathname === '/faq' &&
+								router.pathname === '/about' &&
 								'nav__link--active'
 							}`}
 						>
-							FAQ
+							About
 						</a>
 					</Link>
 				</li>
