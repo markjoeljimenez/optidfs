@@ -12,13 +12,13 @@ const Rule = (props: any) => {
 
 	return (
 		<div className="input-group">
-			<span className="input-group__label">Minimumm salary cap</span>
+			<span className="input-group__label">Minimum salary cap</span>
 			<div className="input input-group__input">
 				<label htmlFor="minSalaryCap">
 					<span className="u-hidden">Minimum Salary Cap</span>
 					<input
 						id="minSalaryCap"
-						placeholder="Minimum salary cap"
+						placeholder="0"
 						type="number"
 						min={0}
 						step={5000}

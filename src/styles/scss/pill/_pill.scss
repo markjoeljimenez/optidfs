@@ -6,7 +6,57 @@ $block: 'pill';
 	@include font-weight(600);
 
 	border-radius: 0.5rem;
+	display: inline-block;
 	padding: 0.625rem 1rem;
+
+	& + & {
+		margin-left: 0.5rem;
+	}
+
+	button {
+		background-color: transparent;
+		border: 0;
+		cursor: pointer;
+		margin: 0;
+		padding: 0;
+		position: relative;
+
+		svg {
+			height: 16px;
+			position: absolute;
+			right: 8px;
+			top: 50%;
+			transform: translateY(-50%);
+			width: 16px;
+		}
+	}
+
+	&--white {
+		button {
+			background-color: $white;
+
+			&:hover {
+				background-color: $primary;
+				color: $white;
+
+				svg {
+					fill: $white;
+				}
+			}
+		}
+	}
+
+	&--button {
+		border-radius: 0;
+		padding: 0;
+
+		button {
+			border-radius: 2rem;
+			font-weight: 600;
+			padding: 0.5rem;
+			padding-right: 28px;
+		}
+	}
 
 	&--active {
 		background-color: $green-light;

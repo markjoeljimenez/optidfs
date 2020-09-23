@@ -19,6 +19,10 @@ $block: 'input-group';
 		> * + * {
 			margin-left: 0.5rem;
 		}
+
+		& + * {
+			margin-top: 0.5rem;
+		}
 	}
 
 	&__input {

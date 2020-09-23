@@ -18,7 +18,7 @@ const Rule = (props: any) => {
 					<span className="u-hidden">Projected ownership</span>
 					<input
 						id="projectedOwnership"
-						placeholder="Projected ownership"
+						placeholder="0"
 						type="number"
 						min={0}
 						max={1}

@@ -92,14 +92,14 @@ const Rule = (props: any) => {
 			</div>
 			{rules.NUMBER_OF_SPECIFIC_POSITIONS &&
 				rules.NUMBER_OF_SPECIFIC_POSITIONS.map(({ key, value }, i) => (
-					<div key={i}>
-						<span>{key}</span> -<span>{value}</span>
+					<div key={i} className="pill pill--button pill--white">
 						<button
 							type="button"
 							onClick={handleRemoveRule}
 							value={key}
 							data-rule={RULE.NUMBER_OF_SPECIFIC_POSITIONS}
 						>
+							{key} - {value}
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"

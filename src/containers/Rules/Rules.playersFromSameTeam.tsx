@@ -97,8 +97,10 @@ const Rule = (props: IRule) => {
 				{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM &&
 					rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
 						({ key, value }, i) => (
-							<div key={i} className="pill">
-								<span>{key}</span> -<span>{value}</span>
+							<div
+								key={i}
+								className="pill pill--button pill--white"
+							>
 								<button
 									type="button"
 									onClick={handleRemoveRule}
@@ -107,6 +109,7 @@ const Rule = (props: IRule) => {
 										RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM
 									}
 								>
+									{key} - {value}
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										viewBox="0 0 24 24"

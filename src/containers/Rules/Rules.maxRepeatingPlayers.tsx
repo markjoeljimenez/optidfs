@@ -20,7 +20,7 @@ const Rule = (props: any) => {
 					<span className="u-hidden">Maximum repeating players</span>
 					<input
 						id="maxRepeatingPlayers"
-						placeholder="Maximum repeating players"
+						placeholder="0"
 						type="number"
 						min={0}
 						onChange={handleMaxRepeatingPlayers}
