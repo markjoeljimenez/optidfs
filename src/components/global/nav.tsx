@@ -92,14 +92,25 @@ const Nav = (props: any) => {
 				</button>
 				<h1 className="nav__heading">DK Optimizer</h1>
 			</div>
-			<select onChange={handleSportChange}>
-				{sports.map((sport) => (
-					<option value={sport} key={sport}>
-						{sport}
-					</option>
-				))}
-			</select>
 			<ul className="nav__list">
+				<li className="nav__item">
+					<div className="select">
+						<label htmlFor="selectSport" className="select__label">
+							<span>Select Sport</span>
+							<select
+								onChange={handleSportChange}
+								className="select__input"
+								id="selectSport"
+							>
+								{sports.map((sport) => (
+									<option value={sport} key={sport}>
+										{sport}
+									</option>
+								))}
+							</select>
+						</label>
+					</div>
+				</li>
 				<li className="nav__item">
 					<Link href="/">
 						<a

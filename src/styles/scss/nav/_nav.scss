@@ -100,22 +100,14 @@ $block: 'nav';
 
 	&__item {
 		display: block;
-		// margin-bottom: 1.5rem;
-		// margin-top: 1.5rem;
 
-		@include media-min(md) {
-			// margin-bottom: 2rem;
-			// margin-top: 2rem;
-			// display: inline-block;
-			// margin: 0 1rem;
+		> * {
+			color: $white;
+			padding: 1rem;
 
-			// &:first-child {
-			// 	margin-left: 0;
-			// }
-
-			// &:last-child {
-			// 	margin-right: 0;
-			// }
+			@include media-min(md) {
+				padding: 1rem $padding-horizontal;
+			}
 		}
 	}
 
@@ -124,11 +116,6 @@ $block: 'nav';
 
 		color: rgba($white, 0.75);
 		display: block;
-		padding: 1rem;
-
-		@include media-min(md) {
-			padding: 1rem $padding-horizontal;
-		}
 
 		@include hover-focus {
 			color: $white;

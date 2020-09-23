@@ -3,10 +3,17 @@
 $block: 'select';
 
 .#{$block} {
-	display: inline-block;
+	// display: inline-block;
 	position: relative;
 
+	span {
+		& + * {
+			margin-top: 0.5rem;
+		}
+	}
+
 	&__input {
-		@include input;
+		display: block;
+		width: 100%;
 	}
 }

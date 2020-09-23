@@ -1,8 +1,8 @@
 const DEFAULT_OPTIONS: RequestInit = {
-	credentials: 'include',
-	// mode: 'cors',
+	credentials: 'same-origin',
+	mode: 'cors',
 	headers: {
-		'content-type': 'application/json',
+		'Content-Type': 'application/json',
 	},
 };
 
@@ -28,7 +28,7 @@ export async function post(
 	};
 
 	if (body) {
-		options['body'] = JSON.stringify(body);
+		options.body = JSON.stringify(body);
 	}
 
 	return fetch(action, options as RequestInit);
