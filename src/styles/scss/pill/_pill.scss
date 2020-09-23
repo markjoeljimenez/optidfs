@@ -58,7 +58,8 @@ $block: 'pill';
 		}
 	}
 
-	&--active {
+	&--active,
+	&--DL {
 		background-color: $green-light;
 		color: $green;
 	}
@@ -68,8 +69,15 @@ $block: 'pill';
 		color: $red;
 	}
 
-	&--Q {
+	&--Q,
+	&--DTD,
+	&--IL {
 		background-color: $orange-light;
 		color: $orange;
+	}
+
+	&--IR {
+		background-color: $teal;
+		color: $teal-dark;
 	}
 }
