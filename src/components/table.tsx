@@ -81,7 +81,10 @@ const Table = ({
 
 	return (
 		<div className="table" role="table">
-			<div className="table__row-group" role="rowgroup">
+			<div
+				className="table__row-group table__row-group--header"
+				role="rowgroup"
+			>
 				<div className="table__row table__row--child" role="row">
 					<div
 						className="table__cell table__cell--lock table__cell--align-center"
@@ -168,86 +171,104 @@ const Table = ({
 								key={Math.random()}
 								// aria-rowindex={i}
 							>
-								<div
-									className="table__cell table__cell--lock table__cell--align-center"
-									role="cell"
-								>
-									{player.status !== 'O' ? (
-										<input
-											className="checkbox"
-											type="checkbox"
-											onChange={handleChange}
-											defaultChecked={lockedPlayers?.some(
-												(_player) =>
-													_player.id === player.id
-											)}
-											value={player.id}
-										/>
-									) : (
-										<></>
-									)}
-								</div>
-								<div
-									className="table__cell table__cell--status table__cell--align-center"
-									role="cell"
-								>
+								<div className="table__cell-group">
 									<div
-										className={`pill ${
-											player.status
-												? `pill--${player.status}`
-												: 'pill--active'
-										}`}
+										className="table__cell table__cell--lock table__cell--align-center"
+										role="cell"
 									>
-										{player.status
-											? player.status === 'O'
-												? 'Out'
-												: player.status === 'Q'
-												? 'GTD'
-												: player.status
-											: 'Active'}
+										{player.status !== 'O' ? (
+											<input
+												className="checkbox"
+												type="checkbox"
+												onChange={handleChange}
+												defaultChecked={lockedPlayers?.some(
+													(_player) =>
+														_player.id === player.id
+												)}
+												value={player.id}
+											/>
+										) : (
+											<></>
+										)}
+									</div>
+									<div
+										className="table__cell table__cell--status table__cell--align-center"
+										role="cell"
+									>
+										<div
+											className={`pill ${
+												player.status
+													? `pill--${player.status}`
+													: 'pill--active'
+											}`}
+										>
+											{player.status
+												? player.status === 'O'
+													? 'Out'
+													: player.status === 'Q'
+													? 'GTD'
+													: player.status
+												: 'Active'}
+										</div>
 									</div>
 								</div>
-								<div
-									className="table__cell table__cell--first-name"
-									role="cell"
-								>
-									{player.first_name}
+
+								<div className="table__cell-group table__cell-group--full-width">
+									<div className="table__cell-group table__cell-group--full-width table__cell-group--row">
+										<div
+											className="table__cell table__cell--first-name"
+											role="cell"
+										>
+											{player.first_name}
+										</div>
+										<div
+											className="table__cell table__cell--last-name"
+											role="cell"
+										>
+											{player.last_name}
+										</div>
+									</div>
+									<div className="table__cell-group table__cell-group--full-width table__cell-group--split table__cell-group--row">
+										<div className="table__cell-group">
+											<div
+												className="table__cell table__cell--positions"
+												role="cell"
+											>
+												{player.position}
+											</div>
+											<div
+												className="table__cell table__cell--team"
+												role="cell"
+											>
+												{player.team}
+											</div>
+										</div>
+
+										<div className="table__cell-group">
+											<div
+												className="table__cell table__cell--salary table__cell--align-right"
+												role="cell"
+											>
+												{' '}
+												{new Intl.NumberFormat(
+													'en-US',
+													{
+														style: 'currency',
+														currency: 'USD',
+														minimumFractionDigits: 0,
+													}
+												).format(player.salary)}
+											</div>
+											<div
+												className="table__cell table__cell--fppg table__cell--align-right"
+												role="cell"
+											>
+												{player.points_per_contest}
+											</div>
+										</div>
+									</div>
 								</div>
-								<div
-									className="table__cell table__cell--last-name"
-									role="cell"
-								>
-									{player.last_name}
-								</div>
-								<div
-									className="table__cell table__cell--positions"
-									role="cell"
-								>
-									{player.position}
-								</div>
-								<div
-									className="table__cell table__cell--team"
-									role="cell"
-								>
-									{player.team}
-								</div>
-								<div
-									className="table__cell table__cell--salary table__cell--align-right"
-									role="cell"
-								>
-									{' '}
-									{new Intl.NumberFormat('en-US', {
-										style: 'currency',
-										currency: 'USD',
-										minimumFractionDigits: 0,
-									}).format(player.salary)}
-								</div>
-								<div
-									className="table__cell table__cell--fppg table__cell--align-right"
-									role="cell"
-								>
-									{player.points_per_contest}
-								</div>
+
 								<div
 									className="table__cell table__cell--options table__cell--align-center"
 									role="cell"

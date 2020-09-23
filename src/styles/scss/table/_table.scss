@@ -3,6 +3,8 @@
 $block: 'table';
 
 .#{$block} {
+	$padding: 2.625rem;
+
 	button {
 		@include image-replacement;
 
@@ -12,6 +14,14 @@ $block: 'table';
 
 	&__row-group {
 		width: 100%;
+
+		&--header {
+			display: none;
+
+			@include media-min(sm) {
+				display: block;
+			}
+		}
 
 		&--hidden {
 			height: 0;
@@ -27,16 +37,56 @@ $block: 'table';
 		&--child {
 			border-top: 0;
 			display: flex;
+			flex-wrap: wrap;
+			padding: 0.25rem $padding / 2;
+
+			@include media-min(sm) {
+				flex-wrap: initial;
+				padding: 0;
+			}
+		}
+
+		> .#{$block}__cell-group {
+			& + .#{$block}__cell-group {
+				margin-left: 1rem;
+			}
+		}
+	}
+
+	&__cell-group {
+		&--row {
+			display: flex;
+
+			@include media-min(sm) {
+				display: block;
+			}
+		}
+
+		&--full-width {
+			flex: 1;
+
+			@include media-min(sm) {
+				flex: initial;
+			}
+		}
+
+		&--split {
+			justify-content: space-between;
+			@include media-min(sm) {
+				justify-items: initial;
+			}
 		}
 	}
 
 	&__cell {
-		$padding: 2.625rem;
-
 		align-items: center;
 		display: flex;
-		padding: $padding / 2 1rem;
+		padding: 0.125rem 0;
 		white-space: nowrap;
+
+		@include media-min(sm) {
+			padding: $padding / 2 1rem;
+		}
 
 		&--align {
 			&-right {
@@ -49,47 +99,83 @@ $block: 'table';
 		}
 
 		&:first-child {
-			padding-left: $padding;
+			@include media-min(sm) {
+				padding-left: $padding;
+			}
 		}
 
 		&:last-child {
-			padding-right: $padding;
+			@include media-min(sm) {
+				padding-right: $padding;
+			}
 		}
 
 		&--lock {
-			width: 8%;
+			@include media-min(sm) {
+				width: 8%;
+			}
 		}
 
 		&--status {
-			width: 12%;
+			display: none;
+
+			@include media-min(sm) {
+				display: block;
+				width: 12%;
+			}
 		}
 
 		&--first-name {
-			width: 12%;
+			font-weight: 600;
+
+			@include media-min(sm) {
+				font-weight: 400;
+				width: 12%;
+			}
 		}
 
 		&--last-name {
-			width: 20%;
+			font-weight: 600;
+			margin-left: 0.25rem;
+
+			@include media-min(sm) {
+				font-weight: 400;
+				margin-left: 0;
+				width: 20%;
+			}
 		}
 
 		&--positions {
-			width: 13%;
+			@include media-min(sm) {
+				width: 13%;
+			}
 		}
 
 		&--team {
-			width: 7%;
+			@include media-min(sm) {
+				width: 7%;
+			}
 		}
 
 		&--salary {
-			width: 15%;
+			@include media-min(sm) {
+				width: 15%;
+			}
 		}
 
 		&--fppg {
-			width: 10%;
+			@include media-min(sm) {
+				width: 10%;
+			}
 		}
 
 		&--options {
-			width: 8%;
+			display: none;
+
+			@include media-min(sm) {
+				display: block;
+				width: 8%;
+			}
 		}
 
 		&--total {
