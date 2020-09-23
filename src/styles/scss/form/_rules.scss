@@ -1,0 +1,45 @@
+@import '../reference/index';
+
+$block: 'rules';
+
+.#{$block} {
+	&__button {
+		button {
+			background-color: transparent;
+			border: 0;
+			cursor: pointer;
+			margin: 0;
+			padding: 0;
+			position: relative;
+			// text-align: left;
+			width: 100%;
+
+			span {
+				font-weight: 600;
+				color: $primary-dark;
+				position: relative;
+				padding-left: 1rem;
+				padding-right: 1rem;
+				z-index: 1;
+				background-color: $grey-100;
+
+				svg {
+					height: 24px;
+					width: 24px;
+					vertical-align: middle;
+				}
+			}
+
+			&::before {
+				border-top: 1px solid $primary-dark;
+				content: '';
+				left: 0;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 0;
+				z-index: 0;
+			}
+		}
+	}
+}

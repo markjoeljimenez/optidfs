@@ -3,11 +3,31 @@
 $block: 'input-group';
 
 .#{$block} {
-	&__input {
+	& + & {
+		margin-top: 1rem;
+	}
+
+	> span {
+		& + * {
+			margin-top: 0.5rem;
+		}
+	}
+
+	&__inputs {
 		display: flex;
 
+		> * + * {
+			margin-left: 0.5rem;
+		}
+	}
+
+	&__input {
 		input {
 			box-shadow: 0;
+		}
+
+		&--100 {
+			flex: 1;
 		}
 	}
 }

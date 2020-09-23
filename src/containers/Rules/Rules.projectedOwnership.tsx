@@ -12,7 +12,7 @@ const Rule = (props: any) => {
 
 	return (
 		<div className="input-group">
-			Projected ownership
+			<span className="input-group__label">Projected ownership</span>
 			<div className="input input-group__input">
 				<label htmlFor="projectedOwnership">
 					<span className="u-hidden">Projected ownership</span>

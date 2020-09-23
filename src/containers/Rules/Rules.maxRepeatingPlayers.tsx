@@ -12,7 +12,9 @@ const Rule = (props: any) => {
 
 	return (
 		<div className="input-group">
-			Maximum repeating players
+			<span className="input-group__label">
+				Maximum repeating players
+			</span>
 			<div className="input input-group__input">
 				<label htmlFor="maxRepeatingPlayers">
 					<span className="u-hidden">Maximum repeating players</span>

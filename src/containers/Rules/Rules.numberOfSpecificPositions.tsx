@@ -41,39 +41,49 @@ const Rule = (props: any) => {
 
 	return (
 		<div className="input-group">
-			Number of specific positions
-			<div className="input input-group__input">
-				<label htmlFor="numberOfSpecificPositionsSelect">
-					<span className="u-hidden">
-						Number of specific positions
-					</span>
-					<select
-						ref={numberOfSpecificPositionsSelectRef}
-						id="numberOfSpecificPositionsSelect"
-					>
-						<option value="" disabled selected>
-							Select position
-						</option>
-						{positions.map((position, i) => (
-							<option value={position} key={i}>
-								{position}
-							</option>
-						))}
-					</select>
-				</label>
-				<label htmlFor="numberOfSpecificPositions">
-					<span className="u-hidden">Number of players</span>
-					<input
-						ref={numberOfSpecificPositionsInputRef}
-						id="numberOfSpecificPositions"
-						placeholder="Number of players"
-						type="number"
-						min={0}
-						max={3}
-					/>
-				</label>
+			<span className="input-group__label">
+				Number of specific positions
+			</span>
+			<div className="input input-group__inputs">
+				<div className="input input-group__input">
+					<label htmlFor="numberOfSpecificPositionsSelect">
+						<span className="u-hidden">
+							Number of specific positions
+						</span>
+						<div className="select">
+							<select
+								className="select__input"
+								ref={numberOfSpecificPositionsSelectRef}
+								id="numberOfSpecificPositionsSelect"
+							>
+								<option value="" disabled selected>
+									Select position
+								</option>
+								{positions.map((position, i) => (
+									<option value={position} key={i}>
+										{position}
+									</option>
+								))}
+							</select>
+						</div>
+					</label>
+				</div>
+				<div className="input input-group__input input-group__input--100">
+					<label htmlFor="numberOfSpecificPositions">
+						<span className="u-hidden">Number of players</span>
+						<input
+							ref={numberOfSpecificPositionsInputRef}
+							id="numberOfSpecificPositions"
+							placeholder="Number of players"
+							type="number"
+							min={0}
+							max={3}
+						/>
+					</label>
+				</div>
 
 				<button
+					className="button"
 					type="submit"
 					onClick={handleNumberOfSpecificPositionsClick}
 				>
@@ -83,10 +93,7 @@ const Rule = (props: any) => {
 			{rules.NUMBER_OF_SPECIFIC_POSITIONS &&
 				rules.NUMBER_OF_SPECIFIC_POSITIONS.map(({ key, value }, i) => (
 					<div key={i}>
-						<span>{key}</span>
-						{' '}
-						-
-						<span>{value}</span>
+						<span>{key}</span> -<span>{value}</span>
 						<button
 							type="button"
 							onClick={handleRemoveRule}
