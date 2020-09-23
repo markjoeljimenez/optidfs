@@ -99,7 +99,10 @@ const Rule = (props: any) => {
 							value={key}
 							data-rule={RULE.NUMBER_OF_SPECIFIC_POSITIONS}
 						>
-							{key} - {value}
+							{key}
+							{' '}
+							-
+							{value}
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"
