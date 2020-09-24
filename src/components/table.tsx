@@ -82,10 +82,10 @@ const Table = ({
 	return (
 		<div className="table" role="table">
 			<div
-				className="table__row-group table__row-group--header"
+				className="table__row-group table__row-group--header table__row-group--main"
 				role="rowgroup"
 			>
-				<div className="table__row table__row--child" role="row">
+				<div className="table__row" role="row">
 					<div
 						className="table__cell table__cell--lock table__cell--align-center"
 						role="columnheader"
@@ -164,20 +164,25 @@ const Table = ({
 						key={player.id}
 						aria-rowindex={i}
 					>
-						<div className="table__row-group" role="rowgroup">
+						<div
+							className="table__row-group table__row-group--main"
+							role="rowgroup"
+						>
 							<div
-								className="table__row table__row--child"
+								className="table__row"
 								role="row"
 								key={Math.random()}
 								// aria-rowindex={i}
 							>
-								<div className="table__cell-group">
-									<div
-										className="table__cell table__cell--lock table__cell--align-center"
-										role="cell"
-									>
-										{player.status !== 'O' ? (
+								<div
+									className="table__cell table__cell--lock table__cell--align-center"
+									role="cell"
+								>
+									{player.status !== 'O' ? (
+										<label htmlFor="lock">
+											<span>Lock</span>
 											<input
+												id="lock"
 												className="checkbox"
 												type="checkbox"
 												onChange={handleChange}
@@ -187,88 +192,75 @@ const Table = ({
 												)}
 												value={player.id}
 											/>
-										) : (
-											<></>
-										)}
-									</div>
+										</label>
+									) : (
+										<></>
+									)}
+								</div>
+								<div
+									className="table__cell table__cell--status table__cell--align-center"
+									role="cell"
+								>
 									<div
-										className="table__cell table__cell--status table__cell--align-center"
-										role="cell"
+										className={`table__pill pill ${
+											player.status
+												? `pill--${player.status}`
+												: 'pill--active'
+										}`}
 									>
-										<div
-											className={`pill ${
-												player.status
-													? `pill--${player.status}`
-													: 'pill--active'
-											}`}
-										>
-											{player.status
-												? player.status === 'O'
-													? 'Out'
-													: player.status === 'Q'
-													? 'GTD'
-													: player.status
-												: 'Active'}
-										</div>
+										{player.status
+											? player.status === 'O'
+												? 'Out'
+												: player.status === 'Q'
+												? 'GTD'
+												: player.status
+											: 'Active'}
 									</div>
 								</div>
-
-								<div className="table__cell-group table__cell-group--full-width">
-									<div className="table__cell-group table__cell-group--full-width table__cell-group--row">
-										<div
-											className="table__cell table__cell--first-name"
-											role="cell"
-										>
-											{player.first_name}
-										</div>
-										<div
-											className="table__cell table__cell--last-name"
-											role="cell"
-										>
-											{player.last_name}
-										</div>
-									</div>
-									<div className="table__cell-group table__cell-group--full-width table__cell-group--split table__cell-group--row">
-										<div className="table__cell-group">
-											<div
-												className="table__cell table__cell--positions"
-												role="cell"
-											>
-												{player.position}
-											</div>
-											<div
-												className="table__cell table__cell--team"
-												role="cell"
-											>
-												{player.team}
-											</div>
-										</div>
-
-										<div className="table__cell-group">
-											<div
-												className="table__cell table__cell--salary table__cell--align-right"
-												role="cell"
-											>
-												{' '}
-												{new Intl.NumberFormat(
-													'en-US',
-													{
-														style: 'currency',
-														currency: 'USD',
-														minimumFractionDigits: 0,
-													}
-												).format(player.salary)}
-											</div>
-											<div
-												className="table__cell table__cell--fppg table__cell--align-right"
-												role="cell"
-											>
-												{player.points_per_contest}
-											</div>
-										</div>
+								<div
+									className="table__cell table__cell--first-name"
+									role="cell"
+								>
+									<div>
+										{player.first_name}
+										<span>{player.last_name}</span>
 									</div>
 								</div>
-
+								<div
+									className="table__cell table__cell--last-name"
+									role="cell"
+								>
+									{player.last_name}
+								</div>
+								<div
+									className="table__cell table__cell--positions"
+									role="cell"
+								>
+									{player.position}
+								</div>
+								<div
+									className="table__cell table__cell--team"
+									role="cell"
+								>
+									{player.team}
+								</div>
+								<div
+									className="table__cell table__cell--salary table__cell--align-right"
+									role="cell"
+								>
+									{' '}
+									{new Intl.NumberFormat('en-US', {
+										style: 'currency',
+										currency: 'USD',
+										minimumFractionDigits: 0,
+									}).format(player.salary)}
+								</div>
+								<div
+									className="table__cell table__cell--fppg table__cell--align-right"
+									role="cell"
+								>
+									{player.points_per_contest}
+								</div>
 								<div
 									className="table__cell table__cell--options table__cell--align-center"
 									role="cell"
@@ -319,9 +311,10 @@ const Table = ({
 								</div>
 							</div>
 						</div>
+
 						{player.status !== 'O' && (
 							<div
-								className="table__row-group table__row-group--hidden"
+								className="table__row-group table__row-group--options table__row-group--hidden"
 								aria-hidden
 								role="rowgroup"
 								ref={(ref) => {
@@ -335,47 +328,73 @@ const Table = ({
 									// aria-rowindex={i}
 								>
 									<div className="table__cell" role="cell">
-										<label
-											htmlFor={`set-exposure-${player.id}`}
-										>
-											{/* <span className="u-hidden"> */}
-											Minimum exposure
-											{/* </span> */}
-											<input
-												id={`set-exposure-${player.id}`}
-												type="number"
-												min={0}
-												max={1}
-												step={0.1}
-												defaultValue={
-													player.min_exposure
-												}
-												data-player-id={player.id}
-												onChange={handleExposureChange}
-											/>
-										</label>
-
-										<label
-											htmlFor={`set-ownership-projection-${player.id}`}
-										>
-											{/* <span className="u-hidden"> */}
-											Projected Ownership
-											{/* </span> */}
-											<input
-												id={`set-ownership-projection-${player.id}`}
-												type="number"
-												min={0}
-												max={1}
-												step={0.1}
-												defaultValue={
-													player.projected_ownership
-												}
-												data-player-id={player.id}
-												onChange={
-													handleProjectedOwnershipChange
-												}
-											/>
-										</label>
+										<div className="row">
+											<div className="col">
+												<div className="input-group">
+													<span className="input-group__label">
+														Minimum exposure
+													</span>
+													<div className="input input-group__input">
+														<label
+															htmlFor={`set-exposure-${player.id}`}
+														>
+															<span className="u-hidden">
+																Minimum exposure
+															</span>
+															<input
+																id={`set-exposure-${player.id}`}
+																type="number"
+																min={0}
+																max={1}
+																step={0.1}
+																defaultValue={
+																	player.min_exposure
+																}
+																data-player-id={
+																	player.id
+																}
+																onChange={
+																	handleExposureChange
+																}
+															/>
+														</label>
+													</div>
+												</div>
+											</div>
+											<div className="col">
+												<div className="input-group">
+													<span className="input-group__label">
+														Projected Ownership
+													</span>
+													<div className="input input-group__input">
+														<label
+															htmlFor={`set-ownership-projection-${player.id}`}
+														>
+															<span className="u-hidden">
+																Projected
+																Ownership
+															</span>
+															<input
+																id={`set-ownership-projection-${player.id}`}
+																type="number"
+																min={0}
+																max={1}
+																step={0.1}
+																defaultValue={
+																	player.projected_ownership
+																}
+																data-player-id={
+																	player.id
+																}
+																onChange={
+																	handleProjectedOwnershipChange
+																}
+															/>
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

@@ -12,76 +12,66 @@ $block: 'table';
 		fill: $primary;
 	}
 
+	&__pill {
+		display: inline;
+
+		@include media-max(sm) {
+			font-size: 0.825rem;
+			padding: 0.5rem 0.75rem;
+		}
+	}
+
 	&__row-group {
+		border-top: 1px solid $grey-200;
+		position: relative;
 		width: 100%;
 
 		&--header {
 			display: none;
 
 			@include media-min(sm) {
-				display: block;
+				display: grid;
 			}
 		}
 
-		&--hidden {
-			height: 0;
-			overflow: hidden;
-		}
-	}
-
-	&__row {
-		border-top: 1px solid $grey-200;
-		background-color: $white;
-		box-sizing: border-box;
-
-		&--child {
-			border-top: 0;
-			display: flex;
-			flex-wrap: wrap;
-			padding: 0.25rem $padding / 2;
+		&--main,
+		&--options {
+			padding: 1.25rem 1rem;
 
 			@include media-min(sm) {
-				flex-wrap: initial;
 				padding: 0;
 			}
 		}
 
-		> .#{$block}__cell-group {
-			& + .#{$block}__cell-group {
-				margin-left: 1rem;
+		&--main {
+			> .#{$block}__row {
+				display: grid;
+				grid-template-columns: 5rem 1fr 1fr 3rem;
+				grid-template-rows: repeat(3, 1fr);
+				row-gap: 0.25rem;
+
+				@include media-min(sm) {
+					grid-template-columns: 5.25rem 7rem 3fr 4fr 3fr 2fr 3fr 2fr 5.25rem;
+					grid-template-rows: initial;
+					row-gap: initial;
+				}
 			}
+		}
+
+		&--hidden {
+			display: none;
 		}
 	}
 
-	&__cell-group {
-		&--row {
-			display: flex;
-
-			@include media-min(sm) {
-				display: block;
-			}
-		}
-
-		&--full-width {
-			flex: 1;
-
-			@include media-min(sm) {
-				flex: initial;
-			}
-		}
-
-		&--split {
-			justify-content: space-between;
-			@include media-min(sm) {
-				justify-items: initial;
-			}
-		}
+	&__row {
+		background-color: $white;
+		box-sizing: border-box;
 	}
 
 	&__cell {
 		align-items: center;
 		display: flex;
-		padding: 0.125rem 0;
+		// padding: 0.125rem 0;
 		white-space: nowrap;
 
 		@include media-min(sm) {
@@ -111,75 +101,112 @@ $block: 'table';
 		}
 
 		&--lock {
-			@include media-min(sm) {
-				width: 8%;
+			span {
+				& + * {
+					margin-left: 0.5rem;
+				}
+
+				@include media-min(sm) {
+					display: none;
+
+					& + * {
+						margin-left: initial;
+					}
+				}
+			}
+			@include media-max(sm) {
+				grid-row-start: 3;
+				justify-content: flex-start !important;
+				// width: 8%;
 			}
 		}
 
 		&--status {
-			display: none;
+			// display: none;
 
-			@include media-min(sm) {
-				display: block;
-				width: 12%;
+			@include media-max(sm) {
+				display: inline-block;
+				// grid-row-start: 2;
+				// display: flex;
+				// width: 12%;
 			}
 		}
 
 		&--first-name {
-			font-weight: 600;
+			> div {
+				text-overflow: ellipsis;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+			span {
+				margin-left: 0.25rem;
 
-			@include media-min(sm) {
-				font-weight: 400;
-				width: 12%;
+				@include media-min(sm) {
+					display: none;
+					margin-left: initial;
+				}
+			}
+
+			@include media-max(sm) {
+				grid-column-start: 2;
+				grid-column-end: 4;
+				font-weight: 600;
+				// width: 12%;
 			}
 		}
 
 		&--last-name {
+			display: none;
 			font-weight: 600;
-			margin-left: 0.25rem;
 
 			@include media-min(sm) {
+				display: flex;
 				font-weight: 400;
-				margin-left: 0;
-				width: 20%;
+				// width: 20%;
 			}
 		}
 
 		&--positions {
-			@include media-min(sm) {
-				width: 13%;
+			@include media-max(sm) {
+				grid-column-start: 2;
 			}
 		}
 
 		&--team {
-			@include media-min(sm) {
-				width: 7%;
+			@include media-max(sm) {
+				grid-column-start: 2;
+				grid-row-start: 3;
+				// width: 7%;
 			}
 		}
 
 		&--salary {
-			@include media-min(sm) {
-				width: 15%;
+			@include media-max(sm) {
+				grid-column-start: 3;
+				grid-row-start: 3;
+				// width: 15%;
 			}
 		}
 
 		&--fppg {
-			@include media-min(sm) {
-				width: 10%;
+			@include media-max(sm) {
+				grid-column-start: 3;
+				grid-row-start: 2;
+				// width: 10%;
 			}
 		}
 
 		&--options {
-			display: none;
-
-			@include media-min(sm) {
-				display: block;
-				width: 8%;
+			@include media-max(sm) {
+				position: absolute;
+				top: 1rem;
+				right: 0.5rem;
+				// width: 8%;
 			}
 		}
 
 		&--total {
-			width: 73%;
+			// width: 73%;
 		}
 
 		&--pagination {
