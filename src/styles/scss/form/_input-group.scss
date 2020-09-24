@@ -34,4 +34,15 @@ $block: 'input-group';
 			flex: 1;
 		}
 	}
+
+	&__label {
+		svg {
+			fill: $primary-dark;
+			margin-left: 0.5rem;
+			margin-top: -0.25rem;
+			vertical-align: middle;
+			width: 20px;
+			height: 20px;
+		}
+	}
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+
 import sports from '../../data/sports';
 
 const Nav = (props: any) => {
