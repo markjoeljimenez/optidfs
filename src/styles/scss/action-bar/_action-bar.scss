@@ -1,0 +1,47 @@
+@import '../reference/index';
+
+$block: 'action-bar';
+
+.#{$block} {
+	background-color: $white;
+	position: fixed;
+	display: flex;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 5;
+
+	@include media-min(sm) {
+		position: initial;
+	}
+
+	&__rules {
+		@include media-max(sm) {
+			border-right: 1px solid $white;
+			display: flex;
+
+			button {
+				background-color: $primary-light;
+				color: $white;
+				font-weight: 600;
+				height: 100%;
+				padding: 1rem 1.75rem;
+
+				&::before {
+					display: none;
+				}
+
+				svg {
+					display: none;
+				}
+			}
+		}
+	}
+
+	&__optimize {
+		@include media-max(sm) {
+			border-radius: 0;
+			margin-left: 0;
+		}
+	}
+}

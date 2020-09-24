@@ -3,10 +3,7 @@
 $block: 'search';
 
 .#{$block} {
-	display: none;
-
 	@include media-min(md) {
-		display: block;
 		flex: 1;
 		min-width: 16rem;
 	}

@@ -1,11 +1,12 @@
 import { initializeStore } from '../store';
+import { post } from '../scripts/utilities/fetch';
 import { SET_CONTESTS } from '../containers/Dropdown/Dropdown.actions';
-import Panel from '../templates/panel';
-import Table from '../containers/Table/Table';
+import { setSport } from '../containers/Header/Header.actions';
 import Bar from '../containers/Bar/Bar';
 import Dropdown from '../containers/Dropdown/Dropdown';
-import { post } from '../scripts/utilities/fetch';
-import { setSport } from '../containers/Header/Header.actions';
+import Panel from '../templates/panel';
+import Rules from '../containers/Rules/Rules';
+import Table from '../containers/Table/Table';
 
 const API = process.env.ENDPOINT;
 
@@ -13,18 +14,11 @@ const App = ({ initialReduxState }: any) => (
 	<Panel>
 		<div className="row">
 			<div className="col">
-				<div className="row">
-					<div className="col">
-						<Dropdown />
-					</div>
-				</div>
-				<div className="row">
-					<div className="col">
-						<Bar />
-					</div>
-				</div>
+				<Dropdown />
 			</div>
 		</div>
+		<Bar />
+		<Rules />
 		<div className="row">
 			<div className="col">
 				<Table />

@@ -6,7 +6,7 @@ $block: 'main';
 	&__container {
 		@include container;
 
-		margin-top: 1rem;
+		margin-top: 1.5rem;
 
 		@include media-min(sm) {
 			margin-top: 0;

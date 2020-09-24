@@ -2,31 +2,41 @@ import { connect } from 'react-redux';
 
 import Search from '../Search/Search';
 import Optimize from '../Optimize/Optimize';
-import Rules from '../Rules/Rules';
+import Chevron from '../../components/global/chevron';
+import { openModal } from '../Rules/Rules.actions';
 
-const BarContainer = ({ players }: any) =>
-	players ? (
-		<>
-			<div className="row">
-				<div className="col col-md-9">
-					<Search />
-				</div>
-				<div className="col">
-					<Optimize />
+const BarContainer = (props: any) => {
+	const { players, active } = props;
+
+	const handleRuleClick = () => {
+		props.openModal(!active);
+	};
+
+	return players ? (
+		<div className="action-bar">
+			<Search />
+			<div className="action-bar__rules rules">
+				<div className="rules__button">
+					<button type="button" onClick={handleRuleClick}>
+						Rules
+						<Chevron active={active} />
+					</button>
 				</div>
 			</div>
-			<div className="row">
-				<div className="col">
-					<Rules />
-				</div>
-			</div>
-		</>
+			<Optimize />
+		</div>
 	) : (
 		<></>
 	);
+};
 
-const mapStateToProps = ({ table }) => ({
+const mapStateToProps = ({ table, rules }) => ({
 	players: table.players,
+	active: rules.active,
 });
 
-export default connect(mapStateToProps)(BarContainer);
+const mapDispatchToProps = (dispatch) => ({
+	openModal: (value) => dispatch(openModal(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BarContainer);
