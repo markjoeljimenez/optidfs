@@ -18,11 +18,13 @@ const Rule = (props: any) => {
 				Maximum repeating players
 				<Tippy
 					className="tooltip"
-					content={
+					content={(
 						<div>
 							<p>
 								<strong>
-									Value: <i>n</i>
+									Value:
+									{' '}
+									<i>n</i>
 								</strong>
 							</p>
 
@@ -31,7 +33,7 @@ const Rule = (props: any) => {
 								lineups.
 							</p>
 						</div>
-					}
+    )}
 				>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
 						<g data-name="Layer 2">

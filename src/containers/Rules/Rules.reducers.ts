@@ -1,4 +1,11 @@
-import { SET_RULE, REMOVE_RULE, RESET_RULES } from './Rules.actions';
+import uniqBy from 'lodash.uniqby';
+import {
+	SET_RULE,
+	REMOVE_RULE,
+	RESET_RULES,
+	SET_RULE_ERROR,
+	REMOVE_RULE_ERROR,
+} from './Rules.actions';
 
 interface IRules {
 	NUMBER_OF_PLAYERS_FROM_SAME_TEAM?: {
@@ -9,9 +16,18 @@ interface IRules {
 		key: string;
 		value: number;
 	}[];
+	errors: {
+		rule: string;
+		value: number;
+	}[];
 }
 
-const RulesReducer = (state: IRules = {}, { type, rule, key, value }) => {
+const RulesReducer = (
+	state: IRules = {
+		errors: [],
+	},
+	{ type, rule, key, value }
+) => {
 	switch (type) {
 		case SET_RULE: {
 			if (!value || key === '') {
@@ -84,6 +100,32 @@ const RulesReducer = (state: IRules = {}, { type, rule, key, value }) => {
 			return {
 				...state,
 				[rule]: rules.length ? rules : undefined,
+			};
+		}
+
+		case SET_RULE_ERROR:
+			return {
+				...state,
+				errors: uniqBy(
+					[
+						...state.errors,
+						{
+							rule,
+							value,
+						},
+					],
+					{ rule }
+				),
+			};
+
+		case REMOVE_RULE_ERROR: {
+			const filter = state.errors.filter((error) => error.rule !== rule);
+
+			console.log(rule, state.errors, filter);
+
+			return {
+				...state,
+				errors: filter,
 			};
 		}
 

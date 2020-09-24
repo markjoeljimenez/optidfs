@@ -110,7 +110,10 @@ const Rule = (props: IRule) => {
 										RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM
 									}
 								>
-									{key} -{value}
+									{key}
+									{' '}
+									-
+									{value}
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										viewBox="0 0 24 24"
