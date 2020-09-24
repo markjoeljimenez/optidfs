@@ -5,4 +5,10 @@ $block: 'alert';
 .#{$block} {
 	color: $red;
 	font-size: 500;
+
+	&--mobile {
+		@include media-min(sm) {
+			display: none;
+		}
+	}
 }

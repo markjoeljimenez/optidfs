@@ -3,6 +3,12 @@
 $block: 'input-group';
 
 .#{$block} {
+	&--error {
+		input {
+			border: 1px solid $red;
+		}
+	}
+
 	& + & {
 		margin-top: 1rem;
 	}
@@ -33,5 +39,20 @@ $block: 'input-group';
 		&--100 {
 			flex: 1;
 		}
+	}
+
+	&__label {
+		svg {
+			fill: $primary-dark;
+			margin-left: 0.5rem;
+			margin-top: -0.25rem;
+			vertical-align: middle;
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	&__error {
+		color: $red;
 	}
 }

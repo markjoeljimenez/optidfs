@@ -6,7 +6,8 @@ A boilerplate for NextJS projects.
 
 1. [Installation](#installation)
 2. [Testing](#testing)
-3. [Debugging support](#debugging-support)
+3. [Deployment](#deployment)
+4. [Debugging support](#debugging-support)
 
 ## Installation
 
@@ -17,6 +18,10 @@ A boilerplate for NextJS projects.
 ## Testing
 
 Tests are within the `src/__tests__/` folder and can be watched by running the `npm run test:watch` script.
+
+## Deployment
+
+`eb deploy --profile=draftkings-optimizer`
 
 ## Debugging Support
 

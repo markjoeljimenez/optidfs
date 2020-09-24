@@ -475,7 +475,7 @@ const Table = ({
 							</div>
 						</div>
 					)}
-					<div className="table__row table__row--child" role="row">
+					{/* <div className="table__row table__row--child" role="row">
 						<div
 							className="table__cell table__cell--csv table__cell--align-right"
 							role="cell"
@@ -528,7 +528,7 @@ const Table = ({
 								Download CSV
 							</a>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			)}
 		</div>
