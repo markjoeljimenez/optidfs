@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import { useRef } from 'react';
+
 import { RULE, setRule, removeRule } from './Rules.actions';
 
 interface IRule {

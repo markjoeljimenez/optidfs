@@ -82,6 +82,10 @@ function* optimizePlayers(action) {
 			(_state) => _state
 		);
 
+		if (rules.errors.length) {
+			return;
+		}
+
 		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
 		const { sport } = dropdown;
 

@@ -5,9 +5,12 @@ export const RULE = {
 	NUMBER_OF_SPECIFIC_POSITIONS: 'NUMBER_OF_SPECIFIC_POSITIONS',
 	MINIMUM_SALARY_CAP: 'MINIMUM_SALARY_CAP',
 	MAX_REPEATING_PLAYERS: 'MAX_REPEATING_PLAYERS',
-	PROJECTED_OWNERSHIP: 'PROJECTED_OWNERSHIP',
+	MIN_PROJECTED_OWNERSHIP: 'MIN_PROJECTED_OWNERSHIP',
+	MAX_PROJECTED_OWNERSHIP: 'MAX_PROJECTED_OWNERSHIP',
 };
 export const RESET_RULES = 'RESET_RULES';
+export const SET_RULE_ERROR = 'SET_RULE_ERROR';
+export const REMOVE_RULE_ERROR = 'REMOVE_RULE_ERROR';
 
 export const setRule = (rule: string, key: string, value: number) => ({
 	type: SET_RULE,
@@ -20,6 +23,17 @@ export const removeRule = (rule: string, key: string) => ({
 	type: REMOVE_RULE,
 	rule,
 	key,
+});
+
+export const setRuleError = (rule: string, value: string) => ({
+	type: SET_RULE_ERROR,
+	rule,
+	value,
+});
+
+export const removeRuleError = (rule: string) => ({
+	type: REMOVE_RULE_ERROR,
+	rule,
 });
 
 export const resetRules = () => ({
