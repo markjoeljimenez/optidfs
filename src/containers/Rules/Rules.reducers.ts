@@ -5,6 +5,7 @@ import {
 	RESET_RULES,
 	SET_RULE_ERROR,
 	REMOVE_RULE_ERROR,
+	OPEN_MODAL,
 } from './Rules.actions';
 
 interface IRules {
@@ -12,6 +13,7 @@ interface IRules {
 		key: string;
 		value: number;
 	}[];
+	NUMBER_OF_GENERATIONS: number;
 	NUMBER_OF_SPECIFIC_POSITIONS?: {
 		key: string;
 		value: number;
@@ -22,13 +24,22 @@ interface IRules {
 	}[];
 }
 
+const DEFAULT_STATE: IRules = {
+	errors: [],
+	NUMBER_OF_GENERATIONS: 1,
+};
+
 const RulesReducer = (
-	state: IRules = {
-		errors: [],
-	},
-	{ type, rule, key, value }
+	state = DEFAULT_STATE,
+	{ type, rule, key, value, active }
 ) => {
 	switch (type) {
+		case OPEN_MODAL:
+			return {
+				...state,
+				active: active ?? false,
+			};
+
 		case SET_RULE: {
 			if (!value || key === '') {
 				return state;
@@ -121,8 +132,6 @@ const RulesReducer = (
 		case REMOVE_RULE_ERROR: {
 			const filter = state.errors.filter((error) => error.rule !== rule);
 
-			console.log(rule, state.errors, filter);
-
 			return {
 				...state,
 				errors: filter,
@@ -130,7 +139,7 @@ const RulesReducer = (
 		}
 
 		case RESET_RULES:
-			return {};
+			return DEFAULT_STATE;
 
 		default:
 			return state;

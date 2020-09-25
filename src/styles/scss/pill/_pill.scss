@@ -46,6 +46,25 @@ $block: 'pill';
 		}
 	}
 
+	&--primary {
+		button {
+			background-color: $primary;
+			color: $white;
+
+			svg {
+				fill: $white;
+			}
+
+			&:hover {
+				background-color: $primary-dark;
+
+				svg {
+					fill: $white;
+				}
+			}
+		}
+	}
+
 	&--button {
 		border-radius: 0;
 		padding: 0;

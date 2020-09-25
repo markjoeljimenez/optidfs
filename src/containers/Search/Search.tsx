@@ -22,7 +22,11 @@ const SearchContainer = (props: any) => {
 					</g>
 				</g>
 			</svg>
-			<input type="search" placeholder="Search" onChange={onChange} />
+			<input
+				type="search"
+				placeholder="Search by player, team, or position"
+				onChange={onChange}
+			/>
 		</div>
 	);
 };

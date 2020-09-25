@@ -21,13 +21,13 @@ const Nav = (props: any) => {
 
 	return (
 		<>
-			<div className="alert alert--mobile">
+			{/* <div className="alert alert--mobile">
 				<div className="container">
 					The mobile version of this app is still being worked on. For
 					the best experience, please view the page on a larger
 					screen.
 				</div>
-			</div>
+			</div> */}
 			<nav className={`nav ${isActive ? 'nav--active' : ''}`}>
 				<div className="nav__container">
 					<button
