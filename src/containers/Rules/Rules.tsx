@@ -26,14 +26,28 @@ const RulesContainer = ({ players, active }: any) => {
 					<div className="col-12 col-md-6">
 						<NumberOfGenerations />
 					</div>
+				</div>
+				<div className="row">
 					<div className="col-12 col-md-6">
 						<PlayersFromSameTeam teams={teams} />
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-12 col-md-6">
 						<NumberOfSpecificPositions positions={positions} />
 					</div>
+				</div>
+				<div className="row">
 					<div className="col-12 col-md-3">
 						<MinimumSalary />
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-12 col-md-3">
 						<MaximumRepeatingSalaries />
 					</div>
+				</div>
+				<div className="row">
 					<div className="col-12 col-md-3">
 						<ProjectedOwnship />
 					</div>

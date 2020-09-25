@@ -82,6 +82,8 @@ function* optimizePlayers(action) {
 			(_state) => _state
 		);
 
+		console.log(rules);
+
 		if (rules.errors.length) {
 			return;
 		}

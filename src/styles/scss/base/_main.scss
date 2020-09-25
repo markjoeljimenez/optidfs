@@ -6,9 +6,11 @@ $block: 'main';
 	&__container {
 		@include container;
 
+		margin-bottom: 4.625rem;
 		margin-top: 1.5rem;
 
 		@include media-min(sm) {
+			margin-bottom: 0;
 			margin-top: 0;
 		}
 	}

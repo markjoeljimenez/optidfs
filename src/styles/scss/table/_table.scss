@@ -114,6 +114,7 @@ $block: 'table';
 					}
 				}
 			}
+
 			@include media-max(sm) {
 				grid-row-start: 3;
 				justify-content: flex-start !important;
@@ -205,14 +206,12 @@ $block: 'table';
 			}
 		}
 
-		&--total {
-			// width: 73%;
-		}
-
 		&--pagination {
 			display: flex;
 			justify-content: space-between;
-			width: 100%;
+			// width: 100%;
+			grid-column-start: 1;
+			grid-column-end: 12;
 		}
 
 		&--csv {
@@ -237,6 +236,39 @@ $block: 'table';
 
 		> .#{$block}__row {
 			border-top: 1px solid $grey-200;
+		}
+
+		.#{$block}__row-group--main {
+			> .#{$block}__row {
+				grid-template-columns: 3fr 1fr 1fr;
+				grid-template-rows: 1fr;
+			}
+		}
+
+		.#{$block}__cell {
+			// &--total {
+			// 	grid-column-start: 2;
+			// }
+
+			&--salary {
+				grid-column-start: 2;
+				grid-row-start: 1;
+
+				@include media-min(md) {
+					grid-column-start: 7;
+					grid-row-start: initial;
+				}
+			}
+
+			&--fppg {
+				grid-column-start: 3;
+				grid-row-start: 1;
+
+				@include media-min(md) {
+					grid-column-start: 8;
+					grid-row-start: initial;
+				}
+			}
 		}
 	}
 }

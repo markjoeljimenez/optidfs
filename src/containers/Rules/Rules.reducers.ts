@@ -24,11 +24,13 @@ interface IRules {
 	}[];
 }
 
+const DEFAULT_STATE: IRules = {
+	errors: [],
+	NUMBER_OF_GENERATIONS: 1,
+};
+
 const RulesReducer = (
-	state: IRules = {
-		errors: [],
-		NUMBER_OF_GENERATIONS: 1,
-	},
+	state = DEFAULT_STATE,
 	{ type, rule, key, value, active }
 ) => {
 	switch (type) {
@@ -137,7 +139,7 @@ const RulesReducer = (
 		}
 
 		case RESET_RULES:
-			return {};
+			return DEFAULT_STATE;
 
 		default:
 			return state;
