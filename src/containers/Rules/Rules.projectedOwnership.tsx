@@ -105,39 +105,45 @@ const Rule = (props: any) => {
 				</Tippy>
 			</span>
 			<div className="input-group__inputs">
-				<div className="input input-group__input">
-					<label htmlFor="minProjectedOwnership">
-						<span className="u-hidden">
-							Min projected ownership
-						</span>
-						<input
-							id="minProjectedOwnership"
-							ref={minRef}
-							placeholder="Min"
-							type="number"
-							min={0}
-							max={1}
-							step={0.1}
-							onChange={handleMinProjectedOwnershipChange}
-						/>
-					</label>
-				</div>
-				<div className="input input-group__input">
-					<label htmlFor="maxProjectedOwnership">
-						<span className="u-hidden">
-							Max projected ownership
-						</span>
-						<input
-							id="maxProjectedOwnership"
-							ref={maxRef}
-							placeholder="Max"
-							type="number"
-							min={0}
-							max={1}
-							step={0.1}
-							onChange={handleMaxProjectedOwnershipChange}
-						/>
-					</label>
+				<div className="row">
+					<div className="col">
+						<div className="input input-group__input">
+							<label htmlFor="minProjectedOwnership">
+								<span className="u-hidden">
+									Min projected ownership
+								</span>
+								<input
+									id="minProjectedOwnership"
+									ref={minRef}
+									placeholder="Min"
+									type="number"
+									min={0}
+									max={1}
+									step={0.1}
+									onChange={handleMinProjectedOwnershipChange}
+								/>
+							</label>
+						</div>
+					</div>
+					<div className="col">
+						<div className="input input-group__input">
+							<label htmlFor="maxProjectedOwnership">
+								<span className="u-hidden">
+									Max projected ownership
+								</span>
+								<input
+									id="maxProjectedOwnership"
+									ref={maxRef}
+									placeholder="Max"
+									type="number"
+									min={0}
+									max={1}
+									step={0.1}
+									onChange={handleMaxProjectedOwnershipChange}
+								/>
+							</label>
+						</div>
+					</div>
 				</div>
 			</div>
 			{error && <p className="error input-group__error">{error.value}</p>}

@@ -19,38 +19,41 @@ const RulesContainer = ({ players, active }: any) => {
 				.flat()
 		);
 
-	return active ? (
-		<div className="rules action-bar__rules">
-			<div className="rules__mobile-modal">
-				<div className="row">
-					<div className="col-12 col-md-6">
-						<NumberOfGenerations />
-					</div>
+	return players ? (
+		<div className={`rules ${active ? 'rules--active' : ''}`}>
+			<div className="row">
+				<div className="col">
+					<h2 className="rules__heading">Rules</h2>
 				</div>
-				<div className="row">
-					<div className="col-12 col-md-6">
-						<PlayersFromSameTeam teams={teams} />
-					</div>
+			</div>
+			<div className="row">
+				<div className="col">
+					<NumberOfGenerations />
 				</div>
-				<div className="row">
-					<div className="col-12 col-md-6">
-						<NumberOfSpecificPositions positions={positions} />
-					</div>
+			</div>
+			<div className="row">
+				<div className="col">
+					<PlayersFromSameTeam teams={teams} />
 				</div>
-				<div className="row">
-					<div className="col-12 col-md-3">
-						<MinimumSalary />
-					</div>
+			</div>
+			<div className="row">
+				<div className="col">
+					<NumberOfSpecificPositions positions={positions} />
 				</div>
-				<div className="row">
-					<div className="col-12 col-md-3">
-						<MaximumRepeatingSalaries />
-					</div>
+			</div>
+			<div className="row">
+				<div className="col">
+					<MinimumSalary />
 				</div>
-				<div className="row">
-					<div className="col-12 col-md-3">
-						<ProjectedOwnship />
-					</div>
+			</div>
+			<div className="row">
+				<div className="col">
+					<MaximumRepeatingSalaries />
+				</div>
+			</div>
+			<div className="row">
+				<div className="col">
+					<ProjectedOwnship />
 				</div>
 			</div>
 		</div>

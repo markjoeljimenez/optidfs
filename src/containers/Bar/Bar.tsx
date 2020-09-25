@@ -13,17 +13,17 @@ const BarContainer = (props: any) => {
 	};
 
 	return players ? (
-		<div className="action-bar">
-			<Search />
-			<div className="action-bar__rules rules">
-				<div className="rules__button">
+		<div className="action-bar row">
+			<div className="action-bar__container col">
+				<Search />
+				<div className="action-bar__rules">
 					<button type="button" onClick={handleRuleClick}>
 						Rules
 						<Chevron active={active} />
 					</button>
 				</div>
+				<Optimize />
 			</div>
-			<Optimize />
 		</div>
 	) : (
 		<></>

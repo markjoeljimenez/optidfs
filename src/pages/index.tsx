@@ -18,9 +18,11 @@ const App = ({ initialReduxState }: any) => (
 			</div>
 		</div>
 		<Bar />
-		<Rules />
 		<div className="row">
-			<div className="col">
+			<div className="col col-12 col-md-3">
+				<Rules />
+			</div>
+			<div className="col col-12 col-md-9">
 				<Table />
 			</div>
 		</div>

@@ -50,92 +50,104 @@ const Rule = (props: IRule) => {
 				Number of players from same team
 			</span>
 			<div className="input-group__inputs">
-				<div className="input input-group__input">
-					<label htmlFor="team">
-						<span className="u-hidden">
-							Number of players from same team
-						</span>
-						<div className="select">
-							<select
-								className="select__input"
-								ref={playersFromSameTeamSelectRef}
-								id="team"
-							>
-								<option value="" disabled selected>
-									Select team
-								</option>
-								{teams?.map((team, i) => (
-									<option value={team} key={i}>
-										{team}
-									</option>
-								))}
-							</select>
-						</div>
-					</label>
-				</div>
-				<div className="input input-group__input input-group__input--100">
-					<label htmlFor="numberOfPlayersPerTeam">
-						<span className="u-hidden">Number of players</span>
-						<input
-							ref={playersFromSameTeamInputRef}
-							id="numberOfPlayersPerTeam"
-							placeholder="Number of players"
-							type="number"
-							min={0}
-							max={8}
-						/>
-					</label>
-				</div>
-				<button
-					className="button"
-					type="submit"
-					onClick={handleNumberOfPlayersFromTeamClick}
-				>
-					Add
-				</button>
-			</div>
-			<div>
-				{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM &&
-					rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
-						({ key, value }, i) => (
-							<div
-								key={i}
-								className="pill pill--button pill--white"
-							>
-								<button
-									type="button"
-									onClick={handleRemoveRule}
-									value={key}
-									data-rule={
-										RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM
-									}
-								>
-									{key}
-									{' '}
-									-
-									{value}
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 24 24"
-										width="24"
-										height="24"
+				<div className="row">
+					<div className="col">
+						<div className="input input-group__input">
+							<label htmlFor="team">
+								<span className="u-hidden">
+									Number of players from same team
+								</span>
+								<div className="select">
+									<select
+										className="select__input"
+										ref={playersFromSameTeamSelectRef}
+										id="team"
 									>
-										<g data-name="Layer 2">
-											<g data-name="close">
-												<rect
-													width="24"
-													height="24"
-													transform="rotate(180 12 12)"
-													opacity="0"
-												/>
-												<path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
-											</g>
-										</g>
-									</svg>
-								</button>
-							</div>
-						)
-					)}
+										<option value="" disabled selected>
+											Select team
+										</option>
+										{teams?.map((team, i) => (
+											<option value={team} key={i}>
+												{team}
+											</option>
+										))}
+									</select>
+								</div>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col">
+						<div className="input input-group__input">
+							<label htmlFor="numberOfPlayersPerTeam">
+								<span className="u-hidden">
+									Number of players
+								</span>
+								<input
+									ref={playersFromSameTeamInputRef}
+									id="numberOfPlayersPerTeam"
+									placeholder="Number of players"
+									type="number"
+									min={0}
+									max={8}
+								/>
+							</label>
+						</div>
+					</div>
+					<div className="col">
+						<button
+							className="button"
+							type="submit"
+							onClick={handleNumberOfPlayersFromTeamClick}
+						>
+							Add
+						</button>
+					</div>
+				</div>
+				{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM && (
+					<div className="row">
+						<div className="col">
+							{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
+								({ key, value }, i) => (
+									<div
+										key={i}
+										className="pill pill--button pill--primary"
+									>
+										<button
+											type="button"
+											onClick={handleRemoveRule}
+											value={key}
+											data-rule={
+												RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM
+											}
+										>
+											{key} -{value}
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+												width="24"
+												height="24"
+											>
+												<g data-name="Layer 2">
+													<g data-name="close">
+														<rect
+															width="24"
+															height="24"
+															transform="rotate(180 12 12)"
+															opacity="0"
+														/>
+														<path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
+													</g>
+												</g>
+											</svg>
+										</button>
+									</div>
+								)
+							)}
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);

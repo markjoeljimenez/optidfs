@@ -3,7 +3,32 @@
 $block: 'rules';
 
 .#{$block} {
+	background-color: $white;
+	bottom: 3.125rem;
+	display: none;
+	left: 0;
+	padding: 1rem 1.5rem;
+	position: fixed;
+	right: 0;
+	top: 3.75rem;
+	z-index: 5;
+
+	@include media-min(sm) {
+		bottom: initial;
+		display: block;
+		position: sticky;
+		top: 1.5rem;
+	}
+
+	&--active {
+		display: block;
+	}
+
 	&__button {
+		@include media-min(md) {
+			display: none;
+		}
+
 		button {
 			background-color: transparent;
 			border: 0;
@@ -43,18 +68,8 @@ $block: 'rules';
 		}
 	}
 
-	&__mobile-modal {
-		background-color: $grey-100;
-		bottom: 3.125rem;
-		left: 0;
-		padding: 15px 1.5rem;
-		position: fixed;
-		right: 0;
-		top: 3.75rem;
-		z-index: 5;
-
-		@include media-min(sm) {
-			position: relative;
-		}
+	&__heading {
+		margin-bottom: 0;
+		margin-top: 0;
 	}
 }
