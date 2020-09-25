@@ -7,11 +7,18 @@ $block: 'rules';
 	bottom: 3.125rem;
 	display: none;
 	left: 0;
+	overflow-y: scroll;
 	padding: 1rem 1.5rem;
+	padding-bottom: 2rem;
 	position: fixed;
 	right: 0;
-	top: 3.75rem;
+	top: 0;
 	z-index: 5;
+
+	&::-webkit-scrollbar {
+		width: 0px; /* Remove scrollbar space */
+		background: transparent; /* Optional: just make scrollbar invisible */
+	}
 
 	@include media-min(sm) {
 		bottom: initial;
