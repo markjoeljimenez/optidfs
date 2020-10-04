@@ -1,7 +1,8 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 
 import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 import { post } from '../scripts/utilities/fetch';
+import clsx from 'clsx';
 
 const API = process.env.ENDPOINT;
 
@@ -34,6 +35,8 @@ const Table = ({
 }: ITable) => {
 	const optionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
+	const [activeRow, setActiveRow] = useState<number | null>(null);
+
 	useEffect(() => {
 		optionsRef.current = optionsRef.current.slice(0, players?.length);
 	}, []);
@@ -51,23 +54,10 @@ const Table = ({
 		}
 	};
 
-	const handleOptionsClick = (
-		e: React.MouseEvent<HTMLButtonElement>,
-		HIDDEN_CLASSNAME = 'table__row-group--hidden'
-	) => {
+	const handleOptionsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const { value } = e.currentTarget;
 
-		const row = optionsRef.current[parseInt(value)];
-
-		if (row) {
-			if (row.classList.contains(HIDDEN_CLASSNAME)) {
-				row.classList.remove(HIDDEN_CLASSNAME);
-				row.setAttribute('aria-hidden', 'false');
-			} else {
-				row.classList.add(HIDDEN_CLASSNAME);
-				row.setAttribute('aria-hidden', 'true');
-			}
-		}
+		setActiveRow(activeRow === parseInt(value) ? null : parseInt(value));
 	};
 
 	const handleProjectedOwnershipChange = (
@@ -80,18 +70,22 @@ const Table = ({
 	};
 
 	return (
-		<div className="table" role="table">
+		<div role="table">
 			<div
-				className="table__row-group table__row-group--header table__row-group--main"
+				className="bg-gray-100 border-b border-gray-300 md:block hidden"
 				role="rowgroup"
 			>
-				<div className="table__row" role="row">
+				<div
+					className="grid grid-cols-table-md text-xs uppercase font-black container mx-auto px-8"
+					role="row"
+				>
 					<div
-						className="table__cell table__cell--lock table__cell--align-center"
+						className="p-3 px-0 flex justify-center"
 						role="columnheader"
 					>
 						<span hidden>Lock</span>
 						<svg
+							className="fill-current"
 							xmlns="http://www.w3.org/2000/svg"
 							viewBox="0 0 24 24"
 							width="24"
@@ -107,80 +101,62 @@ const Table = ({
 						</svg>
 					</div>
 					<div
-						className="table__cell table__cell--status table__cell--align-center"
+						className="p-2 flex items-center justify-center"
 						role="columnheader"
 					>
 						Status
 					</div>
-					<div
-						className="table__cell table__cell--first-name"
-						role="columnheader"
-					>
+					<div className="p-2 flex items-center" role="columnheader">
 						First name
 					</div>
-					<div
-						className="table__cell table__cell--last-name"
-						role="columnheader"
-					>
+					<div className="p-2 flex items-center" role="columnheader">
 						Last name
 					</div>
-					<div
-						className="table__cell table__cell--positions"
-						role="columnheader"
-					>
+					<div className="p-2 flex items-center" role="columnheader">
 						Positions
 					</div>
-					<div
-						className="table__cell table__cell--team"
-						role="columnheader"
-					>
+					<div className="p-2 flex items-center" role="columnheader">
 						Team
 					</div>
 					<div
-						className="table__cell table__cell--salary table__cell--align-right"
+						className="p-2 flex items-center justify-end"
 						role="columnheader"
 					>
 						Salary
 					</div>
 					<div
-						className="table__cell table__cell--fppg table__cell--align-right"
+						className="p-2 flex items-center justify-end"
 						role="columnheader"
 					>
 						FPPG
 					</div>
-					<div
-						className="table__cell table__cell--options table__cell--align-center"
-						role="columnheader"
-					>
+					<div className="p-2 flex-1" role="columnheader">
 						<span hidden>Options</span>
 					</div>
 				</div>
 			</div>
-			<div className="table__row-group" role="rowgroup">
+			<div role="rowgroup">
 				{players?.map((player, i) => (
-					<div
-						className="table__row"
-						role="row"
-						key={player.id}
-						aria-rowindex={i}
-					>
+					<div role="row" key={player.id} aria-rowindex={i}>
 						<div
-							className="table__row-group table__row-group--main"
+							className="border-b border-gray-300 text-sm md:text-base"
 							role="rowgroup"
 						>
 							<div
-								className="table__row"
+								className="py-4 px-8 grid grid-cols-table-sm md:grid-cols-table-md grid-rows-3 md:grid-rows-1 container mx-auto md:py-0 relative"
 								role="row"
 								key={Math.random()}
 								// aria-rowindex={i}
 							>
 								<div
-									className="table__cell table__cell--lock table__cell--align-center"
+									className="md:p-2 md:py-4 pl-0 md:flex items-center justify-center col-start-1 md:col-start-auto hidden"
 									role="cell"
 								>
 									{player.status !== 'O' ? (
 										<label htmlFor="lock">
-											<span>Lock</span>
+											<span className="md:hidden">
+												Lock
+											</span>
 											<input
 												id="lock"
 												className="checkbox"
@@ -198,15 +174,23 @@ const Table = ({
 									)}
 								</div>
 								<div
-									className="table__cell table__cell--status table__cell--align-center"
+									className="md:p-2 md:py-4 flex items-center justify-start md:justify-center"
 									role="cell"
 								>
 									<div
-										className={`table__pill pill ${
+										className={clsx([
+											'px-2 py-1 md:px-3 md:py-2 inline rounded font-black',
 											player.status
-												? `pill--${player.status}`
-												: 'pill--active'
-										}`}
+												? [
+														player.status === 'O'
+															? 'text-red-800 bg-red-300'
+															: '',
+														player.status === 'Q'
+															? 'text-orange-800 bg-orange-300'
+															: '',
+												  ]
+												: 'text-green-800 bg-green-300',
+										])}
 									>
 										{player.status
 											? player.status === 'O'
@@ -218,34 +202,36 @@ const Table = ({
 									</div>
 								</div>
 								<div
-									className="table__cell table__cell--first-name"
+									className="md:p-2 md:py-4 flex items-center font-black md:font-normal"
 									role="cell"
 								>
 									<div>
 										{player.first_name}
-										<span>{player.last_name}</span>
+										<span className="ml-1 md:hidden">
+											{player.last_name}
+										</span>
 									</div>
 								</div>
 								<div
-									className="table__cell table__cell--last-name"
+									className="md:p-2 md:py-4 items-center md:flex hidden"
 									role="cell"
 								>
 									{player.last_name}
 								</div>
 								<div
-									className="table__cell table__cell--positions"
+									className="md:p-2 md:py-4 flex items-center row-start-2 col-start-2 md:row-start-auto md:col-start-auto"
 									role="cell"
 								>
 									{player.position}
 								</div>
 								<div
-									className="table__cell table__cell--team"
+									className="md:p-2 md:py-4 flex items-center row-start-3 col-start-2 md:row-start-auto md:col-start-auto"
 									role="cell"
 								>
 									{player.team}
 								</div>
 								<div
-									className="table__cell table__cell--salary table__cell--align-right"
+									className="md:p-2 md:py-4 flex items-center justify-end row-start-2 col-start-3 md:row-start-auto md:col-start-auto"
 									role="cell"
 								>
 									{' '}
@@ -256,13 +242,13 @@ const Table = ({
 									}).format(player.salary)}
 								</div>
 								<div
-									className="table__cell table__cell--fppg table__cell--align-right"
+									className="md:p-2 md:py-4 flex items-center justify-end row-start-3 col-start-3 md:row-start-auto md:col-start-auto"
 									role="cell"
 								>
 									{player.points_per_contest}
 								</div>
 								<div
-									className="table__cell table__cell--options table__cell--align-center"
+									className="md:p-2 md:py-4 pr-0 flex justify-end items-center row-start-1 col-start-4 md:row-start-auto md:col-start-auto"
 									role="cell"
 								>
 									{player.status !== 'O' && (
@@ -312,92 +298,85 @@ const Table = ({
 							</div>
 						</div>
 
-						{player.status !== 'O' && (
-							<div
-								className="table__row-group table__row-group--options table__row-group--hidden"
-								aria-hidden
-								role="rowgroup"
-								ref={(ref) => {
-									optionsRef.current[i] = ref;
-								}}
-							>
+						{player.status !== 'O' && i === activeRow ? (
+							<div role="rowgroup">
 								<div
-									className="table__row"
+									className="border-b border-gray-300"
 									role="row"
 									key={Math.random()}
 									// aria-rowindex={i}
 								>
-									<div className="table__cell" role="cell">
-										<div className="row">
-											<div className="col">
-												<div className="input-group">
-													<span className="input-group__label">
+									<div
+										className="container mx-auto px-8 py-4 flex"
+										role="cell"
+									>
+										<div className="w-1/4">
+											<span className="text-xs uppercase font-black mb-2 block">
+												Minimum exposure
+											</span>
+											<div>
+												<label
+													htmlFor={`set-exposure-${player.id}`}
+												>
+													<span className="sr-only">
 														Minimum exposure
 													</span>
-													<div className="input input-group__input">
-														<label
-															htmlFor={`set-exposure-${player.id}`}
-														>
-															<span className="u-hidden">
-																Minimum exposure
-															</span>
-															<input
-																id={`set-exposure-${player.id}`}
-																type="number"
-																min={0}
-																max={1}
-																step={0.1}
-																defaultValue={
-																	player.min_exposure
-																}
-																data-player-id={
-																	player.id
-																}
-																onChange={
-																	handleExposureChange
-																}
-															/>
-														</label>
-													</div>
-												</div>
+													<input
+														className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+														id={`set-exposure-${player.id}`}
+														type="number"
+														min={0}
+														max={1}
+														step={0.1}
+														defaultValue={
+															player.min_exposure
+														}
+														data-player-id={
+															player.id
+														}
+														onChange={
+															handleExposureChange
+														}
+													/>
+												</label>
 											</div>
-											<div className="col">
-												<div className="input-group">
-													<span className="input-group__label">
+										</div>
+										<div className="w-1/4 ml-8">
+											<span className="text-xs uppercase font-black mb-2 block">
+												Projected Ownership
+											</span>
+											<div>
+												<label
+													htmlFor={`set-ownership-projection-${player.id}`}
+												>
+													<span className="sr-only">
 														Projected Ownership
 													</span>
-													<div className="input input-group__input">
-														<label
-															htmlFor={`set-ownership-projection-${player.id}`}
-														>
-															<span className="u-hidden">
-																Projected
-																Ownership
-															</span>
-															<input
-																id={`set-ownership-projection-${player.id}`}
-																type="number"
-																min={0}
-																max={1}
-																step={0.1}
-																defaultValue={
-																	player.projected_ownership
-																}
-																data-player-id={
-																	player.id
-																}
-																onChange={
-																	handleProjectedOwnershipChange
-																}
-															/>
-														</label>
-													</div>
-												</div>
+													<input
+														className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+														id={`set-ownership-projection-${player.id}`}
+														type="number"
+														min={0}
+														max={1}
+														step={0.1}
+														defaultValue={
+															player.projected_ownership
+														}
+														data-player-id={
+															player.id
+														}
+														onChange={
+															handleProjectedOwnershipChange
+														}
+													/>
+												</label>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+						) : (
+							<></>
 						)}
 					</div>
 				))}

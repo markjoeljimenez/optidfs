@@ -12,15 +12,20 @@ const API = process.env.ENDPOINT;
 
 const App = ({ initialReduxState }: any) => (
 	<>
-		<div className="p-8 border-b border-gray-300">
-			{/* <Dropdown /> */}
-			<h2 className="text-xs uppercase font-black">Today&apos;s games</h2>
+		<div className="border-b border-gray-300">
+			<div className="container mx-auto p-8">
+				<h2 className="text-xs uppercase font-black">
+					Today&apos;s games
+				</h2>
+			</div>
 		</div>
-		<div className="p-8 border-b border-gray-300">
-			<Dropdown />
+		<div className="border-b border-gray-300">
+			<div className="container mx-auto p-8">
+				<Dropdown />
+			</div>
 		</div>
-		<Bar />
-		<Rules />
+		{/* <Bar /> */}
+		{/* <Rules /> */}
 		<Table />
 	</>
 );

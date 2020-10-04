@@ -3,6 +3,7 @@ const {
 	maxWidth,
 	inset,
 	maxHeight,
+	flex,
 } = require('tailwindcss/defaultTheme');
 
 module.exports = {
@@ -19,7 +20,7 @@ module.exports = {
 			sm: '640px',
 			md: '768px',
 			lg: '1024px',
-			xl: '1280px',
+			// xl: '1280px',
 		},
 		colors: {
 			...colors,
@@ -40,12 +41,22 @@ module.exports = {
 			'1/2': '50%',
 			'3/4': '75%',
 		},
-		inset: {
-			...inset,
-			'1/2': '50%',
-			'1/1': '100%',
+		// inset: {
+		// 	...inset,
+		// 	'1/2': '50%',
+		// 	'1/1': '100%',
+		// },
+		flex: {
+			...flex,
+			2: 2,
+			3: 3,
 		},
-		extend: {},
+		extend: {
+			gridTemplateColumns: {
+				'table-sm': '5rem 1fr 1fr 3rem',
+				'table-md': '3rem 9rem 3fr 4fr 3fr 2fr 3fr 2fr 3rem',
+			},
+		},
 	},
 	variants: {},
 	plugins: [],
