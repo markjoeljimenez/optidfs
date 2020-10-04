@@ -2,9 +2,9 @@ import * as Sentry from '@sentry/browser';
 import { Provider } from 'react-redux';
 import { useStore } from '../store';
 
-import 'normalize.css';
-import 'bootstrap/dist/css/bootstrap-grid.min.css';
-import 'tippy.js/dist/tippy.css';
+// import 'normalize.css';
+// import 'bootstrap/dist/css/bootstrap-grid.min.css';
+// import 'tippy.js/dist/tippy.css';
 
 import '../styles/styles.scss';
 import Dashboard from '../layouts/dashboard';
