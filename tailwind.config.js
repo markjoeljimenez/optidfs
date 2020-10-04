@@ -63,6 +63,8 @@ module.exports = {
 			},
 		},
 	},
-	variants: {},
+	variants: {
+		margin: ['responsive', 'first', 'hover', 'focus'],
+	},
 	plugins: [],
 };

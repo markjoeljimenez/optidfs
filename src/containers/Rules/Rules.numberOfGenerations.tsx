@@ -18,12 +18,15 @@ const Rule = (props: any) => {
 	};
 
 	return (
-		<div className="input-group">
-			<span className="input-group__label">Number of generations</span>
-			<div className="input input-group__input">
+		<div>
+			<span className="inline-block mb-2 text-xs uppercase font-black">
+				Number of generations
+			</span>
+			<div>
 				<label htmlFor="maxRepeatingPlayers">
-					<span className="u-hidden">Number of generations</span>
+					<span className="sr-only">Number of generations</span>
 					<input
+						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						defaultValue={1}
 						id="numberOfGenerations"
 						min={1}

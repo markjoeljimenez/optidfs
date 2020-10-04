@@ -45,92 +45,82 @@ const Rule = (props: IRule) => {
 	};
 
 	return (
-		<div className="input-group">
-			<span className="input-group__label">
+		<div>
+			<span className="inline-block mb-2 text-xs uppercase font-black">
 				Number of players from same team
 			</span>
-			<div className="input-group__inputs">
-				<div className="row">
-					<div className="col">
-						<div className="input input-group__input">
-							<label htmlFor="team">
-								<span className="u-hidden">
-									Number of players from same team
-								</span>
-								<div className="select">
-									<select
-										className="select__input"
-										ref={playersFromSameTeamSelectRef}
-										id="team"
-									>
-										<option value="" disabled selected>
-											Select team
+			<div>
+				<div className="flex">
+					<div className="flex-1">
+						<label htmlFor="team">
+							<span className="sr-only">
+								Number of players from same team
+							</span>
+							<div>
+								<select
+									className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+									ref={playersFromSameTeamSelectRef}
+									id="team"
+								>
+									<option value="" disabled selected>
+										Select team
+									</option>
+									{teams?.map((team, i) => (
+										<option value={team} key={i}>
+											{team}
 										</option>
-										{teams?.map((team, i) => (
-											<option value={team} key={i}>
-												{team}
-											</option>
-										))}
-									</select>
-								</div>
-							</label>
-						</div>
+									))}
+								</select>
+							</div>
+						</label>
 					</div>
+					<div className="flex-1 ml-4">
+						<label htmlFor="numberOfPlayersPerTeam">
+							<span className="sr-only">Number of players</span>
+							<input
+								className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								ref={playersFromSameTeamInputRef}
+								id="numberOfPlayersPerTeam"
+								placeholder="Number of players"
+								type="number"
+								min={0}
+								max={8}
+							/>
+						</label>
+					</div>
+					<button
+						className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
+						type="submit"
+						onClick={handleNumberOfPlayersFromTeamClick}
+					>
+						Add
+					</button>
 				</div>
-				<div className="row">
-					<div className="col">
-						<div className="input input-group__input">
-							<label htmlFor="numberOfPlayersPerTeam">
-								<span className="u-hidden">
-									Number of players
-								</span>
-								<input
-									ref={playersFromSameTeamInputRef}
-									id="numberOfPlayersPerTeam"
-									placeholder="Number of players"
-									type="number"
-									min={0}
-									max={8}
-								/>
-							</label>
-						</div>
-					</div>
-					<div className="col">
-						<button
-							className="button"
-							type="submit"
-							onClick={handleNumberOfPlayersFromTeamClick}
-						>
-							Add
-						</button>
-					</div>
-				</div>
+
 				{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM && (
-					<div className="row">
-						<div className="col">
-							{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
-								({ key, value }, i) => (
-									<div
-										key={i}
-										className="pill pill--button pill--primary"
+					<div className="flex mt-4">
+						{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
+							({ key, value }, i) => (
+								<div
+									key={i}
+									className="relative ml-4 first:ml-0"
+								>
+									<button
+										className="py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
+										type="button"
+										onClick={handleRemoveRule}
+										value={key}
+										data-rule={
+											RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM
+										}
 									>
-										<button
-											type="button"
-											onClick={handleRemoveRule}
-											value={key}
-											data-rule={
-												RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM
-											}
-										>
-											{key}
-											{' '}
-											-
-											{value}
+										{key} - {value}
+										<div className="absolute inset-y-0 right-0 flex items-center mr-1">
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
 												viewBox="0 0 24 24"
-												width="24"
-												height="24"
+												width="20"
+												height="20"
 											>
 												<g data-name="Layer 2">
 													<g data-name="close">
@@ -144,11 +134,11 @@ const Rule = (props: IRule) => {
 													</g>
 												</g>
 											</svg>
-										</button>
-									</div>
-								)
-							)}
-						</div>
+										</div>
+									</button>
+								</div>
+							)
+						)}
 					</div>
 				)}
 			</div>
