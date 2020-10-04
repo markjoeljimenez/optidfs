@@ -231,7 +231,7 @@ const Table = ({
 									{player.team}
 								</div>
 								<div
-									className="md:p-2 md:py-4 flex items-center justify-end row-start-2 col-start-3 md:row-start-auto md:col-start-auto"
+									className="md:p-2 md:py-4 flex items-center justify-end row-start-3 col-start-3 md:row-start-auto md:col-start-auto"
 									role="cell"
 								>
 									{' '}
@@ -242,7 +242,7 @@ const Table = ({
 									}).format(player.salary)}
 								</div>
 								<div
-									className="md:p-2 md:py-4 flex items-center justify-end row-start-3 col-start-3 md:row-start-auto md:col-start-auto"
+									className="md:p-2 md:py-4 flex items-center justify-end row-start-2 col-start-3 md:row-start-auto md:col-start-auto"
 									role="cell"
 								>
 									{player.points_per_contest}
