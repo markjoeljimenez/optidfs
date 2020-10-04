@@ -4,6 +4,7 @@ const {
 	inset,
 	maxHeight,
 	flex,
+	minWidth,
 } = require('tailwindcss/defaultTheme');
 
 module.exports = {
@@ -33,6 +34,10 @@ module.exports = {
 		maxHeight: {
 			...maxHeight,
 			20: '20rem',
+		},
+		minWidth: {
+			...minWidth,
+			'1/2': '50%',
 		},
 		maxWidth: {
 			...maxWidth,

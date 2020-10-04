@@ -21,41 +21,12 @@ const RulesContainer = ({ players, active }: any) => {
 
 	return players ? (
 		<div className={`rules ${active ? 'rules--active' : ''}`}>
-			<div className="row">
-				<div className="col">
-					<h2 className="rules__heading">Rules</h2>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<NumberOfGenerations />
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<PlayersFromSameTeam teams={teams} />
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<NumberOfSpecificPositions positions={positions} />
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<MinimumSalary />
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<MaximumRepeatingSalaries />
-				</div>
-			</div>
-			<div className="row">
-				<div className="col">
-					<ProjectedOwnship />
-				</div>
-			</div>
+			<NumberOfGenerations />
+			<PlayersFromSameTeam teams={teams} />
+			<NumberOfSpecificPositions positions={positions} />
+			<MinimumSalary />
+			<MaximumRepeatingSalaries />
+			<ProjectedOwnship />
 		</div>
 	) : (
 		<></>
