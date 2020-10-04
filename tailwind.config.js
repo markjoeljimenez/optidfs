@@ -33,6 +33,9 @@ module.exports = {
 		},
 		maxHeight: {
 			...maxHeight,
+			none: 'none',
+			0: '0',
+			10: '10rem',
 			20: '20rem',
 		},
 		minWidth: {
@@ -41,7 +44,8 @@ module.exports = {
 		},
 		maxWidth: {
 			...maxWidth,
-			logo: '14rem',
+			'logo-sm': '8rem',
+			'logo-md': '14rem',
 			'1/4': '25%',
 			'1/2': '50%',
 			'3/4': '75%',

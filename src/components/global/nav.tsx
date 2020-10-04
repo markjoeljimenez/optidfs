@@ -29,8 +29,8 @@ const Nav = (props: any) => {
 					screen.
 				</div>
 			</div> */}
-			<nav className="bg-gray-100 px-6 py-8 border-r border-gray-200 font-bold">
-				<div>
+			<nav className="bg-gray-100 px-6 py-4 md:py-8 border-r border-gray-200 font-bold">
+				<div className="relative flex justify-between items-center md:block">
 					<button
 						onClick={onClick}
 						type="button"
@@ -100,7 +100,7 @@ const Nav = (props: any) => {
 						)}
 						<span className="sr-only">Menu</span>
 					</button>
-					<picture className="block max-w-logo">
+					<picture className="block max-w-logo-sm md:max-w-logo-md absolute ml-10 md:ml-0 md:relative">
 						<img
 							className="block"
 							src="/images/fortify.svg"
@@ -108,9 +108,51 @@ const Nav = (props: any) => {
 						/>
 					</picture>
 					<h1 className="sr-only">Fortify</h1>
+					<div className="relative md:mt-8 md:mb-6">
+						<label htmlFor="selectSport">
+							<span className="sr-only">Select Sport</span>
+							<select
+								onChange={handleSportChange}
+								className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xs md:text-base"
+								id="selectSport"
+							>
+								{sports.map((sport) => (
+									<option value={sport} key={sport}>
+										{sport}
+									</option>
+								))}
+							</select>
+						</label>
+
+						<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+							<svg
+								className="fill-current"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								width="24"
+								height="24"
+							>
+								<g data-name="Layer 2">
+									<g data-name="chevron-down">
+										<rect
+											width="24"
+											height="24"
+											opacity="0"
+										/>
+										<path d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z" />
+									</g>
+								</g>
+							</svg>
+						</div>
+					</div>
 				</div>
-				<ul>
-					<li className="mt-8 mb-6">
+				<ul
+					className={clsx(
+						'md:max-h-none overflow-hidden transition-all duration-300',
+						isActive ? 'max-h-10' : 'max-h-0'
+					)}
+				>
+					{/* <li className="mt-8 mb-6">
 						<div className="relative">
 							<label htmlFor="selectSport">
 								<span className="sr-only">Select Sport</span>
@@ -148,8 +190,8 @@ const Nav = (props: any) => {
 								</svg>
 							</div>
 						</div>
-					</li>
-					<li>
+					</li> */}
+					<li className="mt-6 md:mt-0">
 						<Link href="/">
 							<a
 								className={clsx(
