@@ -4,7 +4,6 @@ import { SET_CONTESTS } from '../containers/Dropdown/Dropdown.actions';
 import { setSport } from '../containers/Header/Header.actions';
 import Bar from '../containers/Bar/Bar';
 import Dropdown from '../containers/Dropdown/Dropdown';
-import Panel from '../templates/panel';
 import Rules from '../containers/Rules/Rules';
 import Table from '../containers/Table/Table';
 
