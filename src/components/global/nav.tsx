@@ -107,16 +107,16 @@ const Nav = (props: any) => {
 							alt="Fortify logo"
 						/>
 					</picture>
-					<h1 className="hidden">Fortify</h1>
+					<h1 className="sr-only">Fortify</h1>
 				</div>
 				<ul>
-					<li className="my-8">
+					<li className="mt-8 mb-6">
 						<div className="relative">
 							<label htmlFor="selectSport">
-								<span className="hidden">Select Sport</span>
+								<span className="sr-only">Select Sport</span>
 								<select
 									onChange={handleSportChange}
-									className="font-bold shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+									className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 									id="selectSport"
 								>
 									{sports.map((sport) => (
@@ -149,7 +149,7 @@ const Nav = (props: any) => {
 							</div>
 						</div>
 					</li>
-					<li className="mt-2">
+					<li>
 						<Link href="/">
 							<a
 								className={clsx(

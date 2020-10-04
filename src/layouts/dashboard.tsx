@@ -10,7 +10,7 @@ const Dashboard = ({ children }: ILayoutProps) => (
 	<div className="md:flex md:min-h-screen text-blue-800">
 		<Header />
 
-		<main className="p-8">{children}</main>
+		<main className="w-full">{children}</main>
 	</div>
 );
 

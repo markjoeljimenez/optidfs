@@ -11,22 +11,18 @@ import Table from '../containers/Table/Table';
 const API = process.env.ENDPOINT;
 
 const App = ({ initialReduxState }: any) => (
-	<Panel>
-		<div className="row">
-			<div className="col">
-				<Dropdown />
-			</div>
+	<>
+		<div className="p-8 border-b border-gray-300">
+			{/* <Dropdown /> */}
+			<h2 className="text-xs uppercase font-black">Today&apos;s games</h2>
+		</div>
+		<div className="p-8 border-b border-gray-300">
+			<Dropdown />
 		</div>
 		<Bar />
-		<div className="row">
-			<div className="col col-12 col-md-3">
-				<Rules />
-			</div>
-			<div className="col col-12 col-md-9">
-				<Table />
-			</div>
-		</div>
-	</Panel>
+		<Rules />
+		<Table />
+	</>
 );
 
 export const getServerSideProps = async () => {

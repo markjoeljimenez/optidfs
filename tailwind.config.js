@@ -1,4 +1,9 @@
-const { colors, maxWidth, inset } = require('tailwindcss/defaultTheme');
+const {
+	colors,
+	maxWidth,
+	inset,
+	maxHeight,
+} = require('tailwindcss/defaultTheme');
 
 module.exports = {
 	purge: ['./src/**/*.tsx'],
@@ -24,6 +29,10 @@ module.exports = {
 				1100: '#06050a',
 			},
 		},
+		maxHeight: {
+			...maxHeight,
+			20: '20rem',
+		},
 		maxWidth: {
 			...maxWidth,
 			logo: '14rem',
@@ -34,6 +43,7 @@ module.exports = {
 		inset: {
 			...inset,
 			'1/2': '50%',
+			'1/1': '100%',
 		},
 		extend: {},
 	},

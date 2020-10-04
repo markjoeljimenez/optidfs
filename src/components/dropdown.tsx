@@ -16,7 +16,8 @@ const Dropdown = (props: any) => {
 	return (
 		<Downshift
 			onChange={(selection: IContest | null) =>
-				props.getPlayers(selection?.draft_group_id)}
+				props.getPlayers(selection?.draft_group_id)
+			}
 			// onChange={
 			// 	onContestChange && ((selection) => onContestChange(selection))
 			// }
@@ -34,16 +35,13 @@ const Dropdown = (props: any) => {
 				selectedItem,
 				highlightedIndex,
 			}) => (
-				<div className="input-dropdown">
+				<div className="relative">
 					{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-					<label
-						className="form__label u-hidden"
-						htmlFor="select-contest"
-					>
+					<label className="hidden" htmlFor="select-contest">
 						Search contest by ID or name
 					</label>
 					<input
-						className="input-dropdown__input"
+						className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 						{...getInputProps({
 							placeholder: 'Search contest by ID or name',
 						})}
@@ -52,17 +50,17 @@ const Dropdown = (props: any) => {
 					/>
 					{inputValue ? (
 						<button
-							className="input-dropdown__button"
 							onClick={() => {
-								console.log(props);
 								clearSelection();
 								props.resetPlayers();
 								props.resetRules();
 							}}
 							aria-label="clear selection"
 							type="button"
+							className="absolute inset-y-0 right-0 px-2 text-gray-700 border-l border-gray-300"
 						>
 							<svg
+								className="fill-current"
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"
 								width="24"
@@ -80,15 +78,16 @@ const Dropdown = (props: any) => {
 									</g>
 								</g>
 							</svg>
-							Clear selection
+							<span className="sr-only">Clear selection</span>
 						</button>
 					) : (
 						<button
-							className="input-dropdown__button"
 							{...getToggleButtonProps()}
 							type="button"
+							className="absolute inset-y-0 right-0 px-2 text-gray-700 border-l border-gray-300"
 						>
 							<svg
+								className="fill-current"
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 24 24"
 								width="24"
@@ -105,25 +104,23 @@ const Dropdown = (props: any) => {
 									</g>
 								</g>
 							</svg>
-							Down
+							<span className="sr-only">Down</span>
 						</button>
 					)}
 					{isOpen ? (
 						<ul
-							className="input-dropdown__list"
+							className="absolute top-1/1 left-0 right-0 max-h-20 bg-white overflow-y-scroll shadow border rounded mt-4"
 							{...getMenuProps()}
 						>
 							{props.contests?.map((item, index) => (
 								<li
-									className="input-dropdown__item"
+									className="p-4 border-b border-gray-300 hover:bg-gray-100 cursor-pointer"
 									{...getItemProps({
 										key: index,
 										index,
 										item,
 									})}
 								>
-									{item.draft_group_id}
-									-
 									{item.name}
 								</li>
 							))}
