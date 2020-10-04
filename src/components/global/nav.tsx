@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import clsx from 'clsx';
 
 import sports from '../../data/sports';
 
@@ -28,12 +29,12 @@ const Nav = (props: any) => {
 					screen.
 				</div>
 			</div> */}
-			<nav className={`nav ${isActive ? 'nav--active' : ''}`}>
-				<div className="nav__container">
+			<nav className="bg-gray-100 px-6 py-8 border-r border-gray-200 font-bold">
+				<div>
 					<button
-						className="nav__mobile-button"
 						onClick={onClick}
 						type="button"
+						className="md:hidden"
 					>
 						{isActive ? (
 							<svg
@@ -97,21 +98,25 @@ const Nav = (props: any) => {
 								</g>
 							</svg>
 						)}
-						Menu
+						<span className="sr-only">Menu</span>
 					</button>
-					<h1 className="nav__heading">DK Optimizer</h1>
+					<picture className="block max-w-logo">
+						<img
+							className="block"
+							src="/images/fortify.svg"
+							alt="Fortify logo"
+						/>
+					</picture>
+					<h1 className="hidden">Fortify</h1>
 				</div>
-				<ul className="nav__list">
-					<li className="nav__item">
-						<div className="select">
-							<label
-								htmlFor="selectSport"
-								className="select__label"
-							>
-								<span>Select Sport</span>
+				<ul>
+					<li className="my-8">
+						<div className="relative">
+							<label htmlFor="selectSport">
+								<span className="hidden">Select Sport</span>
 								<select
 									onChange={handleSportChange}
-									className="select__input"
+									className="font-bold shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 									id="selectSport"
 								>
 									{sports.map((sport) => (
@@ -121,32 +126,81 @@ const Nav = (props: any) => {
 									))}
 								</select>
 							</label>
+
+							<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+								<svg
+									className="fill-current"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									width="24"
+									height="24"
+								>
+									<g data-name="Layer 2">
+										<g data-name="chevron-down">
+											<rect
+												width="24"
+												height="24"
+												opacity="0"
+											/>
+											<path d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z" />
+										</g>
+									</g>
+								</svg>
+							</div>
 						</div>
 					</li>
-					<li className="nav__item">
+					<li className="mt-2">
 						<Link href="/">
 							<a
-								className={`nav__link ${
-									router.pathname === '/' &&
-									'nav__link--active'
-								}`}
+								className={clsx(
+									router.pathname === '/' && 'bg-gray-300',
+									'hover:bg-gray-300',
+									'block',
+									'px-4',
+									'py-3',
+									'rounded-md',
+									'relative'
+								)}
 							>
-								Optimize
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 24 24"
+									className="fill-current absolute top-1 left-1"
+									width="24"
+									height="24"
+								>
+									<g data-name="Layer 2">
+										<g data-name="flash">
+											<rect
+												width="24"
+												height="24"
+												opacity="0"
+											/>
+											<path d="M11.11 23a1 1 0 0 1-.34-.06 1 1 0 0 1-.65-1.05l.77-7.09H5a1 1 0 0 1-.83-1.56l7.89-11.8a1 1 0 0 1 1.17-.38 1 1 0 0 1 .65 1l-.77 7.14H19a1 1 0 0 1 .83 1.56l-7.89 11.8a1 1 0 0 1-.83.44zM6.87 12.8H12a1 1 0 0 1 .74.33 1 1 0 0 1 .25.78l-.45 4.15 4.59-6.86H12a1 1 0 0 1-1-1.11l.45-4.15z" />
+										</g>
+									</g>
+								</svg>
+								<span className="pl-8">Optimize</span>
 							</a>
 						</Link>
 					</li>
-					<li className="nav__item">
+					{/* <li className="mt-2">
 						<Link href="/about">
 							<a
-								className={`nav__link ${
+								className={clsx(
 									router.pathname === '/about' &&
-									'nav__link--active'
-								}`}
+										'bg-gray-300',
+									'hover:bg-gray-300',
+									'block',
+									'px-4',
+									'py-2',
+									'rounded-md'
+								)}
 							>
 								About
 							</a>
 						</Link>
-					</li>
+					</li> */}
 
 					{/* <li className="nav__item">
                                 <Link
