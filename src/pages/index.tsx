@@ -23,14 +23,14 @@ const App = ({ initialReduxState }: any) => {
 
 	return (
 		<>
-			<div className="border-b border-gray-300 bg-gray-200">
+			{/* <div className="border-b border-gray-300 bg-gray-100">
 				<div className="container mx-auto p-8">
 					<h2 className="text-xs uppercase font-black">
 						Today&apos;s games
 					</h2>
 					<GameListing />
 				</div>
-			</div>
+			</div> */}
 			<div className="border-b border-gray-300">
 				<div className="container mx-auto p-8">
 					<Dropdown />
@@ -82,6 +82,7 @@ const App = ({ initialReduxState }: any) => {
 				</div>
 			</div>
 			<div
+				className="mb-8"
 				role="tabpanel"
 				aria-labelledby="panel-players"
 				hidden={activeTab !== 'players'}
@@ -89,6 +90,7 @@ const App = ({ initialReduxState }: any) => {
 				<Table />
 			</div>
 			<div
+				className="mb-8"
 				role="tabpanel"
 				aria-labelledby="panel-settings"
 				hidden={activeTab !== 'settings'}

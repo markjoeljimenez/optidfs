@@ -45,7 +45,7 @@ const GameListing = () => (
 						/>
 					</div>
 				</div>
-				<div className="flex-2 p-4">
+				<div className="flex-2 p-8 py-6">
 					<p>
 						<span className="font-black">{game.home.team}</span> @{' '}
 						<span className="font-black">{game.away.team}</span>
