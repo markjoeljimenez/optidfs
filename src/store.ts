@@ -5,12 +5,14 @@ import { useMemo } from 'react';
 import table from './containers/Table/Table.reducers';
 import dropdown from './containers/Dropdown/Dropdown.reducers';
 import rules from './containers/Rules/Rules.reducers';
+import tabs from './containers/Tabs/Tabs.reducers';
 
 import rootSaga from './saga';
 
 let store;
 
 const reducer = combineReducers({
+	tabs,
 	rules,
 	dropdown,
 	table,

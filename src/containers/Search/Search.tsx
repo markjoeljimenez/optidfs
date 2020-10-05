@@ -9,7 +9,7 @@ const SearchContainer = (props: any) => {
 	};
 
 	return (
-		<div className="relative h-full flex-1 mr-4">
+		<div className="relative h-full md:min-w-9">
 			<div className="absolute inset-y-0 left-0 flex items-center">
 				<svg
 					className="fill-current"
