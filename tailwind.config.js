@@ -5,6 +5,8 @@ const {
 	maxHeight,
 	flex,
 	minWidth,
+	height,
+	minHeight,
 } = require('tailwindcss/defaultTheme');
 
 module.exports = {
@@ -31,16 +33,29 @@ module.exports = {
 				1100: '#06050a',
 			},
 		},
+		height: {
+			...height,
+			'1/2': '50%',
+		},
+		minHeight: {
+			...minHeight,
+			5: '5rem',
+			7: '7rem',
+		},
 		maxHeight: {
 			...maxHeight,
 			none: 'none',
 			0: '0',
+			5: '5rem',
 			10: '10rem',
 			20: '20rem',
 		},
 		minWidth: {
 			...minWidth,
 			'1/2': '50%',
+			5: '5rem',
+			9: '9rem',
+			10: '10rem',
 		},
 		maxWidth: {
 			...maxWidth,

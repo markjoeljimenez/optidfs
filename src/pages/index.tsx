@@ -8,6 +8,7 @@ import Bar from '../containers/Bar/Bar';
 import Dropdown from '../containers/Dropdown/Dropdown';
 import Rules from '../containers/Rules/Rules';
 import Table from '../containers/Table/Table';
+import GameListing from '../components/gameListing';
 
 const API = process.env.ENDPOINT;
 
@@ -22,11 +23,12 @@ const App = ({ initialReduxState }: any) => {
 
 	return (
 		<>
-			<div className="border-b border-gray-300">
+			<div className="border-b border-gray-300 bg-gray-200">
 				<div className="container mx-auto p-8">
 					<h2 className="text-xs uppercase font-black">
 						Today&apos;s games
 					</h2>
+					<GameListing />
 				</div>
 			</div>
 			<div className="border-b border-gray-300">

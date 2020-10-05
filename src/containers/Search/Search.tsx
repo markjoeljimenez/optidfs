@@ -29,7 +29,7 @@ const SearchContainer = (props: any) => {
 
 			<input
 				// className="shadow appearance-none border rounded w-full py-3 px-4 pl-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				className="px-4 pl-8 h-full w-full border-b border-blue-800 focus:outline-none focus:shadow-outline"
+				className="py-2 px-4 pl-8 h-full w-full border-b border-blue-800 focus:outline-none focus:shadow-outline"
 				type="search"
 				placeholder="Search by player, team, or position"
 				onChange={onChange}
