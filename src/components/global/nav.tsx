@@ -100,14 +100,16 @@ const Nav = (props: any) => {
 						)}
 						<span className="sr-only">Menu</span>
 					</button>
-					<picture className="block max-w-logo-sm md:max-w-logo-md absolute ml-10 md:ml-0 md:relative">
+					{/* <picture className="block max-w-logo-sm md:max-w-logo-md absolute ml-10 md:ml-0 md:relative">
 						<img
 							className="block"
 							src="/images/fortify.svg"
 							alt="Fortify logo"
 						/>
-					</picture>
-					<h1 className="sr-only">Fortify</h1>
+					</picture> */}
+					<h1 className="absolute ml-10 md:ml-0 md:relative md:text-xl">
+						DK Optimizer
+					</h1>
 					<div className="relative md:mt-8 md:mb-6">
 						<label htmlFor="selectSport">
 							<span className="sr-only">Select Sport</span>
