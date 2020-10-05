@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 
+import clsx from 'clsx';
 import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 import { post } from '../scripts/utilities/fetch';
-import clsx from 'clsx';
 
 const API = process.env.ENDPOINT;
 

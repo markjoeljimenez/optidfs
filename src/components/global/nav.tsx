@@ -107,7 +107,7 @@ const Nav = (props: any) => {
 							alt="Fortify logo"
 						/>
 					</picture> */}
-					<h1 className="absolute ml-10 md:ml-0 md:relative md:text-xl">
+					<h1 className="absolute ml-10 md:ml-0 md:relative md:text-3xl font-black whitespace-no-wrap">
 						DK Optimizer
 					</h1>
 					<div className="relative md:mt-8 md:mb-6">

@@ -47,7 +47,10 @@ const GameListing = () => (
 				</div>
 				<div className="flex-2 p-8 py-6">
 					<p>
-						<span className="font-black">{game.home.team}</span> @{' '}
+						<span className="font-black">{game.home.team}</span>
+						{' '}
+						@
+						{' '}
 						<span className="font-black">{game.away.team}</span>
 					</p>
 					<p>{game.date}</p>

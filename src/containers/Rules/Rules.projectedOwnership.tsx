@@ -68,7 +68,7 @@ const Rule = (props: any) => {
 				Projected ownership
 				<Tippy
 					className="bg-white rounded shadow-xl p-4"
-					content={
+					content={(
 						<div>
 							<p>
 								<strong>Value: 0.0 - 1.0</strong>
@@ -80,12 +80,17 @@ const Rule = (props: any) => {
 							</p>
 
 							<p>
-								<strong>Note:</strong> Remember to set the{' '}
-								<i>projected ownership</i> of the players you
+								<strong>Note:</strong>
+								{' '}
+								Remember to set the
+								{' '}
+								<i>projected ownership</i>
+								{' '}
+								of the players you
 								want this field to affect.
 							</p>
 						</div>
-					}
+    )}
 				>
 					<div className="absolute inset-y-0 right-0 flex -mt-1">
 						<svg
