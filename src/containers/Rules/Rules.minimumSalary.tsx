@@ -12,20 +12,21 @@ const Rule = (props: any) => {
 
 	return (
 		<div className="input-group">
-			<span className="input-group__label">Minimum salary cap</span>
-			<div className="input input-group__input">
-				<label htmlFor="minSalaryCap">
-					<span className="u-hidden">Minimum Salary Cap</span>
-					<input
-						id="minSalaryCap"
-						placeholder="0"
-						type="number"
-						min={0}
-						step={5000}
-						onChange={handleMinSalaryCapChange}
-					/>
-				</label>
-			</div>
+			<span className="inline-block mb-2 text-xs uppercase font-black">
+				Minimum salary cap
+			</span>
+			<label htmlFor="minSalaryCap">
+				<span className="sr-only">Minimum Salary Cap</span>
+				<input
+					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+					id="minSalaryCap"
+					placeholder="0"
+					type="number"
+					min={0}
+					step={5000}
+					onChange={handleMinSalaryCapChange}
+				/>
+			</label>
 		</div>
 	);
 };

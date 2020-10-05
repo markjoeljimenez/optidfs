@@ -1,32 +1,52 @@
+import { connect } from 'react-redux';
+
 import { initializeStore } from '../store';
+
 import { post } from '../scripts/utilities/fetch';
+
 import { SET_CONTESTS } from '../containers/Dropdown/Dropdown.actions';
 import { setSport } from '../containers/Header/Header.actions';
 import Bar from '../containers/Bar/Bar';
 import Dropdown from '../containers/Dropdown/Dropdown';
-import Panel from '../templates/panel';
+import GameListing from '../components/gameListing';
 import Rules from '../containers/Rules/Rules';
 import Table from '../containers/Table/Table';
 
 const API = process.env.ENDPOINT;
 
-const App = ({ initialReduxState }: any) => (
-	<Panel>
-		<div className="row">
-			<div className="col">
+const App = ({ activeTab }: any) => (
+	<>
+		{/* <div className="border-b border-gray-300 bg-gray-100">
+				<div className="container mx-auto p-8">
+					<h2 className="text-xs uppercase font-black">
+						Today&apos;s games
+					</h2>
+					<GameListing />
+				</div>
+			</div> */}
+		<div className="border-b border-gray-300">
+			<div className="container mx-auto p-8">
 				<Dropdown />
+				<Bar />
 			</div>
 		</div>
-		<Bar />
-		<div className="row">
-			<div className="col col-12 col-md-3">
-				<Rules />
-			</div>
-			<div className="col col-12 col-md-9">
-				<Table />
-			</div>
+		<div
+			className="mb-8"
+			role="tabpanel"
+			aria-labelledby="panel-players"
+			hidden={activeTab !== 'players'}
+		>
+			<Table />
 		</div>
-	</Panel>
+		<div
+			className="mb-8"
+			role="tabpanel"
+			aria-labelledby="panel-settings"
+			hidden={activeTab !== 'settings'}
+		>
+			<Rules />
+		</div>
+	</>
 );
 
 export const getServerSideProps = async () => {
@@ -53,4 +73,8 @@ export const getServerSideProps = async () => {
 	return { props: { initialReduxState: reduxStore.getState() } };
 };
 
-export default App;
+const mapStateToProps = ({ tabs }) => ({
+	activeTab: tabs.activeTab,
+});
+
+export default connect(mapStateToProps)(App);

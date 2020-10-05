@@ -83,5 +83,7 @@ module.exports = {
 		'no-underscore-dangle': [0],
 		camelcase: [0],
 		'@typescript-eslint/camelcase': [0],
+		'react/require-default-props': [0],
+		'no-mixed-spaces-and-tabs': [0],
 	},
 };
