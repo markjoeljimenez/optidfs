@@ -20,7 +20,7 @@ const RulesContainer = ({ players, active }: any) => {
 		);
 
 	return players ? (
-		<div className="container mx-auto px-8 my-8 flex">
+		<div className="container mx-auto px-8 my-8 flex flex-col md:flex-row">
 			<div className="flex-1">
 				<div>
 					<NumberOfGenerations />
@@ -32,8 +32,8 @@ const RulesContainer = ({ players, active }: any) => {
 					<NumberOfSpecificPositions positions={positions} />
 				</div>
 			</div>
-			<div className="flex-1 ml-8">
-				<div>
+			<div className="flex-1 md:ml-8">
+				<div className="mt-8 md:mt-0">
 					<MinimumSalary />
 				</div>
 				<div className="mt-8">
