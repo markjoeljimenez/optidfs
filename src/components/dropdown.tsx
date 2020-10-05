@@ -41,7 +41,7 @@ const Dropdown = (props: any) => {
 						Search contest by ID or name
 					</label>
 					<input
-						className="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+						className="shadow appearance-none border rounded w-full py-3 px-4 pr-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline truncate"
 						{...getInputProps({
 							placeholder: 'Search contest by ID or name',
 						})}

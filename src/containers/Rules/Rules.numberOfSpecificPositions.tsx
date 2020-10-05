@@ -76,7 +76,7 @@ const Rule = (props: any) => {
 								className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								ref={numberOfSpecificPositionsInputRef}
 								id="numberOfSpecificPositions"
-								placeholder="Number of players"
+								placeholder="# of players"
 								type="number"
 								min={0}
 								max={3}
