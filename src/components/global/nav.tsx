@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import clsx from 'clsx';
 
+import Donate from './donate';
+
 import sports from '../../data/sports';
 
 const Nav = (props: any) => {
@@ -21,15 +23,8 @@ const Nav = (props: any) => {
 	};
 
 	return (
-		<>
-			{/* <div className="alert alert--mobile">
-				<div className="container">
-					The mobile version of this app is still being worked on. For
-					the best experience, please view the page on a larger
-					screen.
-				</div>
-			</div> */}
-			<nav className="bg-gray-100 px-6 py-4 md:py-8 border-r border-gray-200 font-bold">
+		<nav className="bg-gray-100 px-6 py-4 md:py-8 border-r border-gray-200 font-bold flex flex-col justify-between">
+			<div>
 				<div className="relative flex justify-between items-center md:block">
 					<button
 						onClick={onClick}
@@ -265,8 +260,12 @@ const Nav = (props: any) => {
                                 </Link>
                             </li> */}
 				</ul>
-			</nav>
-		</>
+			</div>
+
+			<div className="flex justify-center">
+				<Donate />
+			</div>
+		</nav>
 	);
 };
 
