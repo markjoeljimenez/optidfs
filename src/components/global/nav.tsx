@@ -185,7 +185,7 @@ const Nav = (props: any) => {
 								<p>Not signed in</p>
 								<button
 									className="mt-2 px-6 py-2 font-black rounded-lg bg-blue-300 text-blue-900"
-									onClick={signIn}
+									onClick={signIn as any}
 									type="button"
 								>
 									Sign in
@@ -193,8 +193,15 @@ const Nav = (props: any) => {
 							</>
 						) : (
 							<>
-								Signed in as {session.user.email}
-								<button onClick={() => signOut} type="button">
+								<p>
+									Signed in as
+									{session.user.email}
+								</p>
+								<button
+									className="mt-2 px-6 py-2 font-black rounded-lg bg-blue-300 text-blue-900"
+									onClick={signOut as any}
+									type="button"
+								>
 									Sign out
 								</button>
 							</>
