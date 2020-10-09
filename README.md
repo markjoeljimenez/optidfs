@@ -13,9 +13,17 @@ A web app that generates the most optimized lineups for DraftKings.
 
 ## Features
 
-1. Fill out `.env.example` and rename to `.env`
-2. Run `npm i` to install NextJS and other dependencies
-3. Run `npm run develop` to run NextJS in dev mode
+1. Supports NBA, NFL, NHL, MLB, and SOCCER
+2. Requests directly from DraftKings so users don't have to manually upload .csv files
+3. Search by player, team, position
+4. Generate multiple lineups
+5. Basic rules:
+    - Lock players
+    - Number of players from same team
+    - Number of specific positions
+    - Minimum salary cap
+    - Maxiomum repeating players
+    - Projected Ownership
 
 ## Todo
 
