@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { signIn, signOut, useSession } from 'next-auth/client';
 import Link from 'next/link';
 import clsx from 'clsx';
 
@@ -9,7 +10,7 @@ import sports from '../../data/sports';
 
 const Nav = (props: any) => {
 	const router = useRouter();
-
+	const [session, loading] = useSession();
 	const [isActive, setActiveState] = useState(false);
 
 	const onClick = () => {
@@ -176,44 +177,29 @@ const Nav = (props: any) => {
 							</a>
 						</Link>
 					</li>
-					{/* <li className="mt-2">
-						<Link href="/about">
-							<a
-								className={clsx(
-									router.pathname === '/about' &&
-										'bg-gray-300',
-									'hover:bg-gray-300',
-									'block',
-									'px-4',
-									'py-2',
-									'rounded-md'
-								)}
-							>
-								About
-							</a>
-						</Link>
-					</li> */}
-
-					{/* <li className="nav__item">
-                                <Link
-                                    to="/statistics"
-                                    className="nav__link"
-                                    activeClassName="nav__link--active"
-                                >
-                                    Statistics
-                                </Link>
-                            </li>
-                            <li className="nav__item">
-                                <Link
-                                    to="/help"
-                                    className="nav__link"
-                                    activeClassName="nav__link--active"
-                                >
-                                    Help
-                                </Link>
-                            </li> */}
 				</ul>
-				<div className="flex justify-center">
+				<div className="flex items-center flex-col space-y-6 text-center">
+					<div>
+						{!session ? (
+							<>
+								<p>Not signed in</p>
+								<button
+									className="mt-2 px-6 py-2 font-black rounded-lg bg-blue-300 text-blue-900"
+									onClick={signIn}
+									type="button"
+								>
+									Sign in
+								</button>
+							</>
+						) : (
+							<>
+								Signed in as {session.user.email}
+								<button onClick={() => signOut} type="button">
+									Sign out
+								</button>
+							</>
+						)}
+					</div>
 					<Donate />
 				</div>
 			</div>
