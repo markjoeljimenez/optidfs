@@ -179,7 +179,8 @@ const Nav = (props: any) => {
 					</li>
 				</ul>
 				<div className="flex items-center flex-col space-y-6 text-center">
-					<div>
+					{/* @TODO: Integrate OAuth */}
+					{/* <div>
 						{!session ? (
 							<>
 								<p>Not signed in</p>
@@ -206,7 +207,7 @@ const Nav = (props: any) => {
 								</button>
 							</>
 						)}
-					</div>
+					</div> */}
 					<Donate />
 				</div>
 			</div>
