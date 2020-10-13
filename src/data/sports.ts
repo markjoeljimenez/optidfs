@@ -1,3 +1,3 @@
-const sports = ['NBA', 'NFL', 'NHL', 'MLB', 'SOCCER'];
+const sports = ['NFL', 'MLB', 'SOCCER'];
 
 export default sports;

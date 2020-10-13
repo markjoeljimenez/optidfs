@@ -12,6 +12,8 @@ import GameListing from '../components/gameListing';
 import Rules from '../containers/Rules/Rules';
 import Table from '../containers/Table/Table';
 
+import sports from '../data/sports';
+
 const API = process.env.ENDPOINT;
 
 const App = ({ activeTab }: any) => (
@@ -54,7 +56,7 @@ export const getServerSideProps = async () => {
 		return null;
 	}
 
-	const DEFAULT_SPORT = 'NBA';
+	const DEFAULT_SPORT = sports[0];
 
 	const response = await post(API, {
 		sport: DEFAULT_SPORT,
