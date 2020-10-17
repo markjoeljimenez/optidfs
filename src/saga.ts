@@ -1,4 +1,5 @@
 import { put, takeLatest, all, select } from 'redux-saga/effects';
+import download from 'downloadjs';
 
 import { get, post } from './scripts/utilities/fetch';
 import {
@@ -10,6 +11,7 @@ import {
 	GET_PLAYERS_SUCCEEDED,
 	GET_PLAYERS_FAILED,
 	LOADING_PLAYERS,
+	DOWNLOAD_CSV,
 } from './containers/Table/Table.actions';
 import {
 	OPTIMIZE_PLAYERS_SUCCEEDED,
@@ -82,8 +84,6 @@ function* optimizePlayers(action) {
 			(_state) => _state
 		);
 
-		console.log(rules);
-
 		if (rules.errors.length) {
 			return;
 		}
@@ -116,8 +116,30 @@ function* optimizePlayers(action) {
 	}
 }
 
+// function* downloadCsv(action) {
+// 	try {
+// 		const { dropdown, table } = yield select((_state) => _state);
+
+// 		const { defaultLineups, draftGroupId } = table;
+// 		const { sport } = dropdown;
+
+// 		return yield post(`${API}/export`, {
+// 			lineups: defaultLineups,
+// 			draftGroupId,
+// 			sport,
+// 		})
+// 			.then((resp) => resp.blob())
+// 			.then((blob) => download(blob, 'DKSalaries.csv', 'text/csv'));
+// 	} catch (e) {
+// 		// yield put({ type: OPTIMIZE_PLAYERS_FAILED, message: e.message });
+// 	}
+
+// 	return null;
+// }
+
 export default function* rootSaga() {
 	yield takeLatest(SET_SPORT, fetchContests);
 	yield takeLatest(GET_PLAYERS, fetchPlayers);
 	yield takeLatest(OPTIMIZE_PLAYERS, optimizePlayers);
+	// yield takeLatest(DOWNLOAD_CSV, downloadCsv);
 }

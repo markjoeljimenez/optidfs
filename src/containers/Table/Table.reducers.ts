@@ -96,6 +96,7 @@ const table = (
 			return {
 				...state,
 				page: 0,
+				defaultLineups: lineups,
 				optimizedPlayers: lineup?.players,
 				players: lineup?.players,
 				totalFppg: lineup?.totalFppg,

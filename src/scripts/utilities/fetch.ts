@@ -1,5 +1,5 @@
 const DEFAULT_OPTIONS: RequestInit = {
-	credentials: 'same-origin',
+	credentials: 'include',
 	mode: 'cors',
 	headers: {
 		'Content-Type': 'application/json',

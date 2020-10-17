@@ -7,6 +7,7 @@ export const NEXT = 'NEXT';
 export const PREVIOUS = 'PREVIOUS';
 export const SET_PLAYER_EXPOSURE = 'SET_PLAYER_EXPOSURE';
 export const SET_PLAYER_PROJECTED_OWNERSHIP = 'SET_PLAYER_PROJECTED_OWNERSHIP';
+export const DOWNLOAD_CSV = 'DOWNLOAD_CSV';
 
 export const setPlayerExposure = (playerId, value) => ({
 	type: SET_PLAYER_EXPOSURE,
@@ -31,4 +32,8 @@ export const nextPage = () => ({
 
 export const previousPage = () => ({
 	type: PREVIOUS,
+});
+
+export const downloadCsv = () => ({
+	type: DOWNLOAD_CSV,
 });

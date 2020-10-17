@@ -1,10 +1,7 @@
 import { useRef, useEffect, useState } from 'react';
-
 import clsx from 'clsx';
-import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
-import { post } from '../scripts/utilities/fetch';
 
-const API = process.env.ENDPOINT;
+import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 
 interface ITable {
 	lineups?: IDraftKingsPlayer[];
@@ -18,6 +15,7 @@ interface ITable {
 	lock: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	setExposure: (id, value) => void;
 	setProjectedOwnership: (id, value) => void;
+	downloadCsv: () => void;
 }
 
 const Table = ({
@@ -32,6 +30,7 @@ const Table = ({
 	lock,
 	setExposure,
 	setProjectedOwnership,
+	downloadCsv,
 }: ITable) => {
 	const optionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -67,6 +66,10 @@ const Table = ({
 		const id = e.currentTarget.getAttribute('data-player-id');
 
 		setProjectedOwnership(id, value);
+	};
+
+	const handleDownloadCsv = () => {
+		downloadCsv();
 	};
 
 	return (
@@ -475,13 +478,24 @@ const Table = ({
 							</div>
 						</div>
 					)}
-					{/* <div className="table__row table__row--child" role="row">
+
+					<div
+						className="grid grid-cols-table-md font-black border-t border-gray-300"
+						role="row"
+					>
 						<div
-							className="table__cell table__cell--csv table__cell--align-right"
+							className="p-2 pr-4 py-5 flex items-center justify-center col-span-9 container mx-auto px-8"
 							role="cell"
 						>
-							<a href={`${API}/export`} download>
+							<a
+								className="py-2 px-5 font-black bg-blue-200 text-blue-900 rounded-full hover:bg-blue-800 hover:text-white"
+								// type="button"
+								// onClick={handleDownloadCsv}
+								href={`${process.env.ENDPOINT}/export`}
+								download
+							>
 								<svg
+									className="fill-current inline mr-2"
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"
 									width="24"
@@ -528,7 +542,7 @@ const Table = ({
 								Download CSV
 							</a>
 						</div>
-					</div> */}
+					</div>
 				</div>
 			)}
 		</div>
