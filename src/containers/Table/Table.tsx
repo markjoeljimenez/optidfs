@@ -5,7 +5,6 @@ import {
 	setPlayerExposure,
 	lockPlayer,
 	setPlayerProjectedOwnership,
-	downloadCsv,
 } from './Table.actions';
 
 import Loading from '../../components/loading';
@@ -40,7 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
 	setExposure: (id, value) => dispatch(setPlayerExposure(id, value)),
 	setProjectedOwnership: (id, value) =>
 		dispatch(setPlayerProjectedOwnership(id, value)),
-	downloadCsv: () => dispatch(downloadCsv()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TableContainer);

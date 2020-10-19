@@ -15,7 +15,6 @@ interface ITable {
 	lock: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	setExposure: (id, value) => void;
 	setProjectedOwnership: (id, value) => void;
-	downloadCsv: () => void;
 }
 
 const Table = ({
@@ -30,7 +29,6 @@ const Table = ({
 	lock,
 	setExposure,
 	setProjectedOwnership,
-	downloadCsv,
 }: ITable) => {
 	const optionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -66,10 +64,6 @@ const Table = ({
 		const id = e.currentTarget.getAttribute('data-player-id');
 
 		setProjectedOwnership(id, value);
-	};
-
-	const handleDownloadCsv = () => {
-		downloadCsv();
 	};
 
 	return (
@@ -489,10 +483,8 @@ const Table = ({
 						>
 							<a
 								className="py-2 px-5 font-black bg-blue-200 text-blue-900 rounded-full hover:bg-blue-800 hover:text-white"
-								// type="button"
-								// onClick={handleDownloadCsv}
 								href={`${process.env.ENDPOINT}/export`}
-								download
+								download="DKSalaries.csv"
 							>
 								<svg
 									className="fill-current inline mr-2"
