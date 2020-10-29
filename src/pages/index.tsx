@@ -4,20 +4,23 @@ import { initializeStore } from '../store';
 
 import { post } from '../scripts/utilities/fetch';
 
-import { SET_CONTESTS } from '../containers/Dropdown/Dropdown.actions';
-import { setSport } from '../containers/Header/Header.actions';
+import {
+	FETCH_CONTESTS,
+	SET_CONTESTS,
+} from '../containers/Dropdown/Dropdown.actions';
 import Bar from '../containers/Bar/Bar';
 import Dropdown from '../containers/Dropdown/Dropdown';
 import GameListing from '../components/gameListing';
 import Rules from '../containers/Rules/Rules';
 import Table from '../containers/Table/Table';
-
-import sports from '../data/sports';
+import { SET_SPORTS } from '../containers/Sports/Sports.actions';
+import { ISports } from '../interfaces/ISports';
+import Loading from '../components/loading';
 
 const API = process.env.ENDPOINT;
 
-const App = ({ activeTab }: any) => (
-	<>
+const App = ({ activeTab, sport, loading }: any) => (
+	<Loading loading={loading.isLoading} message={loading.message}>
 		{/* <div className="border-b border-gray-300 bg-gray-100">
 				<div className="container mx-auto p-8">
 					<h2 className="text-xs uppercase font-black">
@@ -26,12 +29,18 @@ const App = ({ activeTab }: any) => (
 					<GameListing />
 				</div>
 			</div> */}
-		<div className="border-b border-gray-300">
-			<div className="container mx-auto p-8">
-				<Dropdown />
-				<Bar />
+		{sport ? (
+			<div className="border-b border-gray-300">
+				<div className="container mx-auto p-8">
+					<Dropdown />
+					<Bar />
+				</div>
 			</div>
-		</div>
+		) : (
+			<div className="container mx-auto p-8">
+				<p>First select a sport</p>
+			</div>
+		)}
 		<div
 			className="mb-8"
 			role="tabpanel"
@@ -48,7 +57,7 @@ const App = ({ activeTab }: any) => (
 		>
 			<Rules />
 		</div>
-	</>
+	</Loading>
 );
 
 export const getServerSideProps = async () => {
@@ -56,27 +65,32 @@ export const getServerSideProps = async () => {
 		return null;
 	}
 
-	const DEFAULT_SPORT = sports[0];
-
-	const response = await post(API, {
-		sport: DEFAULT_SPORT,
-	});
-	const { contests } = await response.json();
-
 	const reduxStore = initializeStore();
 	const { dispatch } = reduxStore;
 
+	const response = await fetch(API);
+	const { sports }: { sports: ISports[] } = await response.json();
+
 	dispatch({
-		type: SET_CONTESTS,
-		contests,
-		sport: DEFAULT_SPORT,
+		type: SET_SPORTS,
+		sports,
 	});
+
+	// dispatch({
+	// 	type: FETCH_CONTESTS,
+	// 	sport: sports[0].sportId,
+	// });
 
 	return { props: { initialReduxState: reduxStore.getState() } };
 };
 
-const mapStateToProps = ({ tabs }) => ({
+const mapStateToProps = ({ tabs, sports, dropdown }) => ({
 	activeTab: tabs.activeTab,
+	sport: sports.sport,
+	loading: {
+		isLoading: dropdown.loading,
+		message: dropdown.message,
+	},
 });
 
 export default connect(mapStateToProps)(App);

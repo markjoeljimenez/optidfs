@@ -1,11 +1,12 @@
 interface ILoading {
 	children: React.ReactNode;
 	loading?: boolean;
+	message?: string;
 }
 
-const Loading = ({ children, loading }: ILoading) =>
+const Loading = ({ children, loading, message }: ILoading) =>
 	loading ? (
-		<div className="loading">Generating line ups...</div>
+		<div className="loading">{message ?? 'Loading...'}</div>
 	) : (
 		<>{children}</>
 	);

@@ -6,6 +6,7 @@ import table from './containers/Table/Table.reducers';
 import dropdown from './containers/Dropdown/Dropdown.reducers';
 import rules from './containers/Rules/Rules.reducers';
 import tabs from './containers/Tabs/Tabs.reducers';
+import sports from './containers/Sports/Sports.reducers';
 
 import rootSaga from './saga';
 
@@ -16,6 +17,7 @@ const reducer = combineReducers({
 	rules,
 	dropdown,
 	table,
+	sports,
 });
 
 function initStore(preloadedState = {}) {
