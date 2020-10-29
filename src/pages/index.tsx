@@ -13,6 +13,7 @@ import Rules from '../containers/Rules/Rules';
 import Table from '../containers/Table/Table';
 
 import sports from '../data/sports';
+import Upload from '../containers/Upload/Upload';
 
 const API = process.env.ENDPOINT;
 
@@ -28,7 +29,10 @@ const App = ({ activeTab }: any) => (
 			</div> */}
 		<div className="border-b border-gray-300">
 			<div className="container mx-auto p-8">
-				<Dropdown />
+				<div>
+					<Dropdown />
+					<Upload />
+				</div>
 				<Bar />
 			</div>
 		</div>

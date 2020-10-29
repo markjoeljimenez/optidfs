@@ -51,26 +51,48 @@ function* fetchContests(action) {
 	}
 }
 
-function* fetchPlayers(action) {
+function* fetchPlayers(action: { value: File & number }) {
+	if (!action.value) {
+		return;
+	}
+
 	try {
-		if (!action.draftGroupId) {
-			return;
+		if (action.value.type) {
+			const body = new FormData();
+			body.append('csv', action.value);
+
+			yield put({ type: LOADING_PLAYERS, loading: true });
+
+			const res = yield fetch(`${API}/players`, {
+				method: 'POST',
+				body,
+			});
+
+			const { players } = yield res.json();
+
+			yield put({
+				type: GET_PLAYERS_SUCCEEDED,
+				// draftGroupId: action.draftGroupId,
+				players,
+				loading: false,
+				// teamIds,
+			});
+		} else {
+			console.log(action);
+
+			// yield put({ type: LOADING_PLAYERS, loading: true });
+
+			// const res = yield get(`${API}/players?id=${action.value}`);
+			// const { players, teamIds } = yield res.json();
+
+			// yield put({
+			// 	type: GET_PLAYERS_SUCCEEDED,
+			// 	draftGroupId: action.draftGroupId,
+			// 	players,
+			// 	loading: false,
+			// 	teamIds,
+			// });
 		}
-
-		// const { header } = yield select((_state) => _state);
-
-		yield put({ type: LOADING_PLAYERS, loading: true });
-
-		const res = yield get(`${API}/players?id=${action.draftGroupId}`);
-		const { players, teamIds } = yield res.json();
-
-		yield put({
-			type: GET_PLAYERS_SUCCEEDED,
-			draftGroupId: action.draftGroupId,
-			players,
-			loading: false,
-			teamIds,
-		});
 	} catch (e) {
 		yield put({ type: GET_PLAYERS_FAILED, message: e.message });
 	}
@@ -78,7 +100,7 @@ function* fetchPlayers(action) {
 
 function* optimizePlayers(action) {
 	try {
-		const { dropdown, table, rules, header } = yield select(
+		const { dropdown, table, rules, header, upload } = yield select(
 			(_state) => _state
 		);
 
@@ -91,16 +113,30 @@ function* optimizePlayers(action) {
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
-		const res = yield post(`${API}/optimize`, {
-			generations: action.generations,
-			lockedPlayers: lockedPlayers?.map((player) => player.id),
-			players: defaultPlayers,
-			rules: {
-				...rules,
-			},
-			sport,
-			draftGroupId,
-		});
+		const isCsv = true;
+		let res: Promise<Response>;
+
+		if (isCsv) {
+			const body = upload;
+
+			console.log(body);
+
+			// res = yield fetch(`${API}/players`, {
+			// 	method: 'POST',
+			// 	body,
+			// });
+		} else {
+			res = yield post(`${API}/optimize`, {
+				generations: action.generations,
+				lockedPlayers: lockedPlayers?.map((player) => player.id),
+				players: defaultPlayers,
+				rules: {
+					...rules,
+				},
+				sport,
+				draftGroupId,
+			});
+		}
 
 		const { lineups } = yield res.json();
 

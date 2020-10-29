@@ -1,9 +1,11 @@
 import { connect } from 'react-redux';
 import { optimize } from './Optimize.actions';
+import setActiveTab from '../Tabs/Tabs.actions';
 
 const Optimize = (props: any) => {
 	const handleClick = () => {
 		props.optimizeLineups(props.value);
+		props.setActiveTab('players');
 	};
 
 	return (
@@ -24,6 +26,7 @@ const mapStateToProps = ({ table, rules }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	optimizeLineups: (value) => dispatch(optimize(value)),
+	setActiveTab: (value) => dispatch(setActiveTab(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Optimize);
