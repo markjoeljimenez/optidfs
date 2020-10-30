@@ -4,8 +4,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 
 import Donate from './donate';
-
-import sports from '../../data/sports';
+import Sports from '../../containers/Sports/Sports';
 
 const Nav = (props: any) => {
 	const router = useRouter();
@@ -13,12 +12,6 @@ const Nav = (props: any) => {
 
 	const onClick = () => {
 		setActiveState(!isActive);
-	};
-
-	const handleSportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const { value } = e.currentTarget;
-
-		props.setSport(value);
 	};
 
 	return (
@@ -99,39 +92,7 @@ const Nav = (props: any) => {
 				<h1 className="absolute ml-10 md:ml-0 md:relative md:text-3xl font-black whitespace-no-wrap">
 					DK Optimizer
 				</h1>
-				<div className="relative md:mt-8 md:mb-6">
-					<label htmlFor="selectSport">
-						<span className="sr-only">Select Sport</span>
-						<select
-							onChange={handleSportChange}
-							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xs md:text-base"
-							id="selectSport"
-						>
-							{sports.map((sport) => (
-								<option value={sport} key={sport}>
-									{sport}
-								</option>
-							))}
-						</select>
-					</label>
-
-					<div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-						<svg
-							className="fill-current"
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							width="24"
-							height="24"
-						>
-							<g data-name="Layer 2">
-								<g data-name="chevron-down">
-									<rect width="24" height="24" opacity="0" />
-									<path d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z" />
-								</g>
-							</g>
-						</svg>
-					</div>
-				</div>
+				<Sports />
 			</div>
 			<div
 				className={clsx(

@@ -3,8 +3,10 @@ import { put, takeLatest, all, select } from 'redux-saga/effects';
 import { get, post } from './scripts/utilities/fetch';
 import {
 	GET_PLAYERS,
-	SET_CONTESTS,
 	RESET_PLAYERS,
+	FETCH_CONTESTS,
+	SET_CONTESTS,
+	LOADING_CONTESTS,
 } from './containers/Dropdown/Dropdown.actions';
 import {
 	GET_PLAYERS_SUCCEEDED,
@@ -16,7 +18,6 @@ import {
 	OPTIMIZE_PLAYERS_FAILED,
 	OPTIMIZE_PLAYERS,
 } from './containers/Optimize/Optimize.actions';
-import { SET_SPORT } from './containers/Header/Header.actions';
 import { RESET_RULES } from './containers/Rules/Rules.actions';
 
 const API = process.env.ENDPOINT;
@@ -27,7 +28,12 @@ function* fetchContests(action) {
 			return;
 		}
 
-		const res = yield post(API!, {
+		yield put({
+			type: LOADING_CONTESTS,
+			message: 'Loading contests... This may take a while.',
+		});
+
+		const res = yield post(`${API}/contests`, {
 			sport: action.sport,
 		});
 
@@ -44,8 +50,12 @@ function* fetchContests(action) {
 		yield put({
 			type: SET_CONTESTS,
 			contests,
-			sport: action.sport,
 		});
+
+		// yield put({
+		// 	type: SET_CURRENT_SPORT,
+		// 	sport: action.sport,
+		// });
 	} catch (e) {
 		yield console.log(e);
 	}
@@ -93,6 +103,22 @@ function* fetchPlayers(action: { value: File & number }) {
 			// 	teamIds,
 			// });
 		}
+
+		// const state = yield select((_state) => _state);
+
+		// yield put({ type: LOADING_PLAYERS, loading: true });
+
+		// const res = yield get(`${API}/players?id=${action.draftGroupId}`);
+		// const { players, teamIds } = yield res.json();
+
+		// yield put({
+		// 	type: GET_PLAYERS_SUCCEEDED,
+		// 	draftGroupId: action.draftGroupId,
+		// 	players,
+		// 	loading: false,
+		// 	teamIds,
+		// 	// sport,
+		// });
 	} catch (e) {
 		yield put({ type: GET_PLAYERS_FAILED, message: e.message });
 	}
@@ -100,7 +126,7 @@ function* fetchPlayers(action: { value: File & number }) {
 
 function* optimizePlayers(action) {
 	try {
-		const { dropdown, table, rules, header, upload } = yield select(
+		const { sports, table, rules, header, upload } = yield select(
 			(_state) => _state
 		);
 
@@ -109,7 +135,6 @@ function* optimizePlayers(action) {
 		}
 
 		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
-		const { sport } = dropdown;
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
@@ -133,7 +158,7 @@ function* optimizePlayers(action) {
 				rules: {
 					...rules,
 				},
-				sport,
+				sport: sports.sport,
 				draftGroupId,
 			});
 		}
@@ -151,7 +176,7 @@ function* optimizePlayers(action) {
 }
 
 export default function* rootSaga() {
-	yield takeLatest(SET_SPORT, fetchContests);
+	yield takeLatest(FETCH_CONTESTS, fetchContests);
 	yield takeLatest(GET_PLAYERS, fetchPlayers);
 	yield takeLatest(OPTIMIZE_PLAYERS, optimizePlayers);
 }

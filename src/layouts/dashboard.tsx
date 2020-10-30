@@ -1,6 +1,5 @@
+import Nav from '../components/global/nav';
 import SkipLink from '../components/global/skiplink';
-
-import Header from '../containers/Header/Header';
 
 export interface ILayoutProps {
 	children: React.ReactNode;
@@ -8,7 +7,7 @@ export interface ILayoutProps {
 
 const Dashboard = ({ children }: ILayoutProps) => (
 	<div className="md:flex md:min-h-screen text-blue-800">
-		<Header />
+		<Nav />
 
 		<main className="w-full">{children}</main>
 	</div>
