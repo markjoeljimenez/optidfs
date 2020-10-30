@@ -42,7 +42,9 @@ const Sports = ({ sports }: IProps) => {
 					{sports.sports
 						?.filter(
 							(sport) =>
-								sport.isEnabled && sport.hasPublicContests
+								sport.isEnabled &&
+								sport.hasPublicContests &&
+								sport.supported
 						)
 						.map((sport) => (
 							<option value={sport.sportId} key={sport.sportId}>

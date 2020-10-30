@@ -6,4 +6,5 @@ export interface ISports {
 	regionFullSportName: string;
 	sortOrder: number;
 	sportId: number;
+	supported: boolean;
 }

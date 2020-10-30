@@ -69,7 +69,7 @@ export const getServerSideProps = async () => {
 	const { dispatch } = reduxStore;
 
 	const response = await fetch(API);
-	const { sports }: { sports: ISports[] } = await response.json();
+	const sports: ISports[] = await response.json();
 
 	dispatch({
 		type: SET_SPORTS,
