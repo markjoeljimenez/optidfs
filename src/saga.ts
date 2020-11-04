@@ -88,16 +88,13 @@ function* fetchPlayers(action: { value: File & number }) {
 				// teamIds,
 			});
 		} else {
-			console.log(action);
-
+			// console.log(action);
 			// yield put({ type: LOADING_PLAYERS, loading: true });
-
 			// const res = yield get(`${API}/players?id=${action.value}`);
 			// const { players, teamIds } = yield res.json();
-
 			// yield put({
 			// 	type: GET_PLAYERS_SUCCEEDED,
-			// 	draftGroupId: action.draftGroupId,
+			// 	// draftGroupId: action.draftGroupId,
 			// 	players,
 			// 	loading: false,
 			// 	teamIds,
@@ -138,38 +135,38 @@ function* optimizePlayers(action) {
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
 
-		const isCsv = true;
-		let res: Promise<Response>;
+		// const isCsv = true;
+		// let res: Promise<Response>;
 
-		if (isCsv) {
-			const body = upload;
+		// if (isCsv) {
+		// 	const body = upload;
 
-			console.log(body);
+		// 	console.log(body);
 
-			// res = yield fetch(`${API}/players`, {
-			// 	method: 'POST',
-			// 	body,
-			// });
-		} else {
-			res = yield post(`${API}/optimize`, {
-				generations: action.generations,
-				lockedPlayers: lockedPlayers?.map((player) => player.id),
-				players: defaultPlayers,
-				rules: {
-					...rules,
-				},
-				sport: sports.sport,
-				draftGroupId,
-			});
-		}
+		// 	// res = yield fetch(`${API}/players`, {
+		// 	// 	method: 'POST',
+		// 	// 	body,
+		// 	// });
+		// } else {
+		// 	res = yield post(`${API}/optimize`, {
+		// 		generations: action.generations,
+		// 		lockedPlayers: lockedPlayers?.map((player) => player.id),
+		// 		players: defaultPlayers,
+		// 		rules: {
+		// 			...rules,
+		// 		},
+		// 		sport: sports.sport,
+		// 		draftGroupId,
+		// 	});
+		// }
 
-		const { lineups } = yield res.json();
+		// const { lineups } = yield res.json();
 
-		yield put({
-			type: OPTIMIZE_PLAYERS_SUCCEEDED,
-			lineups,
-			loading: false,
-		});
+		// yield put({
+		// 	type: OPTIMIZE_PLAYERS_SUCCEEDED,
+		// 	lineups,
+		// 	loading: false,
+		// });
 	} catch (e) {
 		yield put({ type: OPTIMIZE_PLAYERS_FAILED, message: e.message });
 	}

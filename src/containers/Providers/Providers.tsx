@@ -1,11 +1,26 @@
-import providers from '../../data/providers';
+import { connect } from 'react-redux';
+import { ChangeEvent } from 'react';
 
-const Providers = () => {
+import providers from '../../data/providers';
+import { setProviderAction } from './Providers.actions';
+
+type Props = {
+	setProvider: (provider: string) => void;
+};
+
+const Providers = ({ setProvider }: Props) => {
+	const handleProviderSelection = (e: ChangeEvent<HTMLSelectElement>) => {
+		const { value } = e.currentTarget;
+
+		setProvider(value);
+	};
+
 	return (
 		<div className="relative">
 			<label htmlFor="selectSport">
 				<span className="sr-only">Select Sport</span>
 				<select
+					onChange={handleProviderSelection}
 					defaultValue="0"
 					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 pr-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xs md:text-base"
 					id="selectSport"
@@ -40,4 +55,8 @@ const Providers = () => {
 	);
 };
 
-export default Providers;
+const mapDispatchToProps = (dispatch) => ({
+	setProvider: (provider: string) => dispatch(setProviderAction(provider)),
+});
+
+export default connect(null, mapDispatchToProps)(Providers);

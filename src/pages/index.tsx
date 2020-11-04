@@ -21,7 +21,7 @@ import Loading from '../components/loading';
 
 const API = process.env.ENDPOINT;
 
-const App = ({ activeTab, sport, loading }: any) => (
+const App = ({ activeTab, providers, sport, loading, players }: any) => (
 	<Loading loading={loading.isLoading} message={loading.message}>
 		{/* <div className="border-b border-gray-300 bg-gray-100">
 				<div className="container mx-auto p-8">
@@ -43,6 +43,16 @@ const App = ({ activeTab, sport, loading }: any) => (
 				<p>First select a sport</p>
 			</div>
 		)} */}
+		{providers && sport && players?.length ? (
+			<div className="border-b border-gray-300">
+				<div className="container mx-auto p-8">
+					{/* <Dropdown /> */}
+					<Bar />
+				</div>
+			</div>
+		) : (
+			<></>
+		)}
 		<div
 			className="mb-8"
 			role="tabpanel"
@@ -86,8 +96,10 @@ export const getServerSideProps = async () => {
 	return { props: { initialReduxState: reduxStore.getState() } };
 };
 
-const mapStateToProps = ({ tabs, sports, dropdown }) => ({
+const mapStateToProps = ({ tabs, sports, dropdown, providers, table }) => ({
 	activeTab: tabs.activeTab,
+	players: table.players,
+	providers,
 	sport: sports.sport,
 	loading: {
 		isLoading: dropdown.loading,
