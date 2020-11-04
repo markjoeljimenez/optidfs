@@ -4,7 +4,6 @@ import Link from 'next/link';
 import clsx from 'clsx';
 
 import Donate from './donate';
-import Sports from '../../containers/Sports/Sports';
 
 const Nav = (props: any) => {
 	const router = useRouter();
@@ -92,7 +91,6 @@ const Nav = (props: any) => {
 				<h1 className="absolute ml-10 md:ml-0 md:relative md:text-3xl font-black whitespace-no-wrap">
 					DK Optimizer
 				</h1>
-				<Sports />
 			</div>
 			<div
 				className={clsx(
@@ -101,7 +99,7 @@ const Nav = (props: any) => {
 				)}
 			>
 				<ul>
-					<li className="mt-6 md:mt-0">
+					<li className="mt-6">
 						<Link href="/">
 							<a
 								className={clsx(

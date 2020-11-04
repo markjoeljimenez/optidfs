@@ -31,7 +31,7 @@ const App = ({ activeTab, sport, loading }: any) => (
 					<GameListing />
 				</div>
 			</div> */}
-		{sport ? (
+		{/* {sport ? (
 			<div className="border-b border-gray-300">
 				<div className="container mx-auto p-8">
 					<Dropdown />
@@ -42,7 +42,7 @@ const App = ({ activeTab, sport, loading }: any) => (
 			<div className="container mx-auto p-8">
 				<p>First select a sport</p>
 			</div>
-		)}
+		)} */}
 		<div
 			className="mb-8"
 			role="tabpanel"
