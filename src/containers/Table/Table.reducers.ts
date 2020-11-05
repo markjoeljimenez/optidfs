@@ -51,7 +51,6 @@ const table = (
 		type,
 		team,
 		players,
-		loading,
 		draftGroupId,
 		lineups,
 		searchTerm,
@@ -65,7 +64,7 @@ const table = (
 		case LOADING_PLAYERS:
 			return {
 				...state,
-				loading,
+				loading: true,
 			};
 
 		case GET_PLAYERS_SUCCEEDED:
@@ -74,7 +73,7 @@ const table = (
 				defaultPlayers: players,
 				players,
 				draftGroupId,
-				loading,
+				loading: false,
 				teamIds,
 			};
 
@@ -102,7 +101,7 @@ const table = (
 				totalFppg: lineup?.totalFppg,
 				totalSalary: lineup?.totalSalary,
 				lineups: transformedLineups,
-				loading,
+				loading: false,
 			};
 		}
 

@@ -4,7 +4,7 @@ import setActiveTab from '../Tabs/Tabs.actions';
 
 const Optimize = (props: any) => {
 	const handleClick = () => {
-		props.optimizeLineups(props.value);
+		props.optimizeLineups();
 		props.setActiveTab('players');
 	};
 
@@ -25,7 +25,7 @@ const mapStateToProps = ({ table, rules }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	optimizeLineups: (value) => dispatch(optimize(value)),
+	optimizeLineups: () => dispatch(optimize()),
 	setActiveTab: (value) => dispatch(setActiveTab(value)),
 });
 

@@ -123,9 +123,7 @@ function* fetchPlayers(action: { value: File & number }) {
 
 function* optimizePlayers(action) {
 	try {
-		const { sports, table, rules, header, upload } = yield select(
-			(_state) => _state
-		);
+		const { sports, table, rules, header, upload } = yield select();
 
 		if (rules.errors.length) {
 			return;
@@ -134,6 +132,32 @@ function* optimizePlayers(action) {
 		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
 
 		yield put({ type: LOADING_PLAYERS, loading: true });
+
+		// const body = new FormData();
+		// body.append('csv', upload);
+		// body.append('generations', rules.NUMBER_OF_GENERATIONS);
+		// body.append(
+		// 	'lockedPlayers',
+		// 	lockedPlayers?.map((player) => player.id)
+		// );
+		// // body.append('players', defaultPlayers);
+		// body.append('rules', rules);
+		// body.append('sport', parseInt(sports.sport));
+		// body.append('draftGroupId', draftGroupId);
+
+		// const res = yield fetch(`${API}/optimize`, {
+		// 	method: 'POST',
+		// 	body,
+		// });
+
+		const res = yield post(`${API}/optimize`, {
+			generations: action.generations,
+			lockedPlayers: lockedPlayers?.map((player) => player.id),
+			players: defaultPlayers,
+			rules,
+			sport: sports.sport,
+			draftGroupId,
+		});
 
 		// const isCsv = true;
 		// let res: Promise<Response>;
@@ -160,13 +184,12 @@ function* optimizePlayers(action) {
 		// 	});
 		// }
 
-		// const { lineups } = yield res.json();
+		const { lineups } = yield res.json();
 
-		// yield put({
-		// 	type: OPTIMIZE_PLAYERS_SUCCEEDED,
-		// 	lineups,
-		// 	loading: false,
-		// });
+		yield put({
+			type: OPTIMIZE_PLAYERS_SUCCEEDED,
+			lineups,
+		});
 	} catch (e) {
 		yield put({ type: OPTIMIZE_PLAYERS_FAILED, message: e.message });
 	}

@@ -20,10 +20,10 @@ const Sports = ({ sports }: IProps) => {
 			sport: value,
 		});
 
-		dispatch({
-			type: FETCH_CONTESTS,
-			sport: value,
-		});
+		// dispatch({
+		// 	type: FETCH_CONTESTS,
+		// 	sport: value,
+		// });
 	};
 
 	return (

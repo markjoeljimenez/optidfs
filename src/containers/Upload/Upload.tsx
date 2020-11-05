@@ -14,7 +14,7 @@ const Upload = (props: any) => {
 
 	return (
 		<input
-			className="mt-4"
+			// className="mt-4"
 			type="file"
 			name="test"
 			id="test"

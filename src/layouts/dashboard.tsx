@@ -18,7 +18,7 @@ const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
 
 		<main className="w-full">
 			<div className="border-b border-gray-300">
-				<div className="mx-auto p-8 flex">
+				<div className="container mx-auto p-8 flex">
 					<div className="space-x-4 flex">
 						<Providers />
 
