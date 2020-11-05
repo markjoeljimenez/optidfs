@@ -21,7 +21,7 @@ import Loading from '../components/loading';
 
 const API = process.env.ENDPOINT;
 
-const App = ({ activeTab, providers, sport, loading, players }: any) => (
+const App = ({ activeTab, providers = true, sport, loading, players }: any) => (
 	<Loading loading={loading.isLoading} message={loading.message}>
 		{/* <div className="border-b border-gray-300 bg-gray-100">
 				<div className="container mx-auto p-8">

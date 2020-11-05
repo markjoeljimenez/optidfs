@@ -12,7 +12,7 @@ export interface ILayoutProps {
 	sports: any;
 }
 
-const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
+const Dashboard = ({ children, providers = true, sports }: ILayoutProps) => (
 	<div className="md:flex md:min-h-screen text-blue-800">
 		<Nav />
 
@@ -20,8 +20,6 @@ const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
 			<div className="border-b border-gray-300">
 				<div className="container mx-auto p-8 flex">
 					<div className="space-x-4 flex">
-						<Providers />
-
 						{providers && (
 							<>
 								<Sports />
