@@ -2,7 +2,7 @@ import { put, takeLatest, all, select } from 'redux-saga/effects';
 
 import { get, post } from './scripts/utilities/fetch';
 import {
-	GET_PLAYERS,
+	FETCH_PLAYERS,
 	RESET_PLAYERS,
 	FETCH_CONTESTS,
 	SET_CONTESTS,
@@ -61,7 +61,7 @@ function* fetchContests(action) {
 	}
 }
 
-function* fetchPlayers(action: { value: File & number }) {
+function* fetchPlayers(action) {
 	if (!action.value) {
 		return;
 	}
@@ -196,7 +196,7 @@ function* optimizePlayers(action) {
 }
 
 export default function* rootSaga() {
+	yield takeLatest(FETCH_PLAYERS, fetchPlayers);
 	yield takeLatest(FETCH_CONTESTS, fetchContests);
-	yield takeLatest(GET_PLAYERS, fetchPlayers);
 	yield takeLatest(OPTIMIZE_PLAYERS, optimizePlayers);
 }

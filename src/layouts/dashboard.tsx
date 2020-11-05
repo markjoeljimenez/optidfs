@@ -12,7 +12,7 @@ export interface ILayoutProps {
 	sports: any;
 }
 
-const Dashboard = ({ children, providers = true, sports }: ILayoutProps) => (
+const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
 	<div className="md:flex md:min-h-screen text-blue-800">
 		<Nav />
 

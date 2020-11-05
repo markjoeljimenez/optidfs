@@ -2,26 +2,19 @@ import { connect } from 'react-redux';
 
 import { initializeStore } from '../store';
 
-import { post } from '../scripts/utilities/fetch';
-
-import {
-	FETCH_CONTESTS,
-	SET_CONTESTS,
-} from '../containers/Dropdown/Dropdown.actions';
 import Bar from '../containers/Bar/Bar';
 import Dropdown from '../containers/Dropdown/Dropdown';
 import GameListing from '../components/gameListing';
 import Rules from '../containers/Rules/Rules';
 import Table from '../containers/Table/Table';
 
-import Upload from '../containers/Upload/Upload';
 import { SET_SPORTS } from '../containers/Sports/Sports.actions';
 import { ISports } from '../interfaces/ISports';
 import Loading from '../components/loading';
 
 const API = process.env.ENDPOINT;
 
-const App = ({ activeTab, providers = true, sport, loading, players }: any) => (
+const App = ({ activeTab, providers, sport, loading, players }: any) => (
 	<Loading loading={loading.isLoading} message={loading.message}>
 		{/* <div className="border-b border-gray-300 bg-gray-100">
 				<div className="container mx-auto p-8">
