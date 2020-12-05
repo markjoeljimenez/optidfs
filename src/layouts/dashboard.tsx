@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 
+import Dropdown from '../containers/Dropdown/Dropdown';
 import Nav from '../components/global/nav';
 import SkipLink from '../components/global/skiplink';
 import Providers from '../containers/Providers/Providers';
@@ -18,13 +19,21 @@ const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
 
 		<main className="w-full">
 			<div className="border-b border-gray-300">
-				<div className="container mx-auto p-8 flex">
-					<div className="space-x-4 flex">
+				<div className="container mx-auto py-4 px-6 md:p-8 md:flex justify-between">
+					<div className="space-x-4 flex mb-4 md:mb-0 justify-center">
+						<Sports />
+					</div>
+					<div className="items-center flex-1 md:ml-56">
 						{providers && (
 							<>
-								<Sports />
-
-								{sports.sport && <Upload />}
+								{sports.sport && (
+									<div className="md:space-x-4  md:flex justify-center">
+										<Upload />
+										<div className="flex-1">
+											<Dropdown />
+										</div>
+									</div>
+								)}
 							</>
 						)}
 					</div>

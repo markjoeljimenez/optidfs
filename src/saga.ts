@@ -88,17 +88,18 @@ function* fetchPlayers(action) {
 				// teamIds,
 			});
 		} else {
-			// console.log(action);
-			// yield put({ type: LOADING_PLAYERS, loading: true });
-			// const res = yield get(`${API}/players?id=${action.value}`);
-			// const { players, teamIds } = yield res.json();
-			// yield put({
-			// 	type: GET_PLAYERS_SUCCEEDED,
-			// 	// draftGroupId: action.draftGroupId,
-			// 	players,
-			// 	loading: false,
-			// 	teamIds,
-			// });
+			yield put({ type: LOADING_PLAYERS, loading: true });
+
+			const res = yield get(`${API}/players?id=${action.value}`);
+			const { players, teamIds } = yield res.json();
+
+			yield put({
+				type: GET_PLAYERS_SUCCEEDED,
+				// draftGroupId: action.draftGroupId,
+				players,
+				loading: false,
+				teamIds,
+			});
 		}
 
 		// const state = yield select((_state) => _state);

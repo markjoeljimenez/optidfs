@@ -39,7 +39,6 @@ const App = ({ activeTab, providers, sport, loading, players }: any) => (
 		{providers && sport && players?.length ? (
 			<div className="border-b border-gray-300">
 				<div className="container mx-auto p-8">
-					{/* <Dropdown /> */}
 					<Bar />
 				</div>
 			</div>
