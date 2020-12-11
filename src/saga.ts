@@ -39,9 +39,9 @@ function* fetchContests(action) {
 
 		const { contests } = yield res.json();
 
-		yield put({
-			type: RESET_PLAYERS,
-		});
+		// yield put({
+		// 	type: RESET_PLAYERS,
+		// });
 
 		yield put({
 			type: RESET_RULES,

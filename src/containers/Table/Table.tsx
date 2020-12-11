@@ -15,6 +15,7 @@ const TableContainer = (props: any) => {
 
 	return players ? (
 		<Loading loading={loading}>
+			{console.log(props)}
 			<Table {...props} />
 		</Loading>
 	) : (
