@@ -220,10 +220,10 @@ const Error = ({ error }: IErrorProps) => (
 			<h1 className="text-4xl font-black">{error}</h1>
 			<p>Unfortunately we couldn&apos;t optimize your lineups.</p>
 			<p className="mt-6">This may be due to several factors:</p>
-			<ul className="pl-10 list-disc text-left mt-3">
+			<ul className="pl-10 list-disc text-left mt-3 space-y-2">
 				<li className="pl-2">
 					If you&apos;ve uploaded a CSV, confirm that you&apos;ve
-					selected is correct.
+					selected the correct sport.
 				</li>
 				<li className="pl-2">
 					The sport you&apos;ve selected is not yet supported.
