@@ -11,7 +11,10 @@ import {
 	LOCK_PLAYERS,
 	SET_PLAYER_PROJECTED_OWNERSHIP,
 } from './Table.actions';
-import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
+import {
+	OPTIMIZE_PLAYERS_FAILED,
+	OPTIMIZE_PLAYERS_SUCCEEDED,
+} from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
 import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
@@ -74,11 +77,14 @@ const table = (
 				players,
 				draftGroupId,
 				loading: false,
+				error: undefined,
 				teamIds,
 			};
 
 		case GET_PLAYERS_FAILED:
-			return state;
+			return {
+				...state,
+			};
 
 		case OPTIMIZE_PLAYERS_SUCCEEDED: {
 			const transformedLineups = lineups?.map((lineup) => ({
@@ -104,6 +110,12 @@ const table = (
 				loading: false,
 			};
 		}
+
+		case OPTIMIZE_PLAYERS_FAILED:
+			return {
+				...state,
+				loading: false,
+			};
 
 		case PREVIOUS: {
 			const index = state.page - 1 <= 0 ? 0 : state.page - 1;
