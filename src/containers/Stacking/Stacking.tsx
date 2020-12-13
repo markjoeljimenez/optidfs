@@ -6,6 +6,7 @@ import FromTeams from './Stacking.fromTeams';
 import FromPositions from './Stacking.fromPositions';
 import Spacing from './Stacking.spacing';
 import MaxExposure from './Stacking.maxExposure';
+import MaxExposurePerTeam from './Stacking.maxExposurePerTeam';
 
 const StackingContainer = () => (
 	<div className="container mx-auto px-8 my-8">
@@ -14,6 +15,7 @@ const StackingContainer = () => (
 		<FromPositions />
 		<Spacing />
 		<MaxExposure />
+		<MaxExposurePerTeam />
 	</div>
 );
 

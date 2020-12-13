@@ -1,4 +1,4 @@
-import { SET_SETTING } from './Stacking.actions';
+import { REMOVE_SETTING, SET_SETTING } from './Stacking.actions';
 
 interface IStacking {
 	NUMBER_OF_PLAYERS_TO_STACK?: number;
@@ -72,6 +72,19 @@ const StackingReducer = (
 			return {
 				...state,
 				[setting]: PREV_STATE,
+			};
+		}
+
+		case REMOVE_SETTING: {
+			const settings = state[setting].filter(
+				(_setting) => _setting.key !== key
+			);
+
+			console.log(settings, setting);
+
+			return {
+				...state,
+				[setting]: settings.length ? settings : undefined,
 			};
 		}
 

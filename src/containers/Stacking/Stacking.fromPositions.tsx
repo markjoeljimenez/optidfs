@@ -80,15 +80,13 @@ const StackingSetting = ({
 						</select>
 					</div>
 				</label>
-				<div>
-					<button
-						className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-						type="submit"
-						onClick={handleAddPosition}
-					>
-						Add
-					</button>
-				</div>
+				<button
+					className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
+					type="submit"
+					onClick={handleAddPosition}
+				>
+					Add
+				</button>
 			</div>
 			{currentPositions?.map((team) => (
 				<button
