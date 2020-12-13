@@ -30,7 +30,7 @@ const TabsContainer = (props: any) => {
 		props.setActiveTab(value);
 	}
 
-	function handleSeeAllPlayers() {}
+	// function handleSeeAllPlayers() {}
 
 	return (
 		<nav>
