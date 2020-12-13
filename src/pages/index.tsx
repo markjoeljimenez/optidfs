@@ -13,7 +13,7 @@ import Tabs from '../containers/Tabs/Tabs';
 import Loading from '../components/loading';
 
 const API = process.env.ENDPOINT;
-const PANELS = [
+const PANELS = (sport) => [
 	{
 		id: 'settings',
 		element: <Rules />,
@@ -21,6 +21,7 @@ const PANELS = [
 	{
 		id: 'players',
 		element: <Table />,
+		disabled: sport === 4,
 	},
 	{
 		id: 'stacking',
@@ -66,17 +67,20 @@ const App = ({ activeTab, providers, sport, loading, players }: any) => (
 		) : (
 			<></>
 		)}
-		{PANELS.map(({ id, element }) => (
-			<div
-				className="mb-8"
-				role="tabpanel"
-				aria-labelledby={`panel-${id}`}
-				hidden={activeTab !== id}
-				key={id}
-			>
-				{element}
-			</div>
-		))}
+		{PANELS(sport).map(
+			({ id, element, disabled }) =>
+				!disabled && (
+					<div
+						className="mb-8"
+						role="tabpanel"
+						aria-labelledby={`panel-${id}`}
+						hidden={activeTab !== id}
+						key={id}
+					>
+						{element}
+					</div>
+				)
+		)}
 	</Loading>
 );
 
