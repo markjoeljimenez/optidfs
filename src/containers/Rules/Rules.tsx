@@ -9,7 +9,7 @@ import ProjectedOwnship from './Rules.projectedOwnership';
 import NumberOfGenerations from './Rules.numberOfGenerations';
 
 const RulesContainer = ({ players, active }: any) => {
-	const teams = players && uniqBy(players, 'team').map(({ team }) => team);
+	// const teams = players && uniqBy(players, 'team').map(({ team }) => team);
 	const positions =
 		players &&
 		uniqBy(
@@ -26,7 +26,7 @@ const RulesContainer = ({ players, active }: any) => {
 					<NumberOfGenerations />
 				</div>
 				<div className="mt-8">
-					<PlayersFromSameTeam teams={teams} />
+					<PlayersFromSameTeam />
 				</div>
 				<div className="mt-8">
 					<NumberOfSpecificPositions positions={positions} />

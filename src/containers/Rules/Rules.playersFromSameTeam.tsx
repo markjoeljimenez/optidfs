@@ -101,12 +101,9 @@ const Rule = (props: IRule) => {
 					<div className="flex mt-4">
 						{rules.NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM.map(
 							({ key, value }, i) => (
-								<div
-									key={i}
-									className="relative ml-4 first:ml-0"
-								>
+								<div key={i} className="ml-4 first:ml-0">
 									<button
-										className="py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
+										className="relative py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
 										type="button"
 										onClick={handleRemoveRule}
 										value={key}
@@ -114,7 +111,7 @@ const Rule = (props: IRule) => {
 											RULE.NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM
 										}
 									>
-										{key} -{value}
+										{key}&nbsp;-&nbsp;{value}
 										<div className="absolute inset-y-0 right-0 flex items-center mr-1">
 											<svg
 												xmlns="http://www.w3.org/2000/svg"
@@ -146,8 +143,9 @@ const Rule = (props: IRule) => {
 	);
 };
 
-const mapStateToProps = ({ rules }) => ({
+const mapStateToProps = ({ rules, table }) => ({
 	rules,
+	teams: table.teams,
 });
 
 const mapDispatchToProps = (dispatch) => ({

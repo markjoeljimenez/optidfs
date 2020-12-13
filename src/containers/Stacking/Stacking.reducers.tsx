@@ -10,6 +10,7 @@ const StackingReducer = (
 ) => {
 	switch (type) {
 		case SET_SETTING: {
+			console.log(value);
 			if (!value || key === '') {
 				return state;
 			}

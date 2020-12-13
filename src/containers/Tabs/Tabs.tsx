@@ -40,6 +40,7 @@ const TabsContainer = (props: any) => {
 						role="tab"
 						aria-selected={activeTab === id}
 						aria-controls={`panel-${name}`}
+						key={id}
 					>
 						<button
 							className={clsx(

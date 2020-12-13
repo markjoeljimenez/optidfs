@@ -39,7 +39,7 @@ export interface IActions {
 	payload?: any;
 	playerId?: string;
 	value?: string;
-	team?: string;
+	teams?: string[];
 	teamIds?: {
 		away_team_id: number;
 		home_team_id: number;
@@ -52,7 +52,6 @@ const table = (
 	},
 	{
 		type,
-		team,
 		players,
 		draftGroupId,
 		lineups,
@@ -60,8 +59,8 @@ const table = (
 		payload,
 		playerId,
 		value,
-		teamIds,
-	}: IActions
+	}: // teamIds,
+	IActions
 ) => {
 	switch (type) {
 		case LOADING_PLAYERS:
@@ -70,7 +69,10 @@ const table = (
 				loading: true,
 			};
 
-		case GET_PLAYERS_SUCCEEDED:
+		case GET_PLAYERS_SUCCEEDED: {
+			const teams =
+				players && uniq(players, 'team').map(({ team }) => team);
+
 			return {
 				...state,
 				defaultPlayers: players,
@@ -78,8 +80,10 @@ const table = (
 				draftGroupId,
 				loading: false,
 				error: undefined,
-				teamIds,
+				// teamIds,
+				teams,
 			};
+		}
 
 		case GET_PLAYERS_FAILED:
 			return {
@@ -268,7 +272,7 @@ const table = (
 				optimizedPlayers: undefined,
 				page: 0,
 				players: undefined,
-				teamIds: undefined,
+				// teamIds: undefined,
 				totalFppg: undefined,
 				totalSalary: undefined,
 			};

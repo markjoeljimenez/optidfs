@@ -99,7 +99,7 @@ function* fetchPlayers(action) {
 			yield put({
 				type: GET_PLAYERS_SUCCEEDED,
 				players,
-				teamIds,
+				// teamIds,
 			});
 		}
 	} catch (e) {

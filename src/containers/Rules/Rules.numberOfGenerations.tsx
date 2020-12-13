@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { RULE, setRule, removeRule } from './Rules.actions';
+import { RULE, setRule } from './Rules.actions';
 
 const Rule = (props: any) => {
 	const max = 20;
@@ -44,7 +44,6 @@ const Rule = (props: any) => {
 
 const mapDispatchToProps = (dispatch) => ({
 	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
-	removeRule: (rule, key) => dispatch(removeRule(rule, key)),
 });
 
 export default connect(null, mapDispatchToProps)(Rule);

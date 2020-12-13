@@ -1,6 +1,7 @@
 export const SET_SETTING = 'SET_SETTING';
 export const STACKING_SETTINGS = {
 	NUMBER_OF_PLAYERS_TO_STACK: 'NUMBER_OF_PLAYERS_TO_STACK',
+	FROM_TEAMS: 'FROM_TEAMS',
 };
 
 export const setSetting = (
