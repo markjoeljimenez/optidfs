@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import uniqBy from 'lodash.uniqby';
 
 import PlayersFromSameTeam from './Rules.playersFromSameTeam';
 import NumberOfSpecificPositions from './Rules.numberOfSpecificPositions';
@@ -8,18 +7,8 @@ import MaximumRepeatingSalaries from './Rules.maxRepeatingPlayers';
 import ProjectedOwnship from './Rules.projectedOwnership';
 import NumberOfGenerations from './Rules.numberOfGenerations';
 
-const RulesContainer = ({ players, active }: any) => {
-	// const teams = players && uniqBy(players, 'team').map(({ team }) => team);
-	const positions =
-		players &&
-		uniqBy(
-			uniqBy(players, 'position')
-				.map(({ position }) => position)
-				.map((pos: string) => pos.split('/'))
-				.flat()
-		);
-
-	return players ? (
+const RulesContainer = ({ players }: any) =>
+	players ? (
 		<div className="container mx-auto px-8 my-8 flex flex-col md:flex-row">
 			<div className="flex-1">
 				<div>
@@ -29,7 +18,7 @@ const RulesContainer = ({ players, active }: any) => {
 					<PlayersFromSameTeam />
 				</div>
 				<div className="mt-8">
-					<NumberOfSpecificPositions positions={positions} />
+					<NumberOfSpecificPositions />
 				</div>
 			</div>
 			<div className="flex-1 md:ml-8">
@@ -47,11 +36,9 @@ const RulesContainer = ({ players, active }: any) => {
 	) : (
 		<></>
 	);
-};
 
-const mapStateToProps = ({ table, rules }) => ({
+const mapStateToProps = ({ table }) => ({
 	players: table.players,
-	active: rules.active,
 });
 
 export default connect(mapStateToProps)(RulesContainer);

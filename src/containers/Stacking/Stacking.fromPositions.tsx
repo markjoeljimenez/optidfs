@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { setSetting, STACKING_SETTINGS } from './Stacking.actions';
 
 interface IStackingSetting {
-	teams: string[];
+	positions: string[];
 	stacking: any;
 	setStackingSetting(
 		setting: string,
@@ -14,27 +14,27 @@ interface IStackingSetting {
 }
 
 const StackingSetting = ({
-	teams,
+	positions,
 	stacking,
 	setStackingSetting,
 }: IStackingSetting) => {
-	const teamSelectRef = useRef<HTMLSelectElement>(null);
-	const currentTeams = stacking[STACKING_SETTINGS.FROM_TEAMS];
+	const positionsSelectRef = useRef<HTMLSelectElement>(null);
+	const currentPositions = stacking[STACKING_SETTINGS.FROM_POSITIONS];
 
-	function handleAddTeam(e: MouseEvent<HTMLButtonElement>) {
-		if (teamSelectRef.current) {
-			const { value } = teamSelectRef.current;
+	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
+		if (positionsSelectRef.current) {
+			const { value } = positionsSelectRef.current;
 
-			if (currentTeams?.some((team) => team === value)) {
+			if (currentPositions?.some((team) => team === value)) {
 				return;
 			}
 
-			const transformedTeams = currentTeams
-				? [...currentTeams, value]
+			const transformedTeams = currentPositions
+				? [...currentPositions, value]
 				: [value];
 
 			setStackingSetting(
-				STACKING_SETTINGS.FROM_TEAMS,
+				STACKING_SETTINGS.FROM_POSITIONS,
 				undefined,
 				transformedTeams
 			);
@@ -44,10 +44,12 @@ const StackingSetting = ({
 	function handleRemoveTeam(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
-		const transformedTeams = currentTeams.filter((team) => team !== value);
+		const transformedTeams = currentPositions.filter(
+			(team) => team !== value
+		);
 
 		setStackingSetting(
-			STACKING_SETTINGS.FROM_TEAMS,
+			STACKING_SETTINGS.FROM_POSITIONS,
 			undefined,
 			transformedTeams
 		);
@@ -56,38 +58,39 @@ const StackingSetting = ({
 	return (
 		<>
 			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Teams
+				Positions
 			</span>
 			<div className="flex">
-				<label htmlFor="team">
-					<span className="sr-only">Teams</span>
+				<label htmlFor="positions">
+					<span className="sr-only">Positions</span>
 					<div>
 						<select
 							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							ref={teamSelectRef}
-							id="team"
+							ref={positionsSelectRef}
+							id="positions"
 						>
 							<option value="" disabled selected>
-								Select team
+								Select position
 							</option>
-							{teams?.map((team) => (
-								<option value={team} key={team}>
-									{team}
+							{positions?.map((position, i) => (
+								<option value={position} key={i}>
+									{position}
 								</option>
 							))}
 						</select>
 					</div>
 				</label>
-				<button
-					className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-					type="submit"
-					onClick={handleAddTeam}
-				>
-					Add
-				</button>
+				<div>
+					<button
+						className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
+						type="submit"
+						onClick={handleAddPosition}
+					>
+						Add
+					</button>
+				</div>
 			</div>
-
-			{currentTeams?.map((team) => (
+			{currentPositions?.map((team) => (
 				<button
 					className="relative py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
 					type="button"
@@ -124,7 +127,7 @@ const StackingSetting = ({
 
 const mapStateToProps = ({ table, stacking }) => ({
 	stacking,
-	teams: table.teams,
+	positions: table.positions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -72,6 +72,14 @@ const table = (
 		case GET_PLAYERS_SUCCEEDED: {
 			const teams =
 				players && uniq(players, 'team').map(({ team }) => team);
+			const positions =
+				players &&
+				uniq(
+					uniq(players, 'position')
+						.map(({ position }) => position)
+						.map((pos: string) => pos.split('/'))
+						.flat()
+				);
 
 			return {
 				...state,
@@ -82,6 +90,7 @@ const table = (
 				error: undefined,
 				// teamIds,
 				teams,
+				positions,
 			};
 		}
 
