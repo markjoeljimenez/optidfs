@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {
 	setSetting,
-	STACKING_SETTINGS,
+	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
 } from './Stacking.actions';
 
@@ -25,7 +25,7 @@ const StackingSetting = ({
 }: IStackingSetting) => {
 	const teamSelectRef = useRef<HTMLSelectElement>(null);
 	const currentTeams =
-		stacking[STACKING_TYPE.TEAM]?.[STACKING_SETTINGS.FROM_TEAMS];
+		stacking[STACKING_TYPE.TEAM]?.[STACKING_TEAM_SETTINGS.FROM_TEAMS];
 
 	function handleAddTeam(e: MouseEvent<HTMLButtonElement>) {
 		if (teamSelectRef.current) {
@@ -41,7 +41,7 @@ const StackingSetting = ({
 
 			setStackingSetting(
 				STACKING_TYPE.TEAM,
-				STACKING_SETTINGS.FROM_TEAMS,
+				STACKING_TEAM_SETTINGS.FROM_TEAMS,
 				undefined,
 				transformedTeams
 			);
@@ -55,7 +55,7 @@ const StackingSetting = ({
 
 		setStackingSetting(
 			STACKING_TYPE.TEAM,
-			STACKING_SETTINGS.FROM_TEAMS,
+			STACKING_TEAM_SETTINGS.FROM_TEAMS,
 			undefined,
 			transformedTeams
 		);

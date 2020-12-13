@@ -26,8 +26,8 @@ const TABS = [
 		),
 	},
 	{
-		id: 'player',
-		name: 'Player Stacking',
+		id: 'position',
+		name: 'Position Stacking',
 		children: (
 			<>
 				<Positions />

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {
 	setSetting,
-	STACKING_SETTINGS,
+	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
 } from './Stacking.actions';
 
@@ -22,7 +22,7 @@ const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 
 		setStackingSetting(
 			STACKING_TYPE.TEAM,
-			STACKING_SETTINGS.NUMBER_OF_PLAYERS_TO_STACK,
+			STACKING_TEAM_SETTINGS.NUMBER_OF_PLAYERS_TO_STACK,
 			undefined,
 			value
 		);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import {
 	setSetting,
-	STACKING_SETTINGS,
+	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
 } from './Stacking.actions';
 
@@ -54,7 +54,7 @@ const StackSetting = ({
 		if (maxExposurePerTeam?.exposure && maxExposurePerTeam?.team) {
 			setStackingSetting(
 				STACKING_TYPE.TEAM,
-				STACKING_SETTINGS.MAX_EXPOSURE_PER_TEAM,
+				STACKING_TEAM_SETTINGS.MAX_EXPOSURE_PER_TEAM,
 				undefined,
 				maxExposurePerTeam
 			);
