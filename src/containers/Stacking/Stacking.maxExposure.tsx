@@ -13,7 +13,7 @@ interface IStackingSetting {
 
 const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 	function handleMaxExposure(e: ChangeEvent<HTMLInputElement>) {
-		const value = parseInt(e.currentTarget.value);
+		const value = parseFloat(e.currentTarget.value);
 
 		setStackingSetting(STACKING_SETTINGS.MAX_EXPOSURE, undefined, value);
 	}
@@ -30,6 +30,8 @@ const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 					id="maxExposure"
 					placeholder="0"
 					type="number"
+					step={0.1}
+					max={1}
 					// min={0}
 					onChange={handleMaxExposure}
 				/>
