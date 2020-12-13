@@ -1,4 +1,8 @@
-import { REMOVE_FROM_SETTING, SET_SETTING } from './Stacking.actions';
+import {
+	REMOVE_FROM_SETTING,
+	RESET_SETTINGS,
+	SET_SETTING,
+} from './Stacking.actions';
 
 interface IStackingState {
 	TEAM?: {
@@ -11,8 +15,11 @@ interface IStackingState {
 	};
 	POSITION?: {};
 }
+
+const DEFAULT_STATE: IStackingState = {};
+
 const StackingReducer = (
-	state: IStackingState = {},
+	state = DEFAULT_STATE,
 	{ type, setting, key, value, stackingType }
 ) => {
 	switch (type) {
@@ -107,6 +114,9 @@ const StackingReducer = (
 				},
 			};
 		}
+
+		case RESET_SETTINGS:
+			return DEFAULT_STATE;
 
 		default:
 			return state;

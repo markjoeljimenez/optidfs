@@ -8,6 +8,7 @@ import {
 } from './Stacking.actions';
 
 interface IStackingSetting {
+	inputValue: number | undefined;
 	setStackingSetting(
 		stackingType: string,
 		setting: string,
@@ -16,7 +17,7 @@ interface IStackingSetting {
 	): void;
 }
 
-const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
+const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 	function handleMaxExposure(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseFloat(e.currentTarget.value);
 
@@ -44,15 +45,20 @@ const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 					max={1}
 					// min={0}
 					onChange={handleMaxExposure}
+					value={inputValue || ''}
 				/>
 			</label>
 		</div>
 	);
 };
 
+const mapStateToProps = ({ stacking }) => ({
+	inputValue: stacking.TEAM?.MAX_EXPOSURE,
+});
+
 const mapDispatchToProps = (dispatch) => ({
 	setStackingSetting: (stackingType, setting, key, value) =>
 		dispatch(setSetting(stackingType, setting, key, value)),
 });
 
-export default connect(null, mapDispatchToProps)(StackSetting);
+export default connect(mapStateToProps, mapDispatchToProps)(StackSetting);

@@ -8,6 +8,7 @@ import {
 } from './Stacking.actions';
 
 interface IStackingSetting {
+	inputValue: number | undefined;
 	setStackingSetting(
 		stackingType: string,
 		setting: string,
@@ -16,7 +17,7 @@ interface IStackingSetting {
 	): void;
 }
 
-const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
+const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 	function handleNumberOfPlayers(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseInt(e.currentTarget.value);
 
@@ -32,6 +33,7 @@ const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 		<div>
 			<span className="inline-block mb-2 text-xs uppercase font-black">
 				Number of Players
+				{console.log(inputValue)}
 			</span>
 			<label htmlFor="numberOfPlayers">
 				<span className="sr-only">Number of Players</span>
@@ -42,15 +44,20 @@ const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 					type="number"
 					// min={0}
 					onChange={handleNumberOfPlayers}
+					value={inputValue || ''}
 				/>
 			</label>
 		</div>
 	);
 };
 
+const mapStateToProps = ({ stacking }) => ({
+	inputValue: stacking.TEAM?.NUMBER_OF_PLAYERS_TO_STACK,
+});
+
 const mapDispatchToProps = (dispatch) => ({
 	setStackingSetting: (stackingType, setting, key, value) =>
 		dispatch(setSetting(stackingType, setting, key, value)),
 });
 
-export default connect(null, mapDispatchToProps)(StackSetting);
+export default connect(mapStateToProps, mapDispatchToProps)(StackSetting);

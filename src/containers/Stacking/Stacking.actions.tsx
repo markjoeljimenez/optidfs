@@ -1,5 +1,6 @@
 export const SET_SETTING = 'SET_SETTING';
 export const REMOVE_FROM_SETTING = 'REMOVE_FROM_SETTING';
+export const RESET_SETTINGS = 'RESET_SETTINGS';
 export const STACKING_TYPE = {
 	TEAM: 'TEAM',
 	POSITION: 'POSITION',
@@ -29,7 +30,7 @@ export const setSetting = (
 	value,
 });
 
-export const removeSetting = (
+export const removeFromSetting = (
 	stackingType: string,
 	setting: string,
 	key: string
@@ -38,4 +39,8 @@ export const removeSetting = (
 	stackingType,
 	setting,
 	key,
+});
+
+export const resetSettings = () => ({
+	type: RESET_SETTINGS,
 });
