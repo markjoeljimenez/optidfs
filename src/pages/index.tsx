@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { initializeStore } from '../store';
 
 import Bar from '../containers/Bar/Bar';
+import Tabs from '../containers/Tabs/Tabs';
 import Dropdown from '../containers/Dropdown/Dropdown';
 import GameListing from '../components/gameListing';
 import Rules from '../containers/Rules/Rules';
@@ -37,11 +38,18 @@ const App = ({ activeTab, providers, sport, loading, players }: any) => (
 			</div>
 		)} */}
 		{providers && sport && players?.length ? (
-			<div className="border-b border-gray-300">
-				<div className="container mx-auto p-8">
-					<Bar />
+			<>
+				<div>
+					<div className="container mx-auto p-8">
+						<Bar />
+					</div>
 				</div>
-			</div>
+				<div className="border-b border-gray-300">
+					<div className="container mx-auto px-8">
+						<Tabs />
+					</div>
+				</div>
+			</>
 		) : (
 			<></>
 		)}

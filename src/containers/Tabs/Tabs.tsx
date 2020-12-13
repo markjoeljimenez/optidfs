@@ -2,12 +2,27 @@ import { connect } from 'react-redux';
 import clsx from 'clsx';
 import setActiveTab from './Tabs.actions';
 
+const TAB_DATA = [
+	{
+		name: 'Players',
+		id: 'players',
+	},
+	// {
+	// 	name: 'Team Stacking',
+	// 	id: 'team-stacking',
+	// },
+	{
+		name: 'Settings',
+		id: 'settings',
+	},
+];
+
 const TabsContainer = (props: any) => {
 	// const handleClick = () => {
 	// 	props.optimizeLineups(props.value);
 	// };
 
-	const { activeTab } = props;
+	const { activeTab, optimizedPlayers } = props;
 
 	function handleTabClick(e: React.MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
@@ -15,58 +30,45 @@ const TabsContainer = (props: any) => {
 		props.setActiveTab(value);
 	}
 
+	function handleSeeAllPlayers() {}
+
 	return (
 		<nav>
 			<ul className="flex" role="tablist">
-				<li
-					role="tab"
-					aria-selected={activeTab === 'players'}
-					aria-controls="panel-players"
-				>
-					<button
-						className={clsx(
-							'py-2 px-4 rounded font-black text-blue-600',
-							activeTab === 'players'
-								? 'bg-blue-200 text-blue-900'
-								: ''
-						)}
-						type="button"
-						onClick={handleTabClick}
-						value="players"
+				{TAB_DATA.map(({ name, id }) => (
+					<li
+						role="tab"
+						aria-selected={activeTab === id}
+						aria-controls={`panel-${name}`}
 					>
-						Players
-					</button>
-				</li>
-				<li
-					role="tab"
-					aria-selected={activeTab === 'settings'}
-					aria-controls="panel-settings"
-				>
-					<button
-						className={clsx(
-							'py-2 px-4 rounded font-black text-blue-600',
-							activeTab === 'settings'
-								? 'bg-blue-200 text-blue-900'
-								: ''
-						)}
-						type="button"
-						onClick={handleTabClick}
-						value="settings"
-					>
-						Settings
-					</button>
-				</li>
+						<button
+							className={clsx(
+								'py-2 px-4 font-black text-blue-600',
+								activeTab === id
+									? 'border-b-2 border-blue-900 text-blue-900'
+									: ''
+							)}
+							type="button"
+							onClick={handleTabClick}
+							value={id}
+						>
+							{name}
+						</button>
+					</li>
+				))}
 			</ul>
 		</nav>
 	);
 };
 
-const mapStateToProps = ({ tabs }) => ({
+const mapStateToProps = ({ tabs, table }) => ({
 	activeTab: tabs.activeTab,
+	optimizedPlayers: table.optimizedPlayers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	setActiveTab: (value) => dispatch(setActiveTab(value)),
+	seeAllPlayers: (value) => dispatch(setActiveTab(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabsContainer);
