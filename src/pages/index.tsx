@@ -72,6 +72,7 @@ const App = ({ activeTab, providers, sport, loading, players }: any) => (
 				role="tabpanel"
 				aria-labelledby={`panel-${id}`}
 				hidden={activeTab !== id}
+				key={id}
 			>
 				{element}
 			</div>
