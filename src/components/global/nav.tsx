@@ -4,7 +4,6 @@ import Link from 'next/link';
 import clsx from 'clsx';
 
 import Donate from './donate';
-import Sports from '../../containers/Sports/Sports';
 
 const Nav = (props: any) => {
 	const router = useRouter();
@@ -92,7 +91,6 @@ const Nav = (props: any) => {
 				<h1 className="absolute ml-10 md:ml-0 md:relative md:text-3xl font-black whitespace-no-wrap">
 					DK Optimizer
 				</h1>
-				<Sports />
 			</div>
 			<div
 				className={clsx(
@@ -101,7 +99,7 @@ const Nav = (props: any) => {
 				)}
 			>
 				<ul>
-					<li className="mt-6 md:mt-0">
+					<li className="mt-6">
 						<Link href="/">
 							<a
 								className={clsx(
@@ -138,35 +136,6 @@ const Nav = (props: any) => {
 					</li>
 				</ul>
 				<div className="flex items-center flex-col space-y-6 text-center">
-					{/* @TODO: Integrate OAuth */}
-					{/* <div>
-						{!session ? (
-							<>
-								<p>Not signed in</p>
-								<button
-									className="mt-2 px-6 py-2 font-black rounded-lg bg-blue-300 text-blue-900"
-									onClick={signIn as any}
-									type="button"
-								>
-									Sign in
-								</button>
-							</>
-						) : (
-							<>
-								<p>
-									Signed in as
-									{session.user.email}
-								</p>
-								<button
-									className="mt-2 px-6 py-2 font-black rounded-lg bg-blue-300 text-blue-900"
-									onClick={signOut as any}
-									type="button"
-								>
-									Sign out
-								</button>
-							</>
-						)}
-					</div> */}
 					<Donate />
 				</div>
 			</div>

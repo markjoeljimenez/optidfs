@@ -108,7 +108,7 @@ const Dropdown = (props: any) => {
 					)}
 					{isOpen ? (
 						<ul
-							className="absolute top-1/1 left-0 right-0 max-h-20 bg-white overflow-y-scroll shadow border rounded mt-4"
+							className="absolute top-1/1 left-0 right-0 max-h-20 bg-white overflow-y-scroll shadow border rounded mt-4 z-10"
 							{...getMenuProps()}
 						>
 							{props.contests?.map((item, index) => (

@@ -11,7 +11,10 @@ import {
 	LOCK_PLAYERS,
 	SET_PLAYER_PROJECTED_OWNERSHIP,
 } from './Table.actions';
-import { OPTIMIZE_PLAYERS_SUCCEEDED } from '../Optimize/Optimize.actions';
+import {
+	OPTIMIZE_PLAYERS_FAILED,
+	OPTIMIZE_PLAYERS_SUCCEEDED,
+} from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
 import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
@@ -51,7 +54,6 @@ const table = (
 		type,
 		team,
 		players,
-		loading,
 		draftGroupId,
 		lineups,
 		searchTerm,
@@ -65,7 +67,7 @@ const table = (
 		case LOADING_PLAYERS:
 			return {
 				...state,
-				loading,
+				loading: true,
 			};
 
 		case GET_PLAYERS_SUCCEEDED:
@@ -74,12 +76,15 @@ const table = (
 				defaultPlayers: players,
 				players,
 				draftGroupId,
-				loading,
+				loading: false,
+				error: undefined,
 				teamIds,
 			};
 
 		case GET_PLAYERS_FAILED:
-			return state;
+			return {
+				...state,
+			};
 
 		case OPTIMIZE_PLAYERS_SUCCEEDED: {
 			const transformedLineups = lineups?.map((lineup) => ({
@@ -96,14 +101,21 @@ const table = (
 			return {
 				...state,
 				page: 0,
+				defaultLineups: lineups,
 				optimizedPlayers: lineup?.players,
 				players: lineup?.players,
 				totalFppg: lineup?.totalFppg,
 				totalSalary: lineup?.totalSalary,
 				lineups: transformedLineups,
-				loading,
+				loading: false,
 			};
 		}
+
+		case OPTIMIZE_PLAYERS_FAILED:
+			return {
+				...state,
+				loading: false,
+			};
 
 		case PREVIOUS: {
 			const index = state.page - 1 <= 0 ? 0 : state.page - 1;

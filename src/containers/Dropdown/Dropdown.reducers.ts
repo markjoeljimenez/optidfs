@@ -2,16 +2,16 @@ import { LOADING_CONTESTS, SET_CONTESTS } from './Dropdown.actions';
 
 const DEFAULT_STATE = {
 	loading: false,
-	message: null,
+	error: null,
 };
 
-const dropdown = (state = DEFAULT_STATE, { type, contests, message }) => {
+const dropdown = (state = DEFAULT_STATE, { type, contests }) => {
 	switch (type) {
 		case LOADING_CONTESTS:
 			return {
 				...state,
 				loading: true,
-				message,
+				message: 'Loading contests... This may take a while.',
 			};
 
 		case SET_CONTESTS:
@@ -21,6 +21,7 @@ const dropdown = (state = DEFAULT_STATE, { type, contests, message }) => {
 				contests,
 				loading: false,
 				message: null,
+				error: null,
 			};
 
 		default:
