@@ -1,17 +1,12 @@
 import { useRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
-import {
-	setSetting,
-	STACKING_SETTINGS,
-	STACKING_TYPE,
-} from './Stacking.actions';
+import { setSetting, STACKING_SETTINGS } from './Stacking.actions';
 
 interface IStackingSetting {
 	positions: string[];
 	stacking: any;
 	setStackingSetting(
-		stackingType: string,
 		setting: string,
 		key: string | undefined,
 		value: string[]
@@ -24,14 +19,13 @@ const StackingSetting = ({
 	setStackingSetting,
 }: IStackingSetting) => {
 	const positionsSelectRef = useRef<HTMLSelectElement>(null);
-	const currentPositions =
-		stacking[STACKING_TYPE.TEAM]?.[STACKING_SETTINGS.FROM_POSITIONS];
+	const currentPositions = stacking[STACKING_SETTINGS.FROM_POSITIONS];
 
 	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
 		if (positionsSelectRef.current) {
 			const { value } = positionsSelectRef.current;
 
-			if (!value || currentPositions?.some((team) => team === value)) {
+			if (currentPositions?.some((team) => team === value)) {
 				return;
 			}
 
@@ -40,7 +34,6 @@ const StackingSetting = ({
 				: [value];
 
 			setStackingSetting(
-				STACKING_TYPE.TEAM,
 				STACKING_SETTINGS.FROM_POSITIONS,
 				undefined,
 				transformedTeams
@@ -56,7 +49,6 @@ const StackingSetting = ({
 		);
 
 		setStackingSetting(
-			STACKING_TYPE.TEAM,
 			STACKING_SETTINGS.FROM_POSITIONS,
 			undefined,
 			transformedTeams
@@ -137,8 +129,8 @@ const mapStateToProps = ({ table, stacking }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setStackingSetting: (stackingType, setting, key, value) =>
-		dispatch(setSetting(stackingType, setting, key, value)),
+	setStackingSetting: (setting, key, value) =>
+		dispatch(setSetting(setting, key, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StackingSetting);

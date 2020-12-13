@@ -1,7 +1,11 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import { setSetting, STACKING_SETTINGS } from './Stacking.actions';
+import {
+	setSetting,
+	STACKING_SETTINGS,
+	STACKING_TYPE,
+} from './Stacking.actions';
 
 interface IMEPT {
 	team?: string;
@@ -12,6 +16,7 @@ interface IStackingSetting {
 	teams: string[];
 	stacking: any;
 	setStackingSetting(
+		stackingType: string,
 		setting: string,
 		key: string | undefined,
 		value: IMEPT
@@ -48,6 +53,7 @@ const StackSetting = ({
 	useEffect(() => {
 		if (maxExposurePerTeam?.exposure && maxExposurePerTeam?.team) {
 			setStackingSetting(
+				STACKING_TYPE.TEAM,
 				STACKING_SETTINGS.MAX_EXPOSURE_PER_TEAM,
 				undefined,
 				maxExposurePerTeam
@@ -104,8 +110,8 @@ const mapStateToProps = ({ table, stacking }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setStackingSetting: (setting, key, value) =>
-		dispatch(setSetting(setting, key, value)),
+	setStackingSetting: (stackingType, setting, key, value) =>
+		dispatch(setSetting(stackingType, setting, key, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StackSetting);

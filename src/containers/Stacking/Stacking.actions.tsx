@@ -1,5 +1,9 @@
 export const SET_SETTING = 'SET_SETTING';
-export const REMOVE_SETTING = 'REMOVE_SETTING';
+export const REMOVE_FROM_SETTING = 'REMOVE_FROM_SETTING';
+export const STACKING_TYPE = {
+	TEAM: 'TEAM',
+	PLAYER: 'PLAYER',
+};
 export const STACKING_SETTINGS = {
 	NUMBER_OF_PLAYERS_TO_STACK: 'NUMBER_OF_PLAYERS_TO_STACK',
 	FROM_TEAMS: 'FROM_TEAMS',
@@ -10,18 +14,25 @@ export const STACKING_SETTINGS = {
 };
 
 export const setSetting = (
+	stackingType: string,
 	setting: string,
 	key: string,
 	value: string | number | string[] | number[]
 ) => ({
 	type: SET_SETTING,
+	stackingType,
 	setting,
 	key,
 	value,
 });
 
-export const removeSetting = (setting: string, key: string) => ({
-	type: REMOVE_SETTING,
+export const removeSetting = (
+	stackingType: string,
+	setting: string,
+	key: string
+) => ({
+	type: REMOVE_FROM_SETTING,
+	stackingType,
 	setting,
 	key,
 });

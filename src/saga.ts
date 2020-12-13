@@ -129,6 +129,8 @@ function* optimizePlayers(action) {
 
 		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
 
+		console.log(stacking);
+
 		const res = yield post(`${API}/optimize`, {
 			generations: action.generations,
 			lockedPlayers: lockedPlayers?.map((player) => player.id),

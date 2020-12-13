@@ -8,6 +8,8 @@ import Spacing from './Stacking.team.spacing';
 import MaxExposure from './Stacking.team.maxExposure';
 import MaxExposurePerTeam from './Stacking.team.maxExposurePerTeam';
 
+import Positions from './Stacking.position.positions';
+
 const TABS = [
 	{
 		id: 'team',
@@ -28,14 +30,14 @@ const TABS = [
 		name: 'Player Stacking',
 		children: (
 			<>
-				<p>Test</p>
+				<Positions />
 			</>
 		),
 	},
 ];
 
 const StackingContainer = () => {
-	const [activeTab, setActiveTab] = useState<string>(TABS[0].name);
+	const [activeTab, setActiveTab] = useState<string>(TABS[0].id);
 
 	function handleTabClick(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;

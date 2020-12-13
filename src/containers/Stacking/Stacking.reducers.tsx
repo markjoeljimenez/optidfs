@@ -1,17 +1,24 @@
-import { REMOVE_SETTING, SET_SETTING } from './Stacking.actions';
+import { REMOVE_FROM_SETTING, SET_SETTING } from './Stacking.actions';
 
-interface IStacking {
-	NUMBER_OF_PLAYERS_TO_STACK?: number;
+interface IStackingState {
+	TEAM?: {
+		NUMBER_OF_PLAYERS_TO_STACK: string;
+		FROM_TEAMS: string;
+		FROM_POSITIONS: string;
+		SPACING: string;
+		MAX_EXPOSURE: string;
+		MAX_EXPOSURE_PER_TEAM: string;
+	};
+	POSITION?: {};
 }
-
 const StackingReducer = (
-	state: IStacking = {},
-	{ type, setting, key, value }
+	state: IStackingState = {},
+	{ type, setting, key, value, stackingType }
 ) => {
 	switch (type) {
 		case SET_SETTING: {
-			console.log(value);
-			if (!value || key === '') {
+			console.log(stackingType, setting, value);
+			if (!value || !stackingType || key === '') {
 				return state;
 			}
 
@@ -21,7 +28,10 @@ const StackingReducer = (
 			if (!key) {
 				return {
 					...state,
-					[setting]: value,
+					[stackingType]: {
+						...state[stackingType],
+						[setting]: value,
+					},
 				};
 			}
 
@@ -30,61 +40,71 @@ const StackingReducer = (
 			if (!state[setting]) {
 				return {
 					...state,
-					[setting]: [
-						{
-							key,
-							value,
-						},
-					],
+					[stackingType]: {
+						...state[stackingType],
+						[setting]: [
+							{
+								key,
+								value,
+							},
+						],
+					},
 				};
 			}
 
 			// If the user has modified the value of an already existing team,
 			// Find it
-			const existingRule = state[setting]?.findIndex(
-				(_rule) => _rule.key === key
+			const existingSetting = state[stackingType][setting]?.findIndex(
+				(_setting) => _setting.key === key
 			);
 
 			// If existingRule doesn't exist,
 			// Add it and the current key/value
-			if (existingRule === -1) {
+			if (existingSetting === -1) {
 				return {
 					...state,
-					[setting]: [
-						...state[setting],
-						{
-							key,
-							value,
-						},
-					],
+					[stackingType]: {
+						...state[stackingType],
+						[setting]: [
+							...state[setting],
+							{
+								key,
+								value,
+							},
+						],
+					},
 				};
 			}
 
 			// Create new array due to unmutable state
-			const PREV_STATE = [...state[setting]];
+			const PREV_STATE = [...state[stackingType][setting]];
 
 			// Replace position of existingRule with new value
-			PREV_STATE[existingRule] = {
-				...PREV_STATE[existingRule],
+			PREV_STATE[existingSetting] = {
+				...PREV_STATE[existingSetting],
 				value,
 			};
 
 			return {
 				...state,
-				[setting]: PREV_STATE,
+				[stackingType]: {
+					...state[stackingType],
+					[setting]: PREV_STATE,
+				},
 			};
 		}
 
-		case REMOVE_SETTING: {
-			const settings = state[setting].filter(
+		case REMOVE_FROM_SETTING: {
+			const settings = state[stackingType][setting].filter(
 				(_setting) => _setting.key !== key
 			);
 
-			console.log(settings, setting);
-
 			return {
 				...state,
-				[setting]: settings.length ? settings : undefined,
+				[stackingType]: {
+					...state[stackingType],
+					[setting]: settings.length ? settings : undefined,
+				},
 			};
 		}
 

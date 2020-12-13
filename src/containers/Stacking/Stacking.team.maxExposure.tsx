@@ -1,10 +1,15 @@
 import { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 
-import { setSetting, STACKING_SETTINGS } from './Stacking.actions';
+import {
+	setSetting,
+	STACKING_SETTINGS,
+	STACKING_TYPE,
+} from './Stacking.actions';
 
 interface IStackingSetting {
 	setStackingSetting(
+		stackingType: string,
 		setting: string,
 		key: string | undefined,
 		value: number
@@ -15,7 +20,12 @@ const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 	function handleMaxExposure(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseFloat(e.currentTarget.value);
 
-		setStackingSetting(STACKING_SETTINGS.MAX_EXPOSURE, undefined, value);
+		setStackingSetting(
+			STACKING_TYPE.TEAM,
+			STACKING_SETTINGS.MAX_EXPOSURE,
+			undefined,
+			value
+		);
 	}
 
 	return (
@@ -41,8 +51,8 @@ const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-	setStackingSetting: (setting, key, value) =>
-		dispatch(setSetting(setting, key, value)),
+	setStackingSetting: (stackingType, setting, key, value) =>
+		dispatch(setSetting(stackingType, setting, key, value)),
 });
 
 export default connect(null, mapDispatchToProps)(StackSetting);
