@@ -4,6 +4,7 @@ export const STACKING_SETTINGS = {
 	FROM_TEAMS: 'FROM_TEAMS',
 	FROM_POSITIONS: 'FROM_POSITIONS',
 	SPACING: 'SPACING',
+	MAX_EXPOSURE: 'MAX_EXPOSURE',
 };
 
 export const setSetting = (
