@@ -121,7 +121,7 @@ function* optimizePlayers(action) {
 	yield put({ type: LOADING_PLAYERS });
 
 	try {
-		const { sports, table, rules, header, upload } = yield select();
+		const { sports, table, rules, stacking } = yield select();
 
 		if (rules.errors.length) {
 			return;
@@ -136,6 +136,7 @@ function* optimizePlayers(action) {
 			rules,
 			sport: sports.sport,
 			draftGroupId,
+			stacking,
 		});
 
 		const { lineups } = yield res.json();

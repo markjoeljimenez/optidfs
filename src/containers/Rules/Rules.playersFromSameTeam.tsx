@@ -26,7 +26,7 @@ const Rule = (props: IRule) => {
 
 		if (team && value) {
 			props.setRule(
-				RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM,
+				RULE.NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM,
 				team,
 				parseInt(value)
 			);
@@ -97,9 +97,9 @@ const Rule = (props: IRule) => {
 					</button>
 				</div>
 
-				{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM && (
+				{rules.NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM && (
 					<div className="flex mt-4">
-						{rules.NUMBER_OF_PLAYERS_FROM_SAME_TEAM.map(
+						{rules.NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM.map(
 							({ key, value }, i) => (
 								<div
 									key={i}
@@ -111,13 +111,10 @@ const Rule = (props: IRule) => {
 										onClick={handleRemoveRule}
 										value={key}
 										data-rule={
-											RULE.NUMBER_OF_PLAYERS_FROM_SAME_TEAM
+											RULE.NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM
 										}
 									>
-										{key}
-										{' '}
-										-
-										{value}
+										{key} -{value}
 										<div className="absolute inset-y-0 right-0 flex items-center mr-1">
 											<svg
 												xmlns="http://www.w3.org/2000/svg"

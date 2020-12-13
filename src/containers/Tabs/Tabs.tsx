@@ -7,10 +7,10 @@ const TAB_DATA = [
 		name: 'Players',
 		id: 'players',
 	},
-	// {
-	// 	name: 'Team Stacking',
-	// 	id: 'team-stacking',
-	// },
+	{
+		name: 'Stacking',
+		id: 'stacking',
+	},
 	{
 		name: 'Settings',
 		id: 'settings',

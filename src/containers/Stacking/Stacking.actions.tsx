@@ -1,0 +1,15 @@
+export const SET_SETTING = 'SET_SETTING';
+export const STACKING_SETTINGS = {
+	NUMBER_OF_PLAYERS_TO_STACK: 'NUMBER_OF_PLAYERS_TO_STACK',
+};
+
+export const setSetting = (
+	setting: string,
+	key: string,
+	value: string | number | string[] | number[]
+) => ({
+	type: SET_SETTING,
+	setting,
+	key,
+	value,
+});
