@@ -106,7 +106,10 @@ const Rule = (props: any) => {
 										RULE.NUMBER_OF_SPECIFIC_POSITIONS
 									}
 								>
-									{key} -{value}
+									{key}
+									{' '}
+									-
+									{value}
 									<div className="absolute inset-y-0 right-0 flex items-center mr-1">
 										<svg
 											className="fill-current"
