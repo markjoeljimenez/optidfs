@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import clsx from 'clsx';
 import setActiveTabAction from './Tabs.actions';
 
-const TAB_DATA = (sport) => [
+const TABS = (sport) => [
 	{
 		name: 'Players',
 		id: 'players',
@@ -46,7 +46,7 @@ const TabsContainer = ({
 	return (
 		<nav>
 			<ul className="flex" role="tablist">
-				{TAB_DATA(sport).map(
+				{TABS(sport).map(
 					({ name, id, disabled }) =>
 						!disabled && (
 							<li
