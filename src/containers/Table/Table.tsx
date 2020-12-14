@@ -27,7 +27,7 @@ const TableContainer = (props: any) => {
 	);
 };
 
-const mapStateToProps = ({ table, error }) => ({
+const mapStateToProps = ({ table, error, stacking }) => ({
 	...table,
 	error,
 });

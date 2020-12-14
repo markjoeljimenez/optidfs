@@ -1,10 +1,13 @@
-import { useRef, MouseEvent } from 'react';
+import clsx from 'clsx';
+import { useRef, MouseEvent, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import {
 	setSetting,
+	removeFromSetting,
 	STACKING_POSITION_SETTINGS,
 	STACKING_TYPE,
+	setSettingError,
 } from './Stacking.actions';
 
 interface IStackingSetting {
@@ -16,13 +19,29 @@ interface IStackingSetting {
 		key: string | undefined,
 		value: string[]
 	): void;
+	removeFromStackingSetting(
+		stackingType: string,
+		setting: string,
+		key: string
+	): void;
+	setSettingErrorAction(stackingType: string, setting: string): void;
 }
 
 const StackingSetting = ({
 	positions,
 	stacking,
 	setStackingSetting,
+	removeFromStackingSetting,
+	setSettingErrorAction,
 }: IStackingSetting) => {
+	// if (stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS) {
+	// 	setSettingErrorAction(
+	// 		STACKING_TYPE.POSITION,
+	// 		STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS
+	// 	);
+	// }
+	console.log(stacking);
+
 	const positionsSelectRef = useRef<HTMLSelectElement>(null);
 	const currentPositions =
 		stacking[STACKING_TYPE.POSITION]?.[
@@ -37,7 +56,7 @@ const StackingSetting = ({
 				return;
 			}
 
-			const transformedTeams = currentPositions
+			const transformedPositions = currentPositions
 				? [...currentPositions, value]
 				: [value];
 
@@ -45,34 +64,36 @@ const StackingSetting = ({
 				STACKING_TYPE.POSITION,
 				STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS,
 				undefined,
-				transformedTeams
+				transformedPositions
 			);
 		}
 	}
 
-	function handleRemoveTeam(e: MouseEvent<HTMLButtonElement>) {
+	function handleRemovePosition(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
-		const transformedTeams = currentPositions.filter(
-			(team) => team !== value
-		);
-
-		setStackingSetting(
+		removeFromStackingSetting(
 			STACKING_TYPE.POSITION,
 			STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS,
-			undefined,
-			transformedTeams
+			value
 		);
 	}
 
 	return (
 		<>
-			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Positions
+			<span
+				className={clsx(
+					'inline-block mb-2 text-xs uppercase font-black',
+					stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS
+						? 'text-red-700'
+						: ''
+				)}
+			>
+				Main Positions (Required)
 			</span>
 			<div className="flex">
 				<label htmlFor="positions">
-					<span className="sr-only">Positions</span>
+					<span className="sr-only">Main Positions (Required)</span>
 					<div>
 						<select
 							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -102,7 +123,8 @@ const StackingSetting = ({
 				<button
 					className="relative py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
 					type="button"
-					onClick={handleRemoveTeam}
+					onClick={handleRemovePosition}
+					data-stacking-type="POSITION"
 					value={team}
 					key={team}
 				>
@@ -141,6 +163,10 @@ const mapStateToProps = ({ table, stacking }) => ({
 const mapDispatchToProps = (dispatch) => ({
 	setStackingSetting: (stackingType, setting, key, value) =>
 		dispatch(setSetting(stackingType, setting, key, value)),
+	removeFromStackingSetting: (stackingType, setting, key) =>
+		dispatch(removeFromSetting(stackingType, setting, key)),
+	setSettingErrorAction: (stackingType, setting) =>
+		dispatch(setSettingError(stackingType, setting)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StackingSetting);

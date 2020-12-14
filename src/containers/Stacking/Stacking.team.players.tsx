@@ -33,7 +33,6 @@ const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 		<div>
 			<span className="inline-block mb-2 text-xs uppercase font-black">
 				Number of Players
-				{console.log(inputValue)}
 			</span>
 			<label htmlFor="numberOfPlayers">
 				<span className="sr-only">Number of Players</span>

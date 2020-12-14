@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import {
 	removeFromSetting,
 	setSetting,
-	STACKING_TEAM_SETTINGS,
+	STACKING_POSITION_SETTINGS,
 	STACKING_TYPE,
 } from './Stacking.actions';
 
 interface IStackingSetting {
-	teams: string[];
+	positions: string[];
 	stacking: any;
 	setStackingSetting(
 		stackingType: string,
@@ -25,42 +25,44 @@ interface IStackingSetting {
 }
 
 const StackingSetting = ({
-	teams,
+	positions,
 	stacking,
-	removeFromStackingSetting,
 	setStackingSetting,
+	removeFromStackingSetting,
 }: IStackingSetting) => {
-	const teamSelectRef = useRef<HTMLSelectElement>(null);
-	const currentTeams =
-		stacking[STACKING_TYPE.TEAM]?.[STACKING_TEAM_SETTINGS.FROM_TEAMS];
+	const positionsSelectRef = useRef<HTMLSelectElement>(null);
+	const currentPositions =
+		stacking[STACKING_TYPE.POSITION]?.[
+			STACKING_POSITION_SETTINGS.OPTIONAL_POSITIONS
+		];
 
-	function handleAddTeam(e: MouseEvent<HTMLButtonElement>) {
-		if (teamSelectRef.current) {
-			const { value } = teamSelectRef.current;
+	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
+		if (positionsSelectRef.current) {
+			const { value } = positionsSelectRef.current;
 
-			if (!value || currentTeams?.some((team) => team === value)) {
+			if (currentPositions?.some((team) => team === value)) {
 				return;
 			}
 
-			const transformedTeams = currentTeams
-				? [...currentTeams, value]
+			const transformedPositions = currentPositions
+				? [...currentPositions, value]
 				: [value];
 
 			setStackingSetting(
-				STACKING_TYPE.TEAM,
-				STACKING_TEAM_SETTINGS.FROM_TEAMS,
+				STACKING_TYPE.POSITION,
+				STACKING_POSITION_SETTINGS.OPTIONAL_POSITIONS,
 				undefined,
-				transformedTeams
+				transformedPositions
 			);
 		}
 	}
 
-	function handleRemoveTeam(e: MouseEvent<HTMLButtonElement>) {
+	function handleRemovePosition(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
 		removeFromStackingSetting(
-			STACKING_TYPE.TEAM,
-			STACKING_TEAM_SETTINGS.FROM_TEAMS,
+			STACKING_TYPE.POSITION,
+			STACKING_POSITION_SETTINGS.OPTIONAL_POSITIONS,
 			value
 		);
 	}
@@ -68,23 +70,23 @@ const StackingSetting = ({
 	return (
 		<>
 			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Teams
+				Optional Positions
 			</span>
 			<div className="flex">
-				<label htmlFor="team">
-					<span className="sr-only">Teams</span>
+				<label htmlFor="optionalPositions">
+					<span className="sr-only">Optional Positions</span>
 					<div>
 						<select
 							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							ref={teamSelectRef}
-							id="team"
+							ref={positionsSelectRef}
+							id="optionalPositions"
 						>
 							<option value="" disabled selected>
-								Select team
+								Select position
 							</option>
-							{teams?.map((team) => (
-								<option value={team} key={team}>
-									{team}
+							{positions?.map((position, i) => (
+								<option value={position} key={i}>
+									{position}
 								</option>
 							))}
 						</select>
@@ -93,22 +95,21 @@ const StackingSetting = ({
 				<button
 					className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
 					type="submit"
-					onClick={handleAddTeam}
+					onClick={handleAddPosition}
 				>
 					Add
 				</button>
 			</div>
-
-			{currentTeams?.map((team) => (
+			{currentPositions?.map((position) => (
 				<button
 					className="relative py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
 					type="button"
-					onClick={handleRemoveTeam}
-					data-stacking-type="TEAM"
-					value={team}
-					key={team}
+					onClick={handleRemovePosition}
+					value={position}
+					key={position}
+					data-stacking-type="POSITION"
 				>
-					{team}
+					{position}
 					<div className="absolute inset-y-0 right-0 flex items-center mr-1">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +138,7 @@ const StackingSetting = ({
 
 const mapStateToProps = ({ table, stacking }) => ({
 	stacking,
-	teams: table.teams,
+	positions: table.positions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

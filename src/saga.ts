@@ -20,6 +20,12 @@ import {
 } from './containers/Optimize/Optimize.actions';
 import { RESET_RULES } from './containers/Rules/Rules.actions';
 import { SET_ERROR } from './containers/Error/Error.reducers';
+import {
+	SET_SETTING_ERROR,
+	STACKING_POSITION_SETTINGS,
+	STACKING_TEAM_SETTINGS,
+	STACKING_TYPE,
+} from './containers/Stacking/Stacking.actions';
 
 const API = process.env.ENDPOINT;
 
@@ -124,12 +130,39 @@ function* optimizePlayers(action) {
 		const { sports, table, rules, stacking } = yield select();
 
 		if (rules.errors.length) {
+			yield put({
+				type: OPTIMIZE_PLAYERS_FAILED,
+			});
+
+			yield put({
+				type: SET_ERROR,
+				error: "Can't generate lineups",
+			});
+
+			return;
+		}
+
+		if (stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS) {
+			yield put({
+				type: OPTIMIZE_PLAYERS_FAILED,
+			});
+
+			yield put({
+				type: SET_SETTING_ERROR,
+				stackingType:
+					stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS
+						? STACKING_TYPE.POSITION
+						: STACKING_TYPE.TEAM,
+				setting:
+					stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS
+						? STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS
+						: STACKING_TEAM_SETTINGS.NUMBER_OF_PLAYERS_TO_STACK,
+			});
+
 			return;
 		}
 
 		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
-
-		console.log(stacking);
 
 		const res = yield post(`${API}/optimize`, {
 			generations: action.generations,

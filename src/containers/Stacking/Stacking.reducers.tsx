@@ -1,10 +1,14 @@
+import { TABS } from './Stacking';
 import {
 	REMOVE_FROM_SETTING,
 	RESET_SETTINGS,
 	SET_SETTING,
+	SET_SETTING_ERROR,
+	SET_STACKING_ACTIVE_TAB,
 } from './Stacking.actions';
 
 interface IStackingState {
+	activeTab: string;
 	TEAM?: {
 		NUMBER_OF_PLAYERS_TO_STACK: string;
 		FROM_TEAMS: string;
@@ -16,15 +20,16 @@ interface IStackingState {
 	POSITION?: {};
 }
 
-const DEFAULT_STATE: IStackingState = {};
+const DEFAULT_STATE: IStackingState = {
+	activeTab: TABS[0].id,
+};
 
 const StackingReducer = (
 	state = DEFAULT_STATE,
-	{ type, setting, key, value, stackingType }
+	{ type, setting, key, value, stackingType, activeTab }
 ) => {
 	switch (type) {
 		case SET_SETTING: {
-			console.log(stackingType, setting, value);
 			if (!value || !stackingType || key === '') {
 				return state;
 			}
@@ -102,8 +107,8 @@ const StackingReducer = (
 		}
 
 		case REMOVE_FROM_SETTING: {
-			const settings = state[stackingType][setting].filter(
-				(_setting) => _setting.key !== key
+			const settings = state[stackingType]?.[setting].filter(
+				(_setting) => _setting !== key
 			);
 
 			return {
@@ -115,8 +120,26 @@ const StackingReducer = (
 			};
 		}
 
+		case SET_SETTING_ERROR:
+			return {
+				...state,
+				error: {
+					stackingType,
+					setting,
+				},
+			};
+
+		case SET_STACKING_ACTIVE_TAB:
+			return {
+				...state,
+				activeTab,
+			};
+
 		case RESET_SETTINGS:
-			return DEFAULT_STATE;
+			return {
+				...DEFAULT_STATE,
+				activeTab: state.activeTab,
+			};
 
 		default:
 			return state;

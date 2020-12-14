@@ -1,6 +1,7 @@
 export const SET_SETTING = 'SET_SETTING';
 export const REMOVE_FROM_SETTING = 'REMOVE_FROM_SETTING';
 export const RESET_SETTINGS = 'RESET_SETTINGS';
+export const SET_SETTING_ERROR = 'SET_SETTING_ERROR';
 export const STACKING_TYPE = {
 	TEAM: 'TEAM',
 	POSITION: 'POSITION',
@@ -15,7 +16,9 @@ export const STACKING_TEAM_SETTINGS = {
 };
 export const STACKING_POSITION_SETTINGS = {
 	NUMBER_OF_POSITIONS: 'NUMBER_OF_POSITIONS',
+	OPTIONAL_POSITIONS: 'OPTIONAL_POSITIONS',
 };
+export const SET_STACKING_ACTIVE_TAB = 'SET_STACKING_ACTIVE_TAB';
 
 export const setSetting = (
 	stackingType: string,
@@ -41,6 +44,17 @@ export const removeFromSetting = (
 	key,
 });
 
+export const setSettingError = (stackingType: string, setting: string) => ({
+	type: SET_SETTING_ERROR,
+	stackingType,
+	setting,
+});
+
 export const resetSettings = () => ({
 	type: RESET_SETTINGS,
+});
+
+export const setActiveTab = (activeTab: string) => ({
+	type: SET_STACKING_ACTIVE_TAB,
+	activeTab,
 });

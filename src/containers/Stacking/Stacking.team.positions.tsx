@@ -2,6 +2,7 @@ import { useRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
 import {
+	removeFromSetting,
 	setSetting,
 	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
@@ -16,11 +17,17 @@ interface IStackingSetting {
 		key: string | undefined,
 		value: string[]
 	): void;
+	removeFromStackingSetting(
+		stackingType: string,
+		setting: string,
+		key: string
+	): void;
 }
 
 const StackingSetting = ({
 	positions,
 	stacking,
+	removeFromStackingSetting,
 	setStackingSetting,
 }: IStackingSetting) => {
 	const positionsSelectRef = useRef<HTMLSelectElement>(null);
@@ -48,18 +55,13 @@ const StackingSetting = ({
 		}
 	}
 
-	function handleRemoveTeam(e: MouseEvent<HTMLButtonElement>) {
+	function handleRemovePosition(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
-		const transformedTeams = currentPositions.filter(
-			(team) => team !== value
-		);
-
-		setStackingSetting(
+		removeFromStackingSetting(
 			STACKING_TYPE.TEAM,
 			STACKING_TEAM_SETTINGS.FROM_POSITIONS,
-			undefined,
-			transformedTeams
+			value
 		);
 	}
 
@@ -100,7 +102,8 @@ const StackingSetting = ({
 				<button
 					className="relative py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
 					type="button"
-					onClick={handleRemoveTeam}
+					onClick={handleRemovePosition}
+					data-stacking-type="TEAM"
 					value={team}
 					key={team}
 				>
@@ -139,6 +142,8 @@ const mapStateToProps = ({ table, stacking }) => ({
 const mapDispatchToProps = (dispatch) => ({
 	setStackingSetting: (stackingType, setting, key, value) =>
 		dispatch(setSetting(stackingType, setting, key, value)),
+	removeFromStackingSetting: (stackingType, setting, key) =>
+		dispatch(removeFromSetting(stackingType, setting, key)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StackingSetting);

@@ -10,12 +10,13 @@ import MaxExposure from './Stacking.team.maxExposure';
 import MaxExposurePerTeam from './Stacking.team.maxExposurePerTeam';
 
 import Positions from './Stacking.position.positions';
+import OptionalPositions from './Stacking.position.optionalPositions';
 
-import { resetSettings } from './Stacking.actions';
+import { resetSettings, setActiveTab, STACKING_TYPE } from './Stacking.actions';
 
-const TABS = [
+export const TABS = [
 	{
-		id: 'team',
+		id: STACKING_TYPE.TEAM,
 		name: 'Team Stacking',
 		children: (
 			<>
@@ -29,29 +30,34 @@ const TABS = [
 		),
 	},
 	{
-		id: 'position',
+		id: STACKING_TYPE.POSITION,
 		name: 'Position Stacking',
 		children: (
 			<>
 				<Positions />
+				<OptionalPositions />
 			</>
 		),
 	},
 ];
 
 interface IStackingContainerProps {
+	activeTab: string;
 	resetSettingsAction(): void;
+	setActiveTabAction(activeTab: string): void;
 }
 
 const StackingContainer = ({
+	activeTab,
+	setActiveTabAction,
 	resetSettingsAction,
 }: IStackingContainerProps) => {
-	const [activeTab, setActiveTab] = useState<string>(TABS[0].id);
+	// const [activeTab, setActiveTab] = useState<string>(TABS[0].id);
 
 	function handleTabClick(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
-		setActiveTab(value);
+		setActiveTabAction(value);
 	}
 
 	function handleResetSettings(e: MouseEvent<HTMLButtonElement>) {
@@ -111,8 +117,13 @@ const StackingContainer = ({
 	);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	resetSettingsAction: () => dispatch(resetSettings()),
+const mapStateToProps = ({ stacking }) => ({
+	activeTab: stacking.activeTab,
 });
 
-export default connect(null, mapDispatchToProps)(StackingContainer);
+const mapDispatchToProps = (dispatch) => ({
+	resetSettingsAction: () => dispatch(resetSettings()),
+	setActiveTabAction: (activeTab) => dispatch(setActiveTab(activeTab)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(StackingContainer);
