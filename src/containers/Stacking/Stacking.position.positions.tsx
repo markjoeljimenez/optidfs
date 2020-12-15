@@ -7,7 +7,6 @@ import {
 	removeFromSetting,
 	STACKING_POSITION_SETTINGS,
 	STACKING_TYPE,
-	setSettingError,
 } from './Stacking.actions';
 
 interface IStackingSetting {
@@ -24,7 +23,6 @@ interface IStackingSetting {
 		setting: string,
 		key: string
 	): void;
-	setSettingErrorAction(stackingType: string, setting: string): void;
 }
 
 const StackingSetting = ({
@@ -32,16 +30,7 @@ const StackingSetting = ({
 	stacking,
 	setStackingSetting,
 	removeFromStackingSetting,
-	setSettingErrorAction,
 }: IStackingSetting) => {
-	// if (stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS) {
-	// 	setSettingErrorAction(
-	// 		STACKING_TYPE.POSITION,
-	// 		STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS
-	// 	);
-	// }
-	console.log(stacking);
-
 	const positionsSelectRef = useRef<HTMLSelectElement>(null);
 	const currentPositions =
 		stacking[STACKING_TYPE.POSITION]?.[
@@ -165,8 +154,6 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(setSetting(stackingType, setting, key, value)),
 	removeFromStackingSetting: (stackingType, setting, key) =>
 		dispatch(removeFromSetting(stackingType, setting, key)),
-	setSettingErrorAction: (stackingType, setting) =>
-		dispatch(setSettingError(stackingType, setting)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StackingSetting);

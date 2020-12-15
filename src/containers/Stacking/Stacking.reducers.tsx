@@ -111,23 +111,28 @@ const StackingReducer = (
 				(_setting) => _setting !== key
 			);
 
+			if (settings.length === 0) {
+				const mutState = { ...state };
+
+				delete mutState[stackingType][setting];
+
+				// If POSITION or TEAM objects are empty,
+				// delete those keys
+				if (Object.keys(mutState[stackingType]).length === 0) {
+					delete mutState[stackingType];
+				}
+
+				return mutState;
+			}
+
 			return {
 				...state,
 				[stackingType]: {
 					...state[stackingType],
-					[setting]: settings.length ? settings : undefined,
+					[setting]: settings,
 				},
 			};
 		}
-
-		case SET_SETTING_ERROR:
-			return {
-				...state,
-				error: {
-					stackingType,
-					setting,
-				},
-			};
 
 		case SET_STACKING_ACTIVE_TAB:
 			return {

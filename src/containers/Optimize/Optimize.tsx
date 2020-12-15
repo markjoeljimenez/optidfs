@@ -2,26 +2,48 @@ import { connect } from 'react-redux';
 
 import { optimize } from './Optimize.actions';
 import setActiveTab from '../Tabs/Tabs.actions';
-import { setActiveTab as setActiveStackingTab } from '../Stacking/Stacking.actions';
+import {
+	setActiveTab as setActiveStackingTab,
+	STACKING_TYPE,
+} from '../Stacking/Stacking.actions';
+import { IError } from '../Error/Error';
+import { ERROR_STATUSES } from '../../components/error';
 
 interface IOptimizeProps {
-	stackingError: any;
+	stacking: any;
+	error: null | IError;
 	optimizeLineups(): void;
 	setActiveTabAction(tab: string): void;
 	setActiveStackingTabAction(tab: string): void;
 }
 
 const Optimize = ({
-	stackingError,
+	stacking,
+	error,
 	optimizeLineups,
 	setActiveTabAction,
 	setActiveStackingTabAction,
 }: IOptimizeProps) => {
 	const handleClick = () => {
-		console.log(stackingError);
-		if (stackingError) {
+		if (
+			stacking &&
+			stacking.POSITION &&
+			!stacking.POSITION?.NUMBER_OF_POSITIONS
+		) {
+			console.log(stacking);
 			setActiveTabAction('stacking');
-			setActiveStackingTabAction(stackingError.stackingType);
+			setActiveStackingTabAction(STACKING_TYPE.POSITION);
+
+			return;
+		}
+
+		if (
+			stacking &&
+			stacking.TEAM &&
+			!stacking.TEAM?.NUMBER_OF_PLAYERS_TO_STACK
+		) {
+			setActiveTabAction('stacking');
+			setActiveStackingTabAction(STACKING_TYPE.TEAM);
 
 			return;
 		}
@@ -41,10 +63,9 @@ const Optimize = ({
 	);
 };
 
-const mapStateToProps = ({ table, rules, stacking }) => ({
-	draftGroupId: table.draftGroupId,
-	value: rules.NUMBER_OF_GENERATIONS,
-	stackingError: stacking.error,
+const mapStateToProps = ({ error, stacking }) => ({
+	error,
+	stacking,
 });
 
 const mapDispatchToProps = (dispatch) => ({

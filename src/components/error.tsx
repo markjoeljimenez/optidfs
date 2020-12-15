@@ -1,5 +1,12 @@
+import { IError } from '../containers/Error/Error';
+
+export const ERROR_STATUSES = {
+	INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
+	STACKING_SETTING_ERROR: 'STACKING_SETTING_ERROR',
+};
+
 interface IErrorProps {
-	error: null | string;
+	error: null | IError;
 }
 
 const Error = ({ error }: IErrorProps) => (
@@ -217,7 +224,7 @@ const Error = ({ error }: IErrorProps) => (
 			/>
 		</svg>
 		<div>
-			<h1 className="text-4xl font-black">{error}</h1>
+			<h1 className="text-4xl font-black">{error?.message}</h1>
 			<p>Unfortunately we couldn&apos;t optimize your lineups.</p>
 			<p className="mt-6">This may be due to several factors:</p>
 			<ul className="pl-10 list-disc text-left mt-3 space-y-2">

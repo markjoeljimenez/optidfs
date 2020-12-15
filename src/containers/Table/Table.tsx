@@ -7,18 +7,23 @@ import {
 	setPlayerProjectedOwnership,
 } from './Table.actions';
 
-import Error from '../Error/Error';
+import Error, { IError } from '../Error/Error';
 import Loading from '../../components/loading';
 import Table from '../../components/table';
 
-const TableContainer = (props: any) => {
-	const { players, loading, error } = props;
+interface ITableContainerProps {
+	table: any;
+	error: null | IError;
+}
 
-	return players && !error ? (
+const TableContainer = ({ table, error }: ITableContainerProps) => {
+	const { players, loading } = table;
+
+	return players && !error?.show ? (
 		<Loading loading={loading}>
-			<Table {...props} />
+			<Table {...table} />
 		</Loading>
-	) : error ? (
+	) : error?.show ? (
 		<div className="container mx-auto py-4">
 			<Error />
 		</div>
@@ -28,7 +33,7 @@ const TableContainer = (props: any) => {
 };
 
 const mapStateToProps = ({ table, error, stacking }) => ({
-	...table,
+	table,
 	error,
 });
 

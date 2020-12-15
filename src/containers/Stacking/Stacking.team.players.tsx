@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
 
@@ -8,7 +9,7 @@ import {
 } from './Stacking.actions';
 
 interface IStackingSetting {
-	inputValue: number | undefined;
+	stacking: any;
 	setStackingSetting(
 		stackingType: string,
 		setting: string,
@@ -17,7 +18,7 @@ interface IStackingSetting {
 	): void;
 }
 
-const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
+const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
 	function handleNumberOfPlayers(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseInt(e.currentTarget.value);
 
@@ -31,8 +32,15 @@ const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 
 	return (
 		<div>
-			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Number of Players
+			<span
+				className={clsx(
+					'inline-block mb-2 text-xs uppercase font-black',
+					stacking.TEAM && !stacking.TEAM.NUMBER_OF_PLAYERS_TO_STACK
+						? 'text-red-700'
+						: ''
+				)}
+			>
+				Number of Players (Required)
 			</span>
 			<label htmlFor="numberOfPlayers">
 				<span className="sr-only">Number of Players</span>
@@ -43,7 +51,7 @@ const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 					type="number"
 					// min={0}
 					onChange={handleNumberOfPlayers}
-					value={inputValue || ''}
+					value={stacking.TEAM?.NUMBER_OF_PLAYERS_TO_STACK || ''}
 				/>
 			</label>
 		</div>
@@ -51,7 +59,7 @@ const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 };
 
 const mapStateToProps = ({ stacking }) => ({
-	inputValue: stacking.TEAM?.NUMBER_OF_PLAYERS_TO_STACK,
+	stacking,
 });
 
 const mapDispatchToProps = (dispatch) => ({

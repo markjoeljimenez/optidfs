@@ -21,11 +21,11 @@ const PANELS = (sport) => [
 	{
 		id: 'players',
 		element: <Table />,
-		disabled: sport === 4,
 	},
 	{
 		id: 'stacking',
 		element: <Stacking />,
+		disabled: sport === 4,
 	},
 ];
 

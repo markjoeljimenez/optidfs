@@ -44,11 +44,11 @@ export const removeFromSetting = (
 	key,
 });
 
-export const setSettingError = (stackingType: string, setting: string) => ({
-	type: SET_SETTING_ERROR,
-	stackingType,
-	setting,
-});
+// export const setSettingError = (stackingType: string, setting: string) => ({
+// 	type: SET_SETTING_ERROR,
+// 	stackingType,
+// 	setting,
+// });
 
 export const resetSettings = () => ({
 	type: RESET_SETTINGS,

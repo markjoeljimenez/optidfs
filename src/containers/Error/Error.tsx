@@ -2,8 +2,14 @@ import { connect } from 'react-redux';
 
 import Error from '../../components/error';
 
+export interface IError {
+	type: string;
+	message: string;
+	show: boolean;
+}
+
 interface IErrorContainerProps {
-	error: null | string;
+	error: null | IError;
 }
 
 const ErrorContainer = ({ error }: IErrorContainerProps) => (
