@@ -1,6 +1,8 @@
 import { useRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
+import AddFromSelect from '../../components/form/addFromSelect';
+
 import {
 	removeFromSetting,
 	setSetting,
@@ -35,7 +37,7 @@ const StackingSetting = ({
 		stacking[STACKING_TYPE.TEAM]?.[STACKING_TEAM_SETTINGS.FROM_TEAMS];
 
 	function handleAddTeam(e: MouseEvent<HTMLButtonElement>) {
-		if (teamSelectRef.current) {
+		if (teamSelectRef.current && teamSelectRef.current.value !== '') {
 			const { value } = teamSelectRef.current;
 
 			if (!value || currentTeams?.some((team) => team === value)) {
@@ -66,72 +68,25 @@ const StackingSetting = ({
 	}
 
 	return (
-		<>
-			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Teams
-			</span>
-			<div className="flex">
-				<label htmlFor="teamStacking">
-					<span className="sr-only">Teams</span>
-					<div>
-						<select
-							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							ref={teamSelectRef}
-							id="teamStacking"
-						>
-							<option value="" disabled selected>
-								Select team
-							</option>
-							{teams?.map((team) => (
-								<option value={team} key={team}>
-									{team}
-								</option>
-							))}
-						</select>
-					</div>
-				</label>
-				<button
-					className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-					type="button"
-					onClick={handleAddTeam}
-				>
-					Add
-				</button>
-			</div>
-
-			{currentTeams?.map((team) => (
-				<button
-					className="relative py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
-					type="button"
-					onClick={handleRemoveTeam}
-					data-stacking-type="TEAM"
-					value={team}
-					key={team}
-				>
-					{team}
-					<div className="absolute inset-y-0 right-0 flex items-center mr-1">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							width="20"
-							height="20"
-						>
-							<g data-name="Layer 2">
-								<g data-name="close">
-									<rect
-										width="24"
-										height="24"
-										transform="rotate(180 12 12)"
-										opacity="0"
-									/>
-									<path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
-								</g>
-							</g>
-						</svg>
-					</div>
-				</button>
-			))}
-		</>
+		<div className="mt-6">
+			<AddFromSelect
+				select={{
+					id: 'teamStacking',
+					items: teams,
+					label: 'Teams',
+					placeholder: 'Select team',
+				}}
+				list={{
+					items: currentTeams,
+					onClick: handleRemoveTeam,
+					props: {
+						'data-stacking-type': STACKING_TYPE.TEAM,
+					},
+				}}
+				onAdd={handleAddTeam}
+				ref={teamSelectRef}
+			/>
+		</div>
 	);
 };
 
