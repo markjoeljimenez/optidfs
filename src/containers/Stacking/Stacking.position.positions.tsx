@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useRef, MouseEvent, useEffect } from 'react';
+import { useRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -88,10 +88,7 @@ const StackingSetting = ({
 							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 							ref={positionsSelectRef}
 							id="mainPositions"
-							required={
-								stacking.POSITION &&
-								!stacking.POSITION.NUMBER_OF_POSITIONS
-							}
+							name="mainPositions"
 						>
 							<option value="" disabled selected>
 								Select position

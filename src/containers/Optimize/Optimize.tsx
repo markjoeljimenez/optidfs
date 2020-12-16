@@ -1,4 +1,3 @@
-import { RefObject } from 'react';
 import { connect } from 'react-redux';
 
 import { optimize } from './Optimize.actions';
@@ -7,7 +6,6 @@ import {
 	setActiveTab as setActiveStackingTab,
 	STACKING_TYPE,
 } from '../Stacking/Stacking.actions';
-import { Form } from '../../pages';
 
 interface IOptimizeProps {
 	stacking: any;
@@ -22,7 +20,7 @@ const Optimize = ({
 	setActiveTabAction,
 	setActiveStackingTabAction,
 }: IOptimizeProps) => {
-	const handleClick = (form: RefObject<HTMLFormElement>) => {
+	const handleClick = () => {
 		if (
 			stacking &&
 			stacking.POSITION &&
@@ -30,10 +28,6 @@ const Optimize = ({
 		) {
 			setActiveTabAction('stacking');
 			setActiveStackingTabAction(STACKING_TYPE.POSITION);
-
-			console.log(form.current);
-
-			form.current?.checkValidity();
 
 			return;
 		}
@@ -54,17 +48,13 @@ const Optimize = ({
 	};
 
 	return (
-		<Form.Consumer>
-			{(ref) => (
-				<button
-					className="py-2 px-5 bg-blue-200 text-blue-900 rounded-full font-black hover:bg-blue-800 hover:text-white"
-					type="submit"
-					onClick={() => handleClick(ref)}
-				>
-					Optimize
-				</button>
-			)}
-		</Form.Consumer>
+		<button
+			className="py-2 px-5 bg-blue-200 text-blue-900 rounded-full font-black hover:bg-blue-800 hover:text-white"
+			type="button"
+			onClick={handleClick}
+		>
+			Optimize
+		</button>
 	);
 };
 

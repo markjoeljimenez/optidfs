@@ -1,10 +1,3 @@
-import {
-	createContext,
-	createRef,
-	MutableRefObject,
-	useContext,
-	useRef,
-} from 'react';
 import { connect } from 'react-redux';
 
 import { initializeStore } from '../store';
@@ -20,10 +13,10 @@ import Tabs from '../containers/Tabs/Tabs';
 import Loading from '../components/loading';
 
 const API = process.env.ENDPOINT;
-const PANELS = (sport, ref) => [
+const PANELS = (sport) => [
 	{
 		id: 'settings',
-		element: <Rules ref={ref} />,
+		element: <Rules />,
 	},
 	{
 		id: 'players',
@@ -31,51 +24,45 @@ const PANELS = (sport, ref) => [
 	},
 	{
 		id: 'stacking',
-		element: <Stacking ref={ref} />,
+		element: <Stacking />,
 		disabled: sport === 4,
 	},
 ];
 
-export const Form = createContext<any>(undefined);
-
-const App = ({ activeTab, providers, sport, loading, players }: any) => {
-	const ref = useRef<HTMLFormElement>();
-
-	return (
-		<Loading loading={loading.isLoading} message={loading.message}>
-			{providers && sport && players?.length ? (
-				<Form.Provider value={ref}>
-					<div>
-						<div className="container mx-auto p-8">
-							<Bar />
-						</div>
+const App = ({ activeTab, providers, sport, loading, players }: any) => (
+	<Loading loading={loading.isLoading} message={loading.message}>
+		{providers && sport && players?.length ? (
+			<>
+				<div>
+					<div className="container mx-auto p-8">
+						<Bar />
 					</div>
-					<div className="border-b border-gray-300">
-						<div className="container mx-auto px-8">
-							<Tabs />
-						</div>
+				</div>
+				<div className="border-b border-gray-300">
+					<div className="container mx-auto px-8">
+						<Tabs />
 					</div>
-				</Form.Provider>
-			) : (
-				<></>
-			)}
-			{PANELS(sport, ref).map(
-				({ id, element, disabled }) =>
-					!disabled && (
-						<div
-							className="mb-8"
-							role="tabpanel"
-							aria-labelledby={`panel-${id}`}
-							hidden={activeTab !== id}
-							key={id}
-						>
-							{element}
-						</div>
-					)
-			)}
-		</Loading>
-	);
-};
+				</div>
+			</>
+		) : (
+			<></>
+		)}
+		{PANELS(sport).map(
+			({ id, element, disabled }) =>
+				!disabled && (
+					<div
+						className="mb-8"
+						role="tabpanel"
+						aria-labelledby={`panel-${id}`}
+						hidden={activeTab !== id}
+						key={id}
+					>
+						{element}
+					</div>
+				)
+		)}
+	</Loading>
+);
 
 export const getServerSideProps = async () => {
 	if (!API) {
