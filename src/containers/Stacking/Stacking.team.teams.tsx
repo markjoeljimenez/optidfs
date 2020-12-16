@@ -68,25 +68,23 @@ const StackingSetting = ({
 	}
 
 	return (
-		<div className="mt-6">
-			<AddFromSelect
-				select={{
-					id: 'teamStacking',
-					items: teams,
-					label: 'Teams',
-					placeholder: 'Select team',
-				}}
-				list={{
-					items: currentTeams,
-					onClick: handleRemoveTeam,
-					props: {
-						'data-stacking-type': STACKING_TYPE.TEAM,
-					},
-				}}
-				onAdd={handleAddTeam}
-				ref={teamSelectRef}
-			/>
-		</div>
+		<AddFromSelect
+			select={{
+				id: 'teamStacking',
+				items: teams,
+				label: 'Teams',
+				placeholder: 'Select team',
+			}}
+			list={{
+				items: currentTeams,
+				onClick: handleRemoveTeam,
+				props: {
+					'data-stacking-type': STACKING_TYPE.TEAM,
+				},
+			}}
+			onAdd={handleAddTeam}
+			ref={teamSelectRef}
+		/>
 	);
 };
 

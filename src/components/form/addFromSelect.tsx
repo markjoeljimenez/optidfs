@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { MouseEvent, forwardRef } from 'react';
+import InputGroup from './inputGroup';
 
 interface IAddFromSelectProps {
 	select?: {
@@ -21,54 +22,43 @@ interface IAddFromSelectProps {
 
 const AddFromSelect = forwardRef<HTMLSelectElement, IAddFromSelectProps>(
 	({ select, error, list, onAdd }: IAddFromSelectProps, ref) => (
-		<div>
+		<>
 			{select && (
-				<div className="relative pt-6 inline-flex align-baseline">
-					<p
-						className={clsx(
-							'text-xs uppercase font-black absolute top-0 left-0 whitespace-no-wrap',
-							error && 'text-red-700'
-						)}
-					>
-						{select.label}
-					</p>
+				<InputGroup label={select.label} error={error}>
 					<label htmlFor={select.id}>
 						<span className="sr-only">{select.label}</span>
-						<div>
-							<select
-								className={clsx(
-									'font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
-									error && 'border-red-700'
-								)}
-								ref={ref}
-								id={select.id}
-							>
-								<option value="" disabled selected>
-									{select.placeholder}
+						<select
+							className={clsx(
+								'font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline',
+								error && 'border-red-700'
+							)}
+							ref={ref}
+							id={select.id}
+						>
+							<option value="" disabled selected>
+								{select.placeholder}
+							</option>
+							{select.items?.map((item, i) => (
+								<option value={item} key={i}>
+									{item}
 								</option>
-								{select.items?.map((item, i) => (
-									<option value={item} key={i}>
-										{item}
-									</option>
-								))}
-							</select>
-						</div>
+							))}
+						</select>
 						{error && (
 							<p className="text-red-700 text-xs uppercase font-black mt-3">
 								{error.message}
 							</p>
 						)}
 					</label>
-				</div>
+					<button
+						className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
+						type="button"
+						onClick={onAdd}
+					>
+						Add
+					</button>
+				</InputGroup>
 			)}
-
-			<button
-				className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-				type="button"
-				onClick={onAdd}
-			>
-				Add
-			</button>
 
 			{list?.items && (
 				<ul className="mt-3 -ml-2">
@@ -108,7 +98,7 @@ const AddFromSelect = forwardRef<HTMLSelectElement, IAddFromSelectProps>(
 					))}
 				</ul>
 			)}
-		</div>
+		</>
 	)
 );
 

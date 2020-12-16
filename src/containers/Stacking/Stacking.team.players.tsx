@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
+import InputGroup from '../../components/form/inputGroup';
 
 import {
 	setSetting,
@@ -19,6 +20,8 @@ interface IStackingSetting {
 }
 
 const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
+	const isError = stacking.TEAM && !stacking.TEAM.NUMBER_OF_PLAYERS_TO_STACK;
+
 	function handleNumberOfPlayers(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseInt(e.currentTarget.value);
 
@@ -31,17 +34,7 @@ const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
 	}
 
 	return (
-		<div>
-			<span
-				className={clsx(
-					'inline-block mb-2 text-xs uppercase font-black',
-					stacking.TEAM && !stacking.TEAM.NUMBER_OF_PLAYERS_TO_STACK
-						? 'text-red-700'
-						: ''
-				)}
-			>
-				Number of Players (Required)
-			</span>
+		<InputGroup label="Number of Players (Required)" error={isError}>
 			<label htmlFor="numberOfPlayers">
 				<span className="sr-only">Number of Players</span>
 				<input
@@ -57,7 +50,7 @@ const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
 					required
 				/>
 			</label>
-		</div>
+		</InputGroup>
 	);
 };
 

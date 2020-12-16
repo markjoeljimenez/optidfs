@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import InputGroup from '../../components/form/inputGroup';
 
 import {
 	setSetting,
@@ -62,10 +63,7 @@ const StackSetting = ({
 	}, [maxExposurePerTeam]);
 
 	return (
-		<>
-			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Max Exposure Per Team
-			</span>
+		<InputGroup label="Max exposure per team">
 			<div className="flex">
 				<label htmlFor="maxExposurePerTeamSelect">
 					<span className="sr-only">Teams</span>
@@ -100,7 +98,7 @@ const StackSetting = ({
 					/>
 				</label>
 			</div>
-		</>
+		</InputGroup>
 	);
 };
 

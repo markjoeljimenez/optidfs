@@ -1,5 +1,6 @@
 import { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
+import InputGroup from '../../components/form/inputGroup';
 
 import {
 	setSetting,
@@ -30,10 +31,7 @@ const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 	}
 
 	return (
-		<div>
-			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Max Exposure
-			</span>
+		<InputGroup label="Max Exposure">
 			<label htmlFor="maxExposure">
 				<span className="sr-only">Max Exposure</span>
 				<input
@@ -48,7 +46,7 @@ const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 					value={inputValue || ''}
 				/>
 			</label>
-		</div>
+		</InputGroup>
 	);
 };
 

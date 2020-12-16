@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 import { RULE, setRule, removeRule } from './Rules.actions';
+import InputGroup from '../../components/form/inputGroup';
 
 const Rule = (props: any) => {
 	const { positions, rules } = props;
@@ -40,10 +41,7 @@ const Rule = (props: any) => {
 	};
 
 	return (
-		<div>
-			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Number of specific positions
-			</span>
+		<InputGroup label="Number of specific positions">
 			<div>
 				<div className="flex">
 					<div className="flex-1">
@@ -134,7 +132,7 @@ const Rule = (props: any) => {
 					)}
 				</div>
 			)}
-		</div>
+		</InputGroup>
 	);
 };
 

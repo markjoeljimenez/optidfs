@@ -93,7 +93,7 @@ const StackingSetting = ({
 				error={
 					stacking.POSITION &&
 					!stacking.POSITION.NUMBER_OF_POSITIONS && {
-						message: 'Invalid input',
+						message: 'Field cannot remain empty',
 					}
 				}
 				onAdd={handleAddPosition}
