@@ -250,7 +250,7 @@ const Table = ({
 								>
 									{player.status !== 'O' && (
 										<button
-											type="submit"
+											type="button"
 											onClick={handleOptionsClick}
 											value={i}
 										>

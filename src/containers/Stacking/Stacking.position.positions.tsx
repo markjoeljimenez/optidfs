@@ -36,8 +36,11 @@ const StackingSetting = ({
 		stacking[STACKING_TYPE.POSITION]?.[
 			STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS
 		];
+	const isError = stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS;
 
 	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
+		e.preventDefault();
+
 		if (positionsSelectRef.current) {
 			const { value } = positionsSelectRef.current;
 
@@ -73,9 +76,7 @@ const StackingSetting = ({
 			<span
 				className={clsx(
 					'inline-block mb-2 text-xs uppercase font-black',
-					stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS
-						? 'text-red-700'
-						: ''
+					isError ? 'text-red-700' : ''
 				)}
 			>
 				Main Positions (Required)
@@ -100,10 +101,11 @@ const StackingSetting = ({
 							))}
 						</select>
 					</div>
+					{isError && <p className="error">Invalid input</p>}
 				</label>
 				<button
 					className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-					type="submit"
+					type="button"
 					onClick={handleAddPosition}
 				>
 					Add

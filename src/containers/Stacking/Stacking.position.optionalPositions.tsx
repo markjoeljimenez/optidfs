@@ -94,7 +94,7 @@ const StackingSetting = ({
 				</label>
 				<button
 					className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-					type="submit"
+					type="button"
 					onClick={handleAddPosition}
 				>
 					Add

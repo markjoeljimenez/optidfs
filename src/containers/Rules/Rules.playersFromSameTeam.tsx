@@ -90,7 +90,7 @@ const Rule = (props: IRule) => {
 					</div>
 					<button
 						className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-						type="submit"
+						type="button"
 						onClick={handleNumberOfPlayersFromTeamClick}
 					>
 						Add
