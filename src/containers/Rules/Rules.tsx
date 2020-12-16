@@ -7,8 +7,9 @@ import MaximumRepeatingSalaries from './Rules.maxRepeatingPlayers';
 import ProjectedOwnship from './Rules.projectedOwnership';
 import NumberOfGenerations from './Rules.numberOfGenerations';
 
-const RulesContainer = ({ players }: any) =>
+const RulesContainer = ({ players }) =>
 	players ? (
+		// <form name="rules" ref={ref} onSubmit={(e) => e.preventDefault()}>
 		<div className="container mx-auto px-8 my-8 flex flex-col md:flex-row">
 			<div className="flex-1">
 				<div>
@@ -41,4 +42,6 @@ const mapStateToProps = ({ table }) => ({
 	players: table.players,
 });
 
-export default connect(mapStateToProps)(RulesContainer);
+export default connect(mapStateToProps, null, null, {
+	forwardRef: true,
+})(RulesContainer);

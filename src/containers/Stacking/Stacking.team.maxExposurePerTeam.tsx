@@ -67,13 +67,13 @@ const StackSetting = ({
 				Max Exposure Per Team
 			</span>
 			<div className="flex">
-				<label htmlFor="team">
+				<label htmlFor="maxExposurePerTeamSelect">
 					<span className="sr-only">Teams</span>
 					<div>
 						<select
 							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 							onChange={handleTeamForMEPT}
-							id="team"
+							id="maxExposurePerTeamSelect"
 						>
 							<option value="" disabled selected>
 								Select team
@@ -86,11 +86,11 @@ const StackSetting = ({
 						</select>
 					</div>
 				</label>
-				<label htmlFor="maxExposure">
+				<label htmlFor="maxExposurePerTeamInput">
 					<span className="sr-only">Max Exposure</span>
 					<input
 						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						id="maxExposure"
+						id="maxExposurePerTeamInput"
 						placeholder="0"
 						step={0.1}
 						type="number"

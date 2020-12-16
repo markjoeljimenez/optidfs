@@ -71,13 +71,13 @@ const StackingSetting = ({
 				Teams
 			</span>
 			<div className="flex">
-				<label htmlFor="team">
+				<label htmlFor="teamStacking">
 					<span className="sr-only">Teams</span>
 					<div>
 						<select
 							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 							ref={teamSelectRef}
-							id="team"
+							id="teamStacking"
 						>
 							<option value="" disabled selected>
 								Select team

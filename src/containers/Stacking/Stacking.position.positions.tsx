@@ -81,13 +81,17 @@ const StackingSetting = ({
 				Main Positions (Required)
 			</span>
 			<div className="flex">
-				<label htmlFor="positions">
+				<label htmlFor="mainPositions">
 					<span className="sr-only">Main Positions (Required)</span>
 					<div>
 						<select
 							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 							ref={positionsSelectRef}
-							id="positions"
+							id="mainPositions"
+							required={
+								stacking.POSITION &&
+								!stacking.POSITION.NUMBER_OF_POSITIONS
+							}
 						>
 							<option value="" disabled selected>
 								Select position

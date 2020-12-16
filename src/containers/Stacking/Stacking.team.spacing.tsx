@@ -43,7 +43,7 @@ const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 					type="number"
 					// min={0}
 					onChange={handleSpacing}
-					value={inputValue || ''}
+					// value={inputValue || ''}
 				/>
 			</label>
 		</div>

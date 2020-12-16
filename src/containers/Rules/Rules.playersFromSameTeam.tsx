@@ -52,7 +52,7 @@ const Rule = (props: IRule) => {
 			<div>
 				<div className="flex">
 					<div className="flex-1">
-						<label htmlFor="team">
+						<label htmlFor="playersFromSameTeam">
 							<span className="sr-only">
 								Number of players from same team
 							</span>
@@ -60,7 +60,7 @@ const Rule = (props: IRule) => {
 								<select
 									className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 									ref={playersFromSameTeamSelectRef}
-									id="team"
+									id="playersFromSameTeam"
 								>
 									<option value="" disabled selected>
 										Select team

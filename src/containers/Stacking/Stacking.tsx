@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { MouseEvent, useState } from 'react';
+import { forwardRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
 import NumberOfPlayersToStack from './Stacking.team.players';
@@ -47,75 +47,73 @@ interface IStackingContainerProps {
 	setActiveTabAction(activeTab: string): void;
 }
 
-const StackingContainer = ({
-	activeTab,
-	setActiveTabAction,
-	resetSettingsAction,
-}: IStackingContainerProps) => {
-	// const [activeTab, setActiveTab] = useState<string>(TABS[0].id);
+const StackingContainer = forwardRef<HTMLFormElement, IStackingContainerProps>(
+	({ activeTab, resetSettingsAction, setActiveTabAction }, ref) => {
+		function handleTabClick(e: MouseEvent<HTMLButtonElement>) {
+			const { value } = e.currentTarget;
 
-	function handleTabClick(e: MouseEvent<HTMLButtonElement>) {
-		const { value } = e.currentTarget;
+			setActiveTabAction(value);
+		}
 
-		setActiveTabAction(value);
-	}
+		function handleResetSettings(e: MouseEvent<HTMLButtonElement>) {
+			resetSettingsAction();
+		}
 
-	function handleResetSettings(e: MouseEvent<HTMLButtonElement>) {
-		resetSettingsAction();
-	}
-
-	return (
-		<div className="container mx-auto px-8 my-8">
-			<div className="flex justify-between">
-				<nav>
-					<ul className="flex" role="tablist">
-						{TABS.map(({ id, name }) => (
-							<li
-								role="tab"
-								aria-selected={activeTab === id}
-								aria-controls={`panel-${name}`}
-								key={id}
-							>
-								<button
-									className={clsx(
-										'py-2 px-4 font-black text-blue-600',
-										activeTab === id
-											? 'border-b-2 border-blue-900 text-blue-900'
-											: ''
-									)}
-									type="button"
-									onClick={handleTabClick}
-									value={id}
+		return (
+			<div className="container mx-auto px-8 my-8">
+				<div className="flex justify-between">
+					<nav>
+						<ul className="flex" role="tablist">
+							{TABS.map(({ id, name }) => (
+								<li
+									role="tab"
+									aria-selected={activeTab === id}
+									aria-controls={`panel-${name}`}
+									key={id}
 								>
-									{name}
-								</button>
-							</li>
-						))}
-					</ul>
-				</nav>
-				<button
-					className="py-2 px-5 bg-blue-200 rounded text-blue-900 font-black hover:bg-blue-800 hover:text-white"
-					type="button"
-					onClick={handleResetSettings}
-				>
-					Reset Settings
-				</button>
-			</div>
-
-			{TABS.map(({ id, children }) => (
-				<div
-					className="my-8"
-					role="tabpanel"
-					aria-labelledby={`panel-${id}`}
-					hidden={activeTab !== id}
-					key={id}
-				>
-					{children}
+									<button
+										className={clsx(
+											'py-2 px-4 font-black text-blue-600',
+											activeTab === id
+												? 'border-b-2 border-blue-900 text-blue-900'
+												: ''
+										)}
+										type="button"
+										onClick={handleTabClick}
+										value={id}
+									>
+										{name}
+									</button>
+								</li>
+							))}
+						</ul>
+					</nav>
+					<button
+						className="py-2 px-5 bg-blue-200 rounded text-blue-900 font-black hover:bg-blue-800 hover:text-white"
+						type="button"
+						onClick={handleResetSettings}
+					>
+						Reset Settings
+					</button>
 				</div>
-			))}
-		</div>
-	);
-};
+
+				{TABS.map(({ id, children }) => (
+					<div
+						className="my-8"
+						role="tabpanel"
+						aria-labelledby={`panel-${id}`}
+						hidden={activeTab !== id}
+						key={id}
+					>
+						<form name="stacking" ref={ref}>
+							{children}
+						</form>
+					</div>
+				))}
+			</div>
+		);
+	}
+);
 
 const mapStateToProps = ({ stacking }) => ({
 	activeTab: stacking.activeTab,
@@ -126,4 +124,6 @@ const mapDispatchToProps = (dispatch) => ({
 	setActiveTabAction: (activeTab) => dispatch(setActiveTab(activeTab)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(StackingContainer);
+export default connect(mapStateToProps, mapDispatchToProps, null, {
+	forwardRef: true,
+})(StackingContainer);

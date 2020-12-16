@@ -4,10 +4,8 @@ import Search from '../Search/Search';
 import Optimize from '../Optimize/Optimize';
 import { openModal } from '../Rules/Rules.actions';
 
-const BarContainer = (props: any) => {
-	const { players } = props;
-
-	return players ? (
+const BarContainer = ({ players }: any) =>
+	players ? (
 		<div className="flex items-center justify-between">
 			<div className="flex-1 mr-4">
 				<Search />
@@ -17,7 +15,6 @@ const BarContainer = (props: any) => {
 	) : (
 		<></>
 	);
-};
 
 const mapStateToProps = ({ table }) => ({
 	players: table.players,

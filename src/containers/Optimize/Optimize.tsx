@@ -1,3 +1,4 @@
+import { RefObject } from 'react';
 import { connect } from 'react-redux';
 
 import { optimize } from './Optimize.actions';
@@ -6,12 +7,10 @@ import {
 	setActiveTab as setActiveStackingTab,
 	STACKING_TYPE,
 } from '../Stacking/Stacking.actions';
-import { IError } from '../Error/Error';
-import { ERROR_STATUSES } from '../../components/error';
+import { Form } from '../../pages';
 
 interface IOptimizeProps {
 	stacking: any;
-	error: null | IError;
 	optimizeLineups(): void;
 	setActiveTabAction(tab: string): void;
 	setActiveStackingTabAction(tab: string): void;
@@ -19,20 +18,22 @@ interface IOptimizeProps {
 
 const Optimize = ({
 	stacking,
-	error,
 	optimizeLineups,
 	setActiveTabAction,
 	setActiveStackingTabAction,
 }: IOptimizeProps) => {
-	const handleClick = () => {
+	const handleClick = (form: RefObject<HTMLFormElement>) => {
 		if (
 			stacking &&
 			stacking.POSITION &&
 			!stacking.POSITION?.NUMBER_OF_POSITIONS
 		) {
-			console.log(stacking);
 			setActiveTabAction('stacking');
 			setActiveStackingTabAction(STACKING_TYPE.POSITION);
+
+			console.log(form.current);
+
+			form.current?.checkValidity();
 
 			return;
 		}
@@ -53,13 +54,17 @@ const Optimize = ({
 	};
 
 	return (
-		<button
-			className="py-2 px-5 bg-blue-200 text-blue-900 rounded-full font-black hover:bg-blue-800 hover:text-white"
-			type="button"
-			onClick={handleClick}
-		>
-			Optimize
-		</button>
+		<Form.Consumer>
+			{(ref) => (
+				<button
+					className="py-2 px-5 bg-blue-200 text-blue-900 rounded-full font-black hover:bg-blue-800 hover:text-white"
+					type="submit"
+					onClick={() => handleClick(ref)}
+				>
+					Optimize
+				</button>
+			)}
+		</Form.Consumer>
 	);
 };
 
