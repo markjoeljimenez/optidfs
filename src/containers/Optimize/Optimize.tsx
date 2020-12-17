@@ -23,22 +23,22 @@ const Optimize = ({
 	const handleClick = () => {
 		if (
 			stacking &&
-			stacking.POSITION &&
-			!stacking.POSITION?.NUMBER_OF_POSITIONS
+			stacking.TEAM &&
+			!stacking.TEAM?.NUMBER_OF_PLAYERS_TO_STACK
 		) {
 			setActiveTabAction('stacking');
-			setActiveStackingTabAction(STACKING_TYPE.POSITION);
+			setActiveStackingTabAction(STACKING_TYPE.TEAM);
 
 			return;
 		}
 
 		if (
 			stacking &&
-			stacking.TEAM &&
-			!stacking.TEAM?.NUMBER_OF_PLAYERS_TO_STACK
+			stacking.POSITION &&
+			!stacking.POSITION?.NUMBER_OF_POSITIONS
 		) {
 			setActiveTabAction('stacking');
-			setActiveStackingTabAction(STACKING_TYPE.TEAM);
+			setActiveStackingTabAction(STACKING_TYPE.POSITION);
 
 			return;
 		}

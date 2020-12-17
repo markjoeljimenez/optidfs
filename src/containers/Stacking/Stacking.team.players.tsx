@@ -35,18 +35,25 @@ const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
 
 	return (
 		<InputGroup label="Number of Players (Required)" error={isError}>
-			<label htmlFor="numberOfPlayers">
-				<span className="sr-only">Number of Players</span>
-				<input
-					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-					id="numberOfPlayers"
-					placeholder="0"
-					type="number"
-					// min={0}
-					onChange={handleNumberOfPlayers}
-					required
-				/>
-			</label>
+			<div>
+				<label htmlFor="numberOfPlayers">
+					<span className="sr-only">Number of Players</span>
+					<input
+						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+						id="numberOfPlayers"
+						placeholder="0"
+						type="number"
+						// min={0}
+						onChange={handleNumberOfPlayers}
+						required
+					/>
+				</label>
+				{isError && (
+					<p className="text-red-700 text-xs uppercase font-black mt-3">
+						Field cannot remain empty
+					</p>
+				)}
+			</div>
 		</InputGroup>
 	);
 };

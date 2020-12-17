@@ -25,7 +25,7 @@ const AddFromSelect = forwardRef<HTMLSelectElement, IAddFromSelectProps>(
 		<>
 			{select && (
 				<InputGroup label={select.label} error={error}>
-					<label htmlFor={select.id}>
+					<label htmlFor={select.id} className="flex-1">
 						<span className="sr-only">{select.label}</span>
 						<select
 							className={clsx(

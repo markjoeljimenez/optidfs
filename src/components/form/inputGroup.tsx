@@ -12,7 +12,7 @@ interface IInputGroup {
 
 const InputGroup = ({ label, error, tippy, children }: IInputGroup) => (
 	<div className="relative pt-6 flex items-baseline">
-		<p
+		<div
 			className={clsx(
 				'text-xs uppercase font-black absolute top-0 left-0 whitespace-no-wrap',
 				error && 'text-red-700',
@@ -20,7 +20,7 @@ const InputGroup = ({ label, error, tippy, children }: IInputGroup) => (
 			)}
 		>
 			{label} {tippy}
-		</p>
+		</div>
 
 		{children}
 	</div>

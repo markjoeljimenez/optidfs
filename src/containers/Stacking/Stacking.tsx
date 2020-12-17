@@ -20,12 +20,24 @@ export const TABS = [
 		name: 'Team Stacking',
 		children: (
 			<>
-				<NumberOfPlayersToStack />
-				<FromTeams />
-				<FromPositions />
-				<Spacing />
-				<MaxExposure />
-				<MaxExposurePerTeam />
+				<div>
+					<NumberOfPlayersToStack />
+				</div>
+				<div className="mt-8">
+					<FromTeams />
+				</div>
+				<div className="mt-8">
+					<FromPositions />
+				</div>
+				<div className="mt-8">
+					<Spacing />
+				</div>
+				<div className="mt-8">
+					<MaxExposure />
+				</div>
+				<div className="mt-8">
+					<MaxExposurePerTeam />
+				</div>
 			</>
 		),
 	},
@@ -34,8 +46,12 @@ export const TABS = [
 		name: 'Position Stacking',
 		children: (
 			<>
-				<Positions />
-				<OptionalPositions />
+				<div>
+					<Positions />
+				</div>
+				<div className="mt-8">
+					<OptionalPositions />
+				</div>
 			</>
 		),
 	},
