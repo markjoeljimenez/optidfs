@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { MouseEvent } from 'react';
+import { createRef, MouseEvent, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import NumberOfPlayersToStack from './Stacking.team.players';
@@ -52,6 +52,8 @@ const StackingContainer = ({
 	resetSettingsAction,
 	setActiveTabAction,
 }: IStackingContainerProps) => {
+	const forms = useRef<(HTMLFormElement | null)[]>([]);
+
 	function handleTabClick(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
@@ -59,6 +61,12 @@ const StackingContainer = ({
 	}
 
 	function handleResetSettings(e: MouseEvent<HTMLButtonElement>) {
+		forms.current.forEach((form) => {
+			if (form) {
+				form.reset();
+			}
+		});
+
 		resetSettingsAction();
 	}
 
@@ -100,7 +108,7 @@ const StackingContainer = ({
 				</button>
 			</div>
 
-			{TABS.map(({ id, children }) => (
+			{TABS.map(({ id, children }, i) => (
 				<div
 					className="my-8"
 					role="tabpanel"
@@ -108,7 +116,9 @@ const StackingContainer = ({
 					hidden={activeTab !== id}
 					key={id}
 				>
-					<form>{children}</form>
+					<form ref={(ref) => forms.current.push(ref)}>
+						{children}
+					</form>
 				</div>
 			))}
 		</div>

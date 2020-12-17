@@ -44,9 +44,6 @@ const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
 					type="number"
 					// min={0}
 					onChange={handleNumberOfPlayers}
-					// value={
-					// 	stacking.TEAM?.NUMBER_OF_PLAYERS_TO_STACK || ''
-					// }
 					required
 				/>
 			</label>

@@ -54,8 +54,9 @@ const Rule = (props: any) => {
 									className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 									ref={numberOfSpecificPositionsSelectRef}
 									id="numberOfSpecificPositionsSelect"
+									defaultValue=""
 								>
-									<option value="" disabled selected>
+									<option value="" disabled>
 										Select position
 									</option>
 									{positions?.map((position, i) => (

@@ -34,8 +34,9 @@ const AddFromSelect = forwardRef<HTMLSelectElement, IAddFromSelectProps>(
 							)}
 							ref={ref}
 							id={select.id}
+							defaultValue=""
 						>
-							<option value="" disabled selected>
+							<option value="" disabled>
 								{select.placeholder}
 							</option>
 							{select.items?.map((item, i) => (

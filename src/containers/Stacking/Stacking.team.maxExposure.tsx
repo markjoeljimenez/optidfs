@@ -43,7 +43,6 @@ const StackSetting = ({ inputValue, setStackingSetting }: IStackingSetting) => {
 					max={1}
 					// min={0}
 					onChange={handleMaxExposure}
-					value={inputValue || ''}
 				/>
 			</label>
 		</InputGroup>

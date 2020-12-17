@@ -58,8 +58,9 @@ const Rule = (props: IRule) => {
 								className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								ref={playersFromSameTeamSelectRef}
 								id="playersFromSameTeam"
+								defaultValue=""
 							>
-								<option value="" disabled selected>
+								<option value="" disabled>
 									Select team
 								</option>
 								{teams?.map((team, i) => (
