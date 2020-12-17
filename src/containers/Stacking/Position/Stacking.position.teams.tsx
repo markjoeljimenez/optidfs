@@ -1,14 +1,14 @@
 import { useRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
-import AddFromSelect from '../../components/form/addFromSelect';
+import AddFromSelect from '../../../components/form/addFromSelect';
 
 import {
 	removeFromSetting,
 	setSetting,
-	STACKING_TEAM_SETTINGS,
+	STACKING_POSITION_SETTINGS,
 	STACKING_TYPE,
-} from './Stacking.actions';
+} from '../Stacking.actions';
 
 interface IStackingSetting {
 	teams: string[];
@@ -29,18 +29,20 @@ interface IStackingSetting {
 const StackingSetting = ({
 	teams,
 	stacking,
-	removeFromStackingSetting,
 	setStackingSetting,
+	removeFromStackingSetting,
 }: IStackingSetting) => {
-	const teamSelectRef = useRef<HTMLSelectElement>(null);
+	const teamsSelectRef = useRef<HTMLSelectElement>(null);
 	const currentTeams =
-		stacking[STACKING_TYPE.TEAM]?.[STACKING_TEAM_SETTINGS.FROM_TEAMS];
+		stacking[STACKING_TYPE.POSITION]?.[
+			STACKING_POSITION_SETTINGS.FOR_TEAMS
+		];
 
 	function handleAddTeam(e: MouseEvent<HTMLButtonElement>) {
-		if (teamSelectRef.current && teamSelectRef.current.value !== '') {
-			const { value } = teamSelectRef.current;
+		if (teamsSelectRef.current && teamsSelectRef.current.value !== '') {
+			const { value } = teamsSelectRef.current;
 
-			if (!value || currentTeams?.some((team) => team === value)) {
+			if (currentTeams?.some((team) => team === value)) {
 				return;
 			}
 
@@ -49,8 +51,8 @@ const StackingSetting = ({
 				: [value];
 
 			setStackingSetting(
-				STACKING_TYPE.TEAM,
-				STACKING_TEAM_SETTINGS.FROM_TEAMS,
+				STACKING_TYPE.POSITION,
+				STACKING_POSITION_SETTINGS.FOR_TEAMS,
 				undefined,
 				transformedTeams
 			);
@@ -61,8 +63,8 @@ const StackingSetting = ({
 		const { value } = e.currentTarget;
 
 		removeFromStackingSetting(
-			STACKING_TYPE.TEAM,
-			STACKING_TEAM_SETTINGS.FROM_TEAMS,
+			STACKING_TYPE.POSITION,
+			STACKING_POSITION_SETTINGS.FOR_TEAMS,
 			value
 		);
 	}
@@ -70,20 +72,20 @@ const StackingSetting = ({
 	return (
 		<AddFromSelect
 			select={{
-				id: 'teamStacking',
+				id: 'forTeams',
 				items: teams,
-				label: 'Teams',
-				placeholder: 'Select team',
+				label: 'For teams',
+				placeholder: 'Select teams',
 			}}
 			list={{
 				items: currentTeams,
 				onClick: handleRemoveTeam,
 				props: {
-					'data-stacking-type': STACKING_TYPE.TEAM,
+					'data-stacking-type': STACKING_TYPE.POSITION,
 				},
 			}}
 			onAdd={handleAddTeam}
-			ref={teamSelectRef}
+			ref={teamsSelectRef}
 		/>
 	);
 };

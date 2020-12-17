@@ -1,14 +1,14 @@
 import { useRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
-import AddFromSelect from '../../components/form/addFromSelect';
+import AddFromSelect from '../../../components/form/addFromSelect';
 
 import {
 	setSetting,
 	removeFromSetting,
 	STACKING_POSITION_SETTINGS,
 	STACKING_TYPE,
-} from './Stacking.actions';
+} from '../Stacking.actions';
 
 interface IStackingSetting {
 	positions: string[];

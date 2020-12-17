@@ -2,16 +2,16 @@ import clsx from 'clsx';
 import { createRef, MouseEvent, useRef } from 'react';
 import { connect } from 'react-redux';
 
-import NumberOfPlayersToStack from './Stacking.team.players';
-import FromTeams from './Stacking.team.teams';
-import FromPositions from './Stacking.team.positions';
-import Spacing from './Stacking.team.spacing';
-import MaxExposure from './Stacking.team.maxExposure';
-import MaxExposurePerTeam from './Stacking.team.maxExposurePerTeam';
+import NumberOfPlayersToStack from './Team/Stacking.team.players';
+import FromTeams from './Team/Stacking.team.teams';
+import FromPositions from './Team/Stacking.team.positions';
+import Spacing from './Team/Stacking.team.spacing';
+import MaxExposure from './Team/Stacking.team.maxExposure';
+import MaxExposurePerTeam from './Team/Stacking.team.maxExposurePerTeam';
 
-import Positions from './Stacking.position.positions';
-import OptionalPositions from './Stacking.position.optionalPositions';
-import PositionsForTeams from './Stacking.position.teams';
+import Positions from './Position/Stacking.position.positions';
+import OptionalPositions from './Position/Stacking.position.optionalPositions';
+import PositionsForTeams from './Position/Stacking.position.teams';
 
 import { resetSettings, setActiveTab, STACKING_TYPE } from './Stacking.actions';
 

@@ -1,14 +1,14 @@
 import { useRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
-import AddFromSelect from '../../components/form/addFromSelect';
+import AddFromSelect from '../../../components/form/addFromSelect';
 
 import {
 	removeFromSetting,
 	setSetting,
-	STACKING_TEAM_SETTINGS,
+	STACKING_POSITION_SETTINGS,
 	STACKING_TYPE,
-} from './Stacking.actions';
+} from '../Stacking.actions';
 
 interface IStackingSetting {
 	positions: string[];
@@ -29,12 +29,14 @@ interface IStackingSetting {
 const StackingSetting = ({
 	positions,
 	stacking,
-	removeFromStackingSetting,
 	setStackingSetting,
+	removeFromStackingSetting,
 }: IStackingSetting) => {
 	const positionsSelectRef = useRef<HTMLSelectElement>(null);
 	const currentPositions =
-		stacking[STACKING_TYPE.TEAM]?.[STACKING_TEAM_SETTINGS.FROM_POSITIONS];
+		stacking[STACKING_TYPE.POSITION]?.[
+			STACKING_POSITION_SETTINGS.OPTIONAL_POSITIONS
+		];
 
 	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
 		if (
@@ -43,19 +45,19 @@ const StackingSetting = ({
 		) {
 			const { value } = positionsSelectRef.current;
 
-			if (!value || currentPositions?.some((team) => team === value)) {
+			if (currentPositions?.some((team) => team === value)) {
 				return;
 			}
 
-			const transformedTeams = currentPositions
+			const transformedPositions = currentPositions
 				? [...currentPositions, value]
 				: [value];
 
 			setStackingSetting(
-				STACKING_TYPE.TEAM,
-				STACKING_TEAM_SETTINGS.FROM_POSITIONS,
+				STACKING_TYPE.POSITION,
+				STACKING_POSITION_SETTINGS.OPTIONAL_POSITIONS,
 				undefined,
-				transformedTeams
+				transformedPositions
 			);
 		}
 	}
@@ -64,8 +66,8 @@ const StackingSetting = ({
 		const { value } = e.currentTarget;
 
 		removeFromStackingSetting(
-			STACKING_TYPE.TEAM,
-			STACKING_TEAM_SETTINGS.FROM_POSITIONS,
+			STACKING_TYPE.POSITION,
+			STACKING_POSITION_SETTINGS.OPTIONAL_POSITIONS,
 			value
 		);
 	}
@@ -73,16 +75,16 @@ const StackingSetting = ({
 	return (
 		<AddFromSelect
 			select={{
-				id: 'positions',
+				id: 'optionalPositions',
 				items: positions,
-				label: 'Positions',
+				label: 'Optional Positions',
 				placeholder: 'Select position',
 			}}
 			list={{
 				items: currentPositions,
 				onClick: handleRemovePosition,
 				props: {
-					'data-stacking-type': STACKING_TYPE.TEAM,
+					'data-stacking-type': STACKING_TYPE.POSITION,
 				},
 			}}
 			onAdd={handleAddPosition}

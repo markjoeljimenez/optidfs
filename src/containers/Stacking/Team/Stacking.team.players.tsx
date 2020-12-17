@@ -1,13 +1,13 @@
 import clsx from 'clsx';
 import { ChangeEvent } from 'react';
 import { connect } from 'react-redux';
-import InputGroup from '../../components/form/inputGroup';
+import InputGroup from '../../../components/form/inputGroup';
 
 import {
 	setSetting,
 	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
-} from './Stacking.actions';
+} from '../Stacking.actions';
 
 interface IStackingSetting {
 	stacking: any;
