@@ -7,7 +7,11 @@ import MaximumRepeatingSalaries from './Rules.maxRepeatingPlayers';
 import ProjectedOwnship from './Rules.projectedOwnership';
 import NumberOfGenerations from './Rules.numberOfGenerations';
 
-const RulesContainer = ({ players }) =>
+interface IRulesProps {
+	players: any;
+}
+
+const RulesContainer = ({ players }: IRulesProps) =>
 	players ? (
 		// <form name="rules" ref={ref} onSubmit={(e) => e.preventDefault()}>
 		<div className="container mx-auto px-8 my-8 flex flex-col md:flex-row">

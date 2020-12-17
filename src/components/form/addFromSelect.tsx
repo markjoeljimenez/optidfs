@@ -9,9 +9,7 @@ interface IAddFromSelectProps {
 		items: string[];
 		label: string;
 	};
-	error?: {
-		message: string;
-	};
+	error?: string;
 	list: {
 		props?: any;
 		items?: string[];
@@ -47,7 +45,7 @@ const AddFromSelect = forwardRef<HTMLSelectElement, IAddFromSelectProps>(
 						</select>
 						{error && (
 							<p className="text-red-700 text-xs uppercase font-black mt-3">
-								{error.message}
+								{error}
 							</p>
 						)}
 					</label>

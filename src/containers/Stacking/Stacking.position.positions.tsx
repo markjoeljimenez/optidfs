@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import { useRef, MouseEvent } from 'react';
 import { connect } from 'react-redux';
 
@@ -38,7 +37,6 @@ const StackingSetting = ({
 		stacking[STACKING_TYPE.POSITION]?.[
 			STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS
 		];
-	const isError = stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS;
 
 	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
 		if (
@@ -91,10 +89,9 @@ const StackingSetting = ({
 					},
 				}}
 				error={
-					stacking.POSITION &&
-					!stacking.POSITION.NUMBER_OF_POSITIONS && {
-						message: 'Field cannot remain empty',
-					}
+					stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS
+						? 'Field cannot remain empty'
+						: undefined
 				}
 				onAdd={handleAddPosition}
 				ref={positionsSelectRef}

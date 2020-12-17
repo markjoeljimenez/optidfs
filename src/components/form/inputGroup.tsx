@@ -5,9 +5,7 @@ interface IInputGroup {
 	label: string;
 	children: ReactNode;
 	tippy?: any;
-	error?: {
-		message: string;
-	};
+	error?: string | boolean;
 }
 
 const InputGroup = ({ label, error, tippy, children }: IInputGroup) => (
@@ -19,7 +17,9 @@ const InputGroup = ({ label, error, tippy, children }: IInputGroup) => (
 				tippy && 'pr-8'
 			)}
 		>
-			{label} {tippy}
+			{label}
+			{' '}
+			{tippy}
 		</div>
 
 		{children}
