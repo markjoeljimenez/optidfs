@@ -2,16 +2,8 @@ import clsx from 'clsx';
 import { createRef, MouseEvent, useRef } from 'react';
 import { connect } from 'react-redux';
 
-import NumberOfPlayersToStack from './Team/Stacking.team.players';
-import FromTeams from './Team/Stacking.team.teams';
-import FromPositions from './Team/Stacking.team.positions';
-import Spacing from './Team/Stacking.team.spacing';
-import MaxExposure from './Team/Stacking.team.maxExposure';
-import MaxExposurePerTeam from './Team/Stacking.team.maxExposurePerTeam';
-
-import Positions from './Position/Stacking.position.positions';
-import OptionalPositions from './Position/Stacking.position.optionalPositions';
-import PositionsForTeams from './Position/Stacking.position.teams';
+import TeamStacking from './Team/Stacking.team';
+import PositionStacking from './Position/Stacking.position';
 
 import { resetSettings, setActiveTab, STACKING_TYPE } from './Stacking.actions';
 
@@ -19,45 +11,12 @@ export const TABS = [
 	{
 		id: STACKING_TYPE.TEAM,
 		name: 'Team Stacking',
-		children: (
-			<>
-				<div>
-					<NumberOfPlayersToStack />
-				</div>
-				<div className="mt-8">
-					<FromTeams />
-				</div>
-				<div className="mt-8">
-					<FromPositions />
-				</div>
-				<div className="mt-8">
-					<Spacing />
-				</div>
-				<div className="mt-8">
-					<MaxExposure />
-				</div>
-				<div className="mt-8">
-					<MaxExposurePerTeam />
-				</div>
-			</>
-		),
+		children: <TeamStacking />,
 	},
 	{
 		id: STACKING_TYPE.POSITION,
 		name: 'Position Stacking',
-		children: (
-			<>
-				<div>
-					<Positions />
-				</div>
-				<div className="mt-8">
-					<OptionalPositions />
-				</div>
-				<div className="mt-8">
-					<PositionsForTeams />
-				</div>
-			</>
-		),
+		children: <PositionStacking />,
 	},
 ];
 
