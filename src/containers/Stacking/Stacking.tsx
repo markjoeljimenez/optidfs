@@ -11,6 +11,7 @@ import MaxExposurePerTeam from './Stacking.team.maxExposurePerTeam';
 
 import Positions from './Stacking.position.positions';
 import OptionalPositions from './Stacking.position.optionalPositions';
+import PositionsForTeams from './Stacking.position.teams';
 
 import { resetSettings, setActiveTab, STACKING_TYPE } from './Stacking.actions';
 
@@ -51,6 +52,9 @@ export const TABS = [
 				</div>
 				<div className="mt-8">
 					<OptionalPositions />
+				</div>
+				<div className="mt-8">
+					<PositionsForTeams />
 				</div>
 			</>
 		),
