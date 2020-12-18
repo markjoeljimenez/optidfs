@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import InputGroup from '../../../components/form/inputGroup';
@@ -9,9 +9,15 @@ import {
 	STACKING_TYPE,
 } from '../Stacking.actions';
 
+interface IPositionRow {
+	position: string;
+	player: null | any;
+}
+
 interface IStackingSettings {
 	allPlayers: any;
 	stacking: any;
+	positions?: string[];
 	setStackingSetting(
 		stackingType: string,
 		setting: string,
@@ -28,11 +34,20 @@ interface IStackingSettings {
 const StackingSettings = ({
 	allPlayers,
 	stacking,
+	positions,
 	setStackingSetting,
 	removeFromStackingSetting,
 }: IStackingSettings) => {
 	const playerSelectRef = useRef<HTMLSelectElement>(null);
 	const [players, setPlayers] = useState<any[]>([]);
+	const [transformedPositions, setTransformedPositions] = useState<
+		IPositionRow[] | undefined
+	>(
+		positions?.map((position) => ({
+			position,
+			player: null,
+		}))
+	);
 
 	const currentStacks =
 		stacking[STACKING_TYPE.CUSTOM]?.[STACKING_CUSTOM_SETTINGS.STACKS];
@@ -86,6 +101,32 @@ const StackingSettings = ({
 		}
 	}
 
+	useEffect(() => {
+		// @TODO: Loop through multiple stacks
+		const _players = currentStacks?.[0]?.players;
+		const mutablePlayers = _players ? [..._players] : undefined;
+
+		setTransformedPositions(
+			transformedPositions?.map(({ position, player }) => {
+				const index = mutablePlayers?.findIndex(
+					(_player) => _player.position === position
+				);
+
+				if (index !== undefined && index >= 0) {
+					return {
+						position,
+						player: mutablePlayers?.splice(index, 1)[0],
+					};
+				}
+
+				return {
+					position,
+					player,
+				};
+			})
+		);
+	}, [currentStacks]);
+
 	return allPlayers ? (
 		<>
 			<InputGroup label="Player">
@@ -129,25 +170,46 @@ const StackingSettings = ({
 			>
 				Add stack
 			</button>
-			{currentStacks?.map((stack, i) => (
-				<div className="mt-6" key={`stack-${i}`}>
-					<h2>Stack {i + 1}</h2>
-					{stack.players.map(({ id, first_name, last_name }) => (
-						<p key={`stack-player-${id}`}>
-							{id} - {first_name} {last_name}
-						</p>
+			<div className="flex">
+				<div className="flex-1">
+					{currentStacks?.map((stack, i) => (
+						<div className="mt-6" key={`stack-${i}`}>
+							<h2>Stack {i + 1}</h2>
+							{stack.players.map(
+								({ id, first_name, last_name, position }) => (
+									<p key={`stack-player-${id}`}>
+										{id} - {position} - {first_name}{' '}
+										{last_name}
+									</p>
+								)
+							)}
+						</div>
 					))}
 				</div>
-			))}
+				<div className="flex-1">
+					<ul className="mt-6 ml-6">
+						{transformedPositions?.map(
+							({ position, player }, i) => (
+								<li key={i}>
+									{position} - {player?.first_name}{' '}
+									{player?.last_name}
+								</li>
+							)
+						)}
+					</ul>
+				</div>
+			</div>
 		</>
 	) : (
 		<></>
 	);
 };
 
-const mapStateToProps = ({ table, stacking }) => ({
+const mapStateToProps = ({ table, stacking, sports }) => ({
 	allPlayers: table.players,
 	stacking,
+	positions: sports?.sports?.find(({ sportId }) => sportId === sports?.sport)
+		?.positions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

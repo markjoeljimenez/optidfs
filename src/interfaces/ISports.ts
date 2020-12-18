@@ -7,4 +7,5 @@ export interface ISports {
 	sortOrder: number;
 	sportId: number;
 	supported: boolean;
+	positions: string[];
 }
