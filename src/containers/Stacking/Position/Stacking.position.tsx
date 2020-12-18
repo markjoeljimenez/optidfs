@@ -2,6 +2,7 @@ import Positions from './Stacking.position.positions';
 import OptionalPositions from './Stacking.position.optionalPositions';
 import PositionsForTeams from './Stacking.position.teams';
 import MaxExposure from './Stacking.position.maxExposure';
+import MaxExposurePerTeam from './Stacking.position.maxExposurePerTeam';
 
 const PositionStacking = () => (
 	<>
@@ -16,6 +17,9 @@ const PositionStacking = () => (
 		</div>
 		<div className="mt-8">
 			<MaxExposure />
+		</div>
+		<div className="mt-8">
+			<MaxExposurePerTeam />
 		</div>
 	</>
 );
