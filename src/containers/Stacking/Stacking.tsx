@@ -1,9 +1,10 @@
 import clsx from 'clsx';
-import { createRef, MouseEvent, useRef } from 'react';
+import { MouseEvent, useRef } from 'react';
 import { connect } from 'react-redux';
 
 import TeamStacking from './Team/Stacking.team';
 import PositionStacking from './Position/Stacking.position';
+import CustomStacking from './Custom/Stacking.custom';
 
 import { resetSettings, setActiveTab, STACKING_TYPE } from './Stacking.actions';
 
@@ -17,6 +18,11 @@ export const TABS = [
 		id: STACKING_TYPE.POSITION,
 		name: 'Position Stacking',
 		children: <PositionStacking />,
+	},
+	{
+		id: STACKING_TYPE.CUSTOM,
+		name: 'Custom Stacking',
+		children: <CustomStacking />,
 	},
 ];
 
@@ -87,7 +93,7 @@ const StackingContainer = ({
 				</button>
 			</div>
 
-			{TABS.map(({ id, children }, i) => (
+			{TABS.map(({ id, children }) => (
 				<div
 					className="my-8"
 					role="tabpanel"
