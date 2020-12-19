@@ -14,14 +14,36 @@ import Table from '../../components/table';
 interface ITableContainerProps {
 	table: any;
 	error: null | IError;
+	next(): void;
+	previous(): void;
+	lock(e): void;
+	setExposure(id, value): void;
+	setProjectedOwnership(id, value): void;
 }
 
-const TableContainer = ({ table, error }: ITableContainerProps) => {
+const TableContainer = ({
+	table,
+	error,
+	next,
+	previous,
+	lock,
+	setExposure,
+	setProjectedOwnership,
+}: ITableContainerProps) => {
 	const { players, loading } = table;
 
 	return players && !error?.show ? (
 		<Loading loading={loading}>
-			<Table {...table} />
+			<Table
+				{...{
+					...table,
+					next,
+					previous,
+					lock,
+					setExposure,
+					setProjectedOwnership,
+				}}
+			/>
 		</Loading>
 	) : error?.show ? (
 		<div className="container mx-auto py-4">
