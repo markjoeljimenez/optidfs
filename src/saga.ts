@@ -87,21 +87,23 @@ function* fetchPlayers(action) {
 
 			const { players } = yield res.json();
 
-			yield put({
-				type: GET_PLAYERS_SUCCEEDED,
-				players,
-			});
-		} else {
-			yield put({ type: LOADING_PLAYERS });
-
-			const res = yield get(`${API}/players?id=${action.value}`);
-			const { players, teamIds } = yield res.json();
+			console.log(players);
 
 			yield put({
 				type: GET_PLAYERS_SUCCEEDED,
 				players,
-				// teamIds,
 			});
+			// } else {
+			// 	yield put({ type: LOADING_PLAYERS });
+
+			// 	const res = yield get(`${API}/players?id=${action.value}`);
+			// 	const { players, teamIds } = yield res.json();
+
+			// 	yield put({
+			// 		type: GET_PLAYERS_SUCCEEDED,
+			// 		players,
+			// 		teamIds,
+			// 	});
 		}
 	} catch (e) {
 		yield put({ type: GET_PLAYERS_FAILED });
