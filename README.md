@@ -1,6 +1,6 @@
 # DraftKings Optimizer
 
-:globe_with_meridians: http://draftkings-optimizer-dev.ca-central-1.elasticbeanstalk.com/
+:globe_with_meridians: https://optidfs.com/
 
 A web app that generates the most optimized lineups for DraftKings.
 
@@ -13,11 +13,12 @@ A web app that generates the most optimized lineups for DraftKings.
 
 ## Features
 
-1. Supports NBA, NFL, NHL, MLB, and SOCCER
+1. Supports most sports on DraftKings (exception is LOL)
 2. Requests directly from DraftKings so users don't have to manually upload .csv files
-3. Search by player, team, position
-4. Generate multiple lineups
-5. Basic rules:
+3. Import/export .csv
+4. Search by player, team, position
+5. Generate multiple lineups
+6. Basic rules:
     - Lock players
     - Number of players from same team
     - Number of specific positions
@@ -27,11 +28,10 @@ A web app that generates the most optimized lineups for DraftKings.
 
 ## Todo
 
-1. Import/export .csv
-2. Add other dfs providers (Yahoo, Fanduel, etc)
-3. More [pydfs](https://github.com/DimaKudosh/pydfs-lineup-optimizer) rules
-4. Implement login service and SQL database
-5. View players stats/analytics page
+1. Add other dfs providers (Yahoo, Fanduel, etc)
+2. More [pydfs](https://github.com/DimaKudosh/pydfs-lineup-optimizer) rules
+3. Implement login service and SQL database
+4. View players stats/analytics page
 
 ## Contributing
 
@@ -43,6 +43,6 @@ This project uses [pydfs](https://github.com/DimaKudosh/pydfs-lineup-optimizer) 
 
 ### Installation
 
-1. Update `.env.example` and rename to `.env`
+1. Update, fill out, and rename `.env.example` to `.env`
 2. Run `npm i` to install NextJS and other dependencies
 3. Run `npm run develop` to run NextJS in dev mode
