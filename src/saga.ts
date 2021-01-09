@@ -92,17 +92,17 @@ function* fetchPlayers(action) {
 				type: GET_PLAYERS_SUCCEEDED,
 				players,
 			});
-			// } else {
-			// 	yield put({ type: LOADING_PLAYERS });
+		} else {
+			yield put({ type: LOADING_PLAYERS });
 
-			// 	const res = yield get(`${API}/players?id=${action.value}`);
-			// 	const { players, teamIds } = yield res.json();
+			const res = yield get(`${API}/players?id=${action.value}`);
+			const { players, teamIds } = yield res.json();
 
-			// 	yield put({
-			// 		type: GET_PLAYERS_SUCCEEDED,
-			// 		players,
-			// 		teamIds,
-			// 	});
+			yield put({
+				type: GET_PLAYERS_SUCCEEDED,
+				players,
+				teamIds,
+			});
 		}
 	} catch (e) {
 		yield put({ type: GET_PLAYERS_FAILED });
@@ -114,7 +114,7 @@ function* fetchPlayers(action) {
 	}
 }
 
-function* optimizePlayers(action) {
+function* optimizePlayers() {
 	yield put({
 		type: SET_ERROR,
 		error: null,
@@ -132,7 +132,6 @@ function* optimizePlayers(action) {
 		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
 
 		const res = yield post(`${API}/optimize`, {
-			generations: action.generations,
 			lockedPlayers: lockedPlayers?.map((player) => player.id),
 			players: defaultPlayers,
 			rules,

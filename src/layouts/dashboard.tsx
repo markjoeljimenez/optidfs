@@ -24,7 +24,7 @@ const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
 						<Sports />
 						<Upload />
 					</div>
-					{/* <div className="items-center flex-1 md:ml-56">
+					<div className="items-center flex-1 md:ml-56">
 						{providers && (
 							<>
 								{sports.sport && (
@@ -36,7 +36,7 @@ const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
 								)}
 							</>
 						)}
-					</div> */}
+					</div>
 				</div>
 			</div>
 
