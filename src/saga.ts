@@ -33,8 +33,6 @@ function* fetchContests(action) {
 		return;
 	}
 
-	console.log('test');
-
 	try {
 		yield put({
 			type: LOADING_CONTESTS,
@@ -91,13 +89,12 @@ function* fetchPlayers(action) {
 			yield put({
 				type: GET_PLAYERS_SUCCEEDED,
 				players,
+				gameType: action.gameType,
 			});
 		} else {
 			yield put({ type: LOADING_PLAYERS });
 
-			const res = yield post(`${API}/players`, {
-				id: action.value,
-			});
+			const res = yield get(`${API}/players?id=${action.value}`);
 			const { players, teamIds } = yield res.json();
 
 			yield put({

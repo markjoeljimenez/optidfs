@@ -22,15 +22,20 @@ const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
 				<div className="py-4 px-6 md:p-8 md:flex justify-between">
 					<div className="space-x-4 flex mb-4 md:mb-0 justify-center">
 						<Sports />
-						<Upload />
 					</div>
 					<div className="items-center flex-1 md:ml-56">
 						{providers && (
 							<>
 								{sports.sport && (
-									<div className="md:space-x-4  md:flex justify-center">
-										<div className="flex-1">
-											<Dropdown />
+									<div className="md:space-x-4 md:flex justify-center">
+										<div className="flex flex-1 justify-between">
+											<Upload />
+											<div className="flex items-center mx-4">
+												or
+											</div>
+											<div className="flex-1">
+												<Dropdown />
+											</div>
 										</div>
 									</div>
 								)}
