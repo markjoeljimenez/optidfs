@@ -19,8 +19,7 @@ const Dropdown = (props: any) => {
 				props.getPlayers(
 					selection?.draft_group_id,
 					selection?.game_type
-				)
-			}
+				)}
 			// onChange={
 			// 	onContestChange && ((selection) => onContestChange(selection))
 			// }

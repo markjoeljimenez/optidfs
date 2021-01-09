@@ -17,17 +17,20 @@ const TAB_DATA = [
 	},
 ];
 
-const TabsContainer = (props: any) => {
+const TabsContainer = ({
+	activeTab,
+	optimizedPlayers,
+	setActiveTabAction,
+	gameType,
+}: any) => {
 	// const handleClick = () => {
 	// 	props.optimizeLineups(props.value);
 	// };
 
-	const { activeTab, optimizedPlayers } = props;
-
 	function handleTabClick(e: React.MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
-		props.setActiveTab(value);
+		setActiveTabAction(value);
 	}
 
 	// function handleSeeAllPlayers() {}
@@ -59,7 +62,9 @@ const TabsContainer = (props: any) => {
 					))}
 				</ul>
 			</nav>
-			<p>Type: {props.gameType}</p>
+			<p className="py-2 px-4 font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate">
+				{gameType}
+			</p>
 		</div>
 	);
 };
@@ -71,7 +76,7 @@ const mapStateToProps = ({ tabs, table }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setActiveTab: (value) => dispatch(setActiveTab(value)),
+	setActiveTabAction: (value) => dispatch(setActiveTab(value)),
 	seeAllPlayers: (value) => dispatch(setActiveTab(value)),
 });
 
