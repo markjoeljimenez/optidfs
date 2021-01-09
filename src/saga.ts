@@ -114,7 +114,7 @@ function* fetchPlayers(action) {
 	}
 }
 
-function* optimizePlayers(action) {
+function* optimizePlayers() {
 	yield put({
 		type: SET_ERROR,
 		error: null,
@@ -132,7 +132,6 @@ function* optimizePlayers(action) {
 		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
 
 		const res = yield post(`${API}/optimize`, {
-			generations: action.generations,
 			lockedPlayers: lockedPlayers?.map((player) => player.id),
 			players: defaultPlayers,
 			rules,
