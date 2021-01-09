@@ -33,6 +33,8 @@ function* fetchContests(action) {
 		return;
 	}
 
+	console.log('test');
+
 	try {
 		yield put({
 			type: LOADING_CONTESTS,
@@ -86,8 +88,6 @@ function* fetchPlayers(action) {
 
 			const { players } = yield res.json();
 
-			console.log(players);
-
 			yield put({
 				type: GET_PLAYERS_SUCCEEDED,
 				players,
@@ -95,12 +95,15 @@ function* fetchPlayers(action) {
 		} else {
 			yield put({ type: LOADING_PLAYERS });
 
-			const res = yield get(`${API}/players?id=${action.value}`);
+			const res = yield post(`${API}/players`, {
+				id: action.value,
+			});
 			const { players, teamIds } = yield res.json();
 
 			yield put({
 				type: GET_PLAYERS_SUCCEEDED,
 				players,
+				gameType: action.gameType,
 				teamIds,
 			});
 		}
@@ -123,13 +126,13 @@ function* optimizePlayers() {
 	yield put({ type: LOADING_PLAYERS });
 
 	try {
-		const { sports, table, rules, header, upload } = yield select();
+		const { sports, table, rules } = yield select();
 
 		if (rules.errors.length) {
 			return;
 		}
 
-		const { lockedPlayers, defaultPlayers, draftGroupId } = table;
+		const { lockedPlayers, defaultPlayers, draftGroupId, gameType } = table;
 
 		const res = yield post(`${API}/optimize`, {
 			lockedPlayers: lockedPlayers?.map((player) => player.id),
@@ -137,6 +140,7 @@ function* optimizePlayers() {
 			rules,
 			sport: sports.sport,
 			draftGroupId,
+			gameType,
 		});
 
 		const { lineups } = yield res.json();

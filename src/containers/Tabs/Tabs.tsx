@@ -33,37 +33,41 @@ const TabsContainer = (props: any) => {
 	// function handleSeeAllPlayers() {}
 
 	return (
-		<nav>
-			<ul className="flex" role="tablist">
-				{TAB_DATA.map(({ name, id }) => (
-					<li
-						role="tab"
-						aria-selected={activeTab === id}
-						aria-controls={`panel-${name}`}
-					>
-						<button
-							className={clsx(
-								'py-2 px-4 font-black text-blue-600',
-								activeTab === id
-									? 'border-b-2 border-blue-900 text-blue-900'
-									: ''
-							)}
-							type="button"
-							onClick={handleTabClick}
-							value={id}
+		<div className="flex justify-between">
+			<nav>
+				<ul className="flex" role="tablist">
+					{TAB_DATA.map(({ name, id }) => (
+						<li
+							role="tab"
+							aria-selected={activeTab === id}
+							aria-controls={`panel-${name}`}
 						>
-							{name}
-						</button>
-					</li>
-				))}
-			</ul>
-		</nav>
+							<button
+								className={clsx(
+									'py-2 px-4 font-black text-blue-600',
+									activeTab === id
+										? 'border-b-2 border-blue-900 text-blue-900'
+										: ''
+								)}
+								type="button"
+								onClick={handleTabClick}
+								value={id}
+							>
+								{name}
+							</button>
+						</li>
+					))}
+				</ul>
+			</nav>
+			<p>Type: {props.gameType}</p>
+		</div>
 	);
 };
 
 const mapStateToProps = ({ tabs, table }) => ({
 	activeTab: tabs.activeTab,
 	optimizedPlayers: table.optimizedPlayers,
+	gameType: table.gameType,
 });
 
 const mapDispatchToProps = (dispatch) => ({

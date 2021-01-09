@@ -16,6 +16,7 @@ export interface ILineup {
 export interface IContest {
 	draft_group_id: number;
 	name: string;
+	game_type: string;
 }
 
 export interface IGroup {

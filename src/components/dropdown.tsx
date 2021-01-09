@@ -16,7 +16,11 @@ const Dropdown = (props: any) => {
 	return (
 		<Downshift
 			onChange={(selection: IContest | null) =>
-				props.getPlayers(selection?.draft_group_id)}
+				props.getPlayers(
+					selection?.draft_group_id,
+					selection?.game_type
+				)
+			}
 			// onChange={
 			// 	onContestChange && ((selection) => onContestChange(selection))
 			// }
