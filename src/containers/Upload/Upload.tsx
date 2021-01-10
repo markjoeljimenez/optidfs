@@ -113,8 +113,8 @@ const Upload = (props: any) => {
 					>
 						<input {...getInputProps()} required />
 						<p>
-							Drag 'n' drop your CSV here, or click to select
-							files
+							Drag &apos;n&apos; drop your CSV here, or click to
+							select files
 						</p>
 						{file && (
 							<p
