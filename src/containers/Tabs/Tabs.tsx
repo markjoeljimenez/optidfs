@@ -20,14 +20,14 @@ const TABS = (sport) => [
 
 interface ITabsProps {
 	activeTab: string;
-	optimizedPlayers: any;
 	sport: number;
 	setActiveTab(value): void;
+	gameType: string;
 }
 
 const TabsContainer = ({
 	activeTab,
-	optimizedPlayers,
+	gameType,
 	sport,
 	setActiveTab,
 }: ITabsProps) => {
@@ -44,42 +44,43 @@ const TabsContainer = ({
 	// function handleSeeAllPlayers() {}
 
 	return (
-		<nav>
-			<ul className="flex" role="tablist">
-				{TABS(sport).map(
-					({ name, id, disabled }) =>
-						!disabled && (
-							<li
-								role="tab"
-								aria-selected={activeTab === id}
-								aria-controls={`panel-${name}`}
-								key={id}
+		<div className="flex justify-between">
+			<nav>
+				<ul className="flex" role="tablist">
+					{TABS(sport).map(({ name, id }) => (
+						<li
+							role="tab"
+							aria-selected={activeTab === id}
+							aria-controls={`panel-${name}`}
+						>
+							<button
+								className={clsx(
+									'py-2 px-4 font-black text-blue-600',
+									activeTab === id
+										? 'border-b-2 border-blue-900 text-blue-900'
+										: ''
+								)}
+								type="button"
+								onClick={handleTabClick}
+								value={id}
 							>
-								<button
-									className={clsx(
-										'py-2 px-4 font-black text-blue-600',
-										activeTab === id
-											? 'border-b-2 border-blue-900 text-blue-900'
-											: ''
-									)}
-									type="button"
-									onClick={handleTabClick}
-									value={id}
-								>
-									{name}
-								</button>
-							</li>
-						)
-				)}
-			</ul>
-		</nav>
+								{name}
+							</button>
+						</li>
+					))}
+				</ul>
+			</nav>
+			<p className="py-2 px-4 font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate">
+				{gameType}
+			</p>
+		</div>
 	);
 };
 
 const mapStateToProps = ({ tabs, table, sports }) => ({
 	activeTab: tabs.activeTab,
-	optimizedPlayers: table.optimizedPlayers,
 	sport: sports.sport,
+	gameType: table.gameType,
 });
 
 const mapDispatchToProps = (dispatch) => ({

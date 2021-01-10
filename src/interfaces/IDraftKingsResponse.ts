@@ -27,6 +27,7 @@ export interface IDraftKingsPlayer {
 	status: string | null;
 	min_exposure?: number;
 	projected_ownership?: number;
+	draft_positions: string | string[];
 }
 
 interface IDraftKingsTeamSeriesList {

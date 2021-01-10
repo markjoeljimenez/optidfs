@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 
 interface ITable {
+	gameType?: string;
 	lineups?: IDraftKingsPlayer[];
 	lockedPlayers?: IDraftKingsPlayer[];
 	players?: IDraftKingsPlayer[];
@@ -24,6 +25,7 @@ const Table = ({
 	totalSalary,
 	totalFppg,
 	page,
+	gameType,
 	previous,
 	next,
 	lock,
@@ -219,7 +221,9 @@ const Table = ({
 									className="md:p-2 md:py-4 flex items-center row-start-2 col-start-2 md:row-start-auto md:col-start-auto"
 									role="cell"
 								>
-									{player.position}
+									{gameType === 'Showdown Captain Mode'
+										? player.draft_positions
+										: player.position}
 								</div>
 								<div
 									className="md:p-2 md:py-4 flex items-center row-start-3 col-start-2 md:row-start-auto md:col-start-auto"
