@@ -44,6 +44,7 @@ export interface IActions {
 		away_team_id: number;
 		home_team_id: number;
 	};
+	gameType?: string;
 }
 
 const table = (
@@ -61,6 +62,7 @@ const table = (
 		playerId,
 		value,
 		teamIds,
+		gameType,
 	}: IActions
 ) => {
 	switch (type) {
@@ -79,6 +81,7 @@ const table = (
 				loading: false,
 				error: undefined,
 				teamIds,
+				gameType,
 			};
 
 		case GET_PLAYERS_FAILED:

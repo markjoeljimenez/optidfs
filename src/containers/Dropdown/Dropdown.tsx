@@ -9,7 +9,7 @@ const mapStateToProps = ({ dropdown, table }: any) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	getPlayers: (id) => dispatch(getPlayers(id)),
+	getPlayers: (id, gameType) => dispatch(getPlayers(id, gameType)),
 	resetPlayers: () => dispatch(resetPlayers()),
 	resetRules: () => dispatch(resetRules()),
 });

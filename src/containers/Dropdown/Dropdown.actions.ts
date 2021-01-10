@@ -4,9 +4,10 @@ export const LOADING_CONTESTS = 'LOADING_CONTESTS';
 export const FETCH_CONTESTS = 'FETCH_CONTESTS';
 export const SET_CONTESTS = 'SET_CONTESTS';
 
-export const getPlayers = (value) => ({
+export const getPlayers = (value, gameType) => ({
 	type: FETCH_PLAYERS,
 	value,
+	gameType,
 });
 
 export const resetPlayers = () => ({

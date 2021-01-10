@@ -6,7 +6,6 @@ import table from './containers/Table/Table.reducers';
 import dropdown from './containers/Dropdown/Dropdown.reducers';
 import rules from './containers/Rules/Rules.reducers';
 import tabs from './containers/Tabs/Tabs.reducers';
-import upload from './containers/Upload/Upload.reducers';
 import sports from './containers/Sports/Sports.reducers';
 import providers from './containers/Providers/Providers.reducers';
 import error from './containers/Error/Error.reducers';
@@ -20,7 +19,6 @@ const reducer = combineReducers({
 	rules,
 	dropdown,
 	table,
-	upload,
 	sports,
 	providers,
 	error,
