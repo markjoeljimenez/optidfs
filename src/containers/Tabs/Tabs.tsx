@@ -47,27 +47,30 @@ const TabsContainer = ({
 		<div className="flex justify-between">
 			<nav>
 				<ul className="flex" role="tablist">
-					{TABS(sport).map(({ name, id }) => (
-						<li
-							role="tab"
-							aria-selected={activeTab === id}
-							aria-controls={`panel-${name}`}
-						>
-							<button
-								className={clsx(
-									'py-2 px-4 font-black text-blue-600',
-									activeTab === id
-										? 'border-b-2 border-blue-900 text-blue-900'
-										: ''
-								)}
-								type="button"
-								onClick={handleTabClick}
-								value={id}
-							>
-								{name}
-							</button>
-						</li>
-					))}
+					{TABS(sport).map(
+						({ name, id, disabled }) =>
+							!disabled && (
+								<li
+									role="tab"
+									aria-selected={activeTab === id}
+									aria-controls={`panel-${name}`}
+								>
+									<button
+										className={clsx(
+											'py-2 px-4 font-black text-blue-600',
+											activeTab === id
+												? 'border-b-2 border-blue-900 text-blue-900'
+												: ''
+										)}
+										type="button"
+										onClick={handleTabClick}
+										value={id}
+									>
+										{name}
+									</button>
+								</li>
+							)
+					)}
 				</ul>
 			</nav>
 			<p className="py-2 px-4 font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate">
