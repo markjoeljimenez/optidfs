@@ -19,7 +19,8 @@ const Dropdown = (props: any) => {
 				props.getPlayers(
 					selection?.draft_group_id,
 					selection?.game_type
-				)}
+				)
+			}
 			// onChange={
 			// 	onContestChange && ((selection) => onContestChange(selection))
 			// }
@@ -47,6 +48,9 @@ const Dropdown = (props: any) => {
 						{...getInputProps({
 							placeholder: 'Search contest by ID or name',
 						})}
+						style={{
+							minWidth: '26rem',
+						}}
 						placeholder="Search contest by ID or name"
 						id="select-contest"
 					/>

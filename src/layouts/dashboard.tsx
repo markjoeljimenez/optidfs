@@ -18,34 +18,27 @@ const Dashboard = ({ children, providers, sports }: ILayoutProps) => (
 		<Nav />
 
 		<main className="w-full">
-			<div className="border-b border-gray-300">
-				<div className="py-4 px-6 md:p-8 md:flex justify-between">
-					<div className="space-x-4 flex mb-4 md:mb-0 justify-center">
-						<Sports />
-					</div>
-					<div className="items-center flex-1 md:ml-56">
-						{providers && (
-							<>
-								{sports.sport && (
-									<div className="md:space-x-4 md:flex justify-center">
-										<div className="flex flex-1 justify-between">
-											<Upload />
-											<div className="flex items-center mx-4">
-												or
-											</div>
-											<div className="flex-1">
-												<Dropdown />
-											</div>
-										</div>
+			{sports.sport && (
+				<>
+					<div className="border-b border-gray-300">
+						<div className="container mx-auto py-4 px-6 md:p-8 md:flex justify-between items-center">
+							<div className="md:space-x-4 md:flex">
+								<div className="flex flex-1 justify-between">
+									<Upload />
+									<div className="flex items-center mx-4">
+										or
 									</div>
-								)}
-							</>
-						)}
+									<div className="flex-1">
+										<Dropdown />
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
 
-			{children}
+					{children}
+				</>
+			)}
 		</main>
 	</div>
 );
