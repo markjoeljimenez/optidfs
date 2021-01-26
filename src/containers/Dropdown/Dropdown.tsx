@@ -7,17 +7,17 @@ import { IContest } from '../../interfaces/IApp';
 
 interface IDropdown {
 	contests: IContest[];
-	getPlayers(id, gameType): void;
+	getPlayersAction(id, gameType): void;
 }
 
-const Dropdown = (props: IDropdown) => {
+const Dropdown = ({ contests, getPlayersAction }: IDropdown) => {
 	const ref = useRef<any | null>(null);
 
-	const [contests, setContests] = useState(props.contests);
+	const [filteredContests, setFilteredContests] = useState(contests);
 
 	useEffect(() => {
-		setContests(props.contests);
-	}, [props.contests]);
+		setFilteredContests(contests);
+	}, [contests]);
 
 	const {
 		isOpen,
@@ -26,24 +26,23 @@ const Dropdown = (props: IDropdown) => {
 		getMenuProps,
 		getInputProps,
 		getComboboxProps,
-		highlightedIndex,
 		getItemProps,
 	} = useCombobox({
 		itemToString: (item) => (item ? item.name : ''),
-		items: contests || [],
+		items: filteredContests || [],
 		onInputValueChange: ({ inputValue }) => {
-			setContests(
+			setFilteredContests(
 				inputValue !== ''
-					? contests.filter((contest) =>
+					? filteredContests.filter((contest) =>
 							contest.name
 								.toLowerCase()
 								.includes(inputValue?.toLocaleLowerCase())
 					  )
-					: props.contests
+					: contests
 			);
 		},
 		onStateChange: (selection) => {
-			props.getPlayers(
+			getPlayersAction(
 				selection?.selectedItem?.draft_group_id,
 				selection?.selectedItem?.game_type
 			);
@@ -94,12 +93,12 @@ const Dropdown = (props: IDropdown) => {
 				</svg>
 				<span className="sr-only">Down</span>
 			</button>
-			{isOpen && contests.length ? (
+			{isOpen && filteredContests.length ? (
 				<ul
 					className="absolute top-1/1 left-0 right-0 max-h-20 bg-white overflow-y-scroll shadow border rounded mt-4 z-10"
 					{...getMenuProps()}
 				>
-					{contests?.map((item, index) => (
+					{filteredContests?.map((item, index) => (
 						<li
 							className="p-4 border-b border-gray-300 hover:bg-gray-100 cursor-pointer"
 							{...getItemProps({
@@ -123,7 +122,7 @@ const mapStateToProps = ({ dropdown, table }: any) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	getPlayers: (id, gameType) => dispatch(getPlayers(id, gameType)),
+	getPlayersAction: (id, gameType) => dispatch(getPlayers(id, gameType)),
 	resetPlayers: () => dispatch(resetPlayers()),
 	resetRules: () => dispatch(resetRules()),
 });

@@ -90,7 +90,7 @@ const table = (
 				draftGroupId,
 				loading: false,
 				error: undefined,
-				// teamIds,
+				teams,
 				positions,
 				gameType,
 			};

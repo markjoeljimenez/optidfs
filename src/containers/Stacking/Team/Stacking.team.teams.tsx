@@ -36,6 +36,8 @@ const StackingSetting = ({
 	const currentTeams =
 		stacking[STACKING_TYPE.TEAM]?.[STACKING_TEAM_SETTINGS.FROM_TEAMS];
 
+	console.log(teams);
+
 	function handleAddTeam(e: MouseEvent<HTMLButtonElement>) {
 		if (teamSelectRef.current && teamSelectRef.current.value !== '') {
 			const { value } = teamSelectRef.current;
