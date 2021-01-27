@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { initializeStore } from '../../store';
-import { FETCH_CONTESTS } from '../Dropdown/Dropdown.actions';
+import { FETCH_CONTESTS, RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
 import { UPDATE_SPORT } from './Sports.actions';
 import { ISportsState } from './Sports.reducers';
 
@@ -14,6 +14,10 @@ const Sports = ({ sports }: IProps) => {
 
 		const reduxStore = initializeStore();
 		const { dispatch } = reduxStore;
+
+		dispatch({
+			type: RESET_PLAYERS,
+		});
 
 		dispatch({
 			type: UPDATE_SPORT,

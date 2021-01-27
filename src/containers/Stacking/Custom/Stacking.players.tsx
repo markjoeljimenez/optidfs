@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import InputGroup from '../../../components/form/inputGroup';
@@ -15,7 +15,7 @@ interface IPositionRow {
 }
 
 interface IStackingSettings {
-	allPlayers: any;
+	defaultPlayers: any;
 	stacking: any;
 	positions?: string[];
 	setStackingSetting(
@@ -32,28 +32,22 @@ interface IStackingSettings {
 }
 
 const StackingSettings = ({
-	allPlayers,
+	defaultPlayers,
 	stacking,
 	positions,
 	setStackingSetting,
 	removeFromStackingSetting,
 }: IStackingSettings) => {
 	const playerSelectRef = useRef<HTMLSelectElement>(null);
+	const maxExposureInputRef = useRef<HTMLInputElement>(null);
+
 	const [players, setPlayers] = useState<any[]>([]);
-	// const [transformedPositions, setTransformedPositions] = useState<
-	// 	IPositionRow[] | undefined
-	// >(
-	// 	positions?.map((position) => ({
-	// 		position,
-	// 		player: null,
-	// 	}))
-	// );
 	const [page, setPage] = useState(0);
 
 	const currentStacks =
 		stacking[STACKING_TYPE.CUSTOM]?.[STACKING_CUSTOM_SETTINGS.STACKS];
 
-	function handleAddPlayer() {
+	const handleAddPlayer = () => {
 		if (playerSelectRef.current && playerSelectRef.current.value !== '') {
 			const { value } = playerSelectRef.current;
 
@@ -63,7 +57,7 @@ const StackingSettings = ({
 				return;
 			}
 
-			const player = allPlayers.find(
+			const player = defaultPlayers.find(
 				(_player) => _player.id === parseInt(value)
 			);
 
@@ -74,79 +68,57 @@ const StackingSettings = ({
 				setPlayers([...players, player]);
 			}
 		}
-	}
+	};
 
-	function handleAddStack() {
-		if (players.length > 0) {
-			const tramsformedStacks = currentStacks
-				? [
-						...currentStacks,
-						{
-							players,
-						},
-				  ]
-				: [
-						{
-							players,
-						},
-				  ];
-
-			setStackingSetting(
-				STACKING_TYPE.CUSTOM,
-				STACKING_CUSTOM_SETTINGS.STACKS,
-				undefined,
-				tramsformedStacks
-			);
-
-			setPlayers([]);
-
-			if (currentStacks?.length) {
-				setPage(currentStacks?.length);
-			}
+	const handleAddStack = () => {
+		if (!players.length) {
+			return;
 		}
-	}
 
-	function handlePrevClick() {
+		const MAX_EXPOSURE = parseFloat(maxExposureInputRef!.current!.value);
+
+		const tramsformedStacks = currentStacks
+			? [
+					...currentStacks,
+					{
+						players,
+						MAX_EXPOSURE,
+					},
+			  ]
+			: [
+					{
+						players,
+						MAX_EXPOSURE,
+					},
+			  ];
+
+		setStackingSetting(
+			STACKING_TYPE.CUSTOM,
+			STACKING_CUSTOM_SETTINGS.STACKS,
+			undefined,
+			tramsformedStacks
+		);
+
+		setPlayers([]);
+
+		if (maxExposureInputRef?.current) {
+			maxExposureInputRef.current.value = '';
+		}
+
+		if (currentStacks?.length) {
+			setPage(currentStacks?.length);
+		}
+	};
+
+	const handlePrevClick = () => {
 		setPage(page > 0 ? page - 1 : page);
-	}
+	};
 
-	function handleNextClick() {
+	const handleNextClick = () => {
 		setPage(page < currentStacks?.length - 1 ? page + 1 : page);
-	}
+	};
 
-	// useEffect(() => {
-	// 	if (currentStacks === undefined || currentStacks.length === 0) {
-	// 		return;
-	// 	}
-
-	// 	const _players = currentStacks?.[page]?.players;
-	// 	const mutablePlayers = _players ? [..._players] : undefined;
-
-	// 	setTransformedPositions(
-	// 		transformedPositions?.map(({ position, player }) => {
-	// 			const index = mutablePlayers?.findIndex(
-	// 				(_player) =>
-	// 					_player.position === position || position === 'FLEX'
-	// 			);
-
-	// 			console.log(index, player);
-
-	// 			if (index !== undefined && index >= 0) {
-	// 				return {
-	// 					position,
-	// 					player: mutablePlayers?.splice(index, 1)[0],
-	// 				};
-	// 			}
-
-	// 			return {
-	// 				position,
-	// 				player: null,
-	// 			};
-	// 		})
-	// 	);
-	// }, [currentStacks, page]);
-
-	return allPlayers ? (
+	return defaultPlayers ? (
 		<>
 			<InputGroup label="Player">
 				<label htmlFor="customPlayers" className="flex-1">
@@ -160,7 +132,7 @@ const StackingSettings = ({
 						<option value="" disabled>
 							Select player
 						</option>
-						{allPlayers.map(
+						{defaultPlayers.map(
 							({ id, first_name, last_name, position }, i) => (
 								<option value={id} key={i}>
 									{id} - {position} - {first_name} {last_name}
@@ -178,7 +150,7 @@ const StackingSettings = ({
 				</button>
 			</InputGroup>
 			<div className="flex mt-8" style={{ minHeight: '20rem' }}>
-				<div className="flex-1">
+				<div className="flex-1 flex flex-col justify-between">
 					<table className="w-full">
 						<thead>
 							<tr>
@@ -227,6 +199,21 @@ const StackingSettings = ({
 							)}
 						</tbody>
 					</table>
+					<InputGroup label="Max Exposure">
+						<label htmlFor="maxExposure">
+							<span className="sr-only">Max Exposure</span>
+							<input
+								className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								id="maxExposure"
+								placeholder="0"
+								type="number"
+								step={0.1}
+								max={1}
+								min={0.1}
+								ref={maxExposureInputRef}
+							/>
+						</label>
+					</InputGroup>
 				</div>
 				<div className="flex justify-center items-center flex-col">
 					<button
@@ -244,7 +231,7 @@ const StackingSettings = ({
 						Delete stack
 					</button> */}
 				</div>
-				<div className="flex-1 relative">
+				<div className="flex-1 flex flex-col justify-between">
 					<table className="w-full">
 						<thead>
 							<tr>
@@ -283,94 +270,66 @@ const StackingSettings = ({
 							)}
 						</tbody>
 					</table>
-					{/* {currentStacks?.[page]?.map((stack, i) => (
-						{stack.players.map(
-							({ id, first_name, last_name, position }) => (
-								<p key={`stack-player-${id}`}>
-									{id} - {position} - {first_name}{' '}
-									{last_name}
+					<div className="mt-3">
+						<p className="mb-2">
+							Max exposure: {currentStacks?.[page]?.MAX_EXPOSURE}
+						</p>
+						{currentStacks?.length > 0 && (
+							<div className="flex items-center justify-between">
+								<button type="button" onClick={handlePrevClick}>
+									<span className="sr-only">Previous</span>
+
+									<svg
+										className="fill-current"
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										width="24"
+										height="24"
+									>
+										<g data-name="Layer 2">
+											<g data-name="arrow-ios-back">
+												<rect
+													width="24"
+													height="24"
+													transform="rotate(90 12 12)"
+													opacity="0"
+												/>
+												<path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z" />
+											</g>
+										</g>
+									</svg>
+								</button>
+								<p>
+									<strong>
+										Stack {page + 1} of{' '}
+										{currentStacks.length}
+									</strong>
 								</p>
-							)
+								<button type="button" onClick={handleNextClick}>
+									<span className="sr-only">Next</span>
+									<svg
+										className="fill-current"
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										width="24"
+										height="24"
+									>
+										<g data-name="Layer 2">
+											<g data-name="arrow-ios-forward">
+												<rect
+													width="24"
+													height="24"
+													transform="rotate(-90 12 12)"
+													opacity="0"
+												/>
+												<path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z" />
+											</g>
+										</g>
+									</svg>
+								</button>
+							</div>
 						)}
 					</div>
-					))} */}
-					{/* {currentStacks?.map((stack, i) => (
-						<div className="mt-6" key={`stack-${i}`}>
-							<h2>Stack {i + 1}</h2>
-							{stack.players.map(
-								({ id, first_name, last_name, position }) => (
-									<p key={`stack-player-${id}`}>
-										{id} - {position} - {first_name}{' '}
-										{last_name}
-									</p>
-								)
-							)}
-						</div>
-					))} */}
-					{/* <ul className="mt-6 ml-6">
-						{transformedPositions?.map(
-							({ position, player }, i) => (
-								<li key={i}>
-									{position} - {player?.first_name}{' '}
-									{player?.last_name}
-								</li>
-							)
-						)}
-					</ul> */}
-					{currentStacks?.length > 0 && (
-						<div className="absolute bottom-0 left-0 w-full flex items-center justify-between">
-							<button type="button" onClick={handlePrevClick}>
-								<span className="sr-only">Previous</span>
-
-								<svg
-									className="fill-current"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									width="24"
-									height="24"
-								>
-									<g data-name="Layer 2">
-										<g data-name="arrow-ios-back">
-											<rect
-												width="24"
-												height="24"
-												transform="rotate(90 12 12)"
-												opacity="0"
-											/>
-											<path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1 1 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z" />
-										</g>
-									</g>
-								</svg>
-							</button>
-							<p>
-								<strong>
-									Stack {page + 1} of {currentStacks.length}
-								</strong>
-							</p>
-							<button type="button" onClick={handleNextClick}>
-								<span className="sr-only">Next</span>
-								<svg
-									className="fill-current"
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									width="24"
-									height="24"
-								>
-									<g data-name="Layer 2">
-										<g data-name="arrow-ios-forward">
-											<rect
-												width="24"
-												height="24"
-												transform="rotate(-90 12 12)"
-												opacity="0"
-											/>
-											<path d="M10 19a1 1 0 0 1-.64-.23 1 1 0 0 1-.13-1.41L13.71 12 9.39 6.63a1 1 0 0 1 .15-1.41 1 1 0 0 1 1.46.15l4.83 6a1 1 0 0 1 0 1.27l-5 6A1 1 0 0 1 10 19z" />
-										</g>
-									</g>
-								</svg>
-							</button>
-						</div>
-					)}
 				</div>
 			</div>
 		</>
@@ -380,7 +339,7 @@ const StackingSettings = ({
 };
 
 const mapStateToProps = ({ table, stacking, sports }) => ({
-	allPlayers: table.players,
+	defaultPlayers: table.defaultPlayers,
 	stacking,
 	positions: sports?.sports?.find(({ sportId }) => sportId === sports?.sport)
 		?.positions,

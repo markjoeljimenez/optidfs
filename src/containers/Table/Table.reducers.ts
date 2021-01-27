@@ -40,10 +40,10 @@ export interface IActions {
 	playerId?: string;
 	value?: string;
 	teams?: string[];
-	teamIds?: {
-		away_team_id: number;
-		home_team_id: number;
-	};
+	// teamIds?: {
+	// 	away_team_id: number;
+	// 	home_team_id: number;
+	// };
 	gameType?: string;
 }
 
@@ -283,7 +283,7 @@ const table = (
 				optimizedPlayers: undefined,
 				page: 0,
 				players: undefined,
-				// teamIds: undefined,
+				teams: undefined,
 				totalFppg: undefined,
 				totalSalary: undefined,
 			};
