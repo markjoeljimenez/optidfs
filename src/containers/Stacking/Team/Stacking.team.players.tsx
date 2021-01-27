@@ -43,7 +43,7 @@ const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
 						id="numberOfPlayers"
 						placeholder="0"
 						type="number"
-						// min={0}
+						min={0}
 						onChange={handleNumberOfPlayers}
 						required
 					/>

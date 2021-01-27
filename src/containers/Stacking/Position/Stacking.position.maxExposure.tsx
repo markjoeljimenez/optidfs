@@ -41,7 +41,7 @@ const StackSetting = ({ setStackingSetting }: IStackingSetting) => {
 					type="number"
 					step={0.1}
 					max={1}
-					// min={0}
+					min={0.1}
 					onChange={handleMaxExposure}
 				/>
 			</label>

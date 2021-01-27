@@ -16,16 +16,14 @@ const Rule = (props: any) => {
 	return (
 		<InputGroup
 			label="Maximum repeating players"
-			tippy={(
+			tippy={
 				<Tippy
 					className="bg-white rounded shadow-xl p-4"
-					content={(
+					content={
 						<div>
 							<p>
 								<strong>
-									Value:
-									{' '}
-									<i>n</i>
+									Value: <i>n</i>
 								</strong>
 							</p>
 
@@ -34,7 +32,7 @@ const Rule = (props: any) => {
 								lineups.
 							</p>
 						</div>
-    )}
+					}
 				>
 					<div className="absolute inset-y-0 right-0 flex -mt-1">
 						<svg
@@ -60,7 +58,7 @@ const Rule = (props: any) => {
 						</svg>
 					</div>
 				</Tippy>
-  )}
+			}
 		>
 			<label htmlFor="maxRepeatingPlayers">
 				<span className="sr-only">Maximum repeating players</span>

@@ -93,7 +93,7 @@ const StackSetting = ({
 						placeholder="0"
 						step={0.1}
 						type="number"
-						// min={0}
+						min={0.1}
 						max={1}
 						onChange={handleExposureForMEPT}
 					/>
