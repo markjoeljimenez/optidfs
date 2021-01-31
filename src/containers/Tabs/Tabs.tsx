@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import clsx from 'clsx';
 import setActiveTabAction from './Tabs.actions';
 
-const TABS = (sport) => [
+const TABS = [
 	{
 		name: 'Players',
 		id: 'players',
@@ -10,7 +10,6 @@ const TABS = (sport) => [
 	{
 		name: 'Stacking',
 		id: 'stacking',
-		disabled: sport === 4,
 	},
 	{
 		name: 'Settings',
@@ -47,30 +46,27 @@ const TabsContainer = ({
 		<div className="flex justify-between">
 			<nav>
 				<ul className="flex" role="tablist">
-					{TABS(sport).map(
-						({ name, id, disabled }) =>
-							!disabled && (
-								<li
-									role="tab"
-									aria-selected={activeTab === id}
-									aria-controls={`panel-${name}`}
-								>
-									<button
-										className={clsx(
-											'py-2 px-4 font-black text-blue-600',
-											activeTab === id
-												? 'border-b-2 border-blue-900 text-blue-900'
-												: ''
-										)}
-										type="button"
-										onClick={handleTabClick}
-										value={id}
-									>
-										{name}
-									</button>
-								</li>
-							)
-					)}
+					{TABS.map(({ name, id }) => (
+						<li
+							role="tab"
+							aria-selected={activeTab === id}
+							aria-controls={`panel-${name}`}
+						>
+							<button
+								className={clsx(
+									'py-2 px-4 font-black text-blue-600',
+									activeTab === id
+										? 'border-b-2 border-blue-900 text-blue-900'
+										: ''
+								)}
+								type="button"
+								onClick={handleTabClick}
+								value={id}
+							>
+								{name}
+							</button>
+						</li>
+					))}
 				</ul>
 			</nav>
 			<p className="py-2 px-4 font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate">

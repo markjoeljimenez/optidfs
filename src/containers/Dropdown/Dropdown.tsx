@@ -32,7 +32,7 @@ const Dropdown = ({ contests, getPlayersAction }: IDropdown) => {
 		items: filteredContests || [],
 		onInputValueChange: ({ inputValue }) => {
 			setFilteredContests(
-				inputValue !== ''
+				inputValue && inputValue !== ''
 					? filteredContests.filter((contest) =>
 							contest.name
 								.toLowerCase()
