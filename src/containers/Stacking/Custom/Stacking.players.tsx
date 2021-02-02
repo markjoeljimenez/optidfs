@@ -182,7 +182,7 @@ const StackingSettings = ({
 								currentStacks[page].players.map((player) => (
 									<div
 										key={player.id}
-										className="flex bg-white border-b last:border-b-0"
+										className="bg-white border-b last:border-b-0 grid grid-cols-custom-stacking-md"
 										role="row"
 									>
 										<div className="px-4 py-3" role="cell">
@@ -207,10 +207,12 @@ const StackingSettings = ({
 								))
 							) : (
 								<div>
-									<div className="px-4 py-3 bg-white border-b">
-										<i className="text-gray-500">
-											No players selected
-										</i>
+									<div className="px-4 py-3 ">
+										<strong>
+											<i className="text-gray-500">
+												No players selected
+											</i>
+										</strong>
 									</div>
 								</div>
 							)}
