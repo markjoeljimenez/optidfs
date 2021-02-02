@@ -1,5 +1,6 @@
 import clsx from 'clsx';
-import { MouseEvent, useRef, useState } from 'react';
+import { Console } from 'console';
+import { MouseEvent, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import InputGroup from '../../../components/form/inputGroup';
@@ -118,6 +119,43 @@ const StackingSettings = ({
 		setPage(value);
 	};
 
+	const handleRemovePlayerFromStack = (e: MouseEvent<HTMLButtonElement>) => {
+		const value = parseInt(e.currentTarget.value);
+		const temp = currentStacks;
+		const playerIndex = temp[page].players.findIndex(
+			(player) => player.id === value
+		);
+
+		temp[page].players.splice(playerIndex, 1);
+
+		setStackingSetting(
+			STACKING_TYPE.CUSTOM,
+			STACKING_CUSTOM_SETTINGS.STACKS,
+			undefined,
+			temp
+		);
+	};
+
+	const handleDeleteStack = (e: MouseEvent<HTMLButtonElement>) => {
+		const value = parseInt(e.currentTarget.value);
+		const temp = currentStacks;
+
+		temp.splice(value, 1);
+
+		setStackingSetting(
+			STACKING_TYPE.CUSTOM,
+			STACKING_CUSTOM_SETTINGS.STACKS,
+			undefined,
+			temp
+		);
+
+		setPage(page - 1);
+	};
+
+	useEffect(() => {
+		console.log(currentStacks);
+	}, [currentStacks]);
+
 	return defaultPlayers ? (
 		<>
 			<InputGroup label="Player">
@@ -165,7 +203,7 @@ const StackingSettings = ({
 				</label>
 			</InputGroup> */}
 			<div className="mt-4">
-				<div className="border border-gray-300 rounded">
+				<div className="border border-gray-300 rounded-t rounded-br">
 					<div
 						className="w-full bg-gray-100"
 						style={{
@@ -182,7 +220,7 @@ const StackingSettings = ({
 								currentStacks[page].players.map((player) => (
 									<div
 										key={player.id}
-										className="bg-white border-b last:border-b-0 grid grid-cols-custom-stacking-md"
+										className="bg-white border-b last:border-b-0 grid grid-cols-custom-stacking-md whitespace-no-wrap overflow-x-auto"
 										role="row"
 									>
 										<div className="px-4 py-3" role="cell">
@@ -196,12 +234,44 @@ const StackingSettings = ({
 											{player.last_name}
 										</div>
 										<div
-											className="px-4 py-3 text-right"
+											className="pl-4 py-3 text-right"
 											role="cell"
 										>
 											<strong>
 												{player.points_per_contest}
 											</strong>
+										</div>
+										<div className="px-2 py-3 flex justify-center items-center">
+											<button
+												type="button"
+												onClick={
+													handleRemovePlayerFromStack
+												}
+												value={player.id}
+											>
+												<p className="sr-only">
+													Remove player
+												</p>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													viewBox="0 0 24 24"
+													width="24"
+													height="24"
+													className=" text-red-600 fill-current"
+												>
+													<g data-name="Layer 2">
+														<g data-name="minus-circle">
+															<rect
+																width="24"
+																height="24"
+																opacity="0"
+															/>
+															<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+															<path d="M15 11H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z" />
+														</g>
+													</g>
+												</svg>
+											</button>
 										</div>
 									</div>
 								))
@@ -217,6 +287,21 @@ const StackingSettings = ({
 								</div>
 							)}
 						</div>
+					</div>
+					<div className="flex px-4 py-3 justify-between items-center text-xs border-t">
+						<p>
+							<strong>MAX EXPOSURE</strong>
+						</p>
+						{page >= 1 && (
+							<button
+								type="button"
+								onClick={handleDeleteStack}
+								className="text-red-600"
+								value={page}
+							>
+								<strong>DELETE STACK</strong>
+							</button>
+						)}
 					</div>
 				</div>
 				<div className="flex">
