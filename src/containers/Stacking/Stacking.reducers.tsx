@@ -18,10 +18,24 @@ interface IStackingState {
 		MAX_EXPOSURE_PER_TEAM: string;
 	};
 	POSITION?: {};
+	CUSTOM?: {
+		STACKS?: [
+			{
+				players?: any[];
+			}
+		];
+	};
 }
 
 const DEFAULT_STATE: IStackingState = {
 	activeTab: TABS[0].id,
+	CUSTOM: {
+		STACKS: [
+			{
+				players: [],
+			},
+		],
+	},
 };
 
 const StackingReducer = (
@@ -147,6 +161,17 @@ const StackingReducer = (
 			};
 
 		default:
+			// // For custom stacking, the first stack may have an empty array of players,
+			// // if so, delete the CUSTOM key from state
+			// if (
+			// 	!state.CUSTOM?.STACKS?.every((stack) => stack?.players?.length)
+			// ) {
+			// 	return {
+			// 		...state,
+			// 		CUSTOM: undefined,
+			// 	};
+			// }
+
 			return state;
 	}
 };

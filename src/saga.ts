@@ -129,6 +129,8 @@ function* optimizePlayers() {
 	try {
 		const { sports, table, rules, stacking } = yield select();
 
+		let tempStacking = stacking;
+
 		if (rules.errors.length) {
 			yield put({
 				type: OPTIMIZE_PLAYERS_FAILED,
@@ -146,6 +148,14 @@ function* optimizePlayers() {
 			return;
 		}
 
+		if (
+			!tempStacking.CUSTOM?.STACKS?.every(
+				(stack) => stack?.players?.length
+			)
+		) {
+			tempStacking = { ...stacking, CUSTOM: undefined };
+		}
+
 		const { lockedPlayers, defaultPlayers, draftGroupId, gameType } = table;
 
 		const res = yield post(`${API}/optimize`, {
@@ -154,7 +164,7 @@ function* optimizePlayers() {
 			rules,
 			sport: sports.sport,
 			draftGroupId,
-			stacking,
+			stacking: tempStacking,
 			gameType,
 		});
 

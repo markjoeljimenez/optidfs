@@ -84,6 +84,7 @@ module.exports = {
 	},
 	variants: {
 		margin: ['responsive', 'first', 'hover', 'focus'],
+		borderWidth: ['last'],
 	},
 	plugins: [require('@tailwindcss/typography')],
 };
