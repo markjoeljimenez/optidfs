@@ -321,7 +321,7 @@ const StackingSettings = ({
 								max="1"
 								className="border-b ml-3"
 								onChange={handleMaxExposureUpdate}
-								value={currentStacks[page]?.MAX_EXPOSURE}
+								defaultValue={currentStacks[page]?.MAX_EXPOSURE}
 								ref={maxExposureInputRef}
 							/>
 						</p>
