@@ -101,7 +101,10 @@ const StackingContainer = ({
 					hidden={activeTab !== id}
 					key={id}
 				>
-					<form ref={(ref) => forms.current.push(ref)}>
+					<form
+						ref={(ref) => forms.current.push(ref)}
+						onSubmit={(e) => e.preventDefault()}
+					>
 						{children}
 					</form>
 				</div>

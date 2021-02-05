@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { Console } from 'console';
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import InputGroup from '../../../components/form/inputGroup';
@@ -41,8 +41,8 @@ const StackingSettings = ({
 	removeFromStackingSetting,
 }: IStackingSettings) => {
 	const playerSelectRef = useRef<HTMLSelectElement>(null);
-	const maxExposureInputRef = useRef<HTMLInputElement>(null);
 	const tableRef = useRef<HTMLTableElement>(null);
+	const maxExposureInputRef = useRef<HTMLInputElement>(null);
 
 	const [page, setPage] = useState(0);
 	const [tableHeight, setTableHeight] = useState(0);
@@ -111,12 +111,21 @@ const StackingSettings = ({
 				setTableHeight(height);
 			}
 		}
+
+		if (maxExposureInputRef?.current) {
+			maxExposureInputRef.current.value = '';
+		}
 	};
 
 	const handleStackSelection = (e: MouseEvent<HTMLButtonElement>) => {
 		const value = parseInt(e.currentTarget.value);
 
 		setPage(value);
+
+		// if (maxExposureInputRef?.current) {
+		// 	maxExposureInputRef.current.value =
+		// 		currentStacks[page].MAX_EXPOSURE || '';
+		// }
 	};
 
 	const handleRemovePlayerFromStack = (e: MouseEvent<HTMLButtonElement>) => {
@@ -152,9 +161,24 @@ const StackingSettings = ({
 		setPage(page - 1);
 	};
 
+	const handleMaxExposureUpdate = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = parseFloat(e.currentTarget.value);
+		const temp = currentStacks;
+
+		const transformedStack = {
+			...temp[page],
+			MAX_EXPOSURE: value,
+		};
+
+		temp.splice(page, 1, transformedStack);
+	};
+
 	useEffect(() => {
-		console.log(currentStacks);
-	}, [currentStacks]);
+		if (maxExposureInputRef?.current) {
+			maxExposureInputRef.current.value =
+				currentStacks[page]?.MAX_EXPOSURE || '';
+		}
+	}, [page]);
 
 	return defaultPlayers ? (
 		<>
@@ -291,7 +315,17 @@ const StackingSettings = ({
 					<div className="flex px-4 py-3 justify-between items-center text-xs border-t">
 						<p>
 							<strong>MAX EXPOSURE</strong>
+							<input
+								type="number"
+								step="0.1"
+								max="1"
+								className="border-b ml-3"
+								onChange={handleMaxExposureUpdate}
+								value={currentStacks[page]?.MAX_EXPOSURE}
+								ref={maxExposureInputRef}
+							/>
 						</p>
+
 						{page >= 1 && (
 							<button
 								type="button"
