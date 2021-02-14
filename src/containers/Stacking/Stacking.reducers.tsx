@@ -1,3 +1,4 @@
+import { DEFAULT_TYPE } from './Custom/Stacking.players';
 import { TABS } from './Stacking';
 import {
 	REMOVE_FROM_SETTING,
@@ -22,6 +23,9 @@ interface IStackingState {
 		STACKS?: [
 			{
 				players?: any[];
+				TYPE?: 'group' | 'stack';
+				MAX_FROM_GROUP?: number;
+				MAX_EXPOSURE?: number;
 			}
 		];
 	};
@@ -33,6 +37,7 @@ const DEFAULT_STATE: IStackingState = {
 		STACKS: [
 			{
 				players: [],
+				TYPE: DEFAULT_TYPE,
 			},
 		],
 	},
@@ -161,17 +166,6 @@ const StackingReducer = (
 			};
 
 		default:
-			// // For custom stacking, the first stack may have an empty array of players,
-			// // if so, delete the CUSTOM key from state
-			// if (
-			// 	!state.CUSTOM?.STACKS?.every((stack) => stack?.players?.length)
-			// ) {
-			// 	return {
-			// 		...state,
-			// 		CUSTOM: undefined,
-			// 	};
-			// }
-
 			return state;
 	}
 };

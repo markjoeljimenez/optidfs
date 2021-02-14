@@ -1,54 +1,55 @@
 import clsx from 'clsx';
-import { Console } from 'console';
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 
 import InputGroup from '../../../components/form/inputGroup';
 import {
-	removeFromSetting,
 	setSetting,
 	STACKING_CUSTOM_SETTINGS,
 	STACKING_TYPE,
 } from '../Stacking.actions';
 
-// interface IPositionRow {
-// 	position: string;
-// 	player: null | any;
-// }
-
 interface IStackingSettings {
 	defaultPlayers: any;
 	stacking: any;
-	positions?: string[];
 	setStackingSetting(
 		stackingType: string,
 		setting: string,
 		key: string | undefined,
 		value: string[]
 	): void;
-	removeFromStackingSetting(
-		stackingType: string,
-		setting: string,
-		key: string
-	): void;
 }
+
+export const DEFAULT_TYPE = 'stack';
 
 const StackingSettings = ({
 	defaultPlayers,
 	stacking,
-	positions,
 	setStackingSetting,
-	removeFromStackingSetting,
 }: IStackingSettings) => {
 	const playerSelectRef = useRef<HTMLSelectElement>(null);
 	const tableRef = useRef<HTMLTableElement>(null);
+	const groupRadioButtonRef = useRef<HTMLInputElement>(null);
+	const stackRadioButtonRef = useRef<HTMLInputElement>(null);
 	const maxExposureInputRef = useRef<HTMLInputElement>(null);
+	const maxFromGroupInputRef = useRef<HTMLInputElement>(null);
 
 	const [page, setPage] = useState(0);
 	const [tableHeight, setTableHeight] = useState(0);
 
 	const currentStacks =
 		stacking[STACKING_TYPE.CUSTOM]?.[STACKING_CUSTOM_SETTINGS.STACKS];
+
+	const handleTypeChange = (e: MouseEvent<HTMLInputElement>) => {
+		const { value } = e.currentTarget;
+
+		const transformedStack = {
+			...currentStacks[page],
+			TYPE: value,
+		};
+
+		currentStacks.splice(page, 1, transformedStack);
+	};
 
 	const handleAddPlayer = () => {
 		if (playerSelectRef.current && playerSelectRef.current.value !== '') {
@@ -65,24 +66,22 @@ const StackingSettings = ({
 			);
 
 			if (player) {
-				const temp = currentStacks;
-
-				if (temp[page].players.includes(player)) {
+				if (currentStacks[page].players.includes(player)) {
 					return;
 				}
 
 				const transformedStack = {
-					...temp[page],
-					players: [...temp[page].players, player],
+					...currentStacks[page],
+					players: [...currentStacks[page].players, player],
 				};
 
-				temp.splice(page, 1, transformedStack);
+				currentStacks.splice(page, 1, transformedStack);
 
 				setStackingSetting(
 					STACKING_TYPE.CUSTOM,
 					STACKING_CUSTOM_SETTINGS.STACKS,
 					undefined,
-					temp
+					currentStacks
 				);
 			}
 		}
@@ -97,11 +96,12 @@ const StackingSettings = ({
 				...currentStacks,
 				{
 					players: [],
+					TYPE: DEFAULT_TYPE,
 				},
 			]
 		);
 
-		setPage(page + 1 || page);
+		setPage(currentStacks.length);
 
 		// Save table height if larger than before
 		if (tableRef.current) {
@@ -121,62 +121,79 @@ const StackingSettings = ({
 		const value = parseInt(e.currentTarget.value);
 
 		setPage(value);
-
-		// if (maxExposureInputRef?.current) {
-		// 	maxExposureInputRef.current.value =
-		// 		currentStacks[page].MAX_EXPOSURE || '';
-		// }
 	};
 
 	const handleRemovePlayerFromStack = (e: MouseEvent<HTMLButtonElement>) => {
 		const value = parseInt(e.currentTarget.value);
-		const temp = currentStacks;
-		const playerIndex = temp[page].players.findIndex(
+		const playerIndex = currentStacks[page].players.findIndex(
 			(player) => player.id === value
 		);
 
-		temp[page].players.splice(playerIndex, 1);
+		currentStacks[page].players.splice(playerIndex, 1);
 
 		setStackingSetting(
 			STACKING_TYPE.CUSTOM,
 			STACKING_CUSTOM_SETTINGS.STACKS,
 			undefined,
-			temp
+			currentStacks
 		);
 	};
 
 	const handleDeleteStack = (e: MouseEvent<HTMLButtonElement>) => {
 		const value = parseInt(e.currentTarget.value);
-		const temp = currentStacks;
 
-		temp.splice(value, 1);
+		currentStacks.splice(value, 1);
 
 		setStackingSetting(
 			STACKING_TYPE.CUSTOM,
 			STACKING_CUSTOM_SETTINGS.STACKS,
 			undefined,
-			temp
+			currentStacks
 		);
 
-		setPage(page - 1);
+		setPage(page - 1 > 0 ? page - 1 : 0);
 	};
 
 	const handleMaxExposureUpdate = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = parseFloat(e.currentTarget.value);
-		const temp = currentStacks;
-
 		const transformedStack = {
-			...temp[page],
+			...currentStacks[page],
 			MAX_EXPOSURE: value,
 		};
 
-		temp.splice(page, 1, transformedStack);
+		currentStacks.splice(page, 1, transformedStack);
+	};
+
+	const handleMaxFromGroupUpdate = (e: ChangeEvent<HTMLInputElement>) => {
+		const value = parseInt(e.currentTarget.value);
+		const transformedStack = {
+			...currentStacks[page],
+			MAX_FROM_GROUP: value,
+		};
+
+		currentStacks.splice(page, 1, transformedStack);
 	};
 
 	useEffect(() => {
+		// Update type
+		if (groupRadioButtonRef?.current && stackRadioButtonRef?.current) {
+			if (currentStacks[page]?.TYPE === 'group') {
+				groupRadioButtonRef.current.checked = true;
+			} else {
+				stackRadioButtonRef.current.checked = true;
+			}
+		}
+
+		// Update MAX EXPOSURE
 		if (maxExposureInputRef?.current) {
 			maxExposureInputRef.current.value =
 				currentStacks[page]?.MAX_EXPOSURE || '';
+		}
+
+		// Update MAX PLAYERS FROM GROUP
+		if (maxFromGroupInputRef?.current) {
+			maxFromGroupInputRef.current.value =
+				currentStacks[page]?.MAX_FROM_GROUP || '';
 		}
 	}, [page]);
 
@@ -211,23 +228,47 @@ const StackingSettings = ({
 					Add
 				</button>
 			</InputGroup>
-			{/* <InputGroup label="Max Exposure">
-				<label htmlFor="maxExposure">
-					<span className="sr-only">Max Exposure</span>
-					<input
-						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						id="maxExposure"
-						placeholder="0"
-						type="number"
-						step={0.1}
-						max={1}
-						min={0.1}
-						ref={maxExposureInputRef}
-					/>
-				</label>
-			</InputGroup> */}
+
 			<div className="mt-4">
 				<div className="border border-gray-300 rounded-t rounded-br">
+					{/* Header */}
+					<div className="px-4 py-3 flex justify-start text-xs border-b border-gray-300">
+						<div className="flex">
+							<label
+								htmlFor="group"
+								className="flex items-center uppercase"
+							>
+								<input
+									className="mr-2"
+									id="group"
+									name="groupType"
+									onClick={handleTypeChange}
+									ref={groupRadioButtonRef}
+									type="radio"
+									value="group"
+								/>
+								<strong>Group</strong>
+							</label>
+							<label
+								htmlFor="stack"
+								className="flex items-center ml-6 uppercase"
+							>
+								<input
+									className="mr-2 px-4 py-2"
+									defaultChecked
+									id="stack"
+									name="groupType"
+									onClick={handleTypeChange}
+									ref={stackRadioButtonRef}
+									type="radio"
+									value="stack"
+								/>
+								<strong>Stack</strong>
+							</label>
+						</div>
+					</div>
+
+					{/* Players */}
 					<div
 						className="w-full bg-gray-100"
 						style={{
@@ -312,56 +353,64 @@ const StackingSettings = ({
 							)}
 						</div>
 					</div>
-					<div className="flex px-4 py-3 justify-between items-center text-xs border-t">
-						<p>
-							<strong>MAX EXPOSURE</strong>
-							<input
-								type="number"
-								step="0.1"
-								max="1"
-								className="border-b ml-3"
-								onChange={handleMaxExposureUpdate}
-								defaultValue={currentStacks[page]?.MAX_EXPOSURE}
-								ref={maxExposureInputRef}
-							/>
-						</p>
 
-						{page >= 1 && (
+					{/* Footer */}
+					<div className="flex px-4 py-3 justify-between items-center text-xs border-t">
+						{currentStacks[page]?.TYPE === 'stack' ? (
+							<p>
+								<strong>MAX EXPOSURE</strong>
+								<input
+									type="number"
+									step="0.1"
+									max="1"
+									className="border-b ml-3"
+									onChange={handleMaxExposureUpdate}
+									defaultValue={
+										currentStacks[page]?.MAX_EXPOSURE
+									}
+									ref={maxExposureInputRef}
+								/>
+							</p>
+						) : (
+							<p>
+								<strong>MAX PLAYERS FROM GROUP</strong>
+								<input
+									type="number"
+									step="1"
+									// max=""
+									className="border-b ml-3"
+									onChange={handleMaxFromGroupUpdate}
+									defaultValue={
+										currentStacks[page]?.MAX_FROM_GROUP
+									}
+									ref={maxFromGroupInputRef}
+								/>
+							</p>
+						)}
+
+						{currentStacks.length > 1 && (
 							<button
 								type="button"
 								onClick={handleDeleteStack}
-								className="text-red-600"
+								className="text-red-600 uppercase"
 								value={page}
 							>
-								<strong>DELETE STACK</strong>
+								<strong>Delete</strong>
 							</button>
 						)}
 					</div>
 				</div>
+
+				{/* Stack/group tabs */}
 				<div className="flex">
 					<nav>
 						<ul className="flex flex-no-wrap">
-							{/* <li>
-								<button
-									type="button"
-									className={clsx(
-										'px-4 py-3 rounded-b border border-t-0 border-gray-300 whitespace-no-wrap',
-										page === 0
-											? 'bg-indigo-200 border-indigo-200'
-											: ''
-									)}
-									onClick={handleStackSelection}
-									value={0}
-								>
-									<strong>Stack 1</strong>
-								</button>
-							</li> */}
 							{currentStacks?.map((stack, i) => (
 								<li>
 									<button
 										type="button"
 										className={clsx(
-											'px-4 py-3 rounded-b border border-t-0 border-gray-300 whitespace-no-wrap',
+											'px-4 py-3 rounded-b border border-t-0 border-gray-300 whitespace-no-wrap capitalize',
 											page === i
 												? 'bg-indigo-200 border-indigo-200'
 												: ''
@@ -369,7 +418,7 @@ const StackingSettings = ({
 										onClick={handleStackSelection}
 										value={i}
 									>
-										<strong>Stack {i + 1}</strong>
+										<strong>Custom {i + 1}</strong>
 									</button>
 								</li>
 							))}
@@ -407,15 +456,11 @@ const StackingSettings = ({
 const mapStateToProps = ({ table, stacking, sports }) => ({
 	defaultPlayers: table.defaultPlayers,
 	stacking,
-	positions: sports?.sports?.find(({ sportId }) => sportId === sports?.sport)
-		?.positions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	setStackingSetting: (stackingType, setting, key, value) =>
 		dispatch(setSetting(stackingType, setting, key, value)),
-	removeFromStackingSetting: (stackingType, setting, key) =>
-		dispatch(removeFromSetting(stackingType, setting, key)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StackingSettings);
