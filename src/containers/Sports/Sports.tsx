@@ -4,11 +4,11 @@ import { FETCH_CONTESTS, RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
 import { UPDATE_SPORT } from './Sports.actions';
 import { ISportsState } from './Sports.reducers';
 
-interface IProps {
+export interface ISportsProps {
 	sports: ISportsState;
 }
 
-const Sports = ({ sports }: IProps) => {
+const Sports = ({ sports }: ISportsProps) => {
 	const handleSportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const value = parseInt(e.currentTarget.value);
 

@@ -15,7 +15,7 @@ import rootSaga from './saga';
 
 let store;
 
-const reducer = combineReducers({
+export const reducer = combineReducers({
 	dropdown,
 	error,
 	providers,
