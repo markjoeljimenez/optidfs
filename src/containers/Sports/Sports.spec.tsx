@@ -1,6 +1,7 @@
+import { render, screen } from '../../scripts/testing/render';
 import { ISports } from '../../interfaces/ISports';
-import { render, fireEvent, screen } from '../../scripts/testing/render';
-import Sports from './Sports';
+
+import Sports from './Sports.component';
 
 interface IDefaultState {
 	sports: {
@@ -17,7 +18,7 @@ const initialState: IDefaultState = {
 				hasPublicContests: true,
 				isEnabled: true,
 				supported: true,
-				sportId: 1,
+				sportId: 4,
 			},
 			{
 				fullName: 'NFL',
@@ -25,7 +26,15 @@ const initialState: IDefaultState = {
 				hasPublicContests: true,
 				isEnabled: true,
 				supported: true,
-				sportId: 2,
+				sportId: 1,
+			},
+			{
+				fullName: 'Nascar',
+				regionAbbreviatedSportName: 'NAS',
+				hasPublicContests: true,
+				isEnabled: false,
+				supported: true,
+				sportId: 10,
 			},
 		],
 	},
@@ -38,7 +47,7 @@ describe('Sports dropdown', () => {
 		});
 	});
 
-	test('have sports', () => {
+	test('contains sports', () => {
 		render(<Sports />, {
 			initialState,
 		});
@@ -48,5 +57,26 @@ describe('Sports dropdown', () => {
 			.filter((option) => !option.hasAttribute('disabled'));
 
 		expect(options.length).toBeGreaterThan(0);
+	});
+
+	test('filters hasPublicContests, isEnabled, and supported sports', () => {
+		render(<Sports />, {
+			initialState,
+		});
+
+		const filteredSports = initialState.sports.sports.filter(
+			(sport) =>
+				sport.hasPublicContests && sport.isEnabled && sport.supported
+		);
+
+		const options = screen
+			.getAllByRole('option')
+			.filter((option) => !option.hasAttribute('disabled'));
+
+		options.forEach((option, i) => {
+			expect(option.innerHTML).toBe(
+				filteredSports[i].regionAbbreviatedSportName
+			);
+		});
 	});
 });
