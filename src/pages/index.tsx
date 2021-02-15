@@ -46,20 +46,17 @@ const App = ({ activeTab, providers, sport, loading, players }: any) => (
 		) : (
 			<></>
 		)}
-		{PANELS.map(
-			({ id, element, disabled }) =>
-				!disabled && (
-					<div
-						className="mb-8"
-						role="tabpanel"
-						aria-labelledby={`panel-${id}`}
-						hidden={activeTab !== id}
-						key={id}
-					>
-						{element}
-					</div>
-				)
-		)}
+		{PANELS.map(({ id, element }) => (
+			<div
+				className="mb-8"
+				role="tabpanel"
+				aria-labelledby={`panel-${id}`}
+				hidden={activeTab !== id}
+				key={id}
+			>
+				{element}
+			</div>
+		))}
 	</Loading>
 );
 
