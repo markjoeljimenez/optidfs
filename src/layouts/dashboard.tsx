@@ -4,7 +4,7 @@ import Dropdown from '../containers/Dropdown/Dropdown';
 import Nav from '../components/global/nav';
 import SkipLink from '../components/global/skiplink';
 import Providers from '../containers/Providers/Providers';
-import Sports from '../containers/Sports/Sports';
+import Sports from '../containers/Sports/Sports.component';
 import Upload from '../containers/Upload/Upload';
 
 export interface ILayoutProps {
