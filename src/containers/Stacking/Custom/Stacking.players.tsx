@@ -197,7 +197,15 @@ const StackingSettings = ({
 						{defaultPlayers.map(
 							({ id, first_name, last_name, position }, i) => (
 								<option value={id} key={i}>
-									{id} - {position} - {first_name} {last_name}
+									{id}
+									{' '}
+									-
+									{position}
+									{' '}
+									-
+									{first_name}
+									{' '}
+									{last_name}
 								</option>
 							)
 						)}
@@ -254,7 +262,8 @@ const StackingSettings = ({
 											{player.team}
 										</div>
 										<div className="px-4 py-3" role="cell">
-											{player.first_name}{' '}
+											{player.first_name}
+											{' '}
 											{player.last_name}
 										</div>
 										<div
@@ -369,7 +378,10 @@ const StackingSettings = ({
 										onClick={handleStackSelection}
 										value={i}
 									>
-										<strong>Stack {i + 1}</strong>
+										<strong>
+											Stack
+											{i + 1}
+										</strong>
 									</button>
 								</li>
 							))}
