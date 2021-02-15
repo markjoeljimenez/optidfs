@@ -9,6 +9,7 @@ import {
 	setRuleError,
 	removeRuleError,
 } from './Rules.actions';
+import InputGroup from '../../components/form/inputGroup';
 
 const Rule = (props: any) => {
 	const { errors } = props;
@@ -63,9 +64,9 @@ const Rule = (props: any) => {
 	};
 
 	return (
-		<div>
-			<span className="inline-block pr-8 mb-2 text-xs uppercase font-black relative">
-				Projected ownership
+		<InputGroup
+			label="Projected ownership"
+			tippy={(
 				<Tippy
 					className="bg-white rounded shadow-xl p-4"
 					content={(
@@ -116,43 +117,39 @@ const Rule = (props: any) => {
 						</svg>
 					</div>
 				</Tippy>
-			</span>
-			<div className="flex">
-				<div className="flex-1">
-					<label htmlFor="minProjectedOwnership">
-						<span className="sr-only">Min projected ownership</span>
-						<input
-							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							id="minProjectedOwnership"
-							ref={minRef}
-							placeholder="Min"
-							type="number"
-							min={0}
-							max={1}
-							step={0.1}
-							onChange={handleMinProjectedOwnershipChange}
-						/>
-					</label>
-				</div>
-				<div className="flex-1 ml-4">
-					<label htmlFor="maxProjectedOwnership">
-						<span className="sr-only">Max projected ownership</span>
-						<input
-							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							id="maxProjectedOwnership"
-							ref={maxRef}
-							placeholder="Max"
-							type="number"
-							min={0}
-							max={1}
-							step={0.1}
-							onChange={handleMaxProjectedOwnershipChange}
-						/>
-					</label>
-				</div>
+  )}
+		>
+			<label htmlFor="minProjectedOwnership">
+				<span className="sr-only">Min projected ownership</span>
+				<input
+					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+					id="minProjectedOwnership"
+					ref={minRef}
+					placeholder="Min"
+					type="number"
+					min={0.1}
+					max={1}
+					step={0.1}
+					onChange={handleMinProjectedOwnershipChange}
+				/>
+			</label>
+			<div className="flex-1 ml-4">
+				<label htmlFor="maxProjectedOwnership">
+					<span className="sr-only">Max projected ownership</span>
+					<input
+						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+						id="maxProjectedOwnership"
+						ref={maxRef}
+						placeholder="Max"
+						type="number"
+						min={0.1}
+						max={1}
+						step={0.1}
+						onChange={handleMaxProjectedOwnershipChange}
+					/>
+				</label>
 			</div>
-			{error && <p className="error input-group__error">{error.value}</p>}
-		</div>
+		</InputGroup>
 	);
 };
 

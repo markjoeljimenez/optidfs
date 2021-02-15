@@ -9,7 +9,7 @@ import {
 } from './Rules.actions';
 
 interface IRules {
-	NUMBER_OF_PLAYERS_FROM_SAME_TEAM?: {
+	NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM?: {
 		key: string;
 		value: number;
 	}[];

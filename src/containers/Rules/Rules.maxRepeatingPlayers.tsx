@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import Tippy from '@tippyjs/react';
 
 import { RULE, setRule, removeRule } from './Rules.actions';
+import InputGroup from '../../components/form/inputGroup';
 
 const Rule = (props: any) => {
 	const handleMaxRepeatingPlayers = (
@@ -13,9 +14,9 @@ const Rule = (props: any) => {
 	};
 
 	return (
-		<div>
-			<span className="inline-block pr-8 mb-2 text-xs uppercase font-black relative">
-				Maximum repeating players
+		<InputGroup
+			label="Maximum repeating players"
+			tippy={(
 				<Tippy
 					className="bg-white rounded shadow-xl p-4"
 					content={(
@@ -59,21 +60,20 @@ const Rule = (props: any) => {
 						</svg>
 					</div>
 				</Tippy>
-			</span>
-			<div>
-				<label htmlFor="maxRepeatingPlayers">
-					<span className="sr-only">Maximum repeating players</span>
-					<input
-						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						id="maxRepeatingPlayers"
-						placeholder="0"
-						type="number"
-						min={0}
-						onChange={handleMaxRepeatingPlayers}
-					/>
-				</label>
-			</div>
-		</div>
+  )}
+		>
+			<label htmlFor="maxRepeatingPlayers">
+				<span className="sr-only">Maximum repeating players</span>
+				<input
+					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+					id="maxRepeatingPlayers"
+					placeholder="0"
+					type="number"
+					min={0}
+					onChange={handleMaxRepeatingPlayers}
+				/>
+			</label>
+		</InputGroup>
 	);
 };
 

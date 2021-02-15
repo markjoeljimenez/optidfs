@@ -1,28 +1,35 @@
 import { connect } from 'react-redux';
 import clsx from 'clsx';
-import setActiveTab from './Tabs.actions';
+import setActiveTabAction from './Tabs.actions';
 
-const TAB_DATA = [
+const TABS = [
 	{
 		name: 'Players',
 		id: 'players',
 	},
-	// {
-	// 	name: 'Team Stacking',
-	// 	id: 'team-stacking',
-	// },
+	{
+		name: 'Stacking',
+		id: 'stacking',
+	},
 	{
 		name: 'Settings',
 		id: 'settings',
 	},
 ];
 
+interface ITabsProps {
+	activeTab: string;
+	sport: number;
+	setActiveTab(value): void;
+	gameType: string;
+}
+
 const TabsContainer = ({
 	activeTab,
-	optimizedPlayers,
-	setActiveTabAction,
 	gameType,
-}: any) => {
+	sport,
+	setActiveTab,
+}: ITabsProps) => {
 	// const handleClick = () => {
 	// 	props.optimizeLineups(props.value);
 	// };
@@ -30,7 +37,7 @@ const TabsContainer = ({
 	function handleTabClick(e: React.MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
-		setActiveTabAction(value);
+		setActiveTab(value);
 	}
 
 	// function handleSeeAllPlayers() {}
@@ -39,7 +46,7 @@ const TabsContainer = ({
 		<div className="flex justify-between">
 			<nav>
 				<ul className="flex" role="tablist">
-					{TAB_DATA.map(({ name, id }) => (
+					{TABS.map(({ name, id }) => (
 						<li
 							role="tab"
 							aria-selected={activeTab === id}
@@ -69,15 +76,14 @@ const TabsContainer = ({
 	);
 };
 
-const mapStateToProps = ({ tabs, table }) => ({
+const mapStateToProps = ({ tabs, table, sports }) => ({
 	activeTab: tabs.activeTab,
-	optimizedPlayers: table.optimizedPlayers,
+	sport: sports.sport,
 	gameType: table.gameType,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	setActiveTabAction: (value) => dispatch(setActiveTab(value)),
-	seeAllPlayers: (value) => dispatch(setActiveTab(value)),
+	setActiveTab: (value) => dispatch(setActiveTabAction(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabsContainer);

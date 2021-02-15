@@ -20,6 +20,7 @@ import {
 } from './containers/Optimize/Optimize.actions';
 import { RESET_RULES } from './containers/Rules/Rules.actions';
 import { SET_ERROR } from './containers/Error/Error.reducers';
+import { ERROR_STATUSES } from './components/error';
 
 const API = process.env.ENDPOINT;
 
@@ -95,13 +96,12 @@ function* fetchPlayers(action) {
 			yield put({ type: LOADING_PLAYERS });
 
 			const res = yield get(`${API}/players?id=${action.value}`);
-			const { players, teamIds } = yield res.json();
+			const { players } = yield res.json();
 
 			yield put({
 				type: GET_PLAYERS_SUCCEEDED,
 				players,
 				gameType: action.gameType,
-				teamIds,
 			});
 		}
 	} catch (e) {
@@ -109,7 +109,11 @@ function* fetchPlayers(action) {
 
 		yield put({
 			type: SET_ERROR,
-			error: "Can't fetch players",
+			error: {
+				type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
+				show: true,
+				message: "Can't fetch players",
+			},
 		});
 	}
 }
@@ -123,10 +127,33 @@ function* optimizePlayers() {
 	yield put({ type: LOADING_PLAYERS });
 
 	try {
-		const { sports, table, rules } = yield select();
+		const { sports, table, rules, stacking } = yield select();
+
+		let tempStacking = stacking;
 
 		if (rules.errors.length) {
+			yield put({
+				type: OPTIMIZE_PLAYERS_FAILED,
+			});
+
+			yield put({
+				type: SET_ERROR,
+				show: true,
+				error: {
+					type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
+					message: "Can't generate lineups",
+				},
+			});
+
 			return;
+		}
+
+		if (
+			!tempStacking.CUSTOM?.STACKS?.every(
+				(stack) => stack?.players?.length
+			)
+		) {
+			tempStacking = { ...stacking, CUSTOM: undefined };
 		}
 
 		const { lockedPlayers, defaultPlayers, draftGroupId, gameType } = table;
@@ -137,6 +164,7 @@ function* optimizePlayers() {
 			rules,
 			sport: sports.sport,
 			draftGroupId,
+			stacking: tempStacking,
 			gameType,
 		});
 
@@ -153,7 +181,11 @@ function* optimizePlayers() {
 
 		yield put({
 			type: SET_ERROR,
-			error: "Can't generate lineups",
+			error: {
+				type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
+				show: true,
+				message: "Can't generate lineups",
+			},
 		});
 	}
 }

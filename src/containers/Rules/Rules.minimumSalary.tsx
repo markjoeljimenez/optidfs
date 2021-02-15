@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import InputGroup from '../../components/form/inputGroup';
 import { RULE, setRule, removeRule } from './Rules.actions';
 
 const Rule = (props: any) => {
@@ -11,23 +12,17 @@ const Rule = (props: any) => {
 	};
 
 	return (
-		<div className="input-group">
-			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Minimum salary cap
-			</span>
-			<label htmlFor="minSalaryCap">
-				<span className="sr-only">Minimum Salary Cap</span>
-				<input
-					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-					id="minSalaryCap"
-					placeholder="0"
-					type="number"
-					min={0}
-					step={5000}
-					onChange={handleMinSalaryCapChange}
-				/>
-			</label>
-		</div>
+		<InputGroup label="Minimum salary cap">
+			<input
+				className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+				id="minSalaryCap"
+				placeholder="0"
+				type="number"
+				min={0}
+				step={5000}
+				onChange={handleMinSalaryCapChange}
+			/>
+		</InputGroup>
 	);
 };
 

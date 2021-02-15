@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 import { RULE, setRule, removeRule } from './Rules.actions';
+import InputGroup from '../../components/form/inputGroup';
 
 const Rule = (props: any) => {
 	const { positions, rules } = props;
@@ -40,10 +41,7 @@ const Rule = (props: any) => {
 	};
 
 	return (
-		<div>
-			<span className="inline-block mb-2 text-xs uppercase font-black">
-				Number of specific positions
-			</span>
+		<InputGroup label="Number of specific positions">
 			<div>
 				<div className="flex">
 					<div className="flex-1">
@@ -56,8 +54,9 @@ const Rule = (props: any) => {
 									className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 									ref={numberOfSpecificPositionsSelectRef}
 									id="numberOfSpecificPositionsSelect"
+									defaultValue=""
 								>
-									<option value="" disabled selected>
+									<option value="" disabled>
 										Select position
 									</option>
 									{positions?.map((position, i) => (
@@ -85,7 +84,7 @@ const Rule = (props: any) => {
 					</div>
 					<button
 						className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-						type="submit"
+						type="button"
 						onClick={handleNumberOfSpecificPositionsClick}
 					>
 						Add
@@ -137,12 +136,13 @@ const Rule = (props: any) => {
 					)}
 				</div>
 			)}
-		</div>
+		</InputGroup>
 	);
 };
 
-const mapStateToProps = ({ rules }) => ({
+const mapStateToProps = ({ rules, table }) => ({
 	rules,
+	positions: table.positions,
 });
 
 const mapDispatchToProps = (dispatch) => ({

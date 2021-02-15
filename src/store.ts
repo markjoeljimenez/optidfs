@@ -9,19 +9,21 @@ import tabs from './containers/Tabs/Tabs.reducers';
 import sports from './containers/Sports/Sports.reducers';
 import providers from './containers/Providers/Providers.reducers';
 import error from './containers/Error/Error.reducers';
+import stacking from './containers/Stacking/Stacking.reducers';
 
 import rootSaga from './saga';
 
 let store;
 
-const reducer = combineReducers({
-	tabs,
-	rules,
+export const reducer = combineReducers({
 	dropdown,
-	table,
-	sports,
-	providers,
 	error,
+	providers,
+	rules,
+	sports,
+	stacking,
+	table,
+	tabs,
 });
 
 function initStore(preloadedState = {}) {

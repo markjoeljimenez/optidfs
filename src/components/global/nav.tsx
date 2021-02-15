@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import clsx from 'clsx';
 
+import Sports from '../../containers/Sports/Sports.component';
 import Donate from './donate';
 
 const Nav = (props: any) => {
@@ -99,6 +100,9 @@ const Nav = (props: any) => {
 				)}
 			>
 				<ul>
+					<li className="mt-6">
+						<Sports />
+					</li>
 					<li className="mt-6">
 						<Link href="/">
 							<a
