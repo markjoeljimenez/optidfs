@@ -1,5 +1,7 @@
 import * as Sentry from '@sentry/browser';
 import { Provider } from 'react-redux';
+import { DefaultSeo } from 'next-seo';
+
 import { useStore } from '../store';
 
 // import 'normalize.css';
@@ -25,11 +27,17 @@ const App = ({ Component, pageProps }: IApp) => {
 	const store = useStore(pageProps.initialReduxState);
 
 	return (
-		<Provider store={store}>
-			<Dashboard>
-				<Component {...pageProps} />
-			</Dashboard>
-		</Provider>
+		<>
+			<DefaultSeo
+				title="Optidfs"
+				description="A web app that generates the most optimized lineups for DraftKings."
+			/>
+			<Provider store={store}>
+				<Dashboard>
+					<Component {...pageProps} />
+				</Dashboard>
+			</Provider>
+		</>
 	);
 };
 
