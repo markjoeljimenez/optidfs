@@ -10,6 +10,7 @@ import {
 	SET_PLAYER_EXPOSURE,
 	LOCK_PLAYERS,
 	SET_PLAYER_PROJECTED_OWNERSHIP,
+	EXCLUDE_PLAYERS,
 } from './Table.actions';
 import {
 	OPTIMIZE_PLAYERS_FAILED,
@@ -24,6 +25,7 @@ export interface IActions {
 	defaultPlayers?: IDraftKingsPlayer[];
 	optimizedPlayers?: IDraftKingsPlayer[];
 	lockedPlayers?: IDraftKingsPlayer[];
+	excludedPlayers?: IDraftKingsPlayer[];
 	players?: IDraftKingsPlayer[];
 	loading?: boolean;
 	draftGroupId?: string;
@@ -228,6 +230,28 @@ const table = (
 			};
 		}
 
+		case EXCLUDE_PLAYERS: {
+			const player = state.players?.find(
+				(_player) => _player.id === parseInt(payload.value)
+			);
+
+			if (!state.excludedPlayers) {
+				return {
+					...state,
+					excludedPlayers: [player],
+				};
+			}
+
+			return {
+				...state,
+				excludedPlayers: payload.checked
+					? uniq([...state.excludedPlayers, player])
+					: state.excludedPlayers.filter(
+							(_player) => _player.id !== parseInt(payload.value)
+					  ),
+			};
+		}
+
 		case SET_PLAYER_EXPOSURE: {
 			if (!playerId || !state.defaultPlayers) {
 				return state;
@@ -280,6 +304,7 @@ const table = (
 				draftGroupId: undefined,
 				lineups: undefined,
 				lockedPlayers: undefined,
+				excludedPlayers: undefined,
 				optimizedPlayers: undefined,
 				page: 0,
 				players: undefined,

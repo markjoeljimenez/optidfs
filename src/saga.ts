@@ -156,10 +156,17 @@ function* optimizePlayers() {
 			tempStacking = { ...stacking, CUSTOM: undefined };
 		}
 
-		const { lockedPlayers, defaultPlayers, draftGroupId, gameType } = table;
+		const {
+			lockedPlayers,
+			defaultPlayers,
+			draftGroupId,
+			gameType,
+			excludedPlayers,
+		} = table;
 
 		const res = yield post(`${API}/optimize`, {
 			lockedPlayers: lockedPlayers?.map((player) => player.id),
+			excludedPlayers: excludedPlayers?.map((player) => player.id),
 			players: defaultPlayers,
 			rules,
 			sport: sports.sport,

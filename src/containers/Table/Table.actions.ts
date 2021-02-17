@@ -3,6 +3,7 @@ export const GET_PLAYERS_FAILED = 'GET_PLAYERS_FAILED';
 export const LOADING_PLAYERS = 'LOADING_PLAYERS';
 export const SELECT_PLAYER = 'SELECT_PLAYER';
 export const LOCK_PLAYERS = 'LOCK_PLAYERS';
+export const EXCLUDE_PLAYERS = 'EXCLUDE_PLAYERS';
 export const NEXT = 'NEXT';
 export const PREVIOUS = 'PREVIOUS';
 export const SET_PLAYER_EXPOSURE = 'SET_PLAYER_EXPOSURE';
@@ -22,6 +23,11 @@ export const setPlayerProjectedOwnership = (playerId, value) => ({
 
 export const lockPlayer = (e: React.ChangeEvent<HTMLInputElement>) => ({
 	type: LOCK_PLAYERS,
+	payload: e.currentTarget,
+});
+
+export const excludePlayer = (e: React.ChangeEvent<HTMLInputElement>) => ({
+	type: EXCLUDE_PLAYERS,
 	payload: e.currentTarget,
 });
 

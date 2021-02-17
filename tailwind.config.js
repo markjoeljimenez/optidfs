@@ -78,7 +78,7 @@ module.exports = {
 		extend: {
 			gridTemplateColumns: {
 				'table-sm': '5rem 1fr 1fr 3rem',
-				'table-md': '3rem 9rem 3fr 4fr 3fr 2fr 3fr 2fr 3rem',
+				'table-md': '3rem 5rem 3fr 4fr 3fr 2fr 3fr 2fr 3rem',
 				'custom-stacking-md': '4rem 4rem 4fr 1fr 3.25rem',
 			},
 		},
