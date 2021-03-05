@@ -33,10 +33,10 @@ module.exports = {
 				1100: '#06050a',
 			},
 		},
-		height: {
-			...height,
-			'1/2': '50%',
-		},
+		// height: {
+		// 	...height,
+		// 	'1/2': '50%',
+		// },
 		minHeight: {
 			...minHeight,
 			5: '5rem',
@@ -78,7 +78,7 @@ module.exports = {
 		extend: {
 			gridTemplateColumns: {
 				'table-sm': '5rem 1fr 1fr 3rem',
-				'table-md': '3rem 9rem 3fr 4fr 3fr 2fr 3fr 2fr 3rem',
+				'table-md': '10rem 8fr 9fr 5fr 4fr 4fr 4fr 4rem',
 				'custom-stacking-md': '4rem 4rem 4fr 1fr 3.25rem',
 			},
 		},

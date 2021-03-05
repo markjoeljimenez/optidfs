@@ -1,0 +1,19 @@
+$block: 'toggle';
+
+.#{$block} {
+	input {
+		position: fixed;
+		opacity: 0;
+		pointer-events: none;
+	}
+	// &__dot {
+	// 	left: 2px;
+	// 	top: 2px;
+	// 	transition: all 0.3s ease-in-out;
+	// }
+
+	// input:checked ~ &__dot {
+	// 	// background-color: #48bb78;
+	// 	transform: translateX(calc(100% - 5px));
+	// }
+}

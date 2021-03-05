@@ -2,13 +2,15 @@ import Fuse from 'fuse.js';
 import uniq from 'lodash.uniqby';
 
 import {
-	GET_PLAYERS_SUCCEEDED,
+	CLEAR_TOGGLE,
+	EXCLUDE_PLAYERS,
 	GET_PLAYERS_FAILED,
+	GET_PLAYERS_SUCCEEDED,
 	LOADING_PLAYERS,
+	LOCK_PLAYERS,
 	NEXT,
 	PREVIOUS,
 	SET_PLAYER_EXPOSURE,
-	LOCK_PLAYERS,
 	SET_PLAYER_PROJECTED_OWNERSHIP,
 } from './Table.actions';
 import {
@@ -24,6 +26,7 @@ export interface IActions {
 	defaultPlayers?: IDraftKingsPlayer[];
 	optimizedPlayers?: IDraftKingsPlayer[];
 	lockedPlayers?: IDraftKingsPlayer[];
+	excludedPlayers?: IDraftKingsPlayer[];
 	players?: IDraftKingsPlayer[];
 	loading?: boolean;
 	draftGroupId?: string;
@@ -211,20 +214,82 @@ const table = (
 				(_player) => _player.id === parseInt(payload.value)
 			);
 
+			// Remove player from excludedPlayers
+			const excludedPlayers = state.excludedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
 			if (!state.lockedPlayers) {
 				return {
 					...state,
+					excludedPlayers: excludedPlayers?.length
+						? excludedPlayers
+						: undefined,
 					lockedPlayers: [player],
 				};
 			}
 
 			return {
 				...state,
+				excludedPlayers: excludedPlayers?.length
+					? excludedPlayers
+					: undefined,
 				lockedPlayers: payload.checked
 					? uniq([...state.lockedPlayers, player])
 					: state.lockedPlayers.filter(
 							(_player) => _player.id !== parseInt(payload.value)
 					  ),
+			};
+		}
+
+		case EXCLUDE_PLAYERS: {
+			const player = state.players?.find(
+				(_player) => _player.id === parseInt(payload.value)
+			);
+
+			// Remove player from lockedPlayers
+			const lockedPlayers = state.lockedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			if (!state.excludedPlayers) {
+				return {
+					...state,
+					lockedPlayers: lockedPlayers?.length
+						? lockedPlayers
+						: undefined,
+					excludedPlayers: [player],
+				};
+			}
+
+			return {
+				...state,
+				lockedPlayers: lockedPlayers?.length
+					? lockedPlayers
+					: undefined,
+				excludedPlayers: payload.checked
+					? uniq([...state.excludedPlayers, player])
+					: state.excludedPlayers.filter(
+							(_player) => _player.id !== parseInt(payload.value)
+					  ),
+			};
+		}
+
+		case CLEAR_TOGGLE: {
+			// Remove player from lockedPlayers
+			const lockedPlayers = state.lockedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			// Remove player from excludedPlayers
+			const excludedPlayers = state.excludedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			return {
+				...state,
+				lockedPlayers,
+				excludedPlayers,
 			};
 		}
 
@@ -280,6 +345,7 @@ const table = (
 				draftGroupId: undefined,
 				lineups: undefined,
 				lockedPlayers: undefined,
+				excludedPlayers: undefined,
 				optimizedPlayers: undefined,
 				page: 0,
 				players: undefined,

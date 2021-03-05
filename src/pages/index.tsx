@@ -7,7 +7,7 @@ import { ISports } from '../interfaces/ISports';
 import Bar from '../containers/Bar/Bar';
 import Rules from '../containers/Rules/Rules';
 import Stacking from '../containers/Stacking/Stacking';
-import Table from '../containers/Table/Table';
+import Table from '../containers/Table/Table.component';
 import Tabs from '../containers/Tabs/Tabs';
 
 import Loading from '../components/loading';

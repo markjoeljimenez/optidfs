@@ -15,7 +15,6 @@ const dropdown = (state = DEFAULT_STATE, { type, contests }) => {
 			};
 
 		case SET_CONTESTS:
-			// console.log(contests[0]);
 			return {
 				...state,
 				contests,

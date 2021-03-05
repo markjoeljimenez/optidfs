@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import clsx from 'clsx';
+
+import Toggle from '../../components/form/toggle';
 
 import {
 	nextPage,
@@ -8,6 +9,8 @@ import {
 	setPlayerExposure,
 	lockPlayer,
 	setPlayerProjectedOwnership,
+	excludePlayer,
+	clearToggle,
 } from './Table.actions';
 import Error, { IError } from '../Error/Error';
 import Loading from '../../components/loading';
@@ -18,6 +21,8 @@ interface ITableContainerProps {
 	next(): void;
 	previous(): void;
 	lock(e): void;
+	exclude(e): void;
+	clear(e): void;
 	setExposure(id, value): void;
 	setProjectedOwnership(id, value): void;
 }
@@ -28,6 +33,8 @@ const TableContainer = ({
 	next,
 	previous,
 	lock,
+	exclude,
+	clear,
 	setExposure,
 	setProjectedOwnership,
 }: ITableContainerProps) => {
@@ -35,6 +42,7 @@ const TableContainer = ({
 		players,
 		loading,
 		lockedPlayers,
+		excludedPlayers,
 		gameType,
 		lineups,
 		totalSalary,
@@ -42,16 +50,18 @@ const TableContainer = ({
 		page,
 	} = table;
 
-	const optionsRef = useRef<(HTMLDivElement | null)[]>([]);
-
 	const [activeRow, setActiveRow] = useState<number | null>(null);
 
-	useEffect(() => {
-		optionsRef.current = optionsRef.current.slice(0, players?.length);
-	}, []);
-
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleLockPlayer = (e: React.MouseEvent<HTMLInputElement>) => {
 		lock(e);
+	};
+
+	const handleExcludePlayer = (e: React.MouseEvent<HTMLInputElement>) => {
+		exclude(e);
+	};
+
+	const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
+		clear(e);
 	};
 
 	const handleExposureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,36 +100,17 @@ const TableContainer = ({
 						role="row"
 					>
 						<div
-							className="p-3 px-0 flex justify-center"
+							className="md:p-2 md:py-4 pl-0 flex align"
 							role="columnheader"
 						>
-							<span hidden>Lock</span>
-							<svg
-								className="fill-current"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								width="24"
-								height="24"
-							>
-								<g data-name="Layer 2">
-									<g data-name="lock">
-										<rect
-											width="24"
-											height="24"
-											opacity="0"
-										/>
-										<path d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z" />
-										<path d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z" />
-									</g>
-								</g>
-							</svg>
+							Lock / exclude
 						</div>
-						<div
+						{/* <div
 							className="p-2 flex items-center justify-center"
 							role="columnheader"
 						>
 							Status
-						</div>
+						</div> */}
 						<div
 							className="p-2 flex items-center"
 							role="columnheader"
@@ -175,32 +166,29 @@ const TableContainer = ({
 									// aria-rowindex={i}
 								>
 									<div
-										className="md:p-2 md:py-4 pl-0 md:flex items-center justify-center col-start-1 md:col-start-auto hidden"
+										className="md:p-2 md:py-4 pl-0 md:flex items-center col-start-1 md:col-start-auto hidden"
 										role="cell"
 									>
-										{player.status !== 'O' ? (
-											<label htmlFor="lock">
-												<span className="md:hidden">
-													Lock
-												</span>
-												<input
-													id="lock"
-													className="checkbox"
-													type="checkbox"
-													onChange={handleChange}
-													defaultChecked={lockedPlayers?.some(
-														(_player) =>
-															_player.id ===
-															player.id
-													)}
-													value={player.id}
-												/>
-											</label>
-										) : (
-											<></>
-										)}
+										<Toggle
+											id={player.id}
+											lockPlayer={handleLockPlayer}
+											excludePlayer={handleExcludePlayer}
+											locked={lockedPlayers?.find(
+												(_player) =>
+													_player.id === player.id
+											)}
+											excluded={excludedPlayers?.find(
+												(_player) =>
+													_player.id === player.id
+											)}
+											clearSelection={
+												handleClearSelection
+											}
+										/>
 									</div>
-									<div
+
+									{/* Status */}
+									{/* <div
 										className="md:p-2 md:py-4 flex items-center justify-start md:justify-center"
 										role="cell"
 									>
@@ -229,7 +217,9 @@ const TableContainer = ({
 													: player.status
 												: 'Active'}
 										</div>
-									</div>
+									</div> */}
+
+									{/* First name */}
 									<div
 										className="md:p-2 md:py-4 flex items-center font-black md:font-normal"
 										role="cell"
@@ -241,12 +231,16 @@ const TableContainer = ({
 											</span>
 										</div>
 									</div>
+
+									{/* Last name */}
 									<div
 										className="md:p-2 md:py-4 items-center md:flex hidden"
 										role="cell"
 									>
 										{player.last_name}
 									</div>
+
+									{/* Positions */}
 									<div
 										className="md:p-2 md:py-4 flex items-center row-start-2 col-start-2 md:row-start-auto md:col-start-auto"
 										role="cell"
@@ -255,12 +249,16 @@ const TableContainer = ({
 											? player.draft_positions
 											: player.position}
 									</div>
+
+									{/* Team */}
 									<div
 										className="md:p-2 md:py-4 flex items-center row-start-3 col-start-2 md:row-start-auto md:col-start-auto"
 										role="cell"
 									>
 										{player.team}
 									</div>
+
+									{/* Salary */}
 									<div
 										className="md:p-2 md:py-4 flex items-center justify-end row-start-3 col-start-3 md:row-start-auto md:col-start-auto"
 										role="cell"
@@ -272,64 +270,67 @@ const TableContainer = ({
 											minimumFractionDigits: 0,
 										}).format(player.salary)}
 									</div>
+
+									{/* Fantasy points per game */}
 									<div
 										className="md:p-2 md:py-4 flex items-center justify-end row-start-2 col-start-3 md:row-start-auto md:col-start-auto"
 										role="cell"
 									>
 										{player.points_per_contest}
 									</div>
+
+									{/* More options */}
 									<div
 										className="md:p-2 md:py-4 pr-0 flex justify-end items-center row-start-1 col-start-4 md:row-start-auto md:col-start-auto"
 										role="cell"
 									>
-										{player.status !== 'O' && (
-											<button
-												type="button"
-												onClick={handleOptionsClick}
-												value={i}
+										<button
+											type="button"
+											onClick={handleOptionsClick}
+											value={i}
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+												width="24"
+												height="24"
 											>
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													viewBox="0 0 24 24"
-													width="24"
-													height="24"
+												<g
+													data-name="Layer 2"
+													fill="#013262"
 												>
-													<g
-														data-name="Layer 2"
-														fill="#013262"
-													>
-														<g data-name="more-vertical">
-															<rect
-																width="24"
-																height="24"
-																transform="rotate(-90 12 12)"
-																opacity="0"
-															/>
-															<circle
-																cx="12"
-																cy="12"
-																r="2"
-															/>
-															<circle
-																cx="12"
-																cy="5"
-																r="2"
-															/>
-															<circle
-																cx="12"
-																cy="19"
-																r="2"
-															/>
-														</g>
+													<g data-name="more-vertical">
+														<rect
+															width="24"
+															height="24"
+															transform="rotate(-90 12 12)"
+															opacity="0"
+														/>
+														<circle
+															cx="12"
+															cy="12"
+															r="2"
+														/>
+														<circle
+															cx="12"
+															cy="5"
+															r="2"
+														/>
+														<circle
+															cx="12"
+															cy="19"
+															r="2"
+														/>
 													</g>
-												</svg>
-											</button>
-										)}
+												</g>
+											</svg>
+										</button>
 									</div>
 								</div>
 							</div>
 
-							{player.status !== 'O' && i === activeRow ? (
+							{/* More options content row */}
+							{i === activeRow ? (
 								<div role="rowgroup">
 									<div
 										className="border-b border-gray-300"
@@ -596,6 +597,8 @@ const mapDispatchToProps = (dispatch) => ({
 	next: () => dispatch(nextPage()),
 	previous: () => dispatch(previousPage()),
 	lock: (e) => dispatch(lockPlayer(e)),
+	exclude: (e) => dispatch(excludePlayer(e)),
+	clear: (e) => dispatch(clearToggle(e)),
 	setExposure: (id, value) => dispatch(setPlayerExposure(id, value)),
 	setProjectedOwnership: (id, value) =>
 		dispatch(setPlayerProjectedOwnership(id, value)),
