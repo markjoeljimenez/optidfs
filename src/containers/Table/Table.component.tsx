@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import clsx from 'clsx';
+
+import Toggle from '../../components/form/toggle';
 
 import {
 	nextPage,
@@ -9,6 +10,7 @@ import {
 	lockPlayer,
 	setPlayerProjectedOwnership,
 	excludePlayer,
+	clearToggle,
 } from './Table.actions';
 import Error, { IError } from '../Error/Error';
 import Loading from '../../components/loading';
@@ -20,6 +22,7 @@ interface ITableContainerProps {
 	previous(): void;
 	lock(e): void;
 	exclude(e): void;
+	clear(e): void;
 	setExposure(id, value): void;
 	setProjectedOwnership(id, value): void;
 }
@@ -31,6 +34,7 @@ const TableContainer = ({
 	previous,
 	lock,
 	exclude,
+	clear,
 	setExposure,
 	setProjectedOwnership,
 }: ITableContainerProps) => {
@@ -46,20 +50,18 @@ const TableContainer = ({
 		page,
 	} = table;
 
-	const optionsRef = useRef<(HTMLDivElement | null)[]>([]);
-
 	const [activeRow, setActiveRow] = useState<number | null>(null);
 
-	useEffect(() => {
-		optionsRef.current = optionsRef.current.slice(0, players?.length);
-	}, []);
-
-	const handleLockPlayer = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleLockPlayer = (e: React.MouseEvent<HTMLInputElement>) => {
 		lock(e);
 	};
 
-	const handleExcludePlayer = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleExcludePlayer = (e: React.MouseEvent<HTMLInputElement>) => {
 		exclude(e);
+	};
+
+	const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
+		clear(e);
 	};
 
 	const handleExposureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,53 +100,10 @@ const TableContainer = ({
 						role="row"
 					>
 						<div
-							className="p-3 px-0 flex justify-center"
+							className="md:p-2 md:py-4 pl-0 flex align"
 							role="columnheader"
 						>
-							<span hidden>Lock</span>
-							<svg
-								className="fill-current"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								width="24"
-								height="24"
-							>
-								<g data-name="Layer 2">
-									<g data-name="lock">
-										<rect
-											width="24"
-											height="24"
-											opacity="0"
-										/>
-										<path d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z" />
-										<path d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z" />
-									</g>
-								</g>
-							</svg>
-						</div>
-						<div
-							className="p-3 px-0 flex justify-center"
-							role="columnheader"
-						>
-							<span hidden>Exclude</span>
-							<svg
-								className="fill-current"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 24 24"
-								width="24"
-								height="24"
-							>
-								<g data-name="Layer 2">
-									<g data-name="slash">
-										<rect
-											width="24"
-											height="24"
-											opacity="0"
-										/>
-										<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm8 10a7.92 7.92 0 0 1-1.69 4.9L7.1 5.69A7.92 7.92 0 0 1 12 4a8 8 0 0 1 8 8zM4 12a7.92 7.92 0 0 1 1.69-4.9L16.9 18.31A7.92 7.92 0 0 1 12 20a8 8 0 0 1-8-8z" />
-									</g>
-								</g>
-							</svg>
+							Lock / exclude
 						</div>
 						{/* <div
 							className="p-2 flex items-center justify-center"
@@ -206,50 +165,26 @@ const TableContainer = ({
 									key={Math.random()}
 									// aria-rowindex={i}
 								>
-									{/* Lock */}
 									<div
-										className="md:p-2 md:py-4 pl-0 md:flex items-center justify-center col-start-1 md:col-start-auto hidden"
+										className="md:p-2 md:py-4 pl-0 md:flex items-center col-start-1 md:col-start-auto hidden"
 										role="cell"
 									>
-										<label htmlFor="lock">
-											<span className="md:hidden">
-												Lock
-											</span>
-											<input
-												id="lock"
-												className="checkbox"
-												type="checkbox"
-												onChange={handleLockPlayer}
-												defaultChecked={lockedPlayers?.some(
-													(_player) =>
-														_player.id === player.id
-												)}
-												value={player.id}
-											/>
-										</label>
-									</div>
-
-									{/* Exclude */}
-									<div
-										className="md:p-2 md:py-4 pl-0 md:flex items-center justify-center col-start-1 md:col-start-auto hidden"
-										role="cell"
-									>
-										<label htmlFor="lock">
-											<span className="md:hidden">
-												Lock
-											</span>
-											<input
-												id="exclude"
-												className="checkbox"
-												type="checkbox"
-												onChange={handleExcludePlayer}
-												defaultChecked={excludedPlayers?.some(
-													(_player) =>
-														_player.id === player.id
-												)}
-												value={player.id}
-											/>
-										</label>
+										<Toggle
+											id={player.id}
+											lockPlayer={handleLockPlayer}
+											excludePlayer={handleExcludePlayer}
+											locked={lockedPlayers?.find(
+												(_player) =>
+													_player.id === player.id
+											)}
+											excluded={excludedPlayers?.find(
+												(_player) =>
+													_player.id === player.id
+											)}
+											clearSelection={
+												handleClearSelection
+											}
+										/>
 									</div>
 
 									{/* Status */}
@@ -663,6 +598,7 @@ const mapDispatchToProps = (dispatch) => ({
 	previous: () => dispatch(previousPage()),
 	lock: (e) => dispatch(lockPlayer(e)),
 	exclude: (e) => dispatch(excludePlayer(e)),
+	clear: (e) => dispatch(clearToggle(e)),
 	setExposure: (id, value) => dispatch(setPlayerExposure(id, value)),
 	setProjectedOwnership: (id, value) =>
 		dispatch(setPlayerProjectedOwnership(id, value)),

@@ -4,6 +4,7 @@ export const LOADING_PLAYERS = 'LOADING_PLAYERS';
 export const SELECT_PLAYER = 'SELECT_PLAYER';
 export const LOCK_PLAYERS = 'LOCK_PLAYERS';
 export const EXCLUDE_PLAYERS = 'EXCLUDE_PLAYERS';
+export const CLEAR_TOGGLE = 'CLEAR_TOGGLE';
 export const NEXT = 'NEXT';
 export const PREVIOUS = 'PREVIOUS';
 export const SET_PLAYER_EXPOSURE = 'SET_PLAYER_EXPOSURE';
@@ -28,6 +29,11 @@ export const lockPlayer = (e: React.ChangeEvent<HTMLInputElement>) => ({
 
 export const excludePlayer = (e: React.ChangeEvent<HTMLInputElement>) => ({
 	type: EXCLUDE_PLAYERS,
+	payload: e.currentTarget,
+});
+
+export const clearToggle = (e: React.ChangeEvent<HTMLInputElement>) => ({
+	type: CLEAR_TOGGLE,
 	payload: e.currentTarget,
 });
 

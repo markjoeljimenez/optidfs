@@ -2,15 +2,16 @@ import Fuse from 'fuse.js';
 import uniq from 'lodash.uniqby';
 
 import {
-	GET_PLAYERS_SUCCEEDED,
+	CLEAR_TOGGLE,
+	EXCLUDE_PLAYERS,
 	GET_PLAYERS_FAILED,
+	GET_PLAYERS_SUCCEEDED,
 	LOADING_PLAYERS,
+	LOCK_PLAYERS,
 	NEXT,
 	PREVIOUS,
 	SET_PLAYER_EXPOSURE,
-	LOCK_PLAYERS,
 	SET_PLAYER_PROJECTED_OWNERSHIP,
-	EXCLUDE_PLAYERS,
 } from './Table.actions';
 import {
 	OPTIMIZE_PLAYERS_FAILED,
@@ -213,15 +214,26 @@ const table = (
 				(_player) => _player.id === parseInt(payload.value)
 			);
 
+			// Remove player from excludedPlayers
+			const excludedPlayers = state.excludedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
 			if (!state.lockedPlayers) {
 				return {
 					...state,
+					excludedPlayers: excludedPlayers?.length
+						? excludedPlayers
+						: undefined,
 					lockedPlayers: [player],
 				};
 			}
 
 			return {
 				...state,
+				excludedPlayers: excludedPlayers?.length
+					? excludedPlayers
+					: undefined,
 				lockedPlayers: payload.checked
 					? uniq([...state.lockedPlayers, player])
 					: state.lockedPlayers.filter(
@@ -235,20 +247,49 @@ const table = (
 				(_player) => _player.id === parseInt(payload.value)
 			);
 
+			// Remove player from lockedPlayers
+			const lockedPlayers = state.lockedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
 			if (!state.excludedPlayers) {
 				return {
 					...state,
+					lockedPlayers: lockedPlayers?.length
+						? lockedPlayers
+						: undefined,
 					excludedPlayers: [player],
 				};
 			}
 
 			return {
 				...state,
+				lockedPlayers: lockedPlayers?.length
+					? lockedPlayers
+					: undefined,
 				excludedPlayers: payload.checked
 					? uniq([...state.excludedPlayers, player])
 					: state.excludedPlayers.filter(
 							(_player) => _player.id !== parseInt(payload.value)
 					  ),
+			};
+		}
+
+		case CLEAR_TOGGLE: {
+			// Remove player from lockedPlayers
+			const lockedPlayers = state.lockedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			// Remove player from excludedPlayers
+			const excludedPlayers = state.excludedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			return {
+				...state,
+				lockedPlayers,
+				excludedPlayers,
 			};
 		}
 
