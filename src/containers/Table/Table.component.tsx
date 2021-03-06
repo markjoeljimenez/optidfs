@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import Toggle from '../../components/form/toggle';
@@ -48,6 +48,7 @@ const TableContainer = ({
 		totalSalary,
 		totalFppg,
 		page,
+		view,
 	} = table;
 
 	const [activeRow, setActiveRow] = useState<number | null>(null);
@@ -414,7 +415,7 @@ const TableContainer = ({
 					))}
 				</div>
 
-				{lineups && (
+				{lineups && view === 'optimized' && (
 					<div className="border-b border-gray-300" role="rowgroup">
 						<div
 							className="grid gap-2 md:gap-0 grid-cols-table-md font-black container mx-auto px-8"
@@ -424,7 +425,7 @@ const TableContainer = ({
 								Total
 							</div>
 							<div
-								className="p-2 py-5 flex items-center justify-end col-start-4 md:col-start-7"
+								className="p-2 py-5 flex items-center justify-end col-start-4 md:col-start-6"
 								role="cell"
 							>
 								{totalSalary &&

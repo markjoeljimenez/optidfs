@@ -1,6 +1,13 @@
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
+
 import setActiveTabAction from './Tabs.actions';
+import {
+	viewAllPlayersAction,
+	viewOptimizedLineupsAction,
+} from '../Table/Table.actions';
+import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 
 const TABS = [
 	{
@@ -19,31 +26,61 @@ const TABS = [
 
 interface ITabsProps {
 	activeTab: string;
-	sport: number;
-	setActiveTab(value): void;
+	optimizedPlayers: IDraftKingsPlayer[];
+	view: string;
 	gameType: string;
+	setActiveTab(value): void;
+	viewAllPlayers(): void;
+	viewOptimizedLineups(): void;
 }
 
 const TabsContainer = ({
 	activeTab,
 	gameType,
-	sport,
+	view,
+	optimizedPlayers,
+	viewAllPlayers,
+	viewOptimizedLineups,
 	setActiveTab,
 }: ITabsProps) => {
-	// const handleClick = () => {
-	// 	props.optimizeLineups(props.value);
-	// };
-
-	function handleTabClick(e: React.MouseEvent<HTMLButtonElement>) {
+	console.log(view, optimizedPlayers);
+	const handleTabClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const { value } = e.currentTarget;
 
 		setActiveTab(value);
-	}
+	};
 
-	// function handleSeeAllPlayers() {}
+	const handleViewAllPlayers = () => {
+		viewAllPlayers();
+	};
+
+	const handleViewOptimizedLineups = () => {
+		viewOptimizedLineups();
+	};
 
 	return (
-		<div className="flex justify-between">
+		<div className="flex relative justify-center">
+			{optimizedPlayers?.length && (
+				<div className="absolute inset-y-0 left-0 p-2">
+					{view === 'all' ? (
+						<button
+							className="uppercase text-xs font-black text-blue-900"
+							type="button"
+							onClick={handleViewOptimizedLineups}
+						>
+							&lt; View Optimized Lineups
+						</button>
+					) : (
+						<button
+							className="uppercase text-xs font-black text-blue-900"
+							type="button"
+							onClick={handleViewAllPlayers}
+						>
+							&lt; View All Players
+						</button>
+					)}
+				</div>
+			)}
 			<nav>
 				<ul className="flex" role="tablist">
 					{TABS.map(({ name, id }) => (
@@ -69,7 +106,9 @@ const TabsContainer = ({
 					))}
 				</ul>
 			</nav>
-			<p className="py-2 px-4 font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate">
+			<p className="p-2 uppercase text-xs font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate absolute inset-y-0 right-0 flex items-center">
+				Game type:
+				{' '}
 				{gameType}
 			</p>
 		</div>
@@ -80,10 +119,14 @@ const mapStateToProps = ({ tabs, table, sports }) => ({
 	activeTab: tabs.activeTab,
 	sport: sports.sport,
 	gameType: table.gameType,
+	view: table.view,
+	optimizedPlayers: table.optimizedPlayers,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	setActiveTab: (value) => dispatch(setActiveTabAction(value)),
+	viewAllPlayers: () => dispatch(viewAllPlayersAction()),
+	viewOptimizedLineups: () => dispatch(viewOptimizedLineupsAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TabsContainer);
