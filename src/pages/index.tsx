@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import { initializeStore } from '../store';
 import { SET_SPORTS } from '../containers/Sports/Sports.actions';
+import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 import { ISports } from '../interfaces/ISports';
 
 import Bar from '../containers/Bar/Bar';
@@ -11,6 +12,14 @@ import Table from '../containers/Table/Table.component';
 import Tabs from '../containers/Tabs/Tabs';
 
 import Loading from '../components/loading';
+
+interface IApp {
+	activeTab: string;
+	providers: any;
+	sport: string;
+	loading: any;
+	players: IDraftKingsPlayer[];
+}
 
 const API = process.env.ENDPOINT;
 const PANELS = [
@@ -28,7 +37,7 @@ const PANELS = [
 	},
 ];
 
-const App = ({ activeTab, providers, sport, loading, players }: any) => (
+const App = ({ activeTab, providers, sport, loading, players }: IApp) => (
 	<Loading loading={loading.isLoading} message={loading.message}>
 		{providers && sport && players?.length ? (
 			<>

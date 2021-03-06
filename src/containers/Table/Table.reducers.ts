@@ -12,6 +12,8 @@ import {
 	PREVIOUS,
 	SET_PLAYER_EXPOSURE,
 	SET_PLAYER_PROJECTED_OWNERSHIP,
+	VIEW_ALL_PLAYERS,
+	VIEW_OPTIMIZED_LINEUPS,
 } from './Table.actions';
 import {
 	OPTIMIZE_PLAYERS_FAILED,
@@ -48,11 +50,13 @@ export interface IActions {
 	// 	home_team_id: number;
 	// };
 	gameType?: string;
+	view: 'all' | 'optimized';
 }
 
 const table = (
 	state: IActions = {
 		page: 0,
+		view: 'all',
 	},
 	{
 		type,
@@ -65,6 +69,7 @@ const table = (
 		value,
 		// teamIds,
 		gameType,
+		view,
 	}: IActions
 ) => {
 	switch (type) {
@@ -125,6 +130,7 @@ const table = (
 				totalFppg: lineup?.totalFppg,
 				totalSalary: lineup?.totalSalary,
 				lineups: transformedLineups,
+				view: 'optimized',
 				loading: false,
 			};
 		}
@@ -336,6 +342,20 @@ const table = (
 
 			return state;
 		}
+
+		case VIEW_ALL_PLAYERS:
+			return {
+				...state,
+				players: state.defaultPlayers,
+				view: 'all',
+			};
+
+		case VIEW_OPTIMIZED_LINEUPS:
+			return {
+				...state,
+				players: state.optimizedPlayers,
+				view: 'optimized',
+			};
 
 		case RESET_PLAYERS:
 			return {
