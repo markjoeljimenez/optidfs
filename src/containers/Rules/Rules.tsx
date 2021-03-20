@@ -22,6 +22,9 @@ const RulesContainer = ({ players }: IRulesProps) =>
 				<div className="mt-8">
 					<PlayersFromSameTeam />
 				</div>
+				{/* <div className="mt-8">
+					<PlayersFromSameTeam />
+				</div> */}
 				<div className="mt-8">
 					<NumberOfSpecificPositions />
 				</div>

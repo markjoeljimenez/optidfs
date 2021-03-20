@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 
 import Toggle from '../../components/form/toggle';
@@ -89,6 +89,8 @@ const TableContainer = ({
 		setProjectedOwnership(id, value);
 	};
 
+	const memoPlayers = useMemo(() => players, [players]);
+
 	return players && !error?.show ? (
 		<Loading loading={loading}>
 			<div role="table">
@@ -154,7 +156,7 @@ const TableContainer = ({
 					</div>
 				</div>
 				<div role="rowgroup">
-					{players?.map((player, i) => (
+					{memoPlayers?.map((player, i) => (
 						<div role="row" key={player.id} aria-rowindex={i}>
 							<div
 								className="border-b border-gray-300 text-sm md:text-base"

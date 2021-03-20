@@ -15,10 +15,10 @@ import rootSaga from './saga';
 
 let store;
 
-export const reducer = combineReducers({
+export const Reducer = combineReducers({
 	dropdown,
 	error,
-	providers,
+	// providers,
 	rules,
 	sports,
 	stacking,
@@ -29,7 +29,7 @@ export const reducer = combineReducers({
 function initStore(preloadedState = {}) {
 	const saga = createSagaMiddleware();
 
-	const _store = createStore(reducer, preloadedState, applyMiddleware(saga));
+	const _store = createStore(Reducer, preloadedState, applyMiddleware(saga));
 
 	saga.run(rootSaga);
 
@@ -61,3 +61,6 @@ export const initializeStore = (preloadedState?: any) => {
 export function useStore(_initialState) {
 	return useMemo(() => initializeStore(_initialState), [_initialState]);
 }
+
+export type RootState = ReturnType<typeof Reducer>;
+export type AppDispatch = typeof store.dispatch;
