@@ -1,11 +1,13 @@
-import { connect } from 'react-redux';
+import { useAppSelector } from '../../hooks';
 
 import Search from '../Search/Search';
 import Optimize from '../Optimize/Optimize';
 import { openModal } from '../Rules/Rules.actions';
 
-const BarContainer = ({ players }: any) =>
-	players ? (
+const Bar = () => {
+	const { players } = useAppSelector((state) => state);
+
+	return players ? (
 		<div className="flex items-center justify-between">
 			<div className="flex-1 mr-4">
 				<Search />
@@ -15,13 +17,6 @@ const BarContainer = ({ players }: any) =>
 	) : (
 		<></>
 	);
+};
 
-const mapStateToProps = ({ table }) => ({
-	players: table.players,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	openModal: (value) => dispatch(openModal(value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BarContainer);
+export default Bar;

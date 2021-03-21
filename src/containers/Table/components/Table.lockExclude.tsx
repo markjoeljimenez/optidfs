@@ -1,31 +1,33 @@
 import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
-import { clearToggle, excludePlayer, lockPlayer } from '../Table.actions';
+import {
+	clearToggle,
+	excludePlayer,
+	lockPlayer,
+} from '../../Players/Players.actions';
 
-interface IToggle {
+type IToggle = {
 	id: number;
-}
+};
 
 const Toggle = ({ id }: IToggle) => {
-	const { lockedPlayers, excludedPlayers } = useAppSelector(
-		(state) => state.table
-	);
+	const { players } = useAppSelector((state) => state.players);
 	const dispatch = useAppDispatch();
 
-	const locked = lockedPlayers?.some((_player) => _player.id === id);
-	const excluded = excludedPlayers?.some((_player) => _player.id === id);
+	const locked = players?.locked?.some((_player) => _player.id === id);
+	const excluded = players?.excluded?.some((_player) => _player.id === id);
 
 	const handleLockPlayer = (e: React.MouseEvent<HTMLInputElement>) => {
-		dispatch(lockPlayer(e));
+		// dispatch(lockPlayer(e));
 	};
 
 	const handleExcludePlayer = (e: React.MouseEvent<HTMLInputElement>) => {
-		dispatch(excludePlayer(e));
+		// dispatch(excludePlayer(e));
 	};
 
 	const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
-		dispatch(clearToggle(e));
+		// dispatch(clearToggle(e));
 	};
 
 	return (

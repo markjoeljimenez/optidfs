@@ -1,56 +1,28 @@
-export const GET_PLAYERS_SUCCEEDED = 'GET_PLAYERS_SUCCEEDED';
-export const GET_PLAYERS_FAILED = 'GET_PLAYERS_FAILED';
-export const LOADING_PLAYERS = 'LOADING_PLAYERS';
-export const SELECT_PLAYER = 'SELECT_PLAYER';
-export const LOCK_PLAYERS = 'LOCK_PLAYERS';
-export const EXCLUDE_PLAYERS = 'EXCLUDE_PLAYERS';
-export const CLEAR_TOGGLE = 'CLEAR_TOGGLE';
-export const NEXT = 'NEXT';
-export const PREVIOUS = 'PREVIOUS';
-export const SET_PLAYER_EXPOSURE = 'SET_PLAYER_EXPOSURE';
-export const SET_PLAYER_PROJECTED_OWNERSHIP = 'SET_PLAYER_PROJECTED_OWNERSHIP';
-export const VIEW_ALL_PLAYERS = 'VIEW_ALL_PLAYERS';
-export const VIEW_OPTIMIZED_LINEUPS = 'VIEW_OPTIMIZED_LINEUPS';
+export const TABLE_ACTIONS = {
+	LOADING_TABLE: 'LOADING_TABLE',
+	NEXT: 'NEXT',
+	PREVIOUS: 'PREVIOUS',
+	VIEW_ALL_PLAYERS: 'VIEW_ALL_PLAYERS',
+	VIEW_OPTIMIZED_LINEUPS: 'VIEW_OPTIMIZED_LINEUPS',
+};
 
-export const setPlayerExposure = (playerId: string, value: number) => ({
-	type: SET_PLAYER_EXPOSURE,
-	playerId,
-	value,
-});
-
-export const setProjectedOwnership = (playerId: string, value: number) => ({
-	type: SET_PLAYER_PROJECTED_OWNERSHIP,
-	playerId,
-	value,
-});
-
-export const lockPlayer = (e: React.MouseEvent<HTMLInputElement>) => ({
-	type: LOCK_PLAYERS,
-	payload: e.currentTarget,
-});
-
-export const excludePlayer = (e: React.MouseEvent<HTMLInputElement>) => ({
-	type: EXCLUDE_PLAYERS,
-	payload: e.currentTarget,
-});
-
-export const clearToggle = (e: React.MouseEvent<HTMLButtonElement>) => ({
-	type: CLEAR_TOGGLE,
-	payload: e.currentTarget,
+export const loadingTable = (loading: boolean) => ({
+	type: TABLE_ACTIONS.LOADING_TABLE,
+	loading,
 });
 
 export const nextPage = () => ({
-	type: NEXT,
+	type: TABLE_ACTIONS.NEXT,
 });
 
 export const previousPage = () => ({
-	type: PREVIOUS,
+	type: TABLE_ACTIONS.PREVIOUS,
 });
 
 export const viewAllPlayersAction = () => ({
-	type: VIEW_ALL_PLAYERS,
+	type: TABLE_ACTIONS.VIEW_ALL_PLAYERS,
 });
 
 export const viewOptimizedLineupsAction = () => ({
-	type: VIEW_OPTIMIZED_LINEUPS,
+	type: TABLE_ACTIONS.VIEW_OPTIMIZED_LINEUPS,
 });

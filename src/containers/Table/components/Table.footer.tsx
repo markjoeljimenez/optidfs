@@ -1,11 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-
 import { nextPage, previousPage } from '../Table.actions';
 
 const Footer = () => {
-	const { lineups, totalSalary, totalFppg, page, view } = useAppSelector(
-		(state) => state.table
-	);
+	// const { lineups, totalSalary, totalFppg, page, view } = useAppSelector(
+	// 	(state) => state.table
+	// );
 	const dispatch = useAppDispatch();
 
 	const handlePrevious = () => {
@@ -18,7 +17,8 @@ const Footer = () => {
 
 	return (
 		<>
-			{lineups && view === 'optimized' && (
+			<p>test</p>
+			{/* {lineups && view === 'optimized' && (
 				<div className="border-b border-gray-300" role="rowgroup">
 					<div
 						className="grid gap-2 md:gap-0 grid-cols-table-md font-black container mx-auto px-8"
@@ -172,7 +172,7 @@ const Footer = () => {
 						</div>
 					</div>
 				</div>
-			)}
+			)} */}
 		</>
 	);
 };

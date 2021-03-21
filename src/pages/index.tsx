@@ -28,14 +28,16 @@ const PANELS = [
 ];
 
 const Index = () => {
-	const { dropdown, sports, table, tabs } = useAppSelector((state) => state);
+	const { dropdown, sports, table, tabs, players } = useAppSelector(
+		(state) => state
+	);
 
 	return (
 		<Loading
 			loading={dropdown.loading}
 			message="Loading contests... this may take some time"
 		>
-			{sports.selectedSport && table.players?.length ? (
+			{sports.selectedSport && (players.all || players.optimized) ? (
 				<>
 					<div>
 						<div className="container mx-auto p-8">

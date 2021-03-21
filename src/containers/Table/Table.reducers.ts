@@ -3,141 +3,47 @@ import uniq from 'lodash.uniqby';
 import { AnyAction } from 'redux';
 
 import {
-	CLEAR_TOGGLE,
-	EXCLUDE_PLAYERS,
-	GET_PLAYERS_FAILED,
-	GET_PLAYERS_SUCCEEDED,
-	LOADING_PLAYERS,
-	LOCK_PLAYERS,
-	NEXT,
-	PREVIOUS,
-	SET_PLAYER_EXPOSURE,
-	SET_PLAYER_PROJECTED_OWNERSHIP,
-	VIEW_ALL_PLAYERS,
-	VIEW_OPTIMIZED_LINEUPS,
-} from './Table.actions';
-import {
 	OPTIMIZE_PLAYERS_FAILED,
 	OPTIMIZE_PLAYERS_SUCCEEDED,
 } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
 import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
+import { TABLE_ACTIONS } from './Table.actions';
 
-interface ILineup {
-	players: string[];
-	totalFppg: number;
-	totalSalary: number;
-}
-
-interface ITableState {
+type ITableState = {
 	page: number;
 	view: 'all' | 'optimized';
-	defaultPlayers?: IDraftKingsPlayer[];
-	draftGroupId?: string;
-	excludedPlayers?: IDraftKingsPlayer[];
-	gameType?: string;
-	lineups?: ILineup[];
-	loading?: boolean;
-	lockedPlayers?: IDraftKingsPlayer[];
-	optimizedPlayers?: IDraftKingsPlayer[];
-	payload?: any;
-	playerId?: string;
-	players?: IDraftKingsPlayer[];
-	searchTerm?: string;
-	teams?: string[];
-	totalFppg?: number;
-	totalSalary?: number;
-	value?: string;
-}
+	loading: boolean;
+	// draftGroupId?: string;
+	// gameType?: string;
+	// lineups?: ILineup[];
+	// payload?: any;
+	// playerId?: string;
+	// players?: IPlayers;
+	// searchTerm?: string;
+	// teams?: string[];
+	// totalFppg?: number;
+	// totalSalary?: number;
+	// value?: string;
+};
 
 const DEFAULT_STATE: ITableState = {
 	page: 0,
 	view: 'all',
+	loading: false,
 };
 
 const TableReducer = (
 	state = DEFAULT_STATE,
-	{
-		type,
-		players,
-		draftGroupId,
-		lineups,
-		searchTerm,
-		payload,
-		playerId,
-		value,
-		// teamIds,
-		gameType,
-		view,
-	}: AnyAction
-) => {
+	{ type, loading }: AnyAction
+): ITableState => {
 	switch (type) {
-		case LOADING_PLAYERS:
+		case TABLE_ACTIONS.LOADING_TABLE:
 			return {
 				...state,
-				loading: true,
+				loading,
 			};
-
-		case GET_PLAYERS_SUCCEEDED: {
-			const teams =
-				players && uniq(players, 'team').map(({ team }) => team);
-			const positions =
-				players &&
-				uniq(
-					uniq(players, 'position')
-						.map(({ position }) => position)
-						.map((pos: string) => pos.split('/'))
-						.flat()
-				);
-
-			return {
-				...state,
-				defaultPlayers: players,
-				players,
-				draftGroupId,
-				loading: false,
-				error: undefined,
-				teams,
-				positions,
-				gameType,
-			};
-		}
-
-		case GET_PLAYERS_FAILED:
-			return state;
-
-		// case OPTIMIZE_PLAYERS_SUCCEEDED: {
-		// 	const transformedLineups = lineups?.map((lineup) => ({
-		// 		...lineup,
-		// 		players: lineup.players.map((player) =>
-		// 			state.defaultPlayers?.find(
-		// 				(_player) => _player.id === parseInt(player)
-		// 			)
-		// 		),
-		// 	}));
-
-		// 	const lineup = transformedLineups?.[0];
-
-		// 	return {
-		// 		...state,
-		// 		page: 0,
-		// 		defaultLineups: lineups,
-		// 		optimizedPlayers: lineup?.players,
-		// 		players: lineup?.players,
-		// 		totalFppg: lineup?.totalFppg,
-		// 		totalSalary: lineup?.totalSalary,
-		// 		lineups: transformedLineups,
-		// 		view: 'optimized',
-		// 		loading: false,
-		// 	};
-		// }
-
-		// case OPTIMIZE_PLAYERS_FAILED:
-		// 	return {
-		// 		...state,
-		// 		loading: false,
-		// 	};
 
 		// case PREVIOUS: {
 		// 	const index = state.page - 1 <= 0 ? 0 : state.page - 1;
@@ -213,89 +119,104 @@ const TableReducer = (
 		// 	};
 		// }
 
-		case LOCK_PLAYERS: {
-			const player = state.players?.find(
-				(_player) => _player.id === parseInt(payload.value)
-			);
+		// case LOCK_PLAYERS: {
+		// 	const player = state.players?.locked?.find(
+		// 		(_player) => _player.id === parseInt(payload.value)
+		// 	);
 
-			// Remove player from excludedPlayers
-			const excludedPlayers = state.excludedPlayers?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
+		// 	// Remove player from excludedPlayers
+		// 	const excludedPlayers = state.players?.excluded?.filter(
+		// 		(_player) => _player.id !== parseInt(payload.value)
+		// 	);
 
-			if (!state.lockedPlayers) {
-				return {
-					...state,
-					excludedPlayers: excludedPlayers?.length
-						? excludedPlayers
-						: undefined,
-					lockedPlayers: [player],
-				};
-			}
+		// 	if (!state.players?.locked) {
+		// 		return {
+		// 			...state,
+		// 			players: {
+		// 				...state.players,
+		// 				excluded: excludedPlayers?.length
+		// 					? excludedPlayers
+		// 					: undefined,
+		// 				locked: [player],
+		// 			},
+		// 		};
+		// 	}
 
-			return {
-				...state,
-				excludedPlayers: excludedPlayers?.length
-					? excludedPlayers
-					: undefined,
-				lockedPlayers: payload.checked
-					? uniq([...state.lockedPlayers, player])
-					: state.lockedPlayers.filter(
-							(_player) => _player.id !== parseInt(payload.value)
-					  ),
-			};
-		}
+		// 	return {
+		// 		...state,
+		// 		players: {
+		// 			...state.players,
+		// 			excluded: excludedPlayers?.length
+		// 				? excludedPlayers
+		// 				: undefined,
+		// 			locked: payload.checked
+		// 				? uniq([...state.players.locked, player])
+		// 				: state.players.locked.filter(
+		// 						(_player) =>
+		// 							_player.id !== parseInt(payload.value)
+		// 				  ),
+		// 		},
+		// 	};
+		// }
 
-		case EXCLUDE_PLAYERS: {
-			const player = state.players?.find(
-				(_player) => _player.id === parseInt(payload.value)
-			);
+		// case EXCLUDE_PLAYERS: {
+		// 	const player = state.players?.excluded.find(
+		// 		(_player) => _player.id === parseInt(payload.value)
+		// 	);
 
-			// Remove player from lockedPlayers
-			const lockedPlayers = state.lockedPlayers?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
+		// 	// Remove player from lockedPlayers
+		// 	const lockedPlayers = state.players?.locked.filter(
+		// 		(_player) => _player.id !== parseInt(payload.value)
+		// 	);
 
-			if (!state.excludedPlayers) {
-				return {
-					...state,
-					lockedPlayers: lockedPlayers?.length
-						? lockedPlayers
-						: undefined,
-					excludedPlayers: [player],
-				};
-			}
+		// 	if (!state.players?.excluded) {
+		// 		return {
+		// 			...state,
+		// 			players: {
+		// 				...state.players,
+		// 				locked: lockedPlayers?.length
+		// 					? lockedPlayers
+		// 					: undefined,
+		// 				excluded: [player],
+		// 			},
+		// 		};
+		// 	}
 
-			return {
-				...state,
-				lockedPlayers: lockedPlayers?.length
-					? lockedPlayers
-					: undefined,
-				excludedPlayers: payload.checked
-					? uniq([...state.excludedPlayers, player])
-					: state.excludedPlayers.filter(
-							(_player) => _player.id !== parseInt(payload.value)
-					  ),
-			};
-		}
+		// 	return {
+		// 		...state,
+		// 		players: {
+		// 			...state.players,
+		// 			locked: lockedPlayers?.length ? lockedPlayers : undefined,
+		// 			excluded: payload.checked
+		// 				? uniq([...state.players.excluded, player])
+		// 				: state.players.excluded.filter(
+		// 						(_player) =>
+		// 							_player.id !== parseInt(payload.value)
+		// 				  ),
+		// 		},
+		// 	};
+		// }
 
-		case CLEAR_TOGGLE: {
-			// Remove player from lockedPlayers
-			const lockedPlayers = state.lockedPlayers?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
+		// case CLEAR_TOGGLE: {
+		// 	// Remove player from lockedPlayers
+		// 	const locked = state.players?.locked?.filter(
+		// 		(_player) => _player.id !== parseInt(payload.value)
+		// 	);
 
-			// Remove player from excludedPlayers
-			const excludedPlayers = state.excludedPlayers?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
+		// 	// Remove player from excludedPlayers
+		// 	const excluded = state.players?.excluded?.filter(
+		// 		(_player) => _player.id !== parseInt(payload.value)
+		// 	);
 
-			return {
-				...state,
-				lockedPlayers,
-				excludedPlayers,
-			};
-		}
+		// 	return {
+		// 		...state,
+		// 		players: {
+		// 			...state.players,
+		// 			locked,
+		// 			excluded,
+		// 		},
+		// 	};
+		// }
 
 		// case SET_PLAYER_EXPOSURE: {
 		// 	if (!playerId || !state.defaultPlayers) {

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
-import { setPlayerExposure, setProjectedOwnership } from '../Table.actions';
+import {
+	setPlayerExposure,
+	setProjectedOwnership,
+} from '../../Players/Players.actions';
 
 import Error from '../../Error/Error';
 import Loading from '../../../components/loading';
@@ -9,10 +12,8 @@ import Toggle from './Table.lockExclude';
 import Footer from './Table.footer';
 
 const Table = () => {
-	const { players, loading, gameType } = useAppSelector(
-		(state) => state.table
-	);
-	const { error } = useAppSelector((state) => state);
+	const { loading, view } = useAppSelector((state) => state.table);
+	const { error, players } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
 	const [activeRow, setActiveRow] = useState<number | null>(null);
@@ -43,8 +44,8 @@ const Table = () => {
 		}
 	};
 
-	return players && !error?.show ? (
-		<Loading loading={loading}>
+	return players.all || players.optimized ? (
+		<Loading loading={loading} message="Loading players...">
 			<div role="table">
 				<div
 					className="bg-gray-100 border-b border-gray-300 md:block hidden"
@@ -108,7 +109,7 @@ const Table = () => {
 					</div>
 				</div>
 				<div role="rowgroup">
-					{players?.map((player, i) => (
+					{players?.[view]?.map((player, i) => (
 						<div role="row" key={player.id} aria-rowindex={i}>
 							<div
 								className="border-b border-gray-300 text-sm md:text-base"
@@ -185,9 +186,9 @@ const Table = () => {
 										className="md:p-2 md:py-4 flex items-center row-start-2 col-start-2 md:row-start-auto md:col-start-auto"
 										role="cell"
 									>
-										{gameType === 'Showdown Captain Mode'
+										{/* {gameType === 'Showdown Captain Mode'
 											? player.draft_positions
-											: player.position}
+											: player.position} */}
 									</div>
 
 									{/* Team */}

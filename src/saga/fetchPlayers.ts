@@ -1,10 +1,20 @@
+import { put } from 'redux-saga/effects';
 import { API } from './saga';
 import { ERROR_STATUSES } from '../components/error';
-import { LOADING_PLAYERS, GET_PLAYERS_SUCCEEDED, GET_PLAYERS_FAILED } from '../containers/Table/Table.actions';
-import { put } from 'redux-saga/effects';
+import {
+	getPlayersSucceeded,
+	getPlayersFailed,
+} from '../containers/Players/Players.actions';
+import { loadingTable } from '../containers/Table/Table.actions';
 import { SET_ERROR } from '../containers/Error/Error.reducers';
 
-export default function* fetchPlayers(action) {
+type Action = {
+	type: string;
+	value: number | any;
+	gameType: string;
+};
+
+export default function* fetchPlayers(action: Action) {
 	yield put({
 		type: SET_ERROR,
 		error: null,
@@ -20,7 +30,7 @@ export default function* fetchPlayers(action) {
 			const body = new FormData();
 			body.append('csv', action.value);
 
-			yield put({ type: LOADING_PLAYERS });
+			yield put(loadingTable(true));
 
 			const res = yield fetch(`${API}/players`, {
 				method: 'POST',
@@ -29,32 +39,26 @@ export default function* fetchPlayers(action) {
 
 			const { players } = yield res.json();
 
-			yield put({
-				type: GET_PLAYERS_SUCCEEDED,
-				players,
-				gameType: action.gameType,
-			});
+			yield put(getPlayersSucceeded(players, action.gameType));
+			yield put(loadingTable(false));
 		} else {
-			yield put({ type: LOADING_PLAYERS });
+			yield put(loadingTable(true));
 
 			const res = yield fetch(`${API}/players?id=${action.value}`);
 			const { players } = yield res.json();
 
-			yield put({
-				type: GET_PLAYERS_SUCCEEDED,
-				players,
-				gameType: action.gameType,
-			});
+			yield put(getPlayersSucceeded(players, action.gameType));
+			yield put(loadingTable(false));
 		}
 	} catch (e) {
-		yield put({ type: GET_PLAYERS_FAILED });
+		yield put(getPlayersFailed());
 
 		yield put({
 			type: SET_ERROR,
 			error: {
 				type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
 				show: true,
-				message: 'Can\'t fetch players',
+				message: "Can't fetch players",
 			},
 		});
 	}
