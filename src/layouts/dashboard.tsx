@@ -12,14 +12,14 @@ export interface ILayoutProps {
 }
 
 const Dashboard = ({ children }: ILayoutProps) => {
-	const { sports } = useAppSelector((state) => state);
+	const { selectedSport } = useAppSelector((state) => state.sports);
 
 	return (
 		<div className="md:flex md:min-h-screen text-blue-800">
 			<Nav />
 
 			<main className="w-full">
-				{sports.sport && (
+				{selectedSport && (
 					<>
 						<div className="border-b border-gray-300">
 							<div className="container mx-auto py-4 px-6 md:p-8 md:flex justify-between items-center">

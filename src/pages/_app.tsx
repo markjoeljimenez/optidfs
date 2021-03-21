@@ -1,5 +1,4 @@
 import * as Sentry from '@sentry/browser';
-import { Provider } from 'react-redux';
 import { DefaultSeo } from 'next-seo';
 
 import { wrapper } from '../store';

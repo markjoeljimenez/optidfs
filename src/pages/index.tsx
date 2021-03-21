@@ -1,8 +1,5 @@
-import { connect } from 'react-redux';
-
-import { initializeStore, wrapper } from '../store';
+import { wrapper } from '../store';
 import { SET_SPORTS } from '../containers/Sports/Sports.actions';
-import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 import { ISports } from '../interfaces/ISports';
 
 import Bar from '../containers/Bar/Bar';
@@ -31,39 +28,38 @@ const PANELS = [
 ];
 
 const Index = () => {
-	const test = useAppSelector((state) => state);
+	const { dropdown, sports, table, tabs } = useAppSelector((state) => state);
 
 	return (
-		<p>test</p>
-		// <Loading loading={loading.isLoading} message={loading.message}>
-		// 	{providers && sport && players?.length ? (
-		// 		<>
-		// 			<div>
-		// 				<div className="container mx-auto p-8">
-		// 					<Bar />
-		// 				</div>
-		// 			</div>
-		// 			<div className="border-b border-gray-300">
-		// 				<div className="container mx-auto px-8">
-		// 					<Tabs />
-		// 				</div>
-		// 			</div>
-		// 		</>
-		// 	) : (
-		// 		<></>
-		// 	)}
-		// 	{PANELS.map(({ id, element }) => (
-		// 		<div
-		// 			className="mb-8"
-		// 			role="tabpanel"
-		// 			aria-labelledby={`panel-${id}`}
-		// 			hidden={activeTab !== id}
-		// 			key={id}
-		// 		>
-		// 			{element}
-		// 		</div>
-		// 	))}
-		// </Loading>
+		<Loading loading={dropdown.loading} message={"Loading contests... this may take some time"}>
+			{sports.selectedSport && table.players?.length ? (
+				<>
+					<div>
+						<div className="container mx-auto p-8">
+							<Bar />
+						</div>
+					</div>
+					<div className="border-b border-gray-300">
+						<div className="container mx-auto px-8">
+							<Tabs />
+						</div>
+					</div>
+				</>
+			) : (
+				<></>
+			)}
+			{PANELS.map(({ id, element }) => (
+				<div
+					className="mb-8"
+					role="tabpanel"
+					aria-labelledby={`panel-${id}`}
+					hidden={tabs.activeTab !== id}
+					key={id}
+				>
+					{element}
+				</div>
+			))}
+		</Loading>
 	);
 };
 
@@ -82,11 +78,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
 			type: SET_SPORTS,
 			allSports: sports,
 		});
-
-		// dispatch({
-		// 	type: FETCH_CONTESTS,
-		// 	sport: sports[0].sportId,
-		// });
 
 		return { props: { initialReduxState: getState() } };
 	}

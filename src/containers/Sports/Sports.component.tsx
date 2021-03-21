@@ -1,31 +1,20 @@
-import { connect } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { FETCH_CONTESTS, RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
-import { UPDATE_SPORT } from './Sports.actions';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../../hooks';
+import { FETCH_CONTESTS } from '../Dropdown/Dropdown.actions';
 
 const Sports = () => {
-	const { allSports, selectedSport } = useAppSelector(
+	const { allSports } = useAppSelector(
 		(state) => state.sports
 	);
-	const { resetPlayers } = useAppDispatch();
+	const dispatch = useDispatch();
 
 	const handleSportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const value = parseInt(e.currentTarget.value);
 
-		// const reduxStore = initializeStore();
-		// const { dispatch } = reduxStore;
-
-		// resetPlayers();
-
-		// dispatch({
-		// 	type: UPDATE_SPORT,
-		// 	sport: value,
-		// });
-
-		// dispatch({
-		// 	type: FETCH_CONTESTS,
-		// 	sport: value,
-		// });
+		dispatch({
+			type: FETCH_CONTESTS,
+			sport: value,
+		});
 	};
 
 	return (
