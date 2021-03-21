@@ -1,43 +1,12 @@
 import { useMemo, useState } from 'react';
-import { connect } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import Toggle from '../../components/form/toggle';
 
-import {
-	nextPage,
-	previousPage,
-	setPlayerExposure,
-	lockPlayer,
-	setPlayerProjectedOwnership,
-	excludePlayer,
-	clearToggle,
-} from './Table.actions';
 import Error, { IError } from '../Error/Error';
 import Loading from '../../components/loading';
 
-interface ITableContainerProps {
-	table: any;
-	error: null | IError;
-	next(): void;
-	previous(): void;
-	lock(e): void;
-	exclude(e): void;
-	clear(e): void;
-	setExposure(id, value): void;
-	setProjectedOwnership(id, value): void;
-}
-
-const TableContainer = ({
-	table,
-	error,
-	next,
-	previous,
-	lock,
-	exclude,
-	clear,
-	setExposure,
-	setProjectedOwnership,
-}: ITableContainerProps) => {
+const Table = () => {
 	const {
 		players,
 		loading,
@@ -49,7 +18,10 @@ const TableContainer = ({
 		totalFppg,
 		page,
 		view,
-	} = table;
+	} = useAppSelector(state => state.table);
+	const { error } = useAppSelector(state => state);
+
+	const { lock, exclude, clear, setExposure, setProjectedOwnership, previous, next } = useAppDispatch();
 
 	const [activeRow, setActiveRow] = useState<number | null>(null);
 
@@ -176,11 +148,11 @@ const TableContainer = ({
 											id={player.id}
 											lockPlayer={handleLockPlayer}
 											excludePlayer={handleExcludePlayer}
-											locked={lockedPlayers?.find(
+											locked={lockedPlayers?.some(
 												(_player) =>
 													_player.id === player.id
 											)}
-											excluded={excludedPlayers?.find(
+											excluded={excludedPlayers?.some(
 												(_player) =>
 													_player.id === player.id
 											)}
@@ -591,20 +563,20 @@ const TableContainer = ({
 	);
 };
 
-const mapStateToProps = ({ table, error, stacking }) => ({
-	table,
-	error,
-});
+// const mapStateToProps = ({ table, error, stacking }) => ({
+// 	table,
+// 	error,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-	next: () => dispatch(nextPage()),
-	previous: () => dispatch(previousPage()),
-	lock: (e) => dispatch(lockPlayer(e)),
-	exclude: (e) => dispatch(excludePlayer(e)),
-	clear: (e) => dispatch(clearToggle(e)),
-	setExposure: (id, value) => dispatch(setPlayerExposure(id, value)),
-	setProjectedOwnership: (id, value) =>
-		dispatch(setPlayerProjectedOwnership(id, value)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+// 	next: () => dispatch(nextPage()),
+// 	previous: () => dispatch(previousPage()),
+// 	lock: (e) => dispatch(lockPlayer(e)),
+// 	exclude: (e) => dispatch(excludePlayer(e)),
+// 	clear: (e) => dispatch(clearToggle(e)),
+// 	setExposure: (id, value) => dispatch(setPlayerExposure(id, value)),
+// 	setProjectedOwnership: (id, value) =>
+// 		dispatch(setPlayerProjectedOwnership(id, value)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TableContainer);
+export default Table;

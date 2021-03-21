@@ -31,7 +31,7 @@ const Index = () => {
 	const { dropdown, sports, table, tabs } = useAppSelector((state) => state);
 
 	return (
-		<Loading loading={dropdown.loading} message={"Loading contests... this may take some time"}>
+		<Loading loading={dropdown.loading} message="Loading contests... this may take some time">
 			{sports.selectedSport && table.players?.length ? (
 				<>
 					<div>

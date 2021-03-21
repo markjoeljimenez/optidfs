@@ -16,7 +16,6 @@ import rootSaga from './saga/saga';
 export const reducer = combineReducers({
 	dropdown,
 	error,
-	// providers,
 	rules,
 	sports,
 	stacking,
