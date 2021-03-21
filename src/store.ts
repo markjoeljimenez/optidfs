@@ -11,7 +11,7 @@ import providers from './containers/Providers/Providers.reducers';
 import error from './containers/Error/Error.reducers';
 import stacking from './containers/Stacking/Stacking.reducers';
 
-import rootSaga from './saga';
+import rootSaga from './saga/saga';
 
 export const reducer = combineReducers({
 	dropdown,
