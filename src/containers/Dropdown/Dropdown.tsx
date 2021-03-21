@@ -1,17 +1,14 @@
-import { connect } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
 import { useCombobox } from 'downshift';
 import { getPlayers, resetPlayers } from './Dropdown.actions';
 import { resetRules } from '../Rules/Rules.actions';
-import { IContest } from '../../interfaces/IApp';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-interface IDropdown {
-	contests: IContest[];
-	getPlayersAction(id, gameType): void;
-}
+const Dropdown = () => {
+	const { contests } = useAppSelector((state) => state.dropdown);
+	const dispatch = useAppDispatch();
 
-const Dropdown = ({ contests, getPlayersAction }: IDropdown) => {
-	const ref = useRef<any | null>(null);
+	// const ref = useRef<any | null>(null);
 
 	const [filteredContests, setFilteredContests] = useState(contests);
 
@@ -33,7 +30,7 @@ const Dropdown = ({ contests, getPlayersAction }: IDropdown) => {
 		onInputValueChange: ({ inputValue }) => {
 			setFilteredContests(
 				inputValue && inputValue !== ''
-					? filteredContests.filter((contest) =>
+					? filteredContests?.filter((contest) =>
 							contest.name
 								.toLowerCase()
 								.includes(inputValue?.toLocaleLowerCase())
@@ -42,9 +39,11 @@ const Dropdown = ({ contests, getPlayersAction }: IDropdown) => {
 			);
 		},
 		onStateChange: (selection) => {
-			getPlayersAction(
-				selection?.selectedItem?.draft_group_id,
-				selection?.selectedItem?.game_type
+			dispatch(
+				getPlayers(
+					selection?.selectedItem?.draft_group_id,
+					selection?.selectedItem?.game_type
+				)
 			);
 		},
 	});
@@ -93,7 +92,7 @@ const Dropdown = ({ contests, getPlayersAction }: IDropdown) => {
 				</svg>
 				<span className="sr-only">Down</span>
 			</button>
-			{isOpen && filteredContests.length ? (
+			{isOpen && filteredContests?.length ? (
 				<ul
 					className="absolute top-1/1 left-0 right-0 max-h-20 bg-white overflow-y-scroll shadow border rounded mt-4 z-10"
 					{...getMenuProps()}
@@ -116,15 +115,15 @@ const Dropdown = ({ contests, getPlayersAction }: IDropdown) => {
 	);
 };
 
-const mapStateToProps = ({ dropdown, table }: any) => ({
-	contests: dropdown.contests,
-	players: table.players,
-});
+// const mapStateToProps = ({ dropdown, table }: any) => ({
+// 	contests: dropdown.contests,
+// 	players: table.players,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-	getPlayersAction: (id, gameType) => dispatch(getPlayers(id, gameType)),
-	resetPlayers: () => dispatch(resetPlayers()),
-	resetRules: () => dispatch(resetRules()),
-});
+// const mapDispatchToProps = (dispatch) => ({
+// 	getPlayersAction: (id, gameType) => dispatch(getPlayers(id, gameType)),
+// 	resetPlayers: () => dispatch(resetPlayers()),
+// 	resetRules: () => dispatch(resetRules()),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dropdown);
+export default Dropdown;

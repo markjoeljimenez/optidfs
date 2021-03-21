@@ -1,11 +1,23 @@
+import { AnyAction } from 'redux';
+import { IContest } from '../../interfaces/IApp';
 import { LOADING_CONTESTS, SET_CONTESTS } from './Dropdown.actions';
 
-const DEFAULT_STATE = {
+type IDropdownState = {
+	loading?: boolean;
+	error?: string | null;
+	message?: string | null;
+	contests?: IContest[];
+};
+
+const DEFAULT_STATE: IDropdownState = {
 	loading: false,
 	error: null,
 };
 
-const dropdown = (state = DEFAULT_STATE, { type, contests }) => {
+const dropdown = (
+	state = DEFAULT_STATE,
+	{ type, contests }: AnyAction
+): IDropdownState => {
 	switch (type) {
 		case LOADING_CONTESTS:
 			return {
