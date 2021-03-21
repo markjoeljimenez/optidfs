@@ -25,13 +25,13 @@ import { SEARCH_PLAYERS } from '../Search/Search.actions';
 import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
 
 interface ILineup {
-		players: string[];
-		totalFppg: number;
-		totalSalary: number;
+	players: string[];
+	totalFppg: number;
+	totalSalary: number;
 }
 
 interface ITableState {
-	page: number,
+	page: number;
 	view: 'all' | 'optimized';
 	defaultPlayers?: IDraftKingsPlayer[];
 	draftGroupId?: string;
@@ -54,7 +54,7 @@ interface ITableState {
 const DEFAULT_STATE: ITableState = {
 	page: 0,
 	view: 'all',
-}
+};
 
 const TableReducer = (
 	state = DEFAULT_STATE,
@@ -80,7 +80,8 @@ const TableReducer = (
 			};
 
 		case GET_PLAYERS_SUCCEEDED: {
-			const teams = players && uniq(players, 'team').map(({ team }) => team);
+			const teams =
+				players && uniq(players, 'team').map(({ team }) => team);
 			const positions =
 				players &&
 				uniq(
@@ -103,10 +104,8 @@ const TableReducer = (
 			};
 		}
 
-		// Comment below due to type never
-
-		// case GET_PLAYERS_FAILED:
-		// 	return state;
+		case GET_PLAYERS_FAILED:
+			return state;
 
 		// case OPTIMIZE_PLAYERS_SUCCEEDED: {
 		// 	const transformedLineups = lineups?.map((lineup) => ({
@@ -214,89 +213,89 @@ const TableReducer = (
 		// 	};
 		// }
 
-		// case LOCK_PLAYERS: {
-		// 	const player = state.players?.find(
-		// 		(_player) => _player.id === parseInt(payload.value)
-		// 	);
+		case LOCK_PLAYERS: {
+			const player = state.players?.find(
+				(_player) => _player.id === parseInt(payload.value)
+			);
 
-		// 	// Remove player from excludedPlayers
-		// 	const excludedPlayers = state.excludedPlayers?.filter(
-		// 		(_player) => _player.id !== parseInt(payload.value)
-		// 	);
+			// Remove player from excludedPlayers
+			const excludedPlayers = state.excludedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
 
-		// 	if (!state.lockedPlayers) {
-		// 		return {
-		// 			...state,
-		// 			excludedPlayers: excludedPlayers?.length
-		// 				? excludedPlayers
-		// 				: undefined,
-		// 			lockedPlayers: [player],
-		// 		};
-		// 	}
+			if (!state.lockedPlayers) {
+				return {
+					...state,
+					excludedPlayers: excludedPlayers?.length
+						? excludedPlayers
+						: undefined,
+					lockedPlayers: [player],
+				};
+			}
 
-		// 	return {
-		// 		...state,
-		// 		excludedPlayers: excludedPlayers?.length
-		// 			? excludedPlayers
-		// 			: undefined,
-		// 		lockedPlayers: payload.checked
-		// 			? uniq([...state.lockedPlayers, player])
-		// 			: state.lockedPlayers.filter(
-		// 					(_player) => _player.id !== parseInt(payload.value)
-		// 			  ),
-		// 	};
-		// }
+			return {
+				...state,
+				excludedPlayers: excludedPlayers?.length
+					? excludedPlayers
+					: undefined,
+				lockedPlayers: payload.checked
+					? uniq([...state.lockedPlayers, player])
+					: state.lockedPlayers.filter(
+							(_player) => _player.id !== parseInt(payload.value)
+					  ),
+			};
+		}
 
-		// case EXCLUDE_PLAYERS: {
-		// 	const player = state.players?.find(
-		// 		(_player) => _player.id === parseInt(payload.value)
-		// 	);
+		case EXCLUDE_PLAYERS: {
+			const player = state.players?.find(
+				(_player) => _player.id === parseInt(payload.value)
+			);
 
-		// 	// Remove player from lockedPlayers
-		// 	const lockedPlayers = state.lockedPlayers?.filter(
-		// 		(_player) => _player.id !== parseInt(payload.value)
-		// 	);
+			// Remove player from lockedPlayers
+			const lockedPlayers = state.lockedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
 
-		// 	if (!state.excludedPlayers) {
-		// 		return {
-		// 			...state,
-		// 			lockedPlayers: lockedPlayers?.length
-		// 				? lockedPlayers
-		// 				: undefined,
-		// 			excludedPlayers: [player],
-		// 		};
-		// 	}
+			if (!state.excludedPlayers) {
+				return {
+					...state,
+					lockedPlayers: lockedPlayers?.length
+						? lockedPlayers
+						: undefined,
+					excludedPlayers: [player],
+				};
+			}
 
-		// 	return {
-		// 		...state,
-		// 		lockedPlayers: lockedPlayers?.length
-		// 			? lockedPlayers
-		// 			: undefined,
-		// 		excludedPlayers: payload.checked
-		// 			? uniq([...state.excludedPlayers, player])
-		// 			: state.excludedPlayers.filter(
-		// 					(_player) => _player.id !== parseInt(payload.value)
-		// 			  ),
-		// 	};
-		// }
+			return {
+				...state,
+				lockedPlayers: lockedPlayers?.length
+					? lockedPlayers
+					: undefined,
+				excludedPlayers: payload.checked
+					? uniq([...state.excludedPlayers, player])
+					: state.excludedPlayers.filter(
+							(_player) => _player.id !== parseInt(payload.value)
+					  ),
+			};
+		}
 
-		// case CLEAR_TOGGLE: {
-		// 	// Remove player from lockedPlayers
-		// 	const lockedPlayers = state.lockedPlayers?.filter(
-		// 		(_player) => _player.id !== parseInt(payload.value)
-		// 	);
+		case CLEAR_TOGGLE: {
+			// Remove player from lockedPlayers
+			const lockedPlayers = state.lockedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
 
-		// 	// Remove player from excludedPlayers
-		// 	const excludedPlayers = state.excludedPlayers?.filter(
-		// 		(_player) => _player.id !== parseInt(payload.value)
-		// 	);
+			// Remove player from excludedPlayers
+			const excludedPlayers = state.excludedPlayers?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
 
-		// 	return {
-		// 		...state,
-		// 		lockedPlayers,
-		// 		excludedPlayers,
-		// 	};
-		// }
+			return {
+				...state,
+				lockedPlayers,
+				excludedPlayers,
+			};
+		}
 
 		// case SET_PLAYER_EXPOSURE: {
 		// 	if (!playerId || !state.defaultPlayers) {

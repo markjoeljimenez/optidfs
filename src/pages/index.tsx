@@ -5,7 +5,7 @@ import { ISports } from '../interfaces/ISports';
 import Bar from '../containers/Bar/Bar';
 import Rules from '../containers/Rules/Rules';
 import Stacking from '../containers/Stacking/Stacking';
-import Table from '../containers/Table/Table.component';
+import Table from '../containers/Table/components/Table';
 import Tabs from '../containers/Tabs/Tabs';
 
 import Loading from '../components/loading';
@@ -28,10 +28,13 @@ const PANELS = [
 ];
 
 const Index = () => {
-	const { dropdown, sports, table, tabs } = useAppSelector((state) => state);
+	const { dropdown, sports, table, tabs } = useAppSelector((state) => state);
 
 	return (
-		<Loading loading={dropdown.loading} message="Loading contests... this may take some time">
+		<Loading
+			loading={dropdown.loading}
+			message="Loading contests... this may take some time"
+		>
 			{sports.selectedSport && table.players?.length ? (
 				<>
 					<div>

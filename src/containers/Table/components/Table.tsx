@@ -1,48 +1,39 @@
-import { useMemo, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 
-import Toggle from '../../components/form/toggle';
+import {
+	nextPage,
+	previousPage,
+	setPlayerExposure,
+	setProjectedOwnership,
+} from '../Table.actions';
 
-import Error, { IError } from '../Error/Error';
-import Loading from '../../components/loading';
+import Error from '../../Error/Error';
+import Loading from '../../../components/loading';
+import Toggle from './Table.lockExclude';
 
 const Table = () => {
 	const {
 		players,
 		loading,
-		lockedPlayers,
-		excludedPlayers,
 		gameType,
 		lineups,
 		totalSalary,
 		totalFppg,
 		page,
 		view,
-	} = useAppSelector(state => state.table);
-	const { error } = useAppSelector(state => state);
-
-	const { lock, exclude, clear, setExposure, setProjectedOwnership, previous, next } = useAppDispatch();
+	} = useAppSelector((state) => state.table);
+	const { error } = useAppSelector((state) => state);
+	const dispatch = useAppDispatch();
 
 	const [activeRow, setActiveRow] = useState<number | null>(null);
-
-	const handleLockPlayer = (e: React.MouseEvent<HTMLInputElement>) => {
-		lock(e);
-	};
-
-	const handleExcludePlayer = (e: React.MouseEvent<HTMLInputElement>) => {
-		exclude(e);
-	};
-
-	const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
-		clear(e);
-	};
 
 	const handleExposureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.currentTarget;
 		const id = e.currentTarget.getAttribute('data-player-id');
 
 		if (id) {
-			setExposure(id, value);
+			dispatch(setPlayerExposure(id, parseInt(value)));
 		}
 	};
 
@@ -58,10 +49,10 @@ const Table = () => {
 		const { value } = e.currentTarget;
 		const id = e.currentTarget.getAttribute('data-player-id');
 
-		setProjectedOwnership(id, value);
+		if (id) {
+			dispatch(setProjectedOwnership(id, parseInt(value)));
+		}
 	};
-
-	const memoPlayers = useMemo(() => players, [players]);
 
 	return players && !error?.show ? (
 		<Loading loading={loading}>
@@ -128,7 +119,7 @@ const Table = () => {
 					</div>
 				</div>
 				<div role="rowgroup">
-					{memoPlayers?.map((player, i) => (
+					{players?.map((player, i) => (
 						<div role="row" key={player.id} aria-rowindex={i}>
 							<div
 								className="border-b border-gray-300 text-sm md:text-base"
@@ -144,22 +135,7 @@ const Table = () => {
 										className="md:p-2 md:py-4 pl-0 md:flex items-center col-start-1 md:col-start-auto hidden"
 										role="cell"
 									>
-										<Toggle
-											id={player.id}
-											lockPlayer={handleLockPlayer}
-											excludePlayer={handleExcludePlayer}
-											locked={lockedPlayers?.some(
-												(_player) =>
-													_player.id === player.id
-											)}
-											excluded={excludedPlayers?.some(
-												(_player) =>
-													_player.id === player.id
-											)}
-											clearSelection={
-												handleClearSelection
-											}
-										/>
+										<Toggle id={player.id} />
 									</div>
 
 									{/* Status */}
@@ -428,7 +404,7 @@ const Table = () => {
 								>
 									<button
 										type="button"
-										onClick={() => previous()}
+										onClick={() => dispatch(previousPage())}
 									>
 										<span className="sr-only">
 											Previous
@@ -461,7 +437,7 @@ const Table = () => {
 
 									<button
 										type="button"
-										onClick={() => next()}
+										onClick={() => dispatch(nextPage())}
 									>
 										<span className="sr-only">Next</span>
 										<svg
@@ -562,21 +538,5 @@ const Table = () => {
 		<></>
 	);
 };
-
-// const mapStateToProps = ({ table, error, stacking }) => ({
-// 	table,
-// 	error,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-// 	next: () => dispatch(nextPage()),
-// 	previous: () => dispatch(previousPage()),
-// 	lock: (e) => dispatch(lockPlayer(e)),
-// 	exclude: (e) => dispatch(excludePlayer(e)),
-// 	clear: (e) => dispatch(clearToggle(e)),
-// 	setExposure: (id, value) => dispatch(setPlayerExposure(id, value)),
-// 	setProjectedOwnership: (id, value) =>
-// 		dispatch(setPlayerProjectedOwnership(id, value)),
-// });
 
 export default Table;

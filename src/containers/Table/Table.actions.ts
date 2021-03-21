@@ -12,29 +12,29 @@ export const SET_PLAYER_PROJECTED_OWNERSHIP = 'SET_PLAYER_PROJECTED_OWNERSHIP';
 export const VIEW_ALL_PLAYERS = 'VIEW_ALL_PLAYERS';
 export const VIEW_OPTIMIZED_LINEUPS = 'VIEW_OPTIMIZED_LINEUPS';
 
-export const setPlayerExposure = (playerId, value) => ({
+export const setPlayerExposure = (playerId: string, value: number) => ({
 	type: SET_PLAYER_EXPOSURE,
 	playerId,
 	value,
 });
 
-export const setPlayerProjectedOwnership = (playerId, value) => ({
+export const setProjectedOwnership = (playerId: string, value: number) => ({
 	type: SET_PLAYER_PROJECTED_OWNERSHIP,
 	playerId,
 	value,
 });
 
-export const lockPlayer = (e: React.ChangeEvent<HTMLInputElement>) => ({
+export const lockPlayer = (e: React.MouseEvent<HTMLInputElement>) => ({
 	type: LOCK_PLAYERS,
 	payload: e.currentTarget,
 });
 
-export const excludePlayer = (e: React.ChangeEvent<HTMLInputElement>) => ({
+export const excludePlayer = (e: React.MouseEvent<HTMLInputElement>) => ({
 	type: EXCLUDE_PLAYERS,
 	payload: e.currentTarget,
 });
 
-export const clearToggle = (e: React.ChangeEvent<HTMLInputElement>) => ({
+export const clearToggle = (e: React.MouseEvent<HTMLButtonElement>) => ({
 	type: CLEAR_TOGGLE,
 	payload: e.currentTarget,
 });

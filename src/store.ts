@@ -1,6 +1,6 @@
 import createSagaMiddleware from 'redux-saga';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { createWrapper, MakeStore } from 'next-redux-wrapper';
+import { createWrapper } from 'next-redux-wrapper';
 
 import table from './containers/Table/Table.reducers';
 import dropdown from './containers/Dropdown/Dropdown.reducers';
@@ -31,7 +31,7 @@ const bindMiddleware = (middleware) => {
 	return applyMiddleware(...middleware);
 };
 
-export const makeStore = (context) => {
+export const makeStore = () => {
 	const sagaMiddleware = createSagaMiddleware();
 	const store = createStore(reducer, bindMiddleware([sagaMiddleware]));
 
@@ -43,4 +43,4 @@ export const makeStore = (context) => {
 export const wrapper = createWrapper(makeStore, { debug: false });
 
 export type RootState = ReturnType<typeof reducer>;
-// export type AppDispatch = typeof makeStore().dispatch;
+export type AppDispatch = ReturnType<typeof makeStore>['dispatch'];

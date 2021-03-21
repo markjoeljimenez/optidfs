@@ -3,9 +3,7 @@ import { useAppSelector } from '../../hooks';
 import { FETCH_CONTESTS } from '../Dropdown/Dropdown.actions';
 
 const Sports = () => {
-	const { allSports } = useAppSelector(
-		(state) => state.sports
-	);
+	const { allSports } = useAppSelector((state) => state.sports);
 	const dispatch = useDispatch();
 
 	const handleSportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
