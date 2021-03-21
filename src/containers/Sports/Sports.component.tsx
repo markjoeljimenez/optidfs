@@ -1,33 +1,31 @@
 import { connect } from 'react-redux';
-import { initializeStore } from '../../store';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { FETCH_CONTESTS, RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
 import { UPDATE_SPORT } from './Sports.actions';
-import { ISportsState } from './Sports.reducers';
 
-export interface ISportsProps {
-	sports: ISportsState;
-}
+const Sports = () => {
+	const { allSports, selectedSport } = useAppSelector(
+		(state) => state.sports
+	);
+	const { resetPlayers } = useAppDispatch();
 
-const Sports = ({ sports }: ISportsProps) => {
 	const handleSportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const value = parseInt(e.currentTarget.value);
 
-		const reduxStore = initializeStore();
-		const { dispatch } = reduxStore;
+		// const reduxStore = initializeStore();
+		// const { dispatch } = reduxStore;
 
-		dispatch({
-			type: RESET_PLAYERS,
-		});
+		// resetPlayers();
 
-		dispatch({
-			type: UPDATE_SPORT,
-			sport: value,
-		});
+		// dispatch({
+		// 	type: UPDATE_SPORT,
+		// 	sport: value,
+		// });
 
-		dispatch({
-			type: FETCH_CONTESTS,
-			sport: value,
-		});
+		// dispatch({
+		// 	type: FETCH_CONTESTS,
+		// 	sport: value,
+		// });
 	};
 
 	return (
@@ -43,7 +41,7 @@ const Sports = ({ sports }: ISportsProps) => {
 					<option value="0" disabled>
 						Select Sport
 					</option>
-					{sports.sports
+					{allSports
 						?.filter(
 							(sport) =>
 								sport.isEnabled &&
@@ -78,10 +76,4 @@ const Sports = ({ sports }: ISportsProps) => {
 	);
 };
 
-const mapStateToProps = ({ sports }) => ({ sports });
-
-// const mapDispatchToProps = (dispatch) => ({
-// 	setCurrentSport: (sport) => dispatch(setCurrentSportAction(sport)),
-// });
-
-export default connect(mapStateToProps)(Sports);
+export default Sports;

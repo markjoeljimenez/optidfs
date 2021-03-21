@@ -2,12 +2,7 @@ import * as Sentry from '@sentry/browser';
 import { Provider } from 'react-redux';
 import { DefaultSeo } from 'next-seo';
 
-import { useStore } from '../store';
-
-// import 'normalize.css';
-// import 'bootstrap/dist/css/bootstrap-grid.min.css';
-// import 'tippy.js/dist/tippy.css';
-
+import { wrapper } from '../store';
 import '../styles/styles.scss';
 import Dashboard from '../layouts/dashboard';
 
@@ -24,21 +19,17 @@ const App = ({ Component, pageProps }: IApp) => {
 		});
 	}
 
-	const store = useStore(pageProps.initialReduxState);
-
 	return (
 		<>
 			<DefaultSeo
 				title="Optidfs"
 				description="A web app that generates the most optimized lineups for DraftKings."
 			/>
-			<Provider store={store}>
-				<Dashboard>
-					<Component {...pageProps} />
-				</Dashboard>
-			</Provider>
+			<Dashboard>
+				<Component {...pageProps} />
+			</Dashboard>
 		</>
 	);
 };
 
-export default App;
+export default wrapper.withRedux(App);

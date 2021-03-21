@@ -1,28 +1,38 @@
+import { HYDRATE } from 'next-redux-wrapper';
+import { AnyAction } from 'redux';
 import { ISports } from '../../interfaces/ISports';
 import { SET_SPORTS, UPDATE_SPORT } from './Sports.actions';
 
-export interface ISportsState {
-	sports: ISports[];
-	sport: string;
+interface ISportsState {
+	allSports: ISports[];
+	selectedSport?: string;
 }
 
-const DEFAULT_STATE = {
-	sports: [],
-	sport: null,
+const DEFAULT_STATE: ISportsState = {
+	allSports: [],
 };
 
-const SportsReducer = (state = DEFAULT_STATE, { type, sports, sport }) => {
+const SportsReducer = (
+	state = DEFAULT_STATE,
+	{ type, allSports, selectedSport, payload }: AnyAction
+) => {
 	switch (type) {
+		case HYDRATE:
+			return {
+				...state,
+				allSports: payload.sports.allSports,
+			};
+
 		case UPDATE_SPORT:
 			return {
 				...state,
-				sport,
+				selectedSport,
 			};
 
 		case SET_SPORTS:
 			return {
 				...state,
-				sports,
+				allSports,
 			};
 
 		default:
