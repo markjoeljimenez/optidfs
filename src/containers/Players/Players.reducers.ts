@@ -35,7 +35,7 @@ const DEFAULT_STATE: IPlayersState = {};
 
 const PlayersReducers = (
 	state = DEFAULT_STATE,
-	{ type, players, lineups, page }: AnyAction
+	{ type, players, lineups, page, payload }: AnyAction
 ): IPlayersState => {
 	switch (type) {
 		case PLAYERS_ACTIONS.GET_PLAYERS_SUCCEEDED: {
@@ -63,6 +63,68 @@ const PlayersReducers = (
 
 		case PLAYERS_ACTIONS.GET_PLAYERS_FAILED:
 			return state;
+
+		case PLAYERS_ACTIONS.LOCK_PLAYERS: {
+			const player = state.all?.find(
+				(_player) => _player.id === parseInt(payload.value)
+			);
+
+			// Remove player from excludedPlayers
+			const excluded = state.excluded?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			if (player) {
+				return {
+					...state,
+					excluded,
+					locked: state.locked ? [...state.locked, player] : [player],
+				};
+			}
+
+			return state;
+		}
+
+		case PLAYERS_ACTIONS.EXCLUDE_PLAYERS: {
+			const player = state.all?.find(
+				(_player) => _player.id === parseInt(payload.value)
+			);
+
+			// Remove player from lockedPlayers
+			const locked = state.locked?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			if (player) {
+				return {
+					...state,
+					excluded: state.excluded
+						? [...state.excluded, player]
+						: [player],
+					locked,
+				};
+			}
+
+			return state;
+		}
+
+		case PLAYERS_ACTIONS.CLEAR_TOGGLE: {
+			// Remove player from lockedPlayers
+			const locked = state.locked?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			// Remove player from excludedPlayers
+			const excluded = state.excluded?.filter(
+				(_player) => _player.id !== parseInt(payload.value)
+			);
+
+			return {
+				...state,
+				locked,
+				excluded,
+			};
+		}
 
 		case OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_SUCCEEDED: {
 			const transformedLineups: ILineup[] = lineups?.map((lineup) => ({

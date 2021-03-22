@@ -18,14 +18,13 @@ interface IRules {
 		key: string;
 		value: number;
 	}[];
-	errors: {
+	errors?: {
 		rule: string;
 		value: number;
 	}[];
 }
 
 const DEFAULT_STATE: IRules = {
-	errors: [],
 	NUMBER_OF_GENERATIONS: 1,
 };
 
@@ -117,20 +116,27 @@ const RulesReducer = (
 		case SET_RULE_ERROR:
 			return {
 				...state,
-				errors: uniqBy(
-					[
-						...state.errors,
-						{
-							rule,
-							value,
-						},
-					],
-					{ rule }
-				),
+				errors: state.errors
+					? uniqBy(
+							[
+								...state.errors,
+								{
+									rule,
+									value,
+								},
+							],
+							{ rule }
+					  )
+					: [
+							{
+								rule,
+								value,
+							},
+					  ],
 			};
 
 		case REMOVE_RULE_ERROR: {
-			const filter = state.errors.filter((error) => error.rule !== rule);
+			const filter = state.errors?.filter((error) => error.rule !== rule);
 
 			return {
 				...state,

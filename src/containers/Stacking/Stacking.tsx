@@ -6,7 +6,11 @@ import TeamStacking from './Team/Stacking.team';
 import PositionStacking from './Position/Stacking.position';
 import CustomStacking from './Custom/Stacking.custom';
 
-import { resetSettings, setActiveTab, STACKING_TYPE } from './Stacking.actions';
+import {
+	resetSettings,
+	setActiveStackingTab,
+	STACKING_TYPE,
+} from './Stacking.actions';
 
 export const TABS = [
 	{
@@ -119,7 +123,8 @@ const mapStateToProps = ({ stacking }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
 	resetSettingsAction: () => dispatch(resetSettings()),
-	setActiveTabAction: (activeTab) => dispatch(setActiveTab(activeTab)),
+	setActiveTabAction: (activeTab) =>
+		dispatch(setActiveStackingTab(activeTab)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps, null, {

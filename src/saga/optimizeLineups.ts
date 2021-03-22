@@ -2,6 +2,7 @@ import { put, select } from 'redux-saga/effects';
 import { ERROR_STATUSES } from '../components/error';
 import { SET_ERROR } from '../containers/Error/Error.reducers';
 import {
+	optimizePlayersFailed,
 	optimizePlayersSucceeded,
 	OPTIMIZE_ACTIONS,
 } from '../containers/Optimize/Optimize.actions';
@@ -22,29 +23,31 @@ export default function* optimizePlayers() {
 		const {
 			players,
 			sports,
-			table,
 			rules,
 			stacking,
 			contests,
 		}: RootState = yield select();
 
-		let tempStacking = stacking;
+		// let tempStacking = stacking;
 
-		// if (rules.errors) {
-		// 	yield put({
-		// 		type: OPTIMIZE_PLAYERS_FAILED,
-		// 	});
+		if (rules.errors?.length) {
+			yield put(optimizePlayersFailed());
 
-		// 	yield put({
-		// 		type: SET_ERROR,
-		// 		show: true,
-		// 		error: {
-		// 			type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
-		// 			message: "Can't generate lineups",
-		// 		},
-		// 	});
+			throw new Error("There's an error in the rules");
+		}
 
-		// 	return;
+		// if (rules.errors.length) {
+
+		// 	// yield put({
+		// 	// 	type: SET_ERROR,
+		// 	// 	show: true,
+		// 	// 	error: {
+		// 	// 		type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
+		// 	// 		message: "Can't generate lineups",
+		// 	// 	},
+		// 	// });
+
+		// 	// return;
 		// }
 
 		// if (
@@ -56,25 +59,25 @@ export default function* optimizePlayers() {
 		// }
 
 		const res = yield post(`${API}/optimize`, {
-			// lockedPlayers: lockedPlayers?.map((player) => player.id),
-			// excludedPlayers: excludedPlayers?.map((player) => player.id),
-			players,
-			// players: {
-			// 	all: players?.all,
-			// 	locked: players?.locked?.map((player) => player.id),
-			// 	excluded: players?.excluded?.map((player) => player.id),
-			// },
+			players: {
+				all: players?.all,
+				locked: players?.locked?.map((player) => player.id),
+				excluded: players?.excluded?.map((player) => player.id),
+			},
 			rules,
 			sport: sports.selectedSport,
 			// draftGroupId,
-			stacking: tempStacking,
+			stacking: {
+				CUSTOM: stacking.CUSTOM,
+				POSITION: stacking.POSITION,
+				TEAM: stacking.TEAM,
+			},
 			gameType: contests.gameType,
 		});
 
 		const { lineups } = yield res.json();
 
 		yield put(optimizePlayersSucceeded(lineups));
-		yield put(loadingTable(false));
 		yield put(setView('optimized'));
 	} catch (e) {
 		yield put({
@@ -90,4 +93,6 @@ export default function* optimizePlayers() {
 			},
 		});
 	}
+
+	yield put(loadingTable(false));
 }

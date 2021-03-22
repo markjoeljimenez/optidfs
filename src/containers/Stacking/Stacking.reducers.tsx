@@ -17,7 +17,9 @@ interface IStackingState {
 		MAX_EXPOSURE: string;
 		MAX_EXPOSURE_PER_TEAM: string;
 	};
-	POSITION?: {};
+	POSITION?: {
+		NUMBER_OF_POSITIONS: number;
+	};
 	CUSTOM?: {
 		STACKS?: [
 			{

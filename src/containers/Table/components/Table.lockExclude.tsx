@@ -2,32 +2,70 @@ import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 import {
-	clearToggle,
-	excludePlayer,
 	lockPlayer,
+	excludePlayer,
+	clearToggle,
 } from '../../Players/Players.actions';
 
-type IToggle = {
+interface ILockOrExclude {
 	id: number;
-};
+}
 
-const Toggle = ({ id }: IToggle) => {
-	const { players } = useAppSelector((state) => state.players);
+const LockOrExclude = ({ id }: ILockOrExclude) => {
+	const players = useAppSelector((state) => state.players);
 	const dispatch = useAppDispatch();
 
 	const locked = players?.locked?.some((_player) => _player.id === id);
 	const excluded = players?.excluded?.some((_player) => _player.id === id);
 
 	const handleLockPlayer = (e: React.MouseEvent<HTMLInputElement>) => {
-		// dispatch(lockPlayer(e));
+		// const value = parseInt(e.currentTarget.value);
+		// const player = players.all?.find((_player) => _player.id === value);
+
+		// if (player) {
+		// 	// Remove from excluded players
+		// 	setExcludedPlayers(
+		// 		excludedPlayers?.filter((_player) => _player.id !== value)
+		// 	);
+
+		// 	setLockedPlayers(
+		// 		lockedPlayers ? [...lockedPlayers, player] : [player]
+		// 	);
+		// }
+
+		dispatch(lockPlayer(e));
 	};
 
 	const handleExcludePlayer = (e: React.MouseEvent<HTMLInputElement>) => {
-		// dispatch(excludePlayer(e));
+		// const value = parseInt(e.currentTarget.value);
+		// const player = players.all?.find((_player) => _player.id === value);
+
+		// if (player) {
+		// 	// Remove from locked players
+		// 	setLockedPlayers(
+		// 		lockedPlayers?.filter((_player) => _player.id !== value)
+		// 	);
+
+		// 	setExcludedPlayers(
+		// 		excludedPlayers ? [...excludedPlayers, player] : [player]
+		// 	);
+		// }
+
+		dispatch(excludePlayer(e));
 	};
 
 	const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
-		// dispatch(clearToggle(e));
+		// const value = parseInt(e.currentTarget.value);
+
+		// setLockedPlayers(
+		// 	lockedPlayers?.filter((_player) => _player.id !== value)
+		// );
+
+		// setExcludedPlayers(
+		// 	excludedPlayers?.filter((_player) => _player.id !== value)
+		// );
+
+		dispatch(clearToggle(e));
 	};
 
 	return (
@@ -116,4 +154,4 @@ const Toggle = ({ id }: IToggle) => {
 	);
 };
 
-export default Toggle;
+export default LockOrExclude;

@@ -13,9 +13,9 @@ import Toggle from './Table.lockExclude';
 import Footer from './Table.footer';
 
 const Table = () => {
+	const dispatch = useAppDispatch();
 	const { loading, view } = useAppSelector((state) => state.table);
 	const { error, players, contests } = useAppSelector((state) => state);
-	const dispatch = useAppDispatch();
 
 	const [activeRow, setActiveRow] = useState<number | null>(null);
 

@@ -1,33 +1,24 @@
-import { connect } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-import { optimize } from './Optimize.actions';
 import { setActiveTab } from '../Tabs/Tabs.actions';
 import {
-	setActiveTab as setActiveStackingTab,
+	setActiveStackingTab,
 	STACKING_TYPE,
 } from '../Stacking/Stacking.actions';
+import { optimize } from './Optimize.actions';
 
-interface IOptimizeProps {
-	stacking: any;
-	optimizeLineups(): void;
-	setActiveTabAction(tab: string): void;
-	setActiveStackingTabAction(tab: string): void;
-}
+const Optimize = () => {
+	const { stacking } = useAppSelector((state) => state);
+	const dispatch = useAppDispatch();
 
-const Optimize = ({
-	stacking,
-	optimizeLineups,
-	setActiveTabAction,
-	setActiveStackingTabAction,
-}: IOptimizeProps) => {
 	const handleClick = () => {
 		if (
 			stacking &&
 			stacking.TEAM &&
 			!stacking.TEAM?.NUMBER_OF_PLAYERS_TO_STACK
 		) {
-			setActiveTabAction('stacking');
-			setActiveStackingTabAction(STACKING_TYPE.TEAM);
+			dispatch(setActiveTab('stacking'));
+			dispatch(setActiveStackingTab(STACKING_TYPE.TEAM));
 
 			return;
 		}
@@ -37,14 +28,14 @@ const Optimize = ({
 			stacking.POSITION &&
 			!stacking.POSITION?.NUMBER_OF_POSITIONS
 		) {
-			setActiveTabAction('stacking');
-			setActiveStackingTabAction(STACKING_TYPE.POSITION);
+			dispatch(setActiveTab('stacking'));
+			dispatch(setActiveStackingTab(STACKING_TYPE.POSITION));
 
 			return;
 		}
 
-		optimizeLineups();
-		setActiveTabAction('players');
+		dispatch(optimize());
+		dispatch(setActiveTab('players'));
 	};
 
 	return (
@@ -58,16 +49,16 @@ const Optimize = ({
 	);
 };
 
-const mapStateToProps = ({ error, stacking }) => ({
-	error,
-	stacking,
-});
+// const mapStateToProps = ({ error, stacking }) => ({
+// 	error,
+// 	stacking,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-	optimizeLineups: () => dispatch(optimize()),
-	setActiveTabAction: (value) => dispatch(setActiveTab(value)),
-	setActiveStackingTabAction: (value) =>
-		dispatch(setActiveStackingTab(value)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+// 	optimizeLineups: () => dispatch(optimize()),
+// 	setActiveTabAction: (value) => dispatch(setActiveTab(value)),
+// 	setActiveStackingTabAction: (value) =>
+// 		dispatch(setActiveStackingTab(value)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Optimize);
+export default Optimize;

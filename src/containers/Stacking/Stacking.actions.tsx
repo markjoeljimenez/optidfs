@@ -61,7 +61,7 @@ export const resetSettings = () => ({
 	type: RESET_SETTINGS,
 });
 
-export const setActiveTab = (activeTab: string) => ({
+export const setActiveStackingTab = (activeTab: string) => ({
 	type: SET_STACKING_ACTIVE_TAB,
 	activeTab,
 });
