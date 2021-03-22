@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import clsx from 'clsx';
 import { MouseEvent, forwardRef } from 'react';
 import InputGroup from './inputGroup';

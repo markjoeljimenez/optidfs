@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 interface IInputGroup {
 	label: string;
 	children: ReactNode;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tippy?: any;
 	error?: string | boolean;
 }
