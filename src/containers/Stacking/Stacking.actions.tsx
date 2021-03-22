@@ -1,3 +1,5 @@
+import { IMEPT } from './components/Position/Stacking.position.maxExposurePerTeam';
+
 export const SET_SETTING = 'SET_SETTING';
 export const REMOVE_FROM_SETTING = 'REMOVE_FROM_SETTING';
 export const RESET_SETTINGS = 'RESET_SETTINGS';
@@ -30,8 +32,8 @@ export const SET_STACKING_ACTIVE_TAB = 'SET_STACKING_ACTIVE_TAB';
 export const setSetting = (
 	stackingType: string,
 	setting: string,
-	key: string,
-	value: string | number | string[] | number[]
+	key?: string,
+	value?: string | number | string[] | number[] | IMEPT
 ) => ({
 	type: SET_SETTING,
 	stackingType,

@@ -1,63 +1,49 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import InputGroup from '../../../components/form/inputGroup';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
+import { IMEPT } from '../Position/Stacking.position.maxExposurePerTeam';
 import {
 	setSetting,
 	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
-} from '../Stacking.actions';
+} from '../../Stacking.actions';
 
-interface IMEPT {
-	team?: string;
-	exposure?: number;
-}
+import InputGroup from '../../../../components/form/inputGroup';
 
-interface IStackingSetting {
-	teams: string[];
-	stacking: any;
-	setStackingSetting(
-		stackingType: string,
-		setting: string,
-		key: string | undefined,
-		value: IMEPT
-	): void;
-}
-
-const StackSetting = ({
-	stacking,
-	teams,
-	setStackingSetting,
-}: IStackingSetting) => {
+const StackSetting = () => {
+	const dispatch = useAppDispatch();
+	const { players } = useAppSelector((state) => state);
 	const [maxExposurePerTeam, setMaxExposurePerTeam] = useState<
 		IMEPT | undefined
 	>();
 
-	function handleTeamForMEPT(e: ChangeEvent<HTMLSelectElement>) {
+	const handleTeamForMEPT = (e: ChangeEvent<HTMLSelectElement>) => {
 		const { value } = e.currentTarget;
 
 		setMaxExposurePerTeam({
 			team: value,
 			exposure: maxExposurePerTeam?.exposure || undefined,
 		});
-	}
+	};
 
-	function handleExposureForMEPT(e: ChangeEvent<HTMLInputElement>) {
+	const handleExposureForMEPT = (e: ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.currentTarget;
 
 		setMaxExposurePerTeam({
 			team: maxExposurePerTeam?.team || undefined,
 			exposure: parseFloat(value),
 		});
-	}
+	};
 
 	useEffect(() => {
 		if (maxExposurePerTeam?.exposure && maxExposurePerTeam?.team) {
-			setStackingSetting(
-				STACKING_TYPE.TEAM,
-				STACKING_TEAM_SETTINGS.MAX_EXPOSURE_PER_TEAM,
-				undefined,
-				maxExposurePerTeam
+			dispatch(
+				setSetting(
+					STACKING_TYPE.TEAM,
+					STACKING_TEAM_SETTINGS.MAX_EXPOSURE_PER_TEAM,
+					undefined,
+					maxExposurePerTeam
+				)
 			);
 		}
 	}, [maxExposurePerTeam]);
@@ -77,7 +63,7 @@ const StackSetting = ({
 							<option value="" disabled>
 								Select team
 							</option>
-							{teams?.map((team) => (
+							{players.teams?.map((team) => (
 								<option value={team} key={team}>
 									{team}
 								</option>
@@ -103,14 +89,4 @@ const StackSetting = ({
 	);
 };
 
-const mapStateToProps = ({ table, stacking }) => ({
-	stacking,
-	teams: table.teams,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	setStackingSetting: (stackingType, setting, key, value) =>
-		dispatch(setSetting(stackingType, setting, key, value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(StackSetting);
+export default StackSetting;

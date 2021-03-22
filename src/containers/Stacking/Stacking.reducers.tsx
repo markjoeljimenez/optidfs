@@ -1,4 +1,5 @@
-import { TABS } from './Stacking';
+import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
+import { TABS } from './components/Stacking';
 import {
 	REMOVE_FROM_SETTING,
 	RESET_SETTINGS,
@@ -23,7 +24,7 @@ interface IStackingState {
 	CUSTOM?: {
 		STACKS?: [
 			{
-				players?: any[];
+				players?: IDraftKingsPlayer[];
 			}
 		];
 	};

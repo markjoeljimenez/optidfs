@@ -1,37 +1,32 @@
-import clsx from 'clsx';
 import { ChangeEvent } from 'react';
-import { connect } from 'react-redux';
-import InputGroup from '../../../components/form/inputGroup';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 import {
 	setSetting,
 	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
-} from '../Stacking.actions';
+} from '../../Stacking.actions';
 
-interface IStackingSetting {
-	stacking: any;
-	setStackingSetting(
-		stackingType: string,
-		setting: string,
-		key: string | undefined,
-		value: number
-	): void;
-}
+import InputGroup from '../../../../components/form/inputGroup';
 
-const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
+const StackSetting = () => {
+	const dispatch = useAppDispatch();
+	const { stacking } = useAppSelector((state) => state);
+
 	const isError = stacking.TEAM && !stacking.TEAM.NUMBER_OF_PLAYERS_TO_STACK;
 
-	function handleNumberOfPlayers(e: ChangeEvent<HTMLInputElement>) {
+	const handleNumberOfPlayers = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = parseInt(e.currentTarget.value);
 
-		setStackingSetting(
-			STACKING_TYPE.TEAM,
-			STACKING_TEAM_SETTINGS.NUMBER_OF_PLAYERS_TO_STACK,
-			undefined,
-			value
+		dispatch(
+			setSetting(
+				STACKING_TYPE.TEAM,
+				STACKING_TEAM_SETTINGS.NUMBER_OF_PLAYERS_TO_STACK,
+				undefined,
+				value
+			)
 		);
-	}
+	};
 
 	return (
 		<InputGroup label="Number of Players (Required)" error={isError}>
@@ -58,13 +53,4 @@ const StackSetting = ({ stacking, setStackingSetting }: IStackingSetting) => {
 	);
 };
 
-const mapStateToProps = ({ stacking }) => ({
-	stacking,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	setStackingSetting: (stackingType, setting, key, value) =>
-		dispatch(setSetting(stackingType, setting, key, value)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(StackSetting);
+export default StackSetting;

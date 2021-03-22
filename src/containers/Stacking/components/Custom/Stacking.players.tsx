@@ -1,45 +1,19 @@
 import clsx from 'clsx';
-import { Console } from 'console';
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
-import InputGroup from '../../../components/form/inputGroup';
 import {
-	removeFromSetting,
 	setSetting,
 	STACKING_CUSTOM_SETTINGS,
 	STACKING_TYPE,
-} from '../Stacking.actions';
+} from '../../Stacking.actions';
 
-// interface IPositionRow {
-// 	position: string;
-// 	player: null | any;
-// }
+import InputGroup from '../../../../components/form/inputGroup';
 
-interface IStackingSettings {
-	defaultPlayers: any;
-	stacking: any;
-	positions?: string[];
-	setStackingSetting(
-		stackingType: string,
-		setting: string,
-		key: string | undefined,
-		value: string[]
-	): void;
-	removeFromStackingSetting(
-		stackingType: string,
-		setting: string,
-		key: string
-	): void;
-}
+const StackingSettings = () => {
+	const dispatch = useAppDispatch();
+	const { players, stacking } = useAppSelector((state) => state);
 
-const StackingSettings = ({
-	defaultPlayers,
-	stacking,
-	positions,
-	setStackingSetting,
-	removeFromStackingSetting,
-}: IStackingSettings) => {
 	const playerSelectRef = useRef<HTMLSelectElement>(null);
 	const tableRef = useRef<HTMLTableElement>(null);
 	const maxExposureInputRef = useRef<HTMLInputElement>(null);
@@ -55,12 +29,13 @@ const StackingSettings = ({
 			const { value } = playerSelectRef.current;
 
 			if (currentStacks[page].players.length >= 9) {
+				// eslint-disable-next-line no-alert
 				alert('Stack is full!');
 
 				return;
 			}
 
-			const player = defaultPlayers.find(
+			const player = players.all?.find(
 				(_player) => _player.id === parseInt(value)
 			);
 
@@ -78,27 +53,31 @@ const StackingSettings = ({
 
 				temp.splice(page, 1, transformedStack);
 
-				setStackingSetting(
-					STACKING_TYPE.CUSTOM,
-					STACKING_CUSTOM_SETTINGS.STACKS,
-					undefined,
-					temp
+				dispatch(
+					setSetting(
+						STACKING_TYPE.CUSTOM,
+						STACKING_CUSTOM_SETTINGS.STACKS,
+						undefined,
+						temp
+					)
 				);
 			}
 		}
 	};
 
 	const handleAddStack = () => {
-		setStackingSetting(
-			STACKING_TYPE.CUSTOM,
-			STACKING_CUSTOM_SETTINGS.STACKS,
-			undefined,
-			[
-				...currentStacks,
-				{
-					players: [],
-				},
-			]
+		dispatch(
+			setSetting(
+				STACKING_TYPE.CUSTOM,
+				STACKING_CUSTOM_SETTINGS.STACKS,
+				undefined,
+				[
+					...currentStacks,
+					{
+						players: [],
+					},
+				]
+			)
 		);
 
 		setPage(page + 1 || page);
@@ -137,11 +116,13 @@ const StackingSettings = ({
 
 		temp[page].players.splice(playerIndex, 1);
 
-		setStackingSetting(
-			STACKING_TYPE.CUSTOM,
-			STACKING_CUSTOM_SETTINGS.STACKS,
-			undefined,
-			temp
+		dispatch(
+			setSetting(
+				STACKING_TYPE.CUSTOM,
+				STACKING_CUSTOM_SETTINGS.STACKS,
+				undefined,
+				temp
+			)
 		);
 	};
 
@@ -151,11 +132,13 @@ const StackingSettings = ({
 
 		temp.splice(value, 1);
 
-		setStackingSetting(
-			STACKING_TYPE.CUSTOM,
-			STACKING_CUSTOM_SETTINGS.STACKS,
-			undefined,
-			temp
+		dispatch(
+			setSetting(
+				STACKING_TYPE.CUSTOM,
+				STACKING_CUSTOM_SETTINGS.STACKS,
+				undefined,
+				temp
+			)
 		);
 
 		setPage(page - 1);
@@ -180,7 +163,7 @@ const StackingSettings = ({
 		}
 	}, [page]);
 
-	return defaultPlayers ? (
+	return players.all ? (
 		<>
 			<InputGroup label="Player">
 				<label htmlFor="customPlayers" className="flex-1">
@@ -194,7 +177,7 @@ const StackingSettings = ({
 						<option value="" disabled>
 							Select player
 						</option>
-						{defaultPlayers.map(
+						{players.all?.map(
 							({ id, first_name, last_name, position }, i) => (
 								<option value={id} key={i}>
 									{id}
@@ -416,18 +399,4 @@ const StackingSettings = ({
 	);
 };
 
-const mapStateToProps = ({ table, stacking, sports }) => ({
-	defaultPlayers: table.defaultPlayers,
-	stacking,
-	positions: sports?.sports?.find(({ sportId }) => sportId === sports?.sport)
-		?.positions,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	setStackingSetting: (stackingType, setting, key, value) =>
-		dispatch(setSetting(stackingType, setting, key, value)),
-	removeFromStackingSetting: (stackingType, setting, key) =>
-		dispatch(removeFromSetting(stackingType, setting, key)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(StackingSettings);
+export default StackingSettings;

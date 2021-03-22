@@ -1,16 +1,16 @@
 import clsx from 'clsx';
 import { MouseEvent, useRef } from 'react';
-import { connect } from 'react-redux';
-
-import TeamStacking from './Team/Stacking.team';
-import PositionStacking from './Position/Stacking.position';
-import CustomStacking from './Custom/Stacking.custom';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 import {
 	resetSettings,
 	setActiveStackingTab,
 	STACKING_TYPE,
-} from './Stacking.actions';
+} from '../Stacking.actions';
+
+import TeamStacking from './Team/Stacking.team';
+import PositionStacking from './Position/Stacking.position';
+import CustomStacking from './Custom/Stacking.custom';
 
 export const TABS = [
 	{
@@ -30,34 +30,27 @@ export const TABS = [
 	},
 ];
 
-interface IStackingContainerProps {
-	activeTab: string;
-	resetSettingsAction(): void;
-	setActiveTabAction(activeTab: string): void;
-}
+const Stacking = () => {
+	const dispatch = useAppDispatch();
+	const { tabs } = useAppSelector((state) => state);
 
-const StackingContainer = ({
-	activeTab,
-	resetSettingsAction,
-	setActiveTabAction,
-}: IStackingContainerProps) => {
 	const forms = useRef<(HTMLFormElement | null)[]>([]);
 
-	function handleTabClick(e: MouseEvent<HTMLButtonElement>) {
+	const handleTabClick = (e: MouseEvent<HTMLButtonElement>) => {
 		const { value } = e.currentTarget;
 
-		setActiveTabAction(value);
-	}
+		dispatch(setActiveStackingTab(value));
+	};
 
-	function handleResetSettings(e: MouseEvent<HTMLButtonElement>) {
+	const handleResetSettings = () => {
 		forms.current.forEach((form) => {
 			if (form) {
 				form.reset();
 			}
 		});
 
-		resetSettingsAction();
-	}
+		dispatch(resetSettings());
+	};
 
 	return (
 		<div className="container mx-auto px-8 my-8">
@@ -67,14 +60,14 @@ const StackingContainer = ({
 						{TABS.map(({ id, name }) => (
 							<li
 								role="tab"
-								aria-selected={activeTab === id}
+								aria-selected={tabs.activeTab === id}
 								aria-controls={`panel-${name}`}
 								key={id}
 							>
 								<button
 									className={clsx(
 										'py-2 px-4 font-black text-blue-600',
-										activeTab === id
+										tabs.activeTab === id
 											? 'border-b-2 border-blue-900 text-blue-900'
 											: ''
 									)}
@@ -102,7 +95,7 @@ const StackingContainer = ({
 					className="my-8"
 					role="tabpanel"
 					aria-labelledby={`panel-${id}`}
-					hidden={activeTab !== id}
+					hidden={tabs.activeTab !== id}
 					key={id}
 				>
 					<form
@@ -117,16 +110,4 @@ const StackingContainer = ({
 	);
 };
 
-const mapStateToProps = ({ stacking }) => ({
-	activeTab: stacking.activeTab,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	resetSettingsAction: () => dispatch(resetSettings()),
-	setActiveTabAction: (activeTab) =>
-		dispatch(setActiveStackingTab(activeTab)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps, null, {
-	forwardRef: true,
-})(StackingContainer);
+export default Stacking;
