@@ -22,9 +22,9 @@ interface IStackingState {
 		NUMBER_OF_POSITIONS: number;
 	};
 	CUSTOM?: {
-		STACKS?: [
+		STACKS: [
 			{
-				players?: IDraftKingsPlayer[];
+				players: IDraftKingsPlayer[];
 			}
 		];
 	};
