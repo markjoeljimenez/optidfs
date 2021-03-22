@@ -2,7 +2,7 @@ import createSagaMiddleware from 'redux-saga';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { createWrapper } from 'next-redux-wrapper';
 
-import dropdown from './containers/Dropdown/Dropdown.reducers';
+import contests from './containers/Dropdown/Dropdown.reducers';
 import error from './containers/Error/Error.reducers';
 import players from './containers/Players/Players.reducers';
 import providers from './containers/Providers/Providers.reducers';
@@ -15,7 +15,7 @@ import tabs from './containers/Tabs/Tabs.reducers';
 import rootSaga from './saga/saga';
 
 export const reducer = combineReducers({
-	dropdown,
+	contests,
 	error,
 	players,
 	rules,

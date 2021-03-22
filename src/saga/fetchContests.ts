@@ -1,8 +1,5 @@
 import { put } from 'redux-saga/effects';
-import {
-	LOADING_CONTESTS,
-	SET_CONTESTS,
-} from '../containers/Dropdown/Dropdown.actions';
+import { DROPDOWN_ACTIONS } from '../containers/Dropdown/Dropdown.actions';
 import { SET_ERROR } from '../containers/Error/Error.reducers';
 import { RESET_RULES } from '../containers/Rules/Rules.actions';
 import { UPDATE_SPORT } from '../containers/Sports/Sports.actions';
@@ -21,7 +18,7 @@ export default function* fetchContests(action) {
 
 	try {
 		yield put({
-			type: LOADING_CONTESTS,
+			type: DROPDOWN_ACTIONS.LOADING_CONTESTS,
 		});
 
 		yield put({
@@ -40,7 +37,7 @@ export default function* fetchContests(action) {
 		});
 
 		yield put({
-			type: SET_CONTESTS,
+			type: DROPDOWN_ACTIONS.SET_CONTESTS,
 			contests,
 		});
 	} catch (e) {

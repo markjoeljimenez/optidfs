@@ -1,16 +1,30 @@
 import { useRef, useState, useEffect } from 'react';
-import { useCombobox } from 'downshift';
-import { getPlayers, resetPlayers } from './Dropdown.actions';
-import { resetRules } from '../Rules/Rules.actions';
+import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
+import { setGameType } from './Dropdown.actions';
+import { getPlayers } from '../Players/Players.actions';
+import { resetRules } from '../Rules/Rules.actions';
+
+import { IContest } from '../../interfaces/IApp';
+
 const Dropdown = () => {
-	const { contests } = useAppSelector((state) => state.dropdown);
+	const { contests } = useAppSelector((state) => state.contests);
 	const dispatch = useAppDispatch();
 
 	// const ref = useRef<any | null>(null);
 
 	const [filteredContests, setFilteredContests] = useState(contests);
+
+	const onStateChange = (selection: UseComboboxStateChange<IContest>) => {
+		if (selection?.selectedItem?.draft_group_id) {
+			dispatch(getPlayers(selection?.selectedItem?.draft_group_id));
+		}
+
+		if (selection?.selectedItem?.game_type) {
+			dispatch(setGameType(selection?.selectedItem?.game_type));
+		}
+	};
 
 	useEffect(() => {
 		setFilteredContests(contests);
@@ -38,14 +52,7 @@ const Dropdown = () => {
 					: contests
 			);
 		},
-		onStateChange: (selection) => {
-			dispatch(
-				getPlayers(
-					selection?.selectedItem?.draft_group_id,
-					selection?.selectedItem?.game_type
-				)
-			);
-		},
+		onStateChange,
 	});
 
 	// useEffect(() => {
@@ -114,16 +121,5 @@ const Dropdown = () => {
 		</div>
 	);
 };
-
-// const mapStateToProps = ({ dropdown, table }: any) => ({
-// 	contests: dropdown.contests,
-// 	players: table.players,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-// 	getPlayersAction: (id, gameType) => dispatch(getPlayers(id, gameType)),
-// 	resetPlayers: () => dispatch(resetPlayers()),
-// 	resetRules: () => dispatch(resetRules()),
-// });
 
 export default Dropdown;

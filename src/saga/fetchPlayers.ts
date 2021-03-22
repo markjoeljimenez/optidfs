@@ -24,13 +24,13 @@ export default function* fetchPlayers(action: Action) {
 		return;
 	}
 
+	yield put(loadingTable(true));
+
 	try {
 		// Check input type is CSV
 		if (action.value.type) {
 			const body = new FormData();
 			body.append('csv', action.value);
-
-			yield put(loadingTable(true));
 
 			const res = yield fetch(`${API}/players`, {
 				method: 'POST',
@@ -39,16 +39,12 @@ export default function* fetchPlayers(action: Action) {
 
 			const { players } = yield res.json();
 
-			yield put(getPlayersSucceeded(players, action.gameType));
-			yield put(loadingTable(false));
+			yield put(getPlayersSucceeded(players));
 		} else {
-			yield put(loadingTable(true));
-
 			const res = yield fetch(`${API}/players?id=${action.value}`);
 			const { players } = yield res.json();
 
-			yield put(getPlayersSucceeded(players, action.gameType));
-			yield put(loadingTable(false));
+			yield put(getPlayersSucceeded(players));
 		}
 	} catch (e) {
 		yield put(getPlayersFailed());
@@ -62,4 +58,6 @@ export default function* fetchPlayers(action: Action) {
 			},
 		});
 	}
+
+	yield put(loadingTable(false));
 }

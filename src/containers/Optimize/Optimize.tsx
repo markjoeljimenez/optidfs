@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { optimize } from './Optimize.actions';
-import setActiveTab from '../Tabs/Tabs.actions';
+import { setActiveTab } from '../Tabs/Tabs.actions';
 import {
 	setActiveTab as setActiveStackingTab,
 	STACKING_TYPE,

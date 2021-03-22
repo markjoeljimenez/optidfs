@@ -11,9 +11,11 @@ import { SEARCH_PLAYERS } from '../Search/Search.actions';
 import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
 import { TABLE_ACTIONS } from './Table.actions';
 
+export type View = 'all' | 'optimized';
+
 type ITableState = {
 	page: number;
-	view: 'all' | 'optimized';
+	view: View;
 	loading: boolean;
 	// draftGroupId?: string;
 	// gameType?: string;
@@ -36,13 +38,19 @@ const DEFAULT_STATE: ITableState = {
 
 const TableReducer = (
 	state = DEFAULT_STATE,
-	{ type, loading }: AnyAction
+	{ type, loading, view }: AnyAction
 ): ITableState => {
 	switch (type) {
 		case TABLE_ACTIONS.LOADING_TABLE:
 			return {
 				...state,
 				loading,
+			};
+
+		case TABLE_ACTIONS.SET_VIEW:
+			return {
+				...state,
+				view,
 			};
 
 		// case PREVIOUS: {

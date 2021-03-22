@@ -5,7 +5,7 @@ import {
 	optimizePlayersSucceeded,
 	OPTIMIZE_ACTIONS,
 } from '../containers/Optimize/Optimize.actions';
-import { loadingTable } from '../containers/Table/Table.actions';
+import { loadingTable, setView } from '../containers/Table/Table.actions';
 import { post } from '../scripts/utilities/fetch';
 import { RootState } from '../store';
 import { API } from './saga';
@@ -25,6 +25,7 @@ export default function* optimizePlayers() {
 			table,
 			rules,
 			stacking,
+			contests,
 		}: RootState = yield select();
 
 		let tempStacking = stacking;
@@ -67,13 +68,14 @@ export default function* optimizePlayers() {
 			sport: sports.selectedSport,
 			// draftGroupId,
 			stacking: tempStacking,
-			// gameType,
+			gameType: contests.gameType,
 		});
 
 		const { lineups } = yield res.json();
 
 		yield put(optimizePlayersSucceeded(lineups));
 		yield put(loadingTable(false));
+		yield put(setView('optimized'));
 	} catch (e) {
 		yield put({
 			type: OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_FAILED,

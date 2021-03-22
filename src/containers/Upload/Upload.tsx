@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { connect } from 'react-redux';
-import { getPlayers } from '../Dropdown/Dropdown.actions';
+import { getPlayers } from '../Players/Players.actions';
 
 Modal.setAppElement('#__next');
 

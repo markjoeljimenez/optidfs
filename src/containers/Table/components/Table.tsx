@@ -8,12 +8,13 @@ import {
 
 import Error from '../../Error/Error';
 import Loading from '../../../components/loading';
+
 import Toggle from './Table.lockExclude';
 import Footer from './Table.footer';
 
 const Table = () => {
 	const { loading, view } = useAppSelector((state) => state.table);
-	const { error, players } = useAppSelector((state) => state);
+	const { error, players, contests } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
 	const [activeRow, setActiveRow] = useState<number | null>(null);
@@ -186,9 +187,10 @@ const Table = () => {
 										className="md:p-2 md:py-4 flex items-center row-start-2 col-start-2 md:row-start-auto md:col-start-auto"
 										role="cell"
 									>
-										{/* {gameType === 'Showdown Captain Mode'
+										{contests.gameType ===
+										'Showdown Captain Mode'
 											? player.draft_positions
-											: player.position} */}
+											: player.position}
 									</div>
 
 									{/* Team */}

@@ -1,13 +1,8 @@
-import { useState } from 'react';
-import { connect } from 'react-redux';
 import clsx from 'clsx';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-import setActiveTabAction from './Tabs.actions';
-import {
-	viewAllPlayersAction,
-	viewOptimizedLineupsAction,
-} from '../Table/Table.actions';
-import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
+import { setActiveTab } from './Tabs.actions';
+import { setView } from '../Table/Table.actions';
 
 const TABS = [
 	{
@@ -24,44 +19,29 @@ const TABS = [
 	},
 ];
 
-interface ITabsProps {
-	activeTab: string;
-	optimizedPlayers: IDraftKingsPlayer[];
-	view: string;
-	gameType: string;
-	setActiveTab(value): void;
-	viewAllPlayers(): void;
-	viewOptimizedLineups(): void;
-}
+const Tabs = () => {
+	const { tabs, table, players, contests } = useAppSelector((state) => state);
+	const dispatch = useAppDispatch();
 
-const TabsContainer = ({
-	activeTab,
-	gameType,
-	view,
-	optimizedPlayers,
-	viewAllPlayers,
-	viewOptimizedLineups,
-	setActiveTab,
-}: ITabsProps) => {
 	const handleTabClick = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const { value } = e.currentTarget;
 
-		setActiveTab(value);
+		dispatch(setActiveTab(value));
 	};
 
 	const handleViewAllPlayers = () => {
-		viewAllPlayers();
+		dispatch(setView('all'));
 	};
 
 	const handleViewOptimizedLineups = () => {
-		viewOptimizedLineups();
+		dispatch(setView('optimized'));
 	};
 
 	return (
 		<div className="flex relative justify-center">
-			{optimizedPlayers?.length && (
+			{players.optimized?.length && (
 				<div className="absolute inset-y-0 left-0 p-2">
-					{view === 'all' ? (
+					{table.view === 'all' ? (
 						<button
 							className="uppercase text-xs font-black text-blue-900"
 							type="button"
@@ -85,13 +65,14 @@ const TabsContainer = ({
 					{TABS.map(({ name, id }) => (
 						<li
 							role="tab"
-							aria-selected={activeTab === id}
+							aria-selected={tabs.activeTab === id}
 							aria-controls={`panel-${name}`}
+							key={id}
 						>
 							<button
 								className={clsx(
 									'py-2 px-4 font-black text-blue-600',
-									activeTab === id
+									tabs.activeTab === id
 										? 'border-b-2 border-blue-900 text-blue-900'
 										: ''
 								)}
@@ -106,26 +87,10 @@ const TabsContainer = ({
 				</ul>
 			</nav>
 			<p className="p-2 uppercase text-xs font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate absolute inset-y-0 right-0 flex items-center">
-				Game type:
-				{' '}
-				{gameType}
+				Game type: {contests.gameType}
 			</p>
 		</div>
 	);
 };
 
-const mapStateToProps = ({ tabs, table, sports }) => ({
-	activeTab: tabs.activeTab,
-	sport: sports.sport,
-	gameType: table.gameType,
-	view: table.view,
-	optimizedPlayers: table.optimizedPlayers,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-	setActiveTab: (value) => dispatch(setActiveTabAction(value)),
-	viewAllPlayers: () => dispatch(viewAllPlayersAction()),
-	viewOptimizedLineups: () => dispatch(viewOptimizedLineupsAction()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TabsContainer);
+export default Tabs;
