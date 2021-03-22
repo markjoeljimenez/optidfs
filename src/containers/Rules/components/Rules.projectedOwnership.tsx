@@ -1,22 +1,32 @@
 import { useRef } from 'react';
-import { connect } from 'react-redux';
 import Tippy from '@tippyjs/react';
-
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
+	removeRule,
+	removeRuleError,
 	RULE,
 	setRule,
-	removeRule,
 	setRuleError,
-	removeRuleError,
-} from './Rules.actions';
-import InputGroup from '../../components/form/inputGroup';
+} from '../Rules.actions';
 
-const Rule = (props: any) => {
-	const { errors } = props;
+// import {
+// 	RULE,
+// 	setRule,
+// 	removeRule,
+// 	setRuleError,
+// 	removeRuleError,
+// } from './Rules.actions';
+// import InputGroup from '../../components/form/inputGroup';
 
-	const error = errors?.find(
-		(_error) => _error.rule === RULE.MIN_PROJECTED_OWNERSHIP
-	);
+import InputGroup from '../../../components/form/inputGroup';
+
+const Rule = () => {
+	const dispatch = useAppDispatch();
+	const { error } = useAppSelector((state) => state);
+
+	// const error = errors?.find(
+	// 	(_error) => _error.rule === RULE.MIN_PROJECTED_OWNERSHIP
+	// );
 
 	const minRef = useRef<HTMLInputElement>(null);
 	const maxRef = useRef<HTMLInputElement>(null);
@@ -28,16 +38,20 @@ const Rule = (props: any) => {
 		const { value } = e.currentTarget;
 
 		if (!maxValue || parseFloat(maxValue) < parseFloat(value)) {
-			props.setRuleError(
-				RULE.MIN_PROJECTED_OWNERSHIP,
-				'Max value has to be greater than or equal to the min value!'
+			dispatch(
+				setRuleError(
+					RULE.MIN_PROJECTED_OWNERSHIP,
+					'Max value has to be greater than or equal to the min value!'
+				)
 			);
 		} else {
-			props.removeRuleError(RULE.MIN_PROJECTED_OWNERSHIP);
-			props.setRule(
-				RULE.MIN_PROJECTED_OWNERSHIP,
-				undefined,
-				parseFloat(value)
+			dispatch(removeRuleError(RULE.MIN_PROJECTED_OWNERSHIP));
+			dispatch(
+				setRule(
+					RULE.MIN_PROJECTED_OWNERSHIP,
+					undefined,
+					parseFloat(value)
+				)
 			);
 		}
 	};
@@ -49,16 +63,20 @@ const Rule = (props: any) => {
 		const { value } = e.currentTarget;
 
 		if (!minValue || parseFloat(minValue) <= parseFloat(value)) {
-			props.removeRuleError(RULE.MIN_PROJECTED_OWNERSHIP);
-			props.setRule(
-				RULE.MAX_PROJECTED_OWNERSHIP,
-				undefined,
-				parseFloat(value)
+			dispatch(removeRuleError(RULE.MIN_PROJECTED_OWNERSHIP));
+			dispatch(
+				setRule(
+					RULE.MAX_PROJECTED_OWNERSHIP,
+					undefined,
+					parseFloat(value)
+				)
 			);
 		} else {
-			props.setRuleError(
-				RULE.MIN_PROJECTED_OWNERSHIP,
-				'Max value has to be greater than or equal to the min value!'
+			dispatch(
+				setRuleError(
+					RULE.MIN_PROJECTED_OWNERSHIP,
+					'Max value has to be greater than or equal to the min value!'
+				)
 			);
 		}
 	};
@@ -153,14 +171,14 @@ const Rule = (props: any) => {
 	);
 };
 
-const mapStateToProps = ({ rules }) => ({
-	errors: rules.errors,
-});
+// const mapStateToProps = ({ rules }) => ({
+// 	errors: rules.errors,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
-	setRuleError: (rule, value) => dispatch(setRuleError(rule, value)),
-	removeRuleError: (rule) => dispatch(removeRuleError(rule)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+// 	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
+// 	setRuleError: (rule, value) => dispatch(setRuleError(rule, value)),
+// 	removeRuleError: (rule) => dispatch(removeRuleError(rule)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Rule);
+export default Rule;

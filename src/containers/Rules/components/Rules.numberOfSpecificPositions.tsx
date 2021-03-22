@@ -1,10 +1,12 @@
-import { connect } from 'react-redux';
 import { useRef } from 'react';
-import { RULE, setRule, removeRule } from './Rules.actions';
-import InputGroup from '../../components/form/inputGroup';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { removeRule, RULE, setRule } from '../Rules.actions';
 
-const Rule = (props: any) => {
-	const { positions, rules } = props;
+import InputGroup from '../../../components/form/inputGroup';
+
+const Rule = () => {
+	const dispatch = useAppDispatch();
+	const { players, rules } = useAppSelector((state) => state);
 
 	const numberOfSpecificPositionsSelectRef = useRef<HTMLSelectElement>(null);
 	const numberOfSpecificPositionsInputRef = useRef<HTMLInputElement>(null);
@@ -21,10 +23,12 @@ const Rule = (props: any) => {
 		const value = numberOfSpecificPositionsInputRef.current?.value;
 
 		if (team && value) {
-			props.setRule(
-				RULE.NUMBER_OF_SPECIFIC_POSITIONS,
-				team,
-				parseInt(value)
+			dispatch(
+				setRule(
+					RULE.NUMBER_OF_SPECIFIC_POSITIONS,
+					team,
+					parseInt(value)
+				)
 			);
 		}
 	};
@@ -37,7 +41,7 @@ const Rule = (props: any) => {
 			return;
 		}
 
-		props.removeRule(rule, value);
+		dispatch(removeRule(rule, value));
 	};
 
 	return (
@@ -59,7 +63,7 @@ const Rule = (props: any) => {
 									<option value="" disabled>
 										Select position
 									</option>
-									{positions?.map((position, i) => (
+									{players?.positions?.map((position, i) => (
 										<option value={position} key={i}>
 											{position}
 										</option>
@@ -140,14 +144,14 @@ const Rule = (props: any) => {
 	);
 };
 
-const mapStateToProps = ({ rules, table }) => ({
-	rules,
-	positions: table.positions,
-});
+// const mapStateToProps = ({ rules, table }) => ({
+// 	rules,
+// 	positions: table.positions,
+// });
 
-const mapDispatchToProps = (dispatch) => ({
-	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
-	removeRule: (rule, key) => dispatch(removeRule(rule, key)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+// 	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
+// 	removeRule: (rule, key) => dispatch(removeRule(rule, key)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Rule);
+export default Rule;

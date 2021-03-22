@@ -1,16 +1,19 @@
-import { connect } from 'react-redux';
 import Tippy from '@tippyjs/react';
+import { useAppDispatch } from '../../../hooks';
+import { RULE, setRule } from '../Rules.actions';
 
-import { RULE, setRule, removeRule } from '../Rules.actions';
 import InputGroup from '../../../components/form/inputGroup';
 
-const Rule = (props: any) => {
+const Rule = () => {
+	const dispatch = useAppDispatch();
 	const handleMaxRepeatingPlayers = (
 		e: React.ChangeEvent<HTMLInputElement>
 	) => {
 		const { value } = e.currentTarget;
 
-		props.setRule(RULE.MAX_REPEATING_PLAYERS, undefined, parseInt(value));
+		dispatch(
+			setRule(RULE.MAX_REPEATING_PLAYERS, undefined, parseInt(value))
+		);
 	};
 
 	return (
@@ -77,9 +80,4 @@ const Rule = (props: any) => {
 	);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
-	removeRule: (rule, key) => dispatch(removeRule(rule, key)),
-});
-
-export default connect(null, mapDispatchToProps)(Rule);
+export default Rule;

@@ -1,21 +1,24 @@
+import uniq from 'lodash.uniqby';
 import { AnyAction } from 'redux';
 
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { PLAYERS_ACTIONS } from './Players.actions';
 import { OPTIMIZE_ACTIONS } from '../Optimize/Optimize.actions';
 
-type ILineup = {
+interface ILineup {
 	players: IDraftKingsPlayer[];
 	totalFppg: number;
 	totalSalary: number;
 };
 
-type IPlayersState = {
+interface IPlayersState {
 	all?: IDraftKingsPlayer[];
 	excluded?: IDraftKingsPlayer[];
 	lineups?: ILineup[];
 	locked?: IDraftKingsPlayer[];
 	optimized?: IDraftKingsPlayer[];
+	positions?: string[];
+	teams?: string[];
 	totalFppg?: number;
 	totalSalary?: number;
 	// draftGroupId?: string;
@@ -39,16 +42,16 @@ const PlayersReducers = (
 ): IPlayersState => {
 	switch (type) {
 		case PLAYERS_ACTIONS.GET_PLAYERS_SUCCEEDED: {
-			// const teams =
-			// 	players && uniq(players, 'team').map(({ team }) => team);
-			// const positions =
-			// 	players &&
-			// 	uniq(
-			// 		uniq(players, 'position')
-			// 			.map(({ position }) => position)
-			// 			.map((pos: string) => pos.split('/'))
-			// 			.flat()
-			// 	);
+			const teams =
+				players && uniq(players, 'team').map(({ team }) => team);
+			const positions =
+				players &&
+				uniq(
+					uniq(players, 'position')
+						.map(({ position }) => position)
+						.map((pos: string) => pos.split('/'))
+						.flat()
+				);
 
 			return {
 				...state,
@@ -56,8 +59,8 @@ const PlayersReducers = (
 				// error: undefined,
 				// gameType,
 				all: players,
-				// positions,
-				// teams,
+				positions,
+				teams,
 			};
 		}
 

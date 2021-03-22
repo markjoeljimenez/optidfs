@@ -9,6 +9,7 @@ import ProjectedOwnship from './Rules.projectedOwnership';
 
 const Rules = () => {
 	const { players } = useAppSelector((state) => state);
+
 	return players.all ? (
 		// <form name="rules" ref={ref} onSubmit={(e) => e.preventDefault()}>
 		<div className="container mx-auto px-8 my-8 flex flex-col md:flex-row">

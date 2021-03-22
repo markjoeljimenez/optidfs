@@ -1,14 +1,17 @@
-import { connect } from 'react-redux';
-import InputGroup from '../../components/form/inputGroup';
-import { RULE, setRule, removeRule } from './Rules.actions';
+import { useAppDispatch } from '../../../hooks';
+import { RULE, setRule } from '../Rules.actions';
 
-const Rule = (props: any) => {
+import InputGroup from '../../../components/form/inputGroup';
+
+const Rule = () => {
+	const dispatch = useAppDispatch();
+
 	const handleMinSalaryCapChange = (
 		e: React.ChangeEvent<HTMLInputElement>
 	) => {
 		const { value } = e.currentTarget;
 
-		props.setRule(RULE.MINIMUM_SALARY_CAP, undefined, parseInt(value));
+		dispatch(setRule(RULE.MINIMUM_SALARY_CAP, undefined, parseInt(value)));
 	};
 
 	return (
@@ -26,9 +29,4 @@ const Rule = (props: any) => {
 	);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
-	removeRule: (rule, key) => dispatch(removeRule(rule, key)),
-});
-
-export default connect(null, mapDispatchToProps)(Rule);
+export default Rule;

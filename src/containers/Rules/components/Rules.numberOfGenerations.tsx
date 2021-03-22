@@ -1,9 +1,10 @@
-import { connect } from 'react-redux';
-import InputGroup from '../../components/form/inputGroup';
+import { useAppDispatch } from '../../../hooks';
+import { setRule, RULE } from '../Rules.actions';
 
-import { RULE, setRule } from './Rules.actions';
+import InputGroup from '../../../components/form/inputGroup';
 
-const Rule = (props: any) => {
+const Rule = () => {
+	const dispatch = useAppDispatch();
 	const max = 20;
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,7 +16,7 @@ const Rule = (props: any) => {
 			return;
 		}
 
-		props.setRule(RULE.NUMBER_OF_GENERATIONS, undefined, value);
+		dispatch(setRule(RULE.NUMBER_OF_GENERATIONS, undefined, value));
 	};
 
 	return (
@@ -38,8 +39,4 @@ const Rule = (props: any) => {
 	);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
-});
-
-export default connect(null, mapDispatchToProps)(Rule);
+export default Rule;
