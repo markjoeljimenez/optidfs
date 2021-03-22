@@ -2,13 +2,13 @@ import Fuse from 'fuse.js';
 import uniq from 'lodash.uniqby';
 import { AnyAction } from 'redux';
 
-import {
-	OPTIMIZE_PLAYERS_FAILED,
-	OPTIMIZE_PLAYERS_SUCCEEDED,
-} from '../Optimize/Optimize.actions';
+// import {
+// 	OPTIMIZE_PLAYERS_FAILED,
+// 	OPTIMIZE_PLAYERS_SUCCEEDED,
+// } from '../Optimize/Optimize.actions';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { SEARCH_PLAYERS } from '../Search/Search.actions';
-import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
+// import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
 import { TABLE_ACTIONS } from './Table.actions';
 
 export type View = 'all' | 'optimized';

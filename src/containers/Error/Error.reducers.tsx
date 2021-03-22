@@ -5,8 +5,8 @@ import { ERROR_ACTION } from './Error.actions';
 
 interface IError {
 	display: boolean;
-	rule?: string;
-	// rule
+	message?: string;
+	// rule?: string;
 }
 
 const DEFAULT_STATE: IError = {
