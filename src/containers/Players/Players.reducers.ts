@@ -1,3 +1,4 @@
+import Fuse from 'fuse.js';
 import uniq from 'lodash.uniqby';
 import { AnyAction } from 'redux';
 
@@ -17,28 +18,18 @@ interface IPlayersState {
 	lineups?: ILineup[];
 	locked?: IDraftKingsPlayer[];
 	optimized?: IDraftKingsPlayer[];
+	searched?: IDraftKingsPlayer[];
 	positions?: string[];
 	teams?: string[];
 	totalFppg?: number;
 	totalSalary?: number;
-	// draftGroupId?: string;
-	// gameType?: string;
-	// lineups?: ILineup[];
-	// payload?: any;
-	// playerId?: string;
-	// players?: IPlayers;
-	// searchTerm?: string;
-	// teams?: string[];
-	// totalFppg?: number;
-	// totalSalary?: number;
-	// value?: string;
 };
 
 const DEFAULT_STATE: IPlayersState = {};
 
 const PlayersReducers = (
 	state = DEFAULT_STATE,
-	{ type, players, lineups, page, payload }: AnyAction
+	{ type, players, lineups, page, payload, search, view }: AnyAction
 ): IPlayersState => {
 	switch (type) {
 		case PLAYERS_ACTIONS.GET_PLAYERS_SUCCEEDED: {
@@ -55,17 +46,11 @@ const PlayersReducers = (
 
 			return {
 				...state,
-				// draftGroupId,
-				// error: undefined,
-				// gameType,
 				all: players,
 				positions,
 				teams,
 			};
 		}
-
-		// case PLAYERS_ACTIONS.GET_PLAYERS_FAILED:
-		// 	return state;
 
 		case PLAYERS_ACTIONS.LOCK_PLAYERS: {
 			const player = state.all?.find(
@@ -129,6 +114,35 @@ const PlayersReducers = (
 			};
 		}
 
+		case PLAYERS_ACTIONS.SEARCH_PLAYERS: {
+			if (!search) {
+				return {
+					...state,
+					searched: undefined
+				};
+			}
+
+			if (state) {
+				const fuse = new Fuse(
+					state[view],
+					{
+						includeScore: true,
+						threshold: 0.2,
+						keys: ['first_name', 'last_name', 'team'],
+					}
+				);
+
+				const result: Fuse.FuseResult<IDraftKingsPlayer>[] = fuse.search(search);
+
+				return {
+					...state,
+					searched: result.map((player) => player.item),
+				};
+			}
+
+			return state;
+		}
+
 		case OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_SUCCEEDED: {
 			const transformedLineups: ILineup[] = lineups?.map((lineup) => ({
 				...lineup,
@@ -149,12 +163,6 @@ const PlayersReducers = (
 				totalFppg,
 			};
 		}
-
-		// case OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_FAILED:
-		// 	return {
-		// 		...state,
-		// 		// loading: false,
-		// 	};
 
 		case PLAYERS_ACTIONS.UPDATE_LINEUPS_PAGE: {
 			const lineup = state.lineups?.[page];

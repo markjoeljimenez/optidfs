@@ -1,13 +1,14 @@
-import { useAppDispatch } from '../../hooks';
-import searchTerm from './Search.actions';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { searchPlayers } from '../Players/Players.actions';
 
 const Search = () => {
 	const dispatch = useAppDispatch();
+	const { view } = useAppSelector((state) => state.table);
 
 	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.currentTarget;
 
-		dispatch(searchTerm(value));
+		dispatch(searchPlayers(value, view));
 	};
 
 	return (
