@@ -1,4 +1,4 @@
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../../hooks';
 
 import MaximumRepeatingSalaries from './Rules.maxRepeatingPlayers';
 import MinimumSalary from './Rules.minimumSalary';
@@ -44,7 +44,3 @@ const Rules = () => {
 };
 
 export default Rules;
-
-// export default connect(mapStateToProps, null, null, {
-// 	forwardRef: true,
-// })(RulesContainer);

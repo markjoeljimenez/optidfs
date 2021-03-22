@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { useRef } from 'react';
 
-import { RULE, setRule, removeRule } from './Rules.actions';
-import InputGroup from '../../components/form/inputGroup';
+import { RULE, setRule, removeRule } from '../Rules.actions';
+import InputGroup from '../../../components/form/inputGroup';
 
 interface IRule {
 	teams: string[];
