@@ -61,8 +61,8 @@ const PlayersReducers = (
 			};
 		}
 
-		case PLAYERS_ACTIONS.GET_PLAYERS_FAILED:
-			return state;
+		// case PLAYERS_ACTIONS.GET_PLAYERS_FAILED:
+		// 	return state;
 
 		case PLAYERS_ACTIONS.LOCK_PLAYERS: {
 			const player = state.all?.find(
@@ -147,11 +147,11 @@ const PlayersReducers = (
 			};
 		}
 
-		case OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_FAILED:
-			return {
-				...state,
-				// loading: false,
-			};
+		// case OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_FAILED:
+		// 	return {
+		// 		...state,
+		// 		// loading: false,
+		// 	};
 
 		case PLAYERS_ACTIONS.UPDATE_LINEUPS_PAGE: {
 			const lineup = state.lineups?.[page];

@@ -113,7 +113,10 @@ const Dropdown = () => {
 							})}
 							key={index}
 						>
-							{item.game_type} - {item.name}
+							{item.game_type}
+							{' '}
+							-
+							{item.name}
 						</li>
 					))}
 				</ul>

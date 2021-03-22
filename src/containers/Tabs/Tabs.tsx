@@ -87,7 +87,9 @@ const Tabs = () => {
 				</ul>
 			</nav>
 			<p className="p-2 uppercase text-xs font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate absolute inset-y-0 right-0 flex items-center">
-				Game type: {contests.gameType}
+				Game type:
+				{' '}
+				{contests.gameType}
 			</p>
 		</div>
 	);

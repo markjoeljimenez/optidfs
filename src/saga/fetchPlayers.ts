@@ -1,12 +1,11 @@
 import { put } from 'redux-saga/effects';
 import { API } from './saga';
-import { ERROR_STATUSES } from '../components/error';
+
 import {
 	getPlayersSucceeded,
-	getPlayersFailed,
 } from '../containers/Players/Players.actions';
 import { loadingTable } from '../containers/Table/Table.actions';
-import { SET_ERROR } from '../containers/Error/Error.reducers';
+import { resetError, setInternalServerError } from '../containers/Error/Error.actions';
 
 type Action = {
 	type: string;
@@ -15,18 +14,13 @@ type Action = {
 };
 
 export default function* fetchPlayers(action: Action) {
-	yield put({
-		type: SET_ERROR,
-		error: null,
-	});
-
-	if (!action.value) {
-		return;
-	}
-
-	yield put(loadingTable(true));
-
 	try {
+		if (!action.value) {
+			throw new Error('Missing draft ID');
+		}
+
+		yield put(loadingTable(true));
+
 		// Check input type is CSV
 		if (action.value.type) {
 			const body = new FormData();
@@ -46,18 +40,12 @@ export default function* fetchPlayers(action: Action) {
 
 			yield put(getPlayersSucceeded(players));
 		}
+
+		// Clear error
+		yield put(resetError());
 	} catch (e) {
-		yield put(getPlayersFailed());
-
-		yield put({
-			type: SET_ERROR,
-			error: {
-				type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
-				show: true,
-				message: "Can't fetch players",
-			},
-		});
+		yield put(setInternalServerError(e));
+	} finally {
+		yield put(loadingTable(false));
 	}
-
-	yield put(loadingTable(false));
 }

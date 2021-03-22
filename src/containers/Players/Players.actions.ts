@@ -23,9 +23,9 @@ export const getPlayersSucceeded = (players: IDraftKingsPlayer[]) => ({
 	players,
 });
 
-export const getPlayersFailed = () => ({
-	type: PLAYERS_ACTIONS.GET_PLAYERS_FAILED,
-});
+// export const getPlayersFailed = () => ({
+// 	type: PLAYERS_ACTIONS.GET_PLAYERS_FAILED,
+// });
 
 export const setPlayerExposure = (playerId: string, value: number) => ({
 	type: PLAYERS_ACTIONS.SET_PLAYER_EXPOSURE,

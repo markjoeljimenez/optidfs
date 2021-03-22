@@ -1,22 +1,17 @@
 import { put } from 'redux-saga/effects';
-import { DROPDOWN_ACTIONS } from '../containers/Dropdown/Dropdown.actions';
-import { SET_ERROR } from '../containers/Error/Error.reducers';
-import { RESET_RULES } from '../containers/Rules/Rules.actions';
-import { UPDATE_SPORT } from '../containers/Sports/Sports.actions';
-import { post } from '../scripts/utilities/fetch';
 import { API } from './saga';
+import { post } from '../scripts/utilities/fetch';
+
+import { DROPDOWN_ACTIONS, setContests } from '../containers/Dropdown/Dropdown.actions';
+import { resetError, setInternalServerError } from '../containers/Error/Error.actions';
+import { UPDATE_SPORT } from '../containers/Sports/Sports.actions';
 
 export default function* fetchContests(action) {
-	yield put({
-		type: SET_ERROR,
-		error: null,
-	});
-
-	if (!action.sport) {
-		return;
-	}
-
 	try {
+		if (!action.sport) {
+			throw new Error('Invalid sport selected');
+		}
+
 		yield put({
 			type: DROPDOWN_ACTIONS.LOADING_CONTESTS,
 		});
@@ -32,15 +27,9 @@ export default function* fetchContests(action) {
 
 		const { contests } = yield res.json();
 
-		yield put({
-			type: RESET_RULES,
-		});
-
-		yield put({
-			type: DROPDOWN_ACTIONS.SET_CONTESTS,
-			contests,
-		});
+		yield put(setContests(contests));
+		yield put(resetError());
 	} catch (e) {
-		yield console.log(e);
+		yield put(setInternalServerError(e));
 	}
 }

@@ -1,25 +1,18 @@
 import { put, select } from 'redux-saga/effects';
-import { ERROR_STATUSES } from '../components/error';
-import { SET_ERROR } from '../containers/Error/Error.reducers';
-import {
-	optimizePlayersFailed,
-	optimizePlayersSucceeded,
-	OPTIMIZE_ACTIONS,
-} from '../containers/Optimize/Optimize.actions';
-import { loadingTable, setView } from '../containers/Table/Table.actions';
 import { post } from '../scripts/utilities/fetch';
 import { RootState } from '../store';
 import { API } from './saga';
 
+import { resetError, setInternalServerError } from '../containers/Error/Error.actions';
+import {
+	optimizePlayersSucceeded,
+} from '../containers/Optimize/Optimize.actions';
+import { loadingTable, setView } from '../containers/Table/Table.actions';
+
 export default function* optimizePlayers() {
-	yield put({
-		type: SET_ERROR,
-		error: null,
-	});
-
-	yield put(loadingTable(true));
-
 	try {
+		yield put(loadingTable(true));
+
 		const {
 			players,
 			sports,
@@ -30,25 +23,9 @@ export default function* optimizePlayers() {
 
 		// let tempStacking = stacking;
 
-		if (rules.errors?.length) {
-			yield put(optimizePlayersFailed());
-
+		if (rules.errors) {
 			throw new Error("There's an error in the rules");
 		}
-
-		// if (rules.errors.length) {
-
-		// 	// yield put({
-		// 	// 	type: SET_ERROR,
-		// 	// 	show: true,
-		// 	// 	error: {
-		// 	// 		type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
-		// 	// 		message: "Can't generate lineups",
-		// 	// 	},
-		// 	// });
-
-		// 	// return;
-		// }
 
 		// if (
 		// 	!tempStacking.CUSTOM?.STACKS?.every(
@@ -79,20 +56,10 @@ export default function* optimizePlayers() {
 
 		yield put(optimizePlayersSucceeded(lineups));
 		yield put(setView('optimized'));
+		yield put(resetError());
 	} catch (e) {
-		yield put({
-			type: OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_FAILED,
-		});
-
-		yield put({
-			type: SET_ERROR,
-			error: {
-				type: ERROR_STATUSES.INTERNAL_SERVER_ERROR,
-				show: true,
-				message: "Can't generate lineups",
-			},
-		});
+		yield put(setInternalServerError(e));
+	} finally {
+		yield put(loadingTable(false));
 	}
-
-	yield put(loadingTable(false));
 }

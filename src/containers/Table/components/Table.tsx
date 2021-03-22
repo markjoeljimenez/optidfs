@@ -6,7 +6,7 @@ import {
 	setProjectedOwnership,
 } from '../../Players/Players.actions';
 
-import Error from '../../Error/Error';
+import Error from '../../Error/components/Error';
 import Loading from '../../../components/loading';
 
 import Toggle from './Table.lockExclude';
@@ -360,7 +360,7 @@ const Table = () => {
 				<Footer />
 			</div>
 		</Loading>
-	) : error?.show ? (
+	) : error.display ? (
 		<div className="container mx-auto py-4">
 			<Error />
 		</div>
