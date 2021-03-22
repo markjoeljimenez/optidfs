@@ -10,6 +10,7 @@ export const PLAYERS_ACTIONS = {
 	SET_PLAYER_EXPOSURE: 'SET_PLAYER_EXPOSURE',
 	SET_PLAYER_PROJECTED_OWNERSHIP: 'SET_PLAYER_PROJECTED_OWNERSHIP',
 	RESET_PLAYERS: 'RESET_PLAYERS',
+	UPDATE_LINEUPS_PAGE: 'UPDATE_LINEUPS_PAGE',
 };
 
 export const getPlayers = (value: number) => ({
@@ -51,6 +52,11 @@ export const excludePlayer = (e: React.MouseEvent<HTMLInputElement>) => ({
 export const clearToggle = (e: React.MouseEvent<HTMLButtonElement>) => ({
 	type: PLAYERS_ACTIONS.CLEAR_TOGGLE,
 	payload: e.currentTarget,
+});
+
+export const updateLineupsPage = (page: number) => ({
+	type: PLAYERS_ACTIONS.UPDATE_LINEUPS_PAGE,
+	page,
 });
 
 export const resetPlayers = () => ({

@@ -1,24 +1,36 @@
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { nextPage, previousPage } from '../Table.actions';
+
+import { updateLineupsPage } from '../../Players/Players.actions';
+import { setPage } from '../Table.actions';
 
 const Footer = () => {
-	// const { lineups, totalSalary, totalFppg, page, view } = useAppSelector(
-	// 	(state) => state.table
-	// );
+	const { page, view } = useAppSelector((state) => state.table);
+	const { lineups, totalFppg, totalSalary } = useAppSelector(
+		(state) => state.players
+	);
 	const dispatch = useAppDispatch();
 
-	const handlePrevious = () => {
-		dispatch(previousPage());
+	const handleNext = () => {
+		const pageNum = page + 1;
+
+		if (lineups && pageNum < lineups?.length) {
+			dispatch(setPage(pageNum));
+			dispatch(updateLineupsPage(pageNum));
+		}
 	};
 
-	const handleNext = () => {
-		dispatch(nextPage());
+	const handlePrevious = () => {
+		const pageNum = page - 1;
+
+		if (lineups && pageNum >= 0) {
+			dispatch(setPage(pageNum));
+			dispatch(updateLineupsPage(pageNum));
+		}
 	};
 
 	return (
 		<>
-			<p>test</p>
-			{/* {lineups && view === 'optimized' && (
+			{lineups && view === 'optimized' && (
 				<div className="border-b border-gray-300" role="rowgroup">
 					<div
 						className="grid gap-2 md:gap-0 grid-cols-table-md font-black container mx-auto px-8"
@@ -172,7 +184,7 @@ const Footer = () => {
 						</div>
 					</div>
 				</div>
-			)} */}
+			)}
 		</>
 	);
 };

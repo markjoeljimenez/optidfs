@@ -1,4 +1,6 @@
 import { wrapper } from '../store';
+import { useAppSelector } from '../hooks';
+
 import { SET_SPORTS } from '../containers/Sports/Sports.actions';
 import { ISports } from '../interfaces/ISports';
 
@@ -9,14 +11,9 @@ import Table from '../containers/Table/components/Table';
 import Tabs from '../containers/Tabs/Tabs';
 
 import Loading from '../components/loading';
-import { useAppSelector } from '../hooks';
 
 const API = process.env.ENDPOINT;
 const PANELS = [
-	{
-		id: 'settings',
-		element: <Rules />,
-	},
 	{
 		id: 'players',
 		element: <Table />,
@@ -24,6 +21,10 @@ const PANELS = [
 	{
 		id: 'stacking',
 		element: <Stacking />,
+	},
+	{
+		id: 'settings',
+		element: <Rules />,
 	},
 ];
 

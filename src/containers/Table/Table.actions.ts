@@ -1,8 +1,7 @@
 export const TABLE_ACTIONS = {
 	LOADING_TABLE: 'LOADING_TABLE',
 	SET_VIEW: 'SET_VIEW',
-	NEXT: 'NEXT',
-	PREVIOUS: 'PREVIOUS',
+	SET_PAGE: 'SET_PAGE',
 	VIEW_ALL_PLAYERS: 'VIEW_ALL_PLAYERS',
 	VIEW_OPTIMIZED_LINEUPS: 'VIEW_OPTIMIZED_LINEUPS',
 };
@@ -17,12 +16,9 @@ export const setView = (view: string) => ({
 	view,
 });
 
-export const nextPage = () => ({
-	type: TABLE_ACTIONS.NEXT,
-});
-
-export const previousPage = () => ({
-	type: TABLE_ACTIONS.PREVIOUS,
+export const setPage = (page: number) => ({
+	type: TABLE_ACTIONS.SET_PAGE,
+	page,
 });
 
 export const viewAllPlayersAction = () => ({

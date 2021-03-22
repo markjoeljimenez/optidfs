@@ -1,18 +1,15 @@
-import { connect } from 'react-redux';
+import { useAppSelector } from '../../hooks';
 
-import PlayersFromSameTeam from './Rules.playersFromSameTeam';
-import NumberOfSpecificPositions from './Rules.numberOfSpecificPositions';
-import MinimumSalary from './Rules.minimumSalary';
 import MaximumRepeatingSalaries from './Rules.maxRepeatingPlayers';
-import ProjectedOwnship from './Rules.projectedOwnership';
+import MinimumSalary from './Rules.minimumSalary';
 import NumberOfGenerations from './Rules.numberOfGenerations';
+import NumberOfSpecificPositions from './Rules.numberOfSpecificPositions';
+import PlayersFromSameTeam from './Rules.playersFromSameTeam';
+import ProjectedOwnship from './Rules.projectedOwnership';
 
-interface IRulesProps {
-	players: any;
-}
-
-const RulesContainer = ({ players }: IRulesProps) =>
-	players ? (
+const Rules = () => {
+	const { players } = useAppSelector((state) => state);
+	return players.all ? (
 		// <form name="rules" ref={ref} onSubmit={(e) => e.preventDefault()}>
 		<div className="container mx-auto px-8 my-8 flex flex-col md:flex-row">
 			<div className="flex-1">
@@ -44,11 +41,10 @@ const RulesContainer = ({ players }: IRulesProps) =>
 	) : (
 		<></>
 	);
+};
 
-const mapStateToProps = ({ table }) => ({
-	players: table.players,
-});
+export default Rules;
 
-export default connect(mapStateToProps, null, null, {
-	forwardRef: true,
-})(RulesContainer);
+// export default connect(mapStateToProps, null, null, {
+// 	forwardRef: true,
+// })(RulesContainer);

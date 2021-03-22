@@ -5,18 +5,19 @@ import { PLAYERS_ACTIONS } from './Players.actions';
 import { OPTIMIZE_ACTIONS } from '../Optimize/Optimize.actions';
 
 type ILineup = {
-	players: string[];
+	players: IDraftKingsPlayer[];
 	totalFppg: number;
 	totalSalary: number;
 };
 
-type IPlayers = {};
-
 type IPlayersState = {
 	all?: IDraftKingsPlayer[];
+	excluded?: IDraftKingsPlayer[];
+	lineups?: ILineup[];
 	locked?: IDraftKingsPlayer[];
 	optimized?: IDraftKingsPlayer[];
-	excluded?: IDraftKingsPlayer[];
+	totalFppg?: number;
+	totalSalary?: number;
 	// draftGroupId?: string;
 	// gameType?: string;
 	// lineups?: ILineup[];
@@ -34,7 +35,7 @@ const DEFAULT_STATE: IPlayersState = {};
 
 const PlayersReducers = (
 	state = DEFAULT_STATE,
-	{ type, players, lineups, gameType }: AnyAction
+	{ type, players, lineups, page }: AnyAction
 ): IPlayersState => {
 	switch (type) {
 		case PLAYERS_ACTIONS.GET_PLAYERS_SUCCEEDED: {
@@ -64,30 +65,23 @@ const PlayersReducers = (
 			return state;
 
 		case OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_SUCCEEDED: {
-			// const transformedLineups = lineups?.map((lineup) => ({
-			// 	...lineup,
-			// 	players: lineup.players.map((player) =>
-			// 		state.players?.all?.find(
-			// 			(_player) => _player.id === parseInt(player)
-			// 		)
-			// 	),
-			// }));
-
-			// const lineup = transformedLineups?.[0];
-
-			const optimized = lineups[0].players.map(
-				(player) =>
+			const transformedLineups: ILineup[] = lineups?.map((lineup) => ({
+				...lineup,
+				players: lineup.players.map((player) =>
 					state.all?.find(
 						(_player) => _player.id === parseInt(player)
-					)!
-			);
+					)
+				),
+			}));
+
+			const { totalSalary, totalFppg } = transformedLineups[0];
 
 			return {
 				...state,
-				// loading: false,
-				optimized: optimized || undefined,
-				// gameType: '',
-				// view: 'optimized',
+				optimized: transformedLineups[0].players,
+				lineups: transformedLineups,
+				totalSalary,
+				totalFppg,
 			};
 		}
 
@@ -96,6 +90,17 @@ const PlayersReducers = (
 				...state,
 				// loading: false,
 			};
+
+		case PLAYERS_ACTIONS.UPDATE_LINEUPS_PAGE: {
+			const lineup = state.lineups?.[page];
+
+			return {
+				...state,
+				optimized: lineup?.players || state.optimized,
+				totalFppg: lineup?.totalFppg || state.totalFppg,
+				totalSalary: lineup?.totalSalary || state.totalSalary,
+			};
+		}
 
 		default:
 			return state;

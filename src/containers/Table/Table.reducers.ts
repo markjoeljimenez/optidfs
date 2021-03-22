@@ -38,7 +38,7 @@ const DEFAULT_STATE: ITableState = {
 
 const TableReducer = (
 	state = DEFAULT_STATE,
-	{ type, loading, view }: AnyAction
+	{ type, loading, view, page }: AnyAction
 ): ITableState => {
 	switch (type) {
 		case TABLE_ACTIONS.LOADING_TABLE:
@@ -53,46 +53,11 @@ const TableReducer = (
 				view,
 			};
 
-		// case PREVIOUS: {
-		// 	const index = state.page - 1 <= 0 ? 0 : state.page - 1;
-
-		// 	if (!state.lineups) {
-		// 		return state;
-		// 	}
-
-		// 	const lineup = state.lineups[index];
-
-		// 	return {
-		// 		...state,
-		// 		page: index,
-		// 		optimizedPlayers: lineup.players,
-		// 		players: lineup.players,
-		// 		totalFppg: lineup.totalFppg,
-		// 		totalSalary: lineup.totalSalary,
-		// 	};
-		// }
-
-		// case NEXT: {
-		// 	const index =
-		// 		state.lineups && state.page + 1 >= state.lineups?.length
-		// 			? state.page
-		// 			: state.page + 1;
-
-		// 	if (!state.lineups) {
-		// 		return state;
-		// 	}
-
-		// 	const lineup = state.lineups[index];
-
-		// 	return {
-		// 		...state,
-		// 		page: index,
-		// 		optimizedPlayers: lineup.players,
-		// 		players: lineup.players,
-		// 		totalFppg: lineup.totalFppg,
-		// 		totalSalary: lineup.totalSalary,
-		// 	};
-		// }
+		case TABLE_ACTIONS.SET_PAGE:
+			return {
+				...state,
+				page,
+			};
 
 		// case SEARCH_PLAYERS: {
 		// 	if (!searchTerm) {
