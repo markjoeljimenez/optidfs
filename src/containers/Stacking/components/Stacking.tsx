@@ -32,7 +32,7 @@ export const TABS = [
 
 const Stacking = () => {
 	const dispatch = useAppDispatch();
-	const { tabs } = useAppSelector((state) => state);
+	const { stacking } = useAppSelector((state) => state);
 
 	const forms = useRef<(HTMLFormElement | null)[]>([]);
 
@@ -60,14 +60,14 @@ const Stacking = () => {
 						{TABS.map(({ id, name }) => (
 							<li
 								role="tab"
-								aria-selected={tabs.activeTab === id}
+								aria-selected={stacking.activeTab === id}
 								aria-controls={`panel-${name}`}
 								key={id}
 							>
 								<button
 									className={clsx(
 										'py-2 px-4 font-black text-blue-600',
-										tabs.activeTab === id
+										stacking.activeTab === id
 											? 'border-b-2 border-blue-900 text-blue-900'
 											: ''
 									)}
@@ -95,7 +95,7 @@ const Stacking = () => {
 					className="my-8"
 					role="tabpanel"
 					aria-labelledby={`panel-${id}`}
-					hidden={tabs.activeTab !== id}
+					hidden={stacking.activeTab !== id}
 					key={id}
 				>
 					<form

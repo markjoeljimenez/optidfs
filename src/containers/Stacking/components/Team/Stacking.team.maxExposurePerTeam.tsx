@@ -71,11 +71,11 @@ const StackSetting = () => {
 						</select>
 					</div>
 				</label>
-				<label htmlFor="maxExposurePerTeamInput">
+				<label htmlFor="maxExposurePerTeamInputTeam">
 					<span className="sr-only">Max Exposure</span>
 					<input
 						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						id="maxExposurePerTeamInput"
+						id="maxExposurePerTeamInputTeam"
 						placeholder="0"
 						step={0.1}
 						type="number"
