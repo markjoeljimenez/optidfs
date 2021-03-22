@@ -1,8 +1,10 @@
 import Modal from 'react-modal';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { connect } from 'react-redux';
+import { useAppDispatch } from '../../hooks';
+
 import { getPlayers } from '../Players/Players.actions';
+import { setGameType } from '../Dropdown/Dropdown.actions';
 
 Modal.setAppElement('#__next');
 
@@ -26,14 +28,15 @@ const customStyles = {
 	},
 };
 
-const Upload = (props: any) => {
+const Upload = () => {
+	const dispatch = useAppDispatch();
 	const fileRef = useRef<HTMLDivElement>(null);
 	const gameTypeSelectRef = useRef<HTMLSelectElement>(null);
 
 	const [isModalActive, setIsModalActive] = useState(false);
-	const [file, setFile] = useState<null | any>(null);
+	const [file, setFile] = useState<null | File>(null);
 
-	const onDrop = useCallback((files) => {
+	const onDrop = useCallback((files: File[]) => {
 		if (files) {
 			setFile(files[0]);
 
@@ -53,8 +56,9 @@ const Upload = (props: any) => {
 	const submitUpload = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		if (file && gameTypeSelectRef) {
-			props.getPlayers(file, gameTypeSelectRef.current!.value);
+		if (file && gameTypeSelectRef?.current) {
+			dispatch(getPlayers(file));
+			dispatch(setGameType(gameTypeSelectRef?.current?.value));
 			setIsModalActive(false);
 		}
 	};
@@ -153,8 +157,8 @@ const Upload = (props: any) => {
 	);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	getPlayers: (file, gameType) => dispatch(getPlayers(file, gameType)),
-});
+// const mapDispatchToProps = (dispatch) => ({
+// 	getPlayers: (file, gameType) => dispatch(getPlayers(file, gameType)),
+// });
 
-export default connect(null, mapDispatchToProps)(Upload);
+export default Upload;

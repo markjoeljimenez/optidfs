@@ -1,8 +1,8 @@
 export const SEARCH_PLAYERS = 'SEARCH_PLAYERS';
 
-const handleSearch = (searchTerm) => ({
+const searchTerm = (search: string) => ({
 	type: SEARCH_PLAYERS,
-	searchTerm,
+	search,
 });
 
-export default handleSearch;
+export default searchTerm;

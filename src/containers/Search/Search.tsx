@@ -1,11 +1,13 @@
-import { connect } from 'react-redux';
-import handleSearch from './Search.actions';
+import { useAppDispatch } from '../../hooks';
+import searchTerm from './Search.actions';
 
-const SearchContainer = (props: any) => {
-	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+const Search = () => {
+	const dispatch = useAppDispatch();
+
+	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { value } = e.currentTarget;
 
-		props.onChange(value);
+		dispatch(searchTerm(value));
 	};
 
 	return (
@@ -32,14 +34,10 @@ const SearchContainer = (props: any) => {
 				className="py-2 px-4 pl-8 h-full w-full border-b border-blue-800 focus:outline-none focus:shadow-outline"
 				type="search"
 				placeholder="Search by player, team, or position"
-				onChange={onChange}
+				onChange={handleSearch}
 			/>
 		</div>
 	);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	onChange: (value) => dispatch(handleSearch(value)),
-});
-
-export default connect(null, mapDispatchToProps)(SearchContainer);
+export default Search;

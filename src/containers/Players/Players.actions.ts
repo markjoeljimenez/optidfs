@@ -13,7 +13,7 @@ export const PLAYERS_ACTIONS = {
 	UPDATE_LINEUPS_PAGE: 'UPDATE_LINEUPS_PAGE',
 };
 
-export const getPlayers = (value: number) => ({
+export const getPlayers = (value: number | File) => ({
 	type: PLAYERS_ACTIONS.FETCH_PLAYERS,
 	value,
 });

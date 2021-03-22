@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import * as Sentry from '@sentry/browser';
 import { DefaultSeo } from 'next-seo';
-
 import { wrapper } from '../store';
-import '../styles/styles.scss';
+
 import Dashboard from '../layouts/dashboard';
+
+import '../styles/styles.scss';
 
 interface IApp {
 	Component: any;
