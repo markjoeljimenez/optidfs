@@ -1,5 +1,5 @@
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
-import { TABS } from './components/Stacking';
+import { TABS } from './Stacking.component';
 import {
 	REMOVE_FROM_SETTING,
 	RESET_SETTINGS,
@@ -8,26 +8,33 @@ import {
 	SET_STACKING_ACTIVE_TAB,
 } from './Stacking.actions';
 
-interface IStackingState {
+export interface ITeamStack {
+	NUMBER_OF_PLAYERS_TO_STACK: string;
+	FROM_TEAMS: string;
+	FROM_POSITIONS: string;
+	SPACING: string;
+	MAX_EXPOSURE: string;
+	MAX_EXPOSURE_PER_TEAM: string;
+}
+
+export interface IPositionStack {
+	NUMBER_OF_POSITIONS: number;
+}
+
+export interface ICustomStack {
+	STACKS: [
+		{
+			players: IDraftKingsPlayer[];
+			MAX_EXPOSURE?: number;
+		}
+	];
+}
+
+export interface IStackingState {
 	activeTab: string;
-	TEAM?: {
-		NUMBER_OF_PLAYERS_TO_STACK: string;
-		FROM_TEAMS: string;
-		FROM_POSITIONS: string;
-		SPACING: string;
-		MAX_EXPOSURE: string;
-		MAX_EXPOSURE_PER_TEAM: string;
-	};
-	POSITION?: {
-		NUMBER_OF_POSITIONS: number;
-	};
-	CUSTOM?: {
-		STACKS: [
-			{
-				players: IDraftKingsPlayer[];
-			}
-		];
-	};
+	TEAM?: ITeamStack;
+	POSITION?: IPositionStack;
+	CUSTOM?: ICustomStack;
 }
 
 const DEFAULT_STATE: IStackingState = {

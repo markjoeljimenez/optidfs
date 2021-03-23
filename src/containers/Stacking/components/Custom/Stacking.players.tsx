@@ -7,6 +7,7 @@ import {
 	STACKING_CUSTOM_SETTINGS,
 	STACKING_TYPE,
 } from '../../Stacking.actions';
+import { ICustomStack } from '../../Stacking.reducers';
 
 import InputGroup from '../../../../components/form/inputGroup';
 
@@ -21,14 +22,14 @@ const StackingSettings = () => {
 	const [page, setPage] = useState(0);
 	const [tableHeight, setTableHeight] = useState(0);
 
-	const currentStacks =
+	const stacks: ICustomStack['STACKS'] =
 		stacking[STACKING_TYPE.CUSTOM]?.[STACKING_CUSTOM_SETTINGS.STACKS];
 
-	const handleAddPlayer = () => {
+	function handleAddPlayer() {
 		if (playerSelectRef.current && playerSelectRef.current.value !== '') {
 			const { value } = playerSelectRef.current;
 
-			if (currentStacks[page].players.length >= 9) {
+			if (stacks[page].players.length >= 9) {
 				// eslint-disable-next-line no-alert
 				alert('Stack is full!');
 
@@ -40,7 +41,7 @@ const StackingSettings = () => {
 			);
 
 			if (player) {
-				const temp = currentStacks;
+				const temp = stacks;
 
 				if (temp[page].players.includes(player)) {
 					return;
@@ -63,16 +64,16 @@ const StackingSettings = () => {
 				);
 			}
 		}
-	};
+	}
 
-	const handleAddStack = () => {
+	function handleAddStack() {
 		dispatch(
 			setSetting(
 				STACKING_TYPE.CUSTOM,
 				STACKING_CUSTOM_SETTINGS.STACKS,
 				undefined,
 				[
-					...currentStacks,
+					...stacks,
 					{
 						players: [],
 					},
@@ -94,9 +95,9 @@ const StackingSettings = () => {
 		if (maxExposureInputRef?.current) {
 			maxExposureInputRef.current.value = '';
 		}
-	};
+	}
 
-	const handleStackSelection = (e: MouseEvent<HTMLButtonElement>) => {
+	function handleStackSelection(e: MouseEvent<HTMLButtonElement>) {
 		const value = parseInt(e.currentTarget.value);
 
 		setPage(value);
@@ -105,11 +106,11 @@ const StackingSettings = () => {
 		// 	maxExposureInputRef.current.value =
 		// 		currentStacks[page].MAX_EXPOSURE || '';
 		// }
-	};
+	}
 
-	const handleRemovePlayerFromStack = (e: MouseEvent<HTMLButtonElement>) => {
+	function handleRemovePlayerFromStack(e: MouseEvent<HTMLButtonElement>) {
 		const value = parseInt(e.currentTarget.value);
-		const temp = currentStacks;
+		const temp = stacks;
 		const playerIndex = temp[page].players.findIndex(
 			(player) => player.id === value
 		);
@@ -124,11 +125,11 @@ const StackingSettings = () => {
 				temp
 			)
 		);
-	};
+	}
 
-	const handleDeleteStack = (e: MouseEvent<HTMLButtonElement>) => {
+	function handleDeleteStack(e: MouseEvent<HTMLButtonElement>) {
 		const value = parseInt(e.currentTarget.value);
-		const temp = currentStacks;
+		const temp = stacks;
 
 		temp.splice(value, 1);
 
@@ -142,11 +143,11 @@ const StackingSettings = () => {
 		);
 
 		setPage(page - 1);
-	};
+	}
 
-	const handleMaxExposureUpdate = (e: ChangeEvent<HTMLInputElement>) => {
+	function handleMaxExposureUpdate(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseFloat(e.currentTarget.value);
-		const temp = currentStacks;
+		const temp = stacks;
 
 		const transformedStack = {
 			...temp[page],
@@ -154,12 +155,12 @@ const StackingSettings = () => {
 		};
 
 		temp.splice(page, 1, transformedStack);
-	};
+	}
 
 	useEffect(() => {
 		if (maxExposureInputRef?.current) {
 			maxExposureInputRef.current.value =
-				currentStacks[page]?.MAX_EXPOSURE || '';
+				stacks[page]?.MAX_EXPOSURE?.toString() || '';
 		}
 	}, [page]);
 
@@ -231,8 +232,8 @@ const StackingSettings = () => {
 					>
 						<div role="rowgroup">
 							{page !== undefined &&
-							currentStacks[page]?.players.length > 0 ? (
-								currentStacks[page].players.map((player) => (
+							stacks[page]?.players.length > 0 ? (
+								stacks[page].players.map((player) => (
 									<div
 										key={player.id}
 										className="bg-white border-b last:border-b-0 grid grid-cols-custom-stacking-md whitespace-no-wrap overflow-x-auto"
@@ -313,7 +314,7 @@ const StackingSettings = () => {
 								max="1"
 								className="border-b ml-3"
 								onChange={handleMaxExposureUpdate}
-								defaultValue={currentStacks[page]?.MAX_EXPOSURE}
+								defaultValue={stacks[page]?.MAX_EXPOSURE}
 								ref={maxExposureInputRef}
 							/>
 						</p>
@@ -348,7 +349,7 @@ const StackingSettings = () => {
 									<strong>Stack 1</strong>
 								</button>
 							</li> */}
-							{currentStacks?.map((stack, i) => (
+							{stacks?.map((stack, i) => (
 								<li>
 									<button
 										type="button"

@@ -12,7 +12,7 @@ import InputGroup from '../../../../components/form/inputGroup';
 const StackSetting = () => {
 	const dispatch = useAppDispatch();
 
-	const handleSpacing = (e: ChangeEvent<HTMLInputElement>) => {
+	function handleSpacing(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseInt(e.currentTarget.value);
 
 		dispatch(
@@ -23,7 +23,7 @@ const StackSetting = () => {
 				value
 			)
 		);
-	};
+	}
 
 	return (
 		<InputGroup label="Spacing">

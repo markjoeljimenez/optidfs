@@ -17,23 +17,23 @@ const StackSetting = () => {
 		IMEPT | undefined
 	>();
 
-	const handleTeamForMEPT = (e: ChangeEvent<HTMLSelectElement>) => {
+	function handleTeamForMEPT(e: ChangeEvent<HTMLSelectElement>) {
 		const { value } = e.currentTarget;
 
 		setMaxExposurePerTeam({
 			team: value,
 			exposure: maxExposurePerTeam?.exposure || undefined,
 		});
-	};
+	}
 
-	const handleExposureForMEPT = (e: ChangeEvent<HTMLInputElement>) => {
+	function handleExposureForMEPT(e: ChangeEvent<HTMLInputElement>) {
 		const { value } = e.currentTarget;
 
 		setMaxExposurePerTeam({
 			team: maxExposurePerTeam?.team || undefined,
 			exposure: parseFloat(value),
 		});
-	};
+	}
 
 	useEffect(() => {
 		if (maxExposurePerTeam?.exposure && maxExposurePerTeam?.team) {

@@ -12,7 +12,7 @@ import InputGroup from '../../../../components/form/inputGroup';
 const StackSetting = () => {
 	const dispatch = useAppDispatch();
 
-	const handleMaxExposure = (e: ChangeEvent<HTMLInputElement>) => {
+	function handleMaxExposure(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseFloat(e.currentTarget.value);
 
 		dispatch(
@@ -23,7 +23,7 @@ const StackSetting = () => {
 				value
 			)
 		);
-	};
+	}
 
 	return (
 		<InputGroup label="Max Exposure">

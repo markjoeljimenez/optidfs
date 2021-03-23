@@ -15,7 +15,7 @@ const StackSetting = () => {
 
 	const isError = stacking.TEAM && !stacking.TEAM.NUMBER_OF_PLAYERS_TO_STACK;
 
-	const handleNumberOfPlayers = (e: ChangeEvent<HTMLInputElement>) => {
+	function handleNumberOfPlayers(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseInt(e.currentTarget.value);
 
 		dispatch(
@@ -26,7 +26,7 @@ const StackSetting = () => {
 				value
 			)
 		);
-	};
+	}
 
 	return (
 		<InputGroup label="Number of Players (Required)" error={isError}>

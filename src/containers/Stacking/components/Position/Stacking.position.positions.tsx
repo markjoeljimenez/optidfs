@@ -20,7 +20,7 @@ const StackingSetting = () => {
 			STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS
 		];
 
-	const handleAddPosition = (e: MouseEvent<HTMLButtonElement>) => {
+	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
 		if (
 			positionsSelectRef.current &&
 			positionsSelectRef.current.value !== ''
@@ -44,9 +44,9 @@ const StackingSetting = () => {
 				)
 			);
 		}
-	};
+	}
 
-	const handleRemovePosition = (e: MouseEvent<HTMLButtonElement>) => {
+	function handleRemovePosition(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
 		dispatch(
@@ -56,7 +56,7 @@ const StackingSetting = () => {
 				value
 			)
 		);
-	};
+	}
 
 	return players.positions ? (
 		<div>

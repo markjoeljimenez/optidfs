@@ -20,7 +20,7 @@ const StackingSetting = () => {
 			STACKING_POSITION_SETTINGS.FOR_TEAMS
 		];
 
-	const handleAddTeam = () => {
+	function handleAddTeam() {
 		if (teamsSelectRef.current && teamsSelectRef.current.value !== '') {
 			const { value } = teamsSelectRef.current;
 
@@ -41,9 +41,9 @@ const StackingSetting = () => {
 				)
 			);
 		}
-	};
+	}
 
-	const handleRemoveTeam = (e: MouseEvent<HTMLButtonElement>) => {
+	function handleRemoveTeam(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
 		dispatch(
@@ -53,7 +53,7 @@ const StackingSetting = () => {
 				value
 			)
 		);
-	};
+	}
 
 	return players?.teams ? (
 		<AddFromSelect

@@ -87,22 +87,22 @@ const Table = () => {
 				<div role="rowgroup">
 					{players?.searched?.length
 						? players?.searched?.map((player, i) => (
-								<PlayerRow
+							<PlayerRow
 									player={player}
 									i={i}
 									handleOptionsClick={handleOptionsClick}
 									activeRow={activeRow}
 									key={player.id}
-								/>
+							/>
 						  ))
 						: players?.[view]?.map((player, i) => (
-								<PlayerRow
+							<PlayerRow
 									player={player}
 									i={i}
 									handleOptionsClick={handleOptionsClick}
 									activeRow={activeRow}
 									key={player.id}
-								/>
+							/>
 						  ))}
 				</div>
 

@@ -1,16 +1,16 @@
 import clsx from 'clsx';
 import { MouseEvent, useRef } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import {
 	resetSettings,
 	setActiveStackingTab,
 	STACKING_TYPE,
-} from '../Stacking.actions';
+} from './Stacking.actions';
 
-import TeamStacking from './Team/Stacking.team';
-import PositionStacking from './Position/Stacking.position';
-import CustomStacking from './Custom/Stacking.custom';
+import TeamStacking from './components/Team/Stacking.team';
+import PositionStacking from './components/Position/Stacking.position';
+import CustomStacking from './components/Custom/Stacking.custom';
 
 export const TABS = [
 	{

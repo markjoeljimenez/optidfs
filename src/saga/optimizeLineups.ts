@@ -13,25 +13,13 @@ export default function* optimizePlayers() {
 	try {
 		yield put(loadingTable(true));
 
-		const {
-			players,
-			sports,
-			rules,
-			stacking,
-			contests,
-		}: RootState = yield select();
+		const { players, rules, sports, contests, stacking }: RootState = yield select();
 
 		if (rules.errors) {
 			throw new Error("There's an error in the rules");
 		}
 
-		const tempStacking = {
-			CUSTOM: stacking.CUSTOM?.STACKS?.some((stack) => stack?.players?.length > 0) ? stacking.CUSTOM : undefined,
-			POSITION: stacking.POSITION,
-			TEAM: stacking.TEAM,
-		};
-
-		const res = yield post(`${API}/optimize`, {
+		const body = {
 			players: {
 				all: players?.all,
 				locked: players?.locked?.map((player) => player.id),
@@ -40,10 +28,15 @@ export default function* optimizePlayers() {
 			rules,
 			sport: sports.selectedSport,
 			// draftGroupId,
-			stacking: !Object.values(tempStacking).every((s) => s === undefined) ? tempStacking : undefined,
+			stacking: stacking.CUSTOM?.STACKS[0].players.length || stacking.POSITION || stacking.TEAM ? ({
+				CUSTOM: stacking.CUSTOM,
+				POSITION: stacking.POSITION,
+				TEAM: stacking.TEAM
+			}) : undefined,
 			gameType: contests.gameType,
-		});
+		};
 
+		const res = yield post(`${API}/optimize`, body);
 		const { lineups } = yield res.json();
 
 		yield put(optimizePlayersSucceeded(lineups));

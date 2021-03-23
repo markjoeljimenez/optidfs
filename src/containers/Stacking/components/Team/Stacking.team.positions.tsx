@@ -18,7 +18,7 @@ const StackingSetting = () => {
 	const currentPositions =
 		stacking[STACKING_TYPE.TEAM]?.[STACKING_TEAM_SETTINGS.FROM_POSITIONS];
 
-	const handleAddPosition = (e: MouseEvent<HTMLButtonElement>) => {
+	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
 		if (
 			positionsSelectRef.current &&
 			positionsSelectRef.current.value !== ''
@@ -42,7 +42,7 @@ const StackingSetting = () => {
 				)
 			);
 		}
-	};
+	}
 
 	function handleRemovePosition(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
