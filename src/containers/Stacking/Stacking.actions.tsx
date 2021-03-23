@@ -1,5 +1,5 @@
 import { IMEPT } from './components/Position/Stacking.position.maxExposurePerTeam';
-import { IStackingState } from './Stacking.reducers';
+import { ICustomStack } from './Stacking.reducers';
 
 export const SET_SETTING = 'SET_SETTING';
 export const REMOVE_FROM_SETTING = 'REMOVE_FROM_SETTING';
@@ -34,13 +34,8 @@ export const setSetting = (
 	stackingType: string,
 	setting: string,
 	key?: string,
-	value?:
-		| string
-		| number
-		| string[]
-		| number[]
-		| IMEPT
-		| IStackingState['CUSTOM']['STACKS']
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	value?: any
 ) => ({
 	type: SET_SETTING,
 	stackingType,

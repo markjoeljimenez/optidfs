@@ -34,7 +34,7 @@ export interface IStackingState {
 	activeTab: string;
 	TEAM?: ITeamStack;
 	POSITION?: IPositionStack;
-	CUSTOM?: ICustomStack;
+	CUSTOM: ICustomStack;
 }
 
 const DEFAULT_STATE: IStackingState = {

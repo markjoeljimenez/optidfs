@@ -110,35 +110,33 @@ const StackingSettings = () => {
 
 	function handleRemovePlayerFromStack(e: MouseEvent<HTMLButtonElement>) {
 		const value = parseInt(e.currentTarget.value);
-		const temp = stacks;
-		const playerIndex = temp[page].players.findIndex(
+		const playerIndex = stacks[page].players.findIndex(
 			(player) => player.id === value
 		);
 
-		temp[page].players.splice(playerIndex, 1);
+		stacks[page].players.splice(playerIndex, 1);
 
 		dispatch(
 			setSetting(
 				STACKING_TYPE.CUSTOM,
 				STACKING_CUSTOM_SETTINGS.STACKS,
 				undefined,
-				temp
+				stacks
 			)
 		);
 	}
 
 	function handleDeleteStack(e: MouseEvent<HTMLButtonElement>) {
 		const value = parseInt(e.currentTarget.value);
-		const temp = stacks;
 
-		temp.splice(value, 1);
+		stacks.splice(value, 1);
 
 		dispatch(
 			setSetting(
 				STACKING_TYPE.CUSTOM,
 				STACKING_CUSTOM_SETTINGS.STACKS,
 				undefined,
-				temp
+				stacks
 			)
 		);
 
@@ -147,14 +145,13 @@ const StackingSettings = () => {
 
 	function handleMaxExposureUpdate(e: ChangeEvent<HTMLInputElement>) {
 		const value = parseFloat(e.currentTarget.value);
-		const temp = stacks;
 
 		const transformedStack = {
-			...temp[page],
+			...stacks[page],
 			MAX_EXPOSURE: value,
 		};
 
-		temp.splice(page, 1, transformedStack);
+		stacks.splice(page, 1, transformedStack);
 	}
 
 	useEffect(() => {
