@@ -1,11 +1,11 @@
-import { useAppSelector } from '../../../hooks';
+import { useAppSelector } from '../../hooks';
 
-import MaximumRepeatingSalaries from './Rules.maxRepeatingPlayers';
-import MinimumSalary from './Rules.minimumSalary';
-import NumberOfGenerations from './Rules.numberOfGenerations';
-import NumberOfSpecificPositions from './Rules.numberOfSpecificPositions';
-import PlayersFromSameTeam from './Rules.playersFromSameTeam';
-import ProjectedOwnship from './Rules.projectedOwnership';
+import MaximumRepeatingSalaries from './components/Rules.maxRepeatingPlayers';
+import MinimumSalary from './components/Rules.minimumSalary';
+import NumberOfGenerations from './components/Rules.numberOfGenerations';
+import NumberOfSpecificPositions from './components/Rules.numberOfSpecificPositions';
+import PlayersFromSameTeam from './components/Rules.playersFromSameTeam';
+import ProjectedOwnship from './components/Rules.projectedOwnership';
 
 const Rules = () => {
 	const { players } = useAppSelector((state) => state);

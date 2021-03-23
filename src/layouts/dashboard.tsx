@@ -1,11 +1,11 @@
 import { useAppSelector } from '../hooks';
 
-import Dropdown from '../containers/Dropdown/Dropdown';
+import Dropdown from '../containers/Dropdown/Dropdown.component';
 import Nav from '../components/global/nav';
 import SkipLink from '../components/global/skiplink';
-import Providers from '../containers/Providers/Providers';
+import Providers from '../containers/Providers/Providers.components';
 import Sports from '../containers/Sports/Sports.component';
-import Upload from '../containers/Upload/Upload';
+import Upload from '../containers/Upload/Upload.component';
 
 export interface ILayoutProps {
 	children: React.ReactNode;

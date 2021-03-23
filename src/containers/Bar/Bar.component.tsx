@@ -1,8 +1,7 @@
 import { useAppSelector } from '../../hooks';
 
-import Search from '../Search/Search';
-import Optimize from '../Optimize/Optimize';
-import { openModal } from '../Rules/Rules.actions';
+import Search from '../Search/Search.component';
+import Optimize from '../Optimize/Optimize.component';
 
 const Bar = () => {
 	const { players } = useAppSelector((state) => state);

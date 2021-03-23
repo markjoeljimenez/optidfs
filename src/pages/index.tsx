@@ -4,11 +4,11 @@ import { useAppSelector } from '../hooks';
 import { SET_SPORTS } from '../containers/Sports/Sports.actions';
 import { ISports } from '../interfaces/ISports';
 
-import Bar from '../containers/Bar/Bar';
-import Rules from '../containers/Rules/components/Rules';
+import Bar from '../containers/Bar/Bar.component';
+import Rules from '../containers/Rules/Rules.component';
 import Stacking from '../containers/Stacking/Stacking.component';
-import Table from '../containers/Table/components/Table';
-import Tabs from '../containers/Tabs/Tabs';
+import Table from '../containers/Table/Table.component';
+import Tabs from '../containers/Tabs/Tabs.component';
 
 import Loading from '../components/loading';
 
