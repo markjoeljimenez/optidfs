@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
+
 import { removeRule, RULE, setRule } from '../Rules.actions';
 
 import InputGroup from '../../../components/form/inputGroup';
@@ -11,7 +12,7 @@ const Rule = () => {
 	const playersFromSameTeamSelectRef = useRef<HTMLSelectElement>(null);
 	const playersFromSameTeamInputRef = useRef<HTMLInputElement>(null);
 
-	const handleNumberOfPlayersFromTeamClick = () => {
+	function handleNumberOfPlayersFromTeamClick() {
 		if (!playersFromSameTeamSelectRef && !playersFromSameTeamInputRef) {
 			return;
 		}
@@ -28,9 +29,9 @@ const Rule = () => {
 				)
 			);
 		}
-	};
+	}
 
-	const handleRemoveRule = (e: React.MouseEvent<HTMLButtonElement>) => {
+	function handleRemoveRule(e: React.MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 		const rule = e.currentTarget.getAttribute('data-rule');
 
@@ -39,7 +40,7 @@ const Rule = () => {
 		}
 
 		dispatch(removeRule(rule, value));
-	};
+	}
 
 	return (
 		<InputGroup label="Number of players from same team">

@@ -8,10 +8,10 @@ import {
 import { optimize } from './Optimize.actions';
 
 const Optimize = () => {
-	const { stacking } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
+	const { stacking } = useAppSelector((state) => state);
 
-	const handleClick = () => {
+	function handleClick() {
 		if (
 			stacking &&
 			stacking.TEAM &&
@@ -36,7 +36,7 @@ const Optimize = () => {
 
 		dispatch(optimize());
 		dispatch(setActiveTab('players'));
-	};
+	}
 
 	return (
 		<button
@@ -48,17 +48,5 @@ const Optimize = () => {
 		</button>
 	);
 };
-
-// const mapStateToProps = ({ error, stacking }) => ({
-// 	error,
-// 	stacking,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-// 	optimizeLineups: () => dispatch(optimize()),
-// 	setActiveTabAction: (value) => dispatch(setActiveTab(value)),
-// 	setActiveStackingTabAction: (value) =>
-// 		dispatch(setActiveStackingTab(value)),
-// });
 
 export default Optimize;

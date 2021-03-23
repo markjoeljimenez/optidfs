@@ -18,7 +18,7 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 	const locked = players?.locked?.some((_player) => _player.id === id);
 	const excluded = players?.excluded?.some((_player) => _player.id === id);
 
-	const handleLockPlayer = (e: React.MouseEvent<HTMLInputElement>) => {
+	function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
 		// const value = parseInt(e.currentTarget.value);
 		// const player = players.all?.find((_player) => _player.id === value);
 
@@ -34,9 +34,9 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 		// }
 
 		dispatch(lockPlayer(e));
-	};
+	}
 
-	const handleExcludePlayer = (e: React.MouseEvent<HTMLInputElement>) => {
+	function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
 		// const value = parseInt(e.currentTarget.value);
 		// const player = players.all?.find((_player) => _player.id === value);
 
@@ -52,9 +52,9 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 		// }
 
 		dispatch(excludePlayer(e));
-	};
+	}
 
-	const handleClearSelection = (e: React.MouseEvent<HTMLButtonElement>) => {
+	function handleClearSelection(e: React.MouseEvent<HTMLButtonElement>) {
 		// const value = parseInt(e.currentTarget.value);
 
 		// setLockedPlayers(
@@ -66,7 +66,7 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 		// );
 
 		dispatch(clearToggle(e));
-	};
+	}
 
 	return (
 		<div className="toggle flex items-center text-xs">

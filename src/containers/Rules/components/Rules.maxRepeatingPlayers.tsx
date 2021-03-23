@@ -1,20 +1,20 @@
 import Tippy from '@tippyjs/react';
 import { useAppDispatch } from '../../../hooks';
+
 import { RULE, setRule } from '../Rules.actions';
 
 import InputGroup from '../../../components/form/inputGroup';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();
-	const handleMaxRepeatingPlayers = (
-		e: React.ChangeEvent<HTMLInputElement>
-	) => {
+
+	function handleMaxRepeatingPlayers(e: React.ChangeEvent<HTMLInputElement>) {
 		const { value } = e.currentTarget;
 
 		dispatch(
 			setRule(RULE.MAX_REPEATING_PLAYERS, undefined, parseInt(value))
 		);
-	};
+	}
 
 	return (
 		<InputGroup

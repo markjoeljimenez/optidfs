@@ -4,7 +4,9 @@ import {
 	setPlayerExposure,
 	setProjectedOwnership,
 } from '../../Players/Players.actions';
+
 import { IDraftKingsPlayer } from '../../../interfaces/IDraftKingsResponse';
+
 import Toggle from './Table.lockExclude';
 
 interface IPlayerRow {
@@ -23,25 +25,25 @@ const PlayerRow = ({
 	const dispatch = useAppDispatch();
 	const { contests } = useAppSelector((state) => state);
 
-	const handleExposureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	function handleExposureChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { value } = e.currentTarget;
 		const id = e.currentTarget.getAttribute('data-player-id');
 
 		if (id) {
 			dispatch(setPlayerExposure(id, parseInt(value)));
 		}
-	};
+	}
 
-	const handleProjectedOwnershipChange = (
+	function handleProjectedOwnershipChange(
 		e: React.ChangeEvent<HTMLInputElement>
-	) => {
+	) {
 		const { value } = e.currentTarget;
 		const id = e.currentTarget.getAttribute('data-player-id');
 
 		if (id) {
 			dispatch(setProjectedOwnership(id, parseInt(value)));
 		}
-	};
+	}
 
 	return (
 		<div role="row" aria-rowindex={i}>

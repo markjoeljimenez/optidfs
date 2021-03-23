@@ -4,29 +4,29 @@ import { updateLineupsPage } from '../../Players/Players.actions';
 import { setPage } from '../Table.actions';
 
 const Footer = () => {
+	const dispatch = useAppDispatch();
 	const { page, view } = useAppSelector((state) => state.table);
 	const { lineups, totalFppg, totalSalary } = useAppSelector(
 		(state) => state.players
 	);
-	const dispatch = useAppDispatch();
 
-	const handleNext = () => {
+	function handleNext() {
 		const pageNum = page + 1;
 
 		if (lineups && pageNum < lineups?.length) {
 			dispatch(setPage(pageNum));
 			dispatch(updateLineupsPage(pageNum));
 		}
-	};
+	}
 
-	const handlePrevious = () => {
+	function handlePrevious() {
 		const pageNum = page - 1;
 
 		if (lineups && pageNum >= 0) {
 			dispatch(setPage(pageNum));
 			dispatch(updateLineupsPage(pageNum));
 		}
-	};
+	}
 
 	return (
 		<>

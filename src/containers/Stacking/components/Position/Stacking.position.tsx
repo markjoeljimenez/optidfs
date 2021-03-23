@@ -1,8 +1,8 @@
-import Positions from './Stacking.position.positions';
-import OptionalPositions from './Stacking.position.optionalPositions';
-import PositionsForTeams from './Stacking.position.teams';
 import MaxExposure from './Stacking.position.maxExposure';
 import MaxExposurePerTeam from './Stacking.position.maxExposurePerTeam';
+import OptionalPositions from './Stacking.position.optionalPositions';
+import Positions from './Stacking.position.positions';
+import PositionsForTeams from './Stacking.position.teams';
 
 const PositionStacking = () => (
 	<>

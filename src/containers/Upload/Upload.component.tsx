@@ -1,6 +1,6 @@
-import Modal from 'react-modal';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import Modal from 'react-modal';
 import { useAppDispatch } from '../../hooks';
 
 import { getPlayers } from '../Players/Players.actions';
@@ -53,7 +53,7 @@ const Upload = () => {
 		onDrop,
 	});
 
-	const submitUpload = (e: FormEvent<HTMLFormElement>) => {
+	function submitUpload(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 
 		if (file && gameTypeSelectRef?.current) {
@@ -61,7 +61,7 @@ const Upload = () => {
 			dispatch(setGameType(gameTypeSelectRef?.current?.value));
 			setIsModalActive(false);
 		}
-	};
+	}
 
 	return (
 		<>

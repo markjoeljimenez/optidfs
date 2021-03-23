@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import Tippy from '@tippyjs/react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
+
 import {
 	removeRule,
 	removeRuleError,
@@ -8,15 +9,6 @@ import {
 	setRule,
 	setRuleError,
 } from '../Rules.actions';
-
-// import {
-// 	RULE,
-// 	setRule,
-// 	removeRule,
-// 	setRuleError,
-// 	removeRuleError,
-// } from './Rules.actions';
-// import InputGroup from '../../components/form/inputGroup';
 
 import InputGroup from '../../../components/form/inputGroup';
 
@@ -31,9 +23,9 @@ const Rule = () => {
 	const minRef = useRef<HTMLInputElement>(null);
 	const maxRef = useRef<HTMLInputElement>(null);
 
-	const handleMinProjectedOwnershipChange = (
+	function handleMinProjectedOwnershipChange(
 		e: React.ChangeEvent<HTMLInputElement>
-	) => {
+	) {
 		const maxValue = maxRef.current?.value;
 		const { value } = e.currentTarget;
 
@@ -54,11 +46,11 @@ const Rule = () => {
 				)
 			);
 		}
-	};
+	}
 
-	const handleMaxProjectedOwnershipChange = (
+	function handleMaxProjectedOwnershipChange(
 		e: React.ChangeEvent<HTMLInputElement>
-	) => {
+	) {
 		const minValue = minRef.current?.value;
 		const { value } = e.currentTarget;
 
@@ -79,7 +71,7 @@ const Rule = () => {
 				)
 			);
 		}
-	};
+	}
 
 	return (
 		<InputGroup

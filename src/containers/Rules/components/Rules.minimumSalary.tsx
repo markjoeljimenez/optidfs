@@ -1,4 +1,5 @@
 import { useAppDispatch } from '../../../hooks';
+
 import { RULE, setRule } from '../Rules.actions';
 
 import InputGroup from '../../../components/form/inputGroup';
@@ -6,13 +7,11 @@ import InputGroup from '../../../components/form/inputGroup';
 const Rule = () => {
 	const dispatch = useAppDispatch();
 
-	const handleMinSalaryCapChange = (
-		e: React.ChangeEvent<HTMLInputElement>
-	) => {
+	function handleMinSalaryCapChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const { value } = e.currentTarget;
 
 		dispatch(setRule(RULE.MINIMUM_SALARY_CAP, undefined, parseInt(value)));
-	};
+	}
 
 	return (
 		<InputGroup label="Minimum salary cap">

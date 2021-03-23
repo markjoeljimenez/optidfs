@@ -36,13 +36,13 @@ const Stacking = () => {
 
 	const forms = useRef<(HTMLFormElement | null)[]>([]);
 
-	const handleTabClick = (e: MouseEvent<HTMLButtonElement>) => {
+	function handleTabClick(e: MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
 		dispatch(setActiveStackingTab(value));
-	};
+	}
 
-	const handleResetSettings = () => {
+	function handleResetSettings() {
 		forms.current.forEach((form) => {
 			if (form) {
 				form.reset();
@@ -50,7 +50,7 @@ const Stacking = () => {
 		});
 
 		dispatch(resetSettings());
-	};
+	}
 
 	return (
 		<div className="container mx-auto px-8 my-8">

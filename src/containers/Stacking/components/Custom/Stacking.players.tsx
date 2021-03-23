@@ -2,12 +2,12 @@ import clsx from 'clsx';
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
+import { ICustomStack } from '../../Stacking.reducers';
 import {
 	setSetting,
 	STACKING_CUSTOM_SETTINGS,
 	STACKING_TYPE,
 } from '../../Stacking.actions';
-import { ICustomStack } from '../../Stacking.reducers';
 
 import InputGroup from '../../../../components/form/inputGroup';
 

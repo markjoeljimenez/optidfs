@@ -16,7 +16,7 @@ const Dropdown = () => {
 
 	const [filteredContests, setFilteredContests] = useState(contests);
 
-	const onStateChange = (selection: UseComboboxStateChange<IContest>) => {
+	function onStateChange(selection: UseComboboxStateChange<IContest>) {
 		if (selection?.selectedItem?.draft_group_id) {
 			dispatch(getPlayers(selection?.selectedItem?.draft_group_id));
 		}
@@ -24,7 +24,7 @@ const Dropdown = () => {
 		if (selection?.selectedItem?.game_type) {
 			dispatch(setGameType(selection?.selectedItem?.game_type));
 		}
-	};
+	}
 
 	useEffect(() => {
 		setFilteredContests(contests);

@@ -1,4 +1,5 @@
 import { useAppDispatch } from '../../../hooks';
+
 import { setRule, RULE } from '../Rules.actions';
 
 import InputGroup from '../../../components/form/inputGroup';
@@ -7,7 +8,7 @@ const Rule = () => {
 	const dispatch = useAppDispatch();
 	const max = 20;
 
-	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
 		const value = parseInt(e.currentTarget.value);
 
 		if (value > max) {
@@ -17,7 +18,7 @@ const Rule = () => {
 		}
 
 		dispatch(setRule(RULE.NUMBER_OF_GENERATIONS, undefined, value));
-	};
+	}
 
 	return (
 		<InputGroup label="Number of generations">

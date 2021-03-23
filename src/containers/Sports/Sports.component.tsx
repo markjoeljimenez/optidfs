@@ -1,19 +1,20 @@
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../hooks';
+
 import { DROPDOWN_ACTIONS } from '../Dropdown/Dropdown.actions';
 
 const Sports = () => {
 	const { allSports } = useAppSelector((state) => state.sports);
 	const dispatch = useDispatch();
 
-	const handleSportChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+	function handleSportChange(e: React.ChangeEvent<HTMLSelectElement>) {
 		const sport = parseInt(e.currentTarget.value);
 
 		dispatch({
 			type: DROPDOWN_ACTIONS.FETCH_CONTESTS,
 			sport,
 		});
-	};
+	}
 
 	return (
 		<div className="relative">

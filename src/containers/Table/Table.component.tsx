@@ -3,6 +3,7 @@ import { useAppSelector } from '../../hooks';
 
 import Error from '../Error/Error.component';
 import Loading from '../../components/loading';
+
 import Footer from './components/Table.footer';
 import PlayerRow from './components/Table.player';
 
@@ -12,13 +13,13 @@ const Table = () => {
 
 	const [activeRow, setActiveRow] = useState<number>();
 
-	const handleOptionsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+	function handleOptionsClick(e: React.MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
 		setActiveRow(
 			activeRow === parseInt(value) ? undefined : parseInt(value)
 		);
-	};
+	}
 
 	return players.all || players.optimized ? (
 		<Loading loading={loading} message="Loading players...">
@@ -87,22 +88,22 @@ const Table = () => {
 				<div role="rowgroup">
 					{players?.searched?.length
 						? players?.searched?.map((player, i) => (
-								<PlayerRow
+							<PlayerRow
 									player={player}
 									i={i}
 									handleOptionsClick={handleOptionsClick}
 									activeRow={activeRow}
 									key={player.id}
-								/>
+							/>
 						  ))
 						: players?.[view]?.map((player, i) => (
-								<PlayerRow
+							<PlayerRow
 									player={player}
 									i={i}
 									handleOptionsClick={handleOptionsClick}
 									activeRow={activeRow}
 									key={player.id}
-								/>
+							/>
 						  ))}
 				</div>
 

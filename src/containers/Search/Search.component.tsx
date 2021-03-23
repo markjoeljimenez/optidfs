@@ -1,15 +1,16 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
+
 import { searchPlayers } from '../Players/Players.actions';
 
 const Search = () => {
 	const dispatch = useAppDispatch();
 	const { view } = useAppSelector((state) => state.table);
 
-	const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+	function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
 		const { value } = e.currentTarget;
 
 		dispatch(searchPlayers(value, view));
-	};
+	}
 
 	return (
 		<div className="relative h-full md:min-w-9">

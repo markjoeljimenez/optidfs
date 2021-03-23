@@ -23,19 +23,19 @@ const Tabs = () => {
 	const { tabs, table, players, contests } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
-	const handleTabClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+	function handleTabClick(e: React.MouseEvent<HTMLButtonElement>) {
 		const { value } = e.currentTarget;
 
 		dispatch(setActiveTab(value));
-	};
+	}
 
-	const handleViewAllPlayers = () => {
+	function handleViewAllPlayers() {
 		dispatch(setView('all'));
-	};
+	}
 
-	const handleViewOptimizedLineups = () => {
+	function handleViewOptimizedLineups() {
 		dispatch(setView('optimized'));
-	};
+	}
 
 	return (
 		<div className="flex relative justify-center">
