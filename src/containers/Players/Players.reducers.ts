@@ -185,6 +185,34 @@ const PlayersReducers = (
 			return state;
 		}
 
+		case PLAYERS_ACTIONS.RESET_PLAYERS:
+			return {
+				...state,
+				// contests: undefined,
+				all: undefined,
+				// draftGroupId: undefined,
+				lineups: undefined,
+				locked: undefined,
+				excluded: undefined,
+				optimized: undefined,
+				// page: 0,
+				// players: undefined,
+				teams: undefined,
+				totalFppg: undefined,
+				totalSalary: undefined,
+			};
+
+		case PLAYERS_ACTIONS.UPDATE_LINEUPS_PAGE: {
+			const lineup = state.lineups?.[page];
+
+			return {
+				...state,
+				optimized: lineup?.players || state.optimized,
+				totalFppg: lineup?.totalFppg || state.totalFppg,
+				totalSalary: lineup?.totalSalary || state.totalSalary,
+			};
+		}
+
 		case OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_SUCCEEDED: {
 			const transformedLineups: ILineup[] = lineups?.map((lineup) => ({
 				...lineup,
@@ -203,17 +231,6 @@ const PlayersReducers = (
 				lineups: transformedLineups,
 				totalSalary,
 				totalFppg,
-			};
-		}
-
-		case PLAYERS_ACTIONS.UPDATE_LINEUPS_PAGE: {
-			const lineup = state.lineups?.[page];
-
-			return {
-				...state,
-				optimized: lineup?.players || state.optimized,
-				totalFppg: lineup?.totalFppg || state.totalFppg,
-				totalSalary: lineup?.totalSalary || state.totalSalary,
 			};
 		}
 
