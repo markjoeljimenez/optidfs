@@ -1,15 +1,18 @@
-export const FETCH_PLAYERS = 'FETCH_PLAYERS';
-export const RESET_PLAYERS = 'RESET_PLAYERS';
-export const LOADING_CONTESTS = 'LOADING_CONTESTS';
-export const FETCH_CONTESTS = 'FETCH_CONTESTS';
-export const SET_CONTESTS = 'SET_CONTESTS';
+import { IContest } from "../../interfaces/IApp";
 
-export const getPlayers = (value, gameType) => ({
-	type: FETCH_PLAYERS,
-	value,
-	gameType,
+export const DROPDOWN_ACTIONS = {
+	LOADING_CONTESTS: 'LOADING_CONTESTS',
+	FETCH_CONTESTS: 'FETCH_CONTESTS',
+	SET_CONTESTS: 'SET_CONTESTS',
+	SET_GAMETYPE: 'SET_GAMETYPE',
+};
+
+export const setContests = (contests: IContest[]) => ({
+	type: DROPDOWN_ACTIONS.SET_CONTESTS,
+	contests,
 });
 
-export const resetPlayers = () => ({
-	type: RESET_PLAYERS,
+export const setGameType = (gameType: string) => ({
+	type: DROPDOWN_ACTIONS.SET_GAMETYPE,
+	gameType,
 });

@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from 'react';
 import { render as rtlRender } from '@testing-library/react';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+
 import { reducer } from '../../store';
 
 function render(
@@ -12,11 +15,11 @@ function render(
 		...options
 	}: any = {}
 ) {
-	function Wrapper({ children }: any) {
+	function wrapper({ children }: { children: React.ReactNode }) {
 		return <Provider store={store}>{children}</Provider>;
 	}
 
-	return rtlRender(ui, { wrapper: Wrapper, ...options });
+	return rtlRender(ui, { wrapper, ...options });
 }
 
 // re-export everything

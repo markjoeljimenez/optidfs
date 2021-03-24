@@ -1,3 +1,6 @@
+import { IMEPT } from './components/Position/Stacking.position.maxExposurePerTeam';
+import { ICustomStack } from './Stacking.reducers';
+
 export const SET_SETTING = 'SET_SETTING';
 export const REMOVE_FROM_SETTING = 'REMOVE_FROM_SETTING';
 export const RESET_SETTINGS = 'RESET_SETTINGS';
@@ -30,8 +33,9 @@ export const SET_STACKING_ACTIVE_TAB = 'SET_STACKING_ACTIVE_TAB';
 export const setSetting = (
 	stackingType: string,
 	setting: string,
-	key: string,
-	value: string | number | string[] | number[]
+	key?: string,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	value?: any
 ) => ({
 	type: SET_SETTING,
 	stackingType,
@@ -61,7 +65,7 @@ export const resetSettings = () => ({
 	type: RESET_SETTINGS,
 });
 
-export const setActiveTab = (activeTab: string) => ({
+export const setActiveStackingTab = (activeTab: string) => ({
 	type: SET_STACKING_ACTIVE_TAB,
 	activeTab,
 });

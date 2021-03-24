@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import Sports from '../../containers/Sports/Sports.component';
 import Donate from './donate';
 
-const Nav = (props: any) => {
+const Nav = () => {
 	const router = useRouter();
 	const [isActive, setActiveState] = useState(false);
 

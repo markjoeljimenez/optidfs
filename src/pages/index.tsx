@@ -1,32 +1,19 @@
-import { connect } from 'react-redux';
+import { wrapper } from '../store';
+import { useAppSelector } from '../hooks';
 
-import { initializeStore } from '../store';
 import { SET_SPORTS } from '../containers/Sports/Sports.actions';
-import { IDraftKingsPlayer } from '../interfaces/IDraftKingsResponse';
 import { ISports } from '../interfaces/ISports';
 
-import Bar from '../containers/Bar/Bar';
-import Rules from '../containers/Rules/Rules';
-import Stacking from '../containers/Stacking/Stacking';
+import Bar from '../containers/Bar/Bar.component';
+import Rules from '../containers/Rules/Rules.component';
+import Stacking from '../containers/Stacking/Stacking.component';
 import Table from '../containers/Table/Table.component';
-import Tabs from '../containers/Tabs/Tabs';
+import Tabs from '../containers/Tabs/Tabs.component';
 
 import Loading from '../components/loading';
 
-interface IApp {
-	activeTab: string;
-	providers: any;
-	sport: string;
-	loading: any;
-	players: IDraftKingsPlayer[];
-}
-
 const API = process.env.ENDPOINT;
 const PANELS = [
-	{
-		id: 'settings',
-		element: <Rules />,
-	},
 	{
 		id: 'players',
 		element: <Table />,
@@ -35,73 +22,71 @@ const PANELS = [
 		id: 'stacking',
 		element: <Stacking />,
 	},
+	{
+		id: 'settings',
+		element: <Rules />,
+	},
 ];
 
-const App = ({ activeTab, providers, sport, loading, players }: IApp) => (
-	<Loading loading={loading.isLoading} message={loading.message}>
-		{providers && sport && players?.length ? (
-			<>
-				<div>
-					<div className="container mx-auto p-8">
-						<Bar />
+const Index = () => {
+	const { contests, sports, table, tabs, players } = useAppSelector(
+		(state) => state
+	);
+
+	return (
+		<Loading
+			loading={contests.loading}
+			message="Loading contests... this may take some time"
+		>
+			{sports.selectedSport && (players.all || players.optimized) ? (
+				<>
+					<div>
+						<div className="container mx-auto p-8">
+							<Bar />
+						</div>
 					</div>
-				</div>
-				<div className="border-b border-gray-300">
-					<div className="container mx-auto px-8">
-						<Tabs />
+					<div className="border-b border-gray-300">
+						<div className="container mx-auto px-8">
+							<Tabs />
+						</div>
 					</div>
+				</>
+			) : (
+				<></>
+			)}
+			{PANELS.map(({ id, element }) => (
+				<div
+					className="mb-8"
+					role="tabpanel"
+					aria-labelledby={`panel-${id}`}
+					hidden={tabs.activeTab !== id}
+					key={id}
+				>
+					{element}
 				</div>
-			</>
-		) : (
-			<></>
-		)}
-		{PANELS.map(({ id, element }) => (
-			<div
-				className="mb-8"
-				role="tabpanel"
-				aria-labelledby={`panel-${id}`}
-				hidden={activeTab !== id}
-				key={id}
-			>
-				{element}
-			</div>
-		))}
-	</Loading>
-);
-
-export const getServerSideProps = async () => {
-	if (!API) {
-		return null;
-	}
-
-	const reduxStore = initializeStore();
-	const { dispatch } = reduxStore;
-
-	const response = await fetch(API);
-	const sports: ISports[] = await response.json();
-
-	dispatch({
-		type: SET_SPORTS,
-		sports,
-	});
-
-	// dispatch({
-	// 	type: FETCH_CONTESTS,
-	// 	sport: sports[0].sportId,
-	// });
-
-	return { props: { initialReduxState: reduxStore.getState() } };
+			))}
+		</Loading>
+	);
 };
 
-const mapStateToProps = ({ tabs, sports, dropdown, providers, table }) => ({
-	activeTab: tabs.activeTab,
-	players: table.players,
-	providers,
-	sport: sports.sport,
-	loading: {
-		isLoading: dropdown.loading,
-		message: dropdown.message,
-	},
-});
+export const getServerSideProps = wrapper.getServerSideProps(
+	async ({ store }) => {
+		if (!API) {
+			return null;
+		}
 
-export default connect(mapStateToProps)(App);
+		const { dispatch, getState } = store;
+
+		const response = await fetch(API);
+		const sports: ISports[] = await response.json();
+
+		dispatch({
+			type: SET_SPORTS,
+			allSports: sports,
+		});
+
+		return { props: { initialReduxState: getState() } };
+	}
+);
+
+export default Index;

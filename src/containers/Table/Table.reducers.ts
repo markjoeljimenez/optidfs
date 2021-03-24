@@ -1,377 +1,42 @@
-import Fuse from 'fuse.js';
-import uniq from 'lodash.uniqby';
+import { AnyAction } from 'redux';
 
-import {
-	CLEAR_TOGGLE,
-	EXCLUDE_PLAYERS,
-	GET_PLAYERS_FAILED,
-	GET_PLAYERS_SUCCEEDED,
-	LOADING_PLAYERS,
-	LOCK_PLAYERS,
-	NEXT,
-	PREVIOUS,
-	SET_PLAYER_EXPOSURE,
-	SET_PLAYER_PROJECTED_OWNERSHIP,
-	VIEW_ALL_PLAYERS,
-	VIEW_OPTIMIZED_LINEUPS,
-} from './Table.actions';
-import {
-	OPTIMIZE_PLAYERS_FAILED,
-	OPTIMIZE_PLAYERS_SUCCEEDED,
-} from '../Optimize/Optimize.actions';
-import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
-import { SEARCH_PLAYERS } from '../Search/Search.actions';
-import { RESET_PLAYERS } from '../Dropdown/Dropdown.actions';
+import { TABLE_ACTIONS } from './Table.actions';
 
-export interface IActions {
-	type?: string;
-	defaultPlayers?: IDraftKingsPlayer[];
-	optimizedPlayers?: IDraftKingsPlayer[];
-	lockedPlayers?: IDraftKingsPlayer[];
-	excludedPlayers?: IDraftKingsPlayer[];
-	players?: IDraftKingsPlayer[];
-	loading?: boolean;
-	draftGroupId?: string;
-	lineups?: {
-		players: string[];
-		totalFppg: number;
-		totalSalary: number;
-	}[];
+export type View = 'all' | 'optimized';
+
+type ITableState = {
 	page: number;
-	totalFppg?: number;
-	totalSalary?: number;
-	searchTerm?: string;
-	payload?: any;
-	playerId?: string;
-	value?: string;
-	teams?: string[];
-	// teamIds?: {
-	// 	away_team_id: number;
-	// 	home_team_id: number;
-	// };
-	gameType?: string;
-	view: 'all' | 'optimized';
-}
+	view: View;
+	loading: boolean;
+};
 
-const table = (
-	state: IActions = {
-		page: 0,
-		view: 'all',
-	},
-	{
-		type,
-		players,
-		draftGroupId,
-		lineups,
-		searchTerm,
-		payload,
-		playerId,
-		value,
-		// teamIds,
-		gameType,
-		view,
-	}: IActions
-) => {
+const DEFAULT_STATE: ITableState = {
+	page: 0,
+	view: 'all',
+	loading: false,
+};
+
+const TableReducer = (
+	state = DEFAULT_STATE,
+	{ type, loading, view, page }: AnyAction
+): ITableState => {
 	switch (type) {
-		case LOADING_PLAYERS:
+		case TABLE_ACTIONS.LOADING_TABLE:
 			return {
 				...state,
-				loading: true,
+				loading,
 			};
 
-		case GET_PLAYERS_SUCCEEDED: {
-			const teams =
-				players && uniq(players, 'team').map(({ team }) => team);
-			const positions =
-				players &&
-				uniq(
-					uniq(players, 'position')
-						.map(({ position }) => position)
-						.map((pos: string) => pos.split('/'))
-						.flat()
-				);
-
+		case TABLE_ACTIONS.SET_VIEW:
 			return {
 				...state,
-				defaultPlayers: players,
-				players,
-				draftGroupId,
-				loading: false,
-				error: undefined,
-				teams,
-				positions,
-				gameType,
-			};
-		}
-
-		case GET_PLAYERS_FAILED:
-			return {
-				...state,
+				view,
 			};
 
-		case OPTIMIZE_PLAYERS_SUCCEEDED: {
-			const transformedLineups = lineups?.map((lineup) => ({
-				...lineup,
-				players: lineup.players.map((player) =>
-					state.defaultPlayers?.find(
-						(_player) => _player.id === parseInt(player)
-					)
-				),
-			}));
-
-			const lineup = transformedLineups?.[0];
-
+		case TABLE_ACTIONS.SET_PAGE:
 			return {
 				...state,
-				page: 0,
-				defaultLineups: lineups,
-				optimizedPlayers: lineup?.players,
-				players: lineup?.players,
-				totalFppg: lineup?.totalFppg,
-				totalSalary: lineup?.totalSalary,
-				lineups: transformedLineups,
-				view: 'optimized',
-				loading: false,
-			};
-		}
-
-		case OPTIMIZE_PLAYERS_FAILED:
-			return {
-				...state,
-				loading: false,
-			};
-
-		case PREVIOUS: {
-			const index = state.page - 1 <= 0 ? 0 : state.page - 1;
-
-			if (!state.lineups) {
-				return state;
-			}
-
-			const lineup = state.lineups[index];
-
-			return {
-				...state,
-				page: index,
-				optimizedPlayers: lineup.players,
-				players: lineup.players,
-				totalFppg: lineup.totalFppg,
-				totalSalary: lineup.totalSalary,
-			};
-		}
-
-		case NEXT: {
-			const index =
-				state.lineups && state.page + 1 >= state.lineups?.length
-					? state.page
-					: state.page + 1;
-
-			if (!state.lineups) {
-				return state;
-			}
-
-			const lineup = state.lineups[index];
-
-			return {
-				...state,
-				page: index,
-				optimizedPlayers: lineup.players,
-				players: lineup.players,
-				totalFppg: lineup.totalFppg,
-				totalSalary: lineup.totalSalary,
-			};
-		}
-
-		case SEARCH_PLAYERS: {
-			if (!searchTerm) {
-				return {
-					...state,
-					players: state.optimizedPlayers?.length
-						? state.optimizedPlayers
-						: state.defaultPlayers,
-				};
-			}
-
-			if (!state.players || !state.defaultPlayers) {
-				return state;
-			}
-
-			const fuse = new Fuse(
-				state.optimizedPlayers?.length
-					? state.optimizedPlayers
-					: state.defaultPlayers,
-				{
-					includeScore: true,
-					threshold: 0.2,
-					keys: ['first_name', 'last_name', 'team'],
-				}
-			);
-
-			const result = fuse.search(searchTerm);
-
-			return {
-				...state,
-				players: result.map((player) => player.item),
-			};
-		}
-
-		case LOCK_PLAYERS: {
-			const player = state.players?.find(
-				(_player) => _player.id === parseInt(payload.value)
-			);
-
-			// Remove player from excludedPlayers
-			const excludedPlayers = state.excludedPlayers?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
-
-			if (!state.lockedPlayers) {
-				return {
-					...state,
-					excludedPlayers: excludedPlayers?.length
-						? excludedPlayers
-						: undefined,
-					lockedPlayers: [player],
-				};
-			}
-
-			return {
-				...state,
-				excludedPlayers: excludedPlayers?.length
-					? excludedPlayers
-					: undefined,
-				lockedPlayers: payload.checked
-					? uniq([...state.lockedPlayers, player])
-					: state.lockedPlayers.filter(
-							(_player) => _player.id !== parseInt(payload.value)
-					  ),
-			};
-		}
-
-		case EXCLUDE_PLAYERS: {
-			const player = state.players?.find(
-				(_player) => _player.id === parseInt(payload.value)
-			);
-
-			// Remove player from lockedPlayers
-			const lockedPlayers = state.lockedPlayers?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
-
-			if (!state.excludedPlayers) {
-				return {
-					...state,
-					lockedPlayers: lockedPlayers?.length
-						? lockedPlayers
-						: undefined,
-					excludedPlayers: [player],
-				};
-			}
-
-			return {
-				...state,
-				lockedPlayers: lockedPlayers?.length
-					? lockedPlayers
-					: undefined,
-				excludedPlayers: payload.checked
-					? uniq([...state.excludedPlayers, player])
-					: state.excludedPlayers.filter(
-							(_player) => _player.id !== parseInt(payload.value)
-					  ),
-			};
-		}
-
-		case CLEAR_TOGGLE: {
-			// Remove player from lockedPlayers
-			const lockedPlayers = state.lockedPlayers?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
-
-			// Remove player from excludedPlayers
-			const excludedPlayers = state.excludedPlayers?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
-
-			return {
-				...state,
-				lockedPlayers,
-				excludedPlayers,
-			};
-		}
-
-		case SET_PLAYER_EXPOSURE: {
-			if (!playerId || !state.defaultPlayers) {
-				return state;
-			}
-
-			const player = state.defaultPlayers?.find(
-				(_player) => _player.id === parseInt(playerId)
-			);
-
-			if (player) {
-				player.min_exposure = value ? parseFloat(value) : undefined;
-
-				return {
-					...state,
-					defaultPlayers: uniq([...state.defaultPlayers, player]),
-				};
-			}
-
-			return state;
-		}
-
-		case SET_PLAYER_PROJECTED_OWNERSHIP: {
-			if (!playerId || !state.defaultPlayers) {
-				return state;
-			}
-
-			const player = state.defaultPlayers?.find(
-				(_player) => _player.id === parseInt(playerId)
-			);
-
-			if (player) {
-				player.projected_ownership = value
-					? parseFloat(value)
-					: undefined;
-
-				return {
-					...state,
-					defaultPlayers: uniq([...state.defaultPlayers, player]),
-				};
-			}
-
-			return state;
-		}
-
-		case VIEW_ALL_PLAYERS:
-			return {
-				...state,
-				players: state.defaultPlayers,
-				view: 'all',
-			};
-
-		case VIEW_OPTIMIZED_LINEUPS:
-			return {
-				...state,
-				players: state.optimizedPlayers,
-				view: 'optimized',
-			};
-
-		case RESET_PLAYERS:
-			return {
-				...state,
-				contests: undefined,
-				defaultPlayers: undefined,
-				draftGroupId: undefined,
-				lineups: undefined,
-				lockedPlayers: undefined,
-				excludedPlayers: undefined,
-				optimizedPlayers: undefined,
-				page: 0,
-				players: undefined,
-				teams: undefined,
-				totalFppg: undefined,
-				totalSalary: undefined,
+				page,
 			};
 
 		default:
@@ -379,4 +44,4 @@ const table = (
 	}
 };
 
-export default table;
+export default TableReducer;

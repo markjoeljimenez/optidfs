@@ -20,7 +20,7 @@ export const openModal = (active: boolean) => ({
 	active,
 });
 
-export const setRule = (rule: string, key: string, value: number) => ({
+export const setRule = (rule: string, key?: string, value?: number) => ({
 	type: SET_RULE,
 	rule,
 	key,

@@ -1,15 +1,35 @@
-export const SET_ERROR = 'SET_ERROR';
+import { AnyAction } from 'redux';
+import { ERROR_ACTION } from './Error.actions';
 
-const DEFAULT_STATE = null;
+// export const SET_ERROR = 'SET_ERROR';
 
-const dropdown = (state = DEFAULT_STATE, { type, error }) => {
+interface IError {
+	display: boolean;
+	message?: string;
+	// rule?: string;
+}
+
+const DEFAULT_STATE: IError = {
+	display: false
+};
+
+const ErrorReducers = (state = DEFAULT_STATE, { type, message }: AnyAction) => {
 	switch (type) {
-		case SET_ERROR:
-			return error;
+		case ERROR_ACTION.STATUS.INTERNAL_SERVER_ERROR:
+			return {
+				display: true,
+				message,
+			};
+
+		case ERROR_ACTION.RESET_ERROR:
+			return {
+				display: false,
+				message: undefined
+			};
 
 		default:
 			return state;
 	}
 };
 
-export default dropdown;
+export default ErrorReducers;
