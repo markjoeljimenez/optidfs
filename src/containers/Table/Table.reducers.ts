@@ -39,64 +39,6 @@ const TableReducer = (
 				page,
 			};
 
-		// case SET_PLAYER_EXPOSURE: {
-		// 	if (!playerId || !state.defaultPlayers) {
-		// 		return state;
-		// 	}
-
-		// 	const player = state.defaultPlayers?.find(
-		// 		(_player) => _player.id === parseInt(playerId)
-		// 	);
-
-		// 	if (player) {
-		// 		player.min_exposure = value ? parseFloat(value) : undefined;
-
-		// 		return {
-		// 			...state,
-		// 			defaultPlayers: uniq([...state.defaultPlayers, player]),
-		// 		};
-		// 	}
-
-		// 	return state;
-		// }
-
-		// case SET_PLAYER_PROJECTED_OWNERSHIP: {
-		// 	if (!playerId || !state.defaultPlayers) {
-		// 		return state;
-		// 	}
-
-		// 	const player = state.defaultPlayers?.find(
-		// 		(_player) => _player.id === parseInt(playerId)
-		// 	);
-
-		// 	if (player) {
-		// 		player.projected_ownership = value
-		// 			? parseFloat(value)
-		// 			: undefined;
-
-		// 		return {
-		// 			...state,
-		// 			defaultPlayers: uniq([...state.defaultPlayers, player]),
-		// 		};
-		// 	}
-
-		// 	return state;
-		// }
-
-		// case VIEW_ALL_PLAYERS:
-		// 	return {
-		// 		...state,
-		// 		players: state.defaultPlayers,
-		// 		view: 'all',
-		// 	};
-
-		// case VIEW_OPTIMIZED_LINEUPS:
-		// 	return {
-		// 		...state,
-		// 		players: state.optimizedPlayers,
-		// 		view: 'optimized',
-		// 	};
-
 		// case RESET_PLAYERS:
 		// 	return {
 		// 		...state,

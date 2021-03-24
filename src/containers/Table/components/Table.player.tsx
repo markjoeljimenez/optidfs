@@ -30,7 +30,7 @@ const PlayerRow = ({
 		const id = e.currentTarget.getAttribute('data-player-id');
 
 		if (id) {
-			dispatch(setPlayerExposure(id, parseInt(value)));
+			dispatch(setPlayerExposure(id, parseFloat(value)));
 		}
 	}
 
@@ -41,7 +41,7 @@ const PlayerRow = ({
 		const id = e.currentTarget.getAttribute('data-player-id');
 
 		if (id) {
-			dispatch(setProjectedOwnership(id, parseInt(value)));
+			dispatch(setProjectedOwnership(id, parseFloat(value)));
 		}
 	}
 

@@ -24,15 +24,15 @@ export const getPlayersSucceeded = (players: IDraftKingsPlayer[]) => ({
 	players,
 });
 
-export const setPlayerExposure = (playerId: string, value: number) => ({
+export const setPlayerExposure = (id: string, value: number) => ({
 	type: PLAYERS_ACTIONS.SET_PLAYER_EXPOSURE,
-	playerId,
+	id,
 	value,
 });
 
-export const setProjectedOwnership = (playerId: string, value: number) => ({
+export const setProjectedOwnership = (id: string, value: number) => ({
 	type: PLAYERS_ACTIONS.SET_PLAYER_PROJECTED_OWNERSHIP,
-	playerId,
+	id,
 	value,
 });
 

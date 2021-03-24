@@ -10,7 +10,7 @@ interface ILineup {
 	players: IDraftKingsPlayer[];
 	totalFppg: number;
 	totalSalary: number;
-};
+}
 
 interface IPlayersState {
 	all?: IDraftKingsPlayer[];
@@ -23,13 +23,13 @@ interface IPlayersState {
 	teams?: string[];
 	totalFppg?: number;
 	totalSalary?: number;
-};
+}
 
 const DEFAULT_STATE: IPlayersState = {};
 
 const PlayersReducers = (
 	state = DEFAULT_STATE,
-	{ type, players, lineups, page, payload, search, view }: AnyAction
+	{ type, players, lineups, page, payload, search, view, id, value }: AnyAction
 ): IPlayersState => {
 	switch (type) {
 		case PLAYERS_ACTIONS.GET_PLAYERS_SUCCEEDED: {
@@ -50,6 +50,48 @@ const PlayersReducers = (
 				positions,
 				teams,
 			};
+		}
+
+		case PLAYERS_ACTIONS.SET_PLAYER_EXPOSURE: {
+			if (!id || !state?.all) {
+				return state;
+			}
+
+			const player = state.all?.find(
+				(_player) => _player.id === parseInt(player)
+			);
+
+			if (player) {
+				player.min_exposure = value || undefined;
+
+				return {
+					...state,
+					all: uniq([...state.all, player]),
+				};
+			}
+
+			return state;
+		}
+
+		case PLAYERS_ACTIONS.SET_PLAYER_PROJECTED_OWNERSHIP: {
+			if (!id || !state.all) {
+				return state;
+			}
+
+			const player = state.all?.find(
+				(_player) => _player.id === parseInt(id)
+			);
+
+			if (player) {
+				player.projected_ownership = value || undefined;
+
+				return {
+					...state,
+					all: uniq([...state.all, player]),
+				};
+			}
+
+			return state;
 		}
 
 		case PLAYERS_ACTIONS.LOCK_PLAYERS: {
