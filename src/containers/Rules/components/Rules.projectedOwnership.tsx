@@ -163,14 +163,4 @@ const Rule = () => {
 	);
 };
 
-// const mapStateToProps = ({ rules }) => ({
-// 	errors: rules.errors,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-// 	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
-// 	setRuleError: (rule, value) => dispatch(setRuleError(rule, value)),
-// 	removeRuleError: (rule) => dispatch(removeRuleError(rule)),
-// });
-
 export default Rule;

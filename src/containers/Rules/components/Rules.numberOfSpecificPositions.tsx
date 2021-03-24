@@ -145,14 +145,4 @@ const Rule = () => {
 	);
 };
 
-// const mapStateToProps = ({ rules, table }) => ({
-// 	rules,
-// 	positions: table.positions,
-// });
-
-// const mapDispatchToProps = (dispatch) => ({
-// 	setRule: (rule, key, value) => dispatch(setRule(rule, key, value)),
-// 	removeRule: (rule, key) => dispatch(removeRule(rule, key)),
-// });
-
 export default Rule;

@@ -39,23 +39,6 @@ const TableReducer = (
 				page,
 			};
 
-		// case RESET_PLAYERS:
-		// 	return {
-		// 		...state,
-		// 		contests: undefined,
-		// 		defaultPlayers: undefined,
-		// 		draftGroupId: undefined,
-		// 		lineups: undefined,
-		// 		lockedPlayers: undefined,
-		// 		excludedPlayers: undefined,
-		// 		optimizedPlayers: undefined,
-		// 		page: 0,
-		// 		players: undefined,
-		// 		teams: undefined,
-		// 		totalFppg: undefined,
-		// 		totalSalary: undefined,
-		// 	};
-
 		default:
 			return state;
 	}
