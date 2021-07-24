@@ -10,7 +10,7 @@ import Stacking from '../containers/Stacking/Stacking.component';
 import Table from '../containers/Table/Table.component';
 import Tabs from '../containers/Tabs/Tabs.component';
 
-import Loading from '../components/loading';
+import Loading from '../components/loading/loading';
 
 const API = process.env.ENDPOINT;
 const PANELS = [
