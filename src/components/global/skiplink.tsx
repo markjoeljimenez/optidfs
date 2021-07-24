@@ -2,8 +2,10 @@ interface ISkipLinkProps {
 	text: string;
 }
 
-export default ({ text }: ISkipLinkProps) => (
+const SkipLink = ({ text }: ISkipLinkProps) => (
 	<a href="#main" className="skip-link">
 		{text}
 	</a>
 );
+
+export default SkipLink;
