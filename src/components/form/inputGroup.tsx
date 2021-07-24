@@ -4,7 +4,6 @@ import { ReactNode } from 'react';
 interface IInputGroup {
 	label: string;
 	children: ReactNode;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tippy?: any;
 	error?: string | boolean;
 }
@@ -18,9 +17,7 @@ const InputGroup = ({ label, error, tippy, children }: IInputGroup) => (
 				tippy && 'pr-8'
 			)}
 		>
-			{label}
-			{' '}
-			{tippy}
+			{label} {tippy}
 		</div>
 
 		{children}

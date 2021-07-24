@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 const Donate = () => (
 	<form
 		action="https://www.paypal.com/cgi-bin/webscr"
@@ -15,11 +17,11 @@ const Donate = () => (
 			title="PayPal - The safer, easier way to pay online!"
 			alt="Donate with PayPal button"
 		/>
-		<img
-			alt=""
+		<Image
+			alt="Donate"
 			src="https://www.paypal.com/en_CA/i/scr/pixel.gif"
-			width="1"
-			height="1"
+			width={1}
+			height={1}
 		/>
 	</form>
 );
