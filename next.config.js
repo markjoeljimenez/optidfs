@@ -10,6 +10,9 @@ const config = {
 		ENDPOINT: process.env.ENDPOINT,
 		GA_TRACKING_ID: process.env.GA_TRACKING_ID,
 	},
+	images: {
+		domains: ['www.paypal.com'],
+	},
 	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 };
 
