@@ -47,10 +47,7 @@ const PlayerRow = ({
 
 	return (
 		<div role="row" aria-rowindex={i}>
-			<div
-				className="border-b border-gray-300 text-sm md:text-base"
-				role="rowgroup"
-			>
+			<div className="border-b border-gray-300" role="rowgroup">
 				<div
 					className="py-4 px-8 grid grid-cols-table-sm md:grid-cols-table-md grid-rows-3 md:grid-rows-1 container mx-auto md:py-0 relative"
 					role="row"

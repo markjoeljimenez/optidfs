@@ -8,6 +8,7 @@ type IDropdownState = {
 	error?: string | null;
 	message?: string | null;
 	contests?: IContest[];
+	contest?: IContest;
 };
 
 const DEFAULT_STATE: IDropdownState = {
@@ -16,7 +17,7 @@ const DEFAULT_STATE: IDropdownState = {
 
 const dropdown = (
 	state = DEFAULT_STATE,
-	{ type, contests, gameType }: AnyAction
+	{ type, contests, gameType, contest }: AnyAction
 ): IDropdownState => {
 	switch (type) {
 		case DROPDOWN_ACTIONS.LOADING_CONTESTS:
@@ -40,6 +41,13 @@ const dropdown = (
 				...state,
 				gameType,
 			};
+
+		case DROPDOWN_ACTIONS.SET_CONTEST: {
+			return {
+				...state,
+				contest,
+			};
+		}
 
 		default:
 			return state;

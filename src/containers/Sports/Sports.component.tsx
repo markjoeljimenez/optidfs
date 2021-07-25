@@ -23,7 +23,7 @@ const Sports = () => {
 				<select
 					defaultValue="0"
 					onChange={handleSportChange}
-					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 pr-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-xs md:text-base"
+					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 pr-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 					id="selectSport"
 				>
 					<option value="0" disabled>

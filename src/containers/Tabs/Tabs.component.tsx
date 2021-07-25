@@ -38,7 +38,7 @@ const Tabs = () => {
 	}
 
 	return (
-		<div className="flex relative justify-center">
+		<div className="flex relative">
 			{players.optimized?.length && (
 				<div className="absolute inset-y-0 left-0 p-2">
 					{table.view === 'all' ? (
@@ -61,7 +61,7 @@ const Tabs = () => {
 				</div>
 			)}
 			<nav>
-				<ul className="flex" role="tablist">
+				<ul className="flex space-x-6" role="tablist">
 					{TABS.map(({ name, id }) => (
 						<li
 							role="tab"
@@ -71,10 +71,9 @@ const Tabs = () => {
 						>
 							<button
 								className={clsx(
-									'py-2 px-4 font-black text-blue-600',
-									tabs.activeTab === id
-										? 'border-b-2 border-blue-900 text-blue-900'
-										: ''
+									'py-2',
+									'font-medium',
+									tabs.activeTab === id ? 'border-b-2' : ''
 								)}
 								type="button"
 								onClick={handleTabClick}
@@ -87,9 +86,7 @@ const Tabs = () => {
 				</ul>
 			</nav>
 			<p className="p-2 uppercase text-xs font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate absolute inset-y-0 right-0 flex items-center">
-				Game type:
-				{' '}
-				{contests.gameType}
+				Game type: {contests.gameType}
 			</p>
 		</div>
 	);

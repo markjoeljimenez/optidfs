@@ -66,7 +66,7 @@ const Upload = () => {
 	return (
 		<>
 			<button
-				className="px-6 py-2 font-black rounded border shadow"
+				className="px-4 py-3 font-black rounded border shadow"
 				type="button"
 				onClick={() => {
 					setIsModalActive(!isModalActive);

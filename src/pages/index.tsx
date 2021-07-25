@@ -10,6 +10,10 @@ import Stacking from '../containers/Stacking/Stacking.component';
 import Table from '../containers/Table/Table.component';
 import Tabs from '../containers/Tabs/Tabs.component';
 
+import Dropdown from '../containers/Dropdown/Dropdown.component';
+import Upload from '../containers/Upload/Upload.component';
+import Optimize from '../containers/Optimize/Optimize.component';
+
 import Loading from '../components/loading/loading';
 
 const API = process.env.ENDPOINT;
@@ -38,22 +42,27 @@ const Index = () => {
 			loading={contests.loading}
 			message="Loading contests... this may take some time"
 		>
-			{sports.selectedSport && (players.all || players.optimized) ? (
-				<>
-					<div>
-						<div className="container mx-auto p-8">
-							<Bar />
-						</div>
+			<div className="md:flex justify-between p-8 pb-0 items-center">
+				<h2>
+					<strong className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+						Dashboard
+					</strong>
+				</h2>
+				{sports.selectedSport && (
+					<div className="flex space-x-4">
+						<Dropdown />
+						<Upload />
+						<Optimize disabled={contests.contest === undefined} />
 					</div>
-					<div className="border-b border-gray-300">
-						<div className="container mx-auto px-8">
-							<Tabs />
-						</div>
-					</div>
-				</>
-			) : (
-				<></>
+				)}
+			</div>
+
+			{contests.contest && (
+				<div className="p-8 pt-3">
+					<Tabs />
+				</div>
 			)}
+
 			{PANELS.map(({ id, element }) => (
 				<div
 					className="mb-8"

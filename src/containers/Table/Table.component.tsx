@@ -25,11 +25,11 @@ const Table = () => {
 		<Loading loading={loading} message="Loading players...">
 			<div role="table">
 				<div
-					className="bg-gray-100 border-b border-gray-300 md:block hidden"
+					className="border-b border-gray-200 md:block hidden"
 					role="rowgroup"
 				>
 					<div
-						className="grid grid-cols-table-md text-xs uppercase font-black container mx-auto px-8"
+						className="grid grid-cols-table-md text-xs uppercase font-black container mx-auto px-8 bg-gray-50"
 						role="row"
 					>
 						<div

@@ -2,7 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
-import { setGameType } from './Dropdown.actions';
+import { setContest, setGameType } from './Dropdown.actions';
 import { getPlayers } from '../Players/Players.actions';
 import { resetRules } from '../Rules/Rules.actions';
 
@@ -17,11 +17,21 @@ const Dropdown = () => {
 	const [filteredContests, setFilteredContests] = useState(contests);
 
 	function onStateChange(selection: UseComboboxStateChange<IContest>) {
-		if (selection?.selectedItem?.draft_group_id) {
+		if (!selection?.selectedItem) {
+			return;
+		}
+
+		const { selectedItem } = selection;
+
+		if (selectedItem) {
+			dispatch(setContest(selectedItem));
+		}
+
+		if (selectedItem.draft_group_id) {
 			dispatch(getPlayers(selection?.selectedItem?.draft_group_id));
 		}
 
-		if (selection?.selectedItem?.game_type) {
+		if (selectedItem.game_type) {
 			dispatch(setGameType(selection?.selectedItem?.game_type));
 		}
 	}
@@ -73,7 +83,7 @@ const Dropdown = () => {
 			</label>
 			<input
 				id="select-contest"
-				className="shadow appearance-none border rounded w-full py-3 px-4 pr-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline truncate"
+				className="md:min-w-dropdown h-full shadow appearance-none border rounded w-full py-3 px-4 pr-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline truncate"
 				{...getInputProps({
 					placeholder: 'Search contest by ID or name',
 				})}
@@ -113,10 +123,7 @@ const Dropdown = () => {
 							})}
 							key={index}
 						>
-							{item.game_type}
-							{' '}
-							-
-							{item.name}
+							{item.game_type} -{item.name}
 						</li>
 					))}
 				</ul>

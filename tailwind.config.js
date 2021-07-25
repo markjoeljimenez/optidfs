@@ -17,22 +17,22 @@ module.exports = {
 	},
 	theme: {
 		fontFamily: {
-			display: ['Nunito', 'sans-serif'],
+			display: ['Inter', 'sans-serif'],
 		},
 		screens: {
 			sm: '640px',
 			md: '768px',
 			lg: '1024px',
-			// xl: '1280px',
+			xl: '1440px',
 		},
-		colors: {
-			...colors,
-			indigo: {
-				...colors.indigo,
-				1000: '#242040',
-				1100: '#06050a',
-			},
-		},
+		// colors: {
+		// 	...colors,
+		// 	indigo: {
+		// 		...colors.indigo,
+		// 		1000: '#242040',
+		// 		1100: '#06050a',
+		// 	},
+		// },
 		// height: {
 		// 	...height,
 		// 	'1/2': '50%',
@@ -56,6 +56,8 @@ module.exports = {
 			5: '5rem',
 			9: '9rem',
 			10: '10rem',
+			nav: '12rem',
+			dropdown: '30rem',
 		},
 		maxWidth: {
 			...maxWidth,

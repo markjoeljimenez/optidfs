@@ -7,7 +7,11 @@ import {
 } from '../Stacking/Stacking.actions';
 import { optimize } from './Optimize.actions';
 
-const Optimize = () => {
+interface IOptimizeProps {
+	disabled?: boolean;
+}
+
+const Optimize = ({ disabled }: IOptimizeProps) => {
 	const dispatch = useAppDispatch();
 	const { stacking } = useAppSelector((state) => state);
 
@@ -40,7 +44,8 @@ const Optimize = () => {
 
 	return (
 		<button
-			className="py-2 px-5 bg-blue-200 text-blue-900 rounded-full font-black hover:bg-blue-800 hover:text-white"
+			className="px-4 py-3 bg-indigo-700 text-white rounded shadow font-black hover:bg-indigo-800"
+			disabled={disabled}
 			type="button"
 			onClick={handleClick}
 		>
