@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import clsx from 'clsx';
 import { MouseEvent, forwardRef } from 'react';
 import InputGroup from './inputGroup';
@@ -20,6 +18,7 @@ interface IAddFromSelectProps {
 	onAdd(e: MouseEvent<HTMLButtonElement>): void;
 }
 
+// eslint-disable-next-line react/display-name
 const AddFromSelect = forwardRef<HTMLSelectElement, IAddFromSelectProps>(
 	({ select, error, list, onAdd }: IAddFromSelectProps, ref) => (
 		<>
@@ -63,8 +62,8 @@ const AddFromSelect = forwardRef<HTMLSelectElement, IAddFromSelectProps>(
 
 			{list?.items && (
 				<ul className="mt-3 -ml-2">
-					{list?.items?.map((item) => (
-						<li className="inline-block ml-2">
+					{list?.items?.map((item, i) => (
+						<li key={i} className="inline-block ml-2">
 							<button
 								className="relative py-1 px-3 pr-8 rounded-full text-sm uppercase font-black text-black bg-orange-400"
 								type="button"

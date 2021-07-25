@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import * as Sentry from '@sentry/browser';
 import { DefaultSeo } from 'next-seo';
 import { wrapper } from '../store';

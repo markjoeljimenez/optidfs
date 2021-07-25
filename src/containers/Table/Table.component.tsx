@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 
 import Error from '../Error/Error.component';
-import Loading from '../../components/loading';
+import Loading from '../../components/loading/loading';
 
 import Footer from './components/Table.footer';
 import PlayerRow from './components/Table.player';
@@ -88,22 +88,22 @@ const Table = () => {
 				<div role="rowgroup">
 					{players?.searched?.length
 						? players?.searched?.map((player, i) => (
-							<PlayerRow
+								<PlayerRow
 									player={player}
 									i={i}
 									handleOptionsClick={handleOptionsClick}
 									activeRow={activeRow}
 									key={player.id}
-							/>
+								/>
 						  ))
 						: players?.[view]?.map((player, i) => (
-							<PlayerRow
+								<PlayerRow
 									player={player}
 									i={i}
 									handleOptionsClick={handleOptionsClick}
 									activeRow={activeRow}
 									key={player.id}
-							/>
+								/>
 						  ))}
 				</div>
 
