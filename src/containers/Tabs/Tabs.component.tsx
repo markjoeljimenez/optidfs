@@ -20,7 +20,7 @@ const TABS = [
 ];
 
 const Tabs = () => {
-	const { tabs, table, players, contests } = useAppSelector((state) => state);
+	const { tabs, table, players } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
 	function handleTabClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -39,7 +39,7 @@ const Tabs = () => {
 
 	return (
 		<div className="flex relative">
-			{players.optimized?.length && (
+			{/* {players.optimized?.length && (
 				<div className="absolute inset-y-0 left-0 p-2">
 					{table.view === 'all' ? (
 						<button
@@ -59,7 +59,7 @@ const Tabs = () => {
 						</button>
 					)}
 				</div>
-			)}
+			)} */}
 			<nav>
 				<ul className="flex space-x-6" role="tablist">
 					{TABS.map(({ name, id }) => (
@@ -85,9 +85,6 @@ const Tabs = () => {
 					))}
 				</ul>
 			</nav>
-			<p className="p-2 uppercase text-xs font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate absolute inset-y-0 right-0 flex items-center">
-				Game type: {contests.gameType}
-			</p>
 		</div>
 	);
 };
