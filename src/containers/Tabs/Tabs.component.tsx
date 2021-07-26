@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import { setActiveTab } from './Tabs.actions';
 import { setView } from '../Table/Table.actions';
+import Optimize from '../Optimize/Optimize.component';
 
 const TABS = [
 	{
@@ -38,7 +39,7 @@ const Tabs = () => {
 	}
 
 	return (
-		<div className="flex relative">
+		<div className="flex relative justify-between">
 			{/* {players.optimized?.length && (
 				<div className="absolute inset-y-0 left-0 p-2">
 					{table.view === 'all' ? (
@@ -61,7 +62,7 @@ const Tabs = () => {
 				</div>
 			)} */}
 			<nav>
-				<ul className="flex space-x-6" role="tablist">
+				<ul className="flex space-x-2" role="tablist">
 					{TABS.map(({ name, id }) => (
 						<li
 							role="tab"
@@ -71,9 +72,10 @@ const Tabs = () => {
 						>
 							<button
 								className={clsx(
-									'py-2',
+									'p-2',
 									'font-medium',
-									tabs.activeTab === id ? 'border-b-2' : ''
+									'rounded',
+									tabs.activeTab === id ? 'bg-gray-100' : ''
 								)}
 								type="button"
 								onClick={handleTabClick}
@@ -85,6 +87,7 @@ const Tabs = () => {
 					))}
 				</ul>
 			</nav>
+			<Optimize />
 		</div>
 	);
 };

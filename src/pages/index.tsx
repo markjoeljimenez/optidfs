@@ -12,7 +12,6 @@ import Tabs from '../containers/Tabs/Tabs.component';
 
 import Dropdown from '../containers/Dropdown/Dropdown.component';
 import Upload from '../containers/Upload/Upload.component';
-import Optimize from '../containers/Optimize/Optimize.component';
 
 import Loading from '../components/loading/loading';
 
@@ -52,13 +51,12 @@ const Index = () => {
 					<div className="flex space-x-4">
 						<Dropdown />
 						<Upload />
-						<Optimize disabled={contests.contest === undefined} />
 					</div>
 				)}
 			</div>
 
 			{contests.contest && (
-				<div className="p-8 pt-3">
+				<div className="p-8 pb-3 border-b border-gray-200 ">
 					<Tabs />
 				</div>
 			)}
