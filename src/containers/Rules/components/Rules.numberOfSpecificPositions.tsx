@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 import { removeRule, RULE, setRule } from '../Rules.actions';
 
-import InputGroup from '../../../components/form/inputGroup';
+import Input from '../../../components/form/input';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();
@@ -46,7 +46,7 @@ const Rule = () => {
 	}
 
 	return (
-		<InputGroup label="Number of specific positions">
+		<Input label="Number of specific positions">
 			<div>
 				<div className="flex">
 					<div className="flex-1">
@@ -110,10 +110,7 @@ const Rule = () => {
 										RULE.NUMBER_OF_SPECIFIC_POSITIONS
 									}
 								>
-									{key}
-									{' '}
-									-
-									{value}
+									{key} -{value}
 									<div className="absolute inset-y-0 right-0 flex items-center mr-1">
 										<svg
 											className="fill-current"
@@ -141,7 +138,7 @@ const Rule = () => {
 					)}
 				</div>
 			)}
-		</InputGroup>
+		</Input>
 	);
 };
 

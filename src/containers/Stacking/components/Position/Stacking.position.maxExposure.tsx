@@ -7,7 +7,7 @@ import {
 	STACKING_TYPE,
 } from '../../Stacking.actions';
 
-import InputGroup from '../../../../components/form/inputGroup';
+import Input from '../../../../components/form/input';
 
 const StackSetting = () => {
 	const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ const StackSetting = () => {
 	}
 
 	return (
-		<InputGroup label="Max Exposure">
+		<Input label="Max Exposure">
 			<label htmlFor="positionsMaxExposure">
 				<span className="sr-only">Max Exposure</span>
 				<input
@@ -40,7 +40,7 @@ const StackSetting = () => {
 					onChange={handleMaxExposure}
 				/>
 			</label>
-		</InputGroup>
+		</Input>
 	);
 };
 

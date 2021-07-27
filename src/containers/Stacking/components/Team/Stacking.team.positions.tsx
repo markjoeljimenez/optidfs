@@ -8,7 +8,7 @@ import {
 	STACKING_TYPE,
 } from '../../Stacking.actions';
 
-import AddFromSelect from '../../../../components/form/addFromSelect';
+import SelectWithAdd from '../../../../components/form/selectWithAdd';
 
 const StackingSetting = () => {
 	const dispatch = useAppDispatch();
@@ -57,7 +57,7 @@ const StackingSetting = () => {
 	}
 
 	return players.positions ? (
-		<AddFromSelect
+		<SelectWithAdd
 			select={{
 				id: 'positions',
 				items: players.positions,

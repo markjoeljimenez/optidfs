@@ -175,7 +175,7 @@ const Table = () => {
 					</svg>
 				</div>
 			</div>
-			<table {...getTableProps()} className="w-full table-fixed">
+			<table {...getTableProps()} className="w-full table-auto">
 				<thead className="border-b border-t border-gray-200">
 					{headerGroups.map((headerGroup) => (
 						<tr
@@ -220,7 +220,7 @@ const Table = () => {
 									return (
 										<td
 											{...cell.getCellProps()}
-											className="px-8 py-4"
+											className="px-8 py-4 whitespace-nowrap"
 										>
 											{cell.render('Cell')}
 										</td>

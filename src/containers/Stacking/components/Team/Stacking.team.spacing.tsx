@@ -7,7 +7,7 @@ import {
 	STACKING_TYPE,
 } from '../../Stacking.actions';
 
-import InputGroup from '../../../../components/form/inputGroup';
+import Input from '../../../../components/form/input';
 
 const StackSetting = () => {
 	const dispatch = useAppDispatch();
@@ -26,19 +26,15 @@ const StackSetting = () => {
 	}
 
 	return (
-		<InputGroup label="Spacing">
-			<label htmlFor="spacing">
-				<span className="sr-only">Spacing</span>
-				<input
-					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-					id="spacing"
-					placeholder="0"
-					type="number"
-					min={0}
-					onChange={handleSpacing}
-				/>
-			</label>
-		</InputGroup>
+		<Input
+			label="Spacing"
+			htmlFor="spacing"
+			id="spacing"
+			placeholder="0"
+			onChange={handleSpacing}
+			type="number"
+			min={0}
+		/>
 	);
 };
 

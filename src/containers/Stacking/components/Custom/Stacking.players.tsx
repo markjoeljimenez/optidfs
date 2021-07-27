@@ -9,7 +9,7 @@ import {
 	STACKING_TYPE,
 } from '../../Stacking.actions';
 
-import InputGroup from '../../../../components/form/inputGroup';
+import Input from '../../../../components/form/input';
 
 const StackingSettings = () => {
 	const dispatch = useAppDispatch();
@@ -163,7 +163,7 @@ const StackingSettings = () => {
 
 	return players.all ? (
 		<>
-			<InputGroup label="Player">
+			<Input label="Player">
 				<label htmlFor="customPlayers" className="flex-1">
 					<span className="sr-only">Players</span>
 					<select
@@ -178,15 +178,7 @@ const StackingSettings = () => {
 						{players.all?.map(
 							({ id, first_name, last_name, position }, i) => (
 								<option value={id} key={i}>
-									{id}
-									{' '}
-									-
-									{position}
-									{' '}
-									-
-									{first_name}
-									{' '}
-									{last_name}
+									{id} -{position} -{first_name} {last_name}
 								</option>
 							)
 						)}
@@ -199,7 +191,7 @@ const StackingSettings = () => {
 				>
 					Add
 				</button>
-			</InputGroup>
+			</Input>
 			{/* <InputGroup label="Max Exposure">
 				<label htmlFor="maxExposure">
 					<span className="sr-only">Max Exposure</span>
@@ -243,8 +235,7 @@ const StackingSettings = () => {
 											{player.team}
 										</div>
 										<div className="px-4 py-3" role="cell">
-											{player.first_name}
-											{' '}
+											{player.first_name}{' '}
 											{player.last_name}
 										</div>
 										<div

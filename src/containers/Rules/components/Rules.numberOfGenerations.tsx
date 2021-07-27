@@ -2,7 +2,7 @@ import { useAppDispatch } from '../../../hooks';
 
 import { setRule, RULE } from '../Rules.actions';
 
-import InputGroup from '../../../components/form/inputGroup';
+import Input from '../../../components/form/input';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();
@@ -21,7 +21,7 @@ const Rule = () => {
 	}
 
 	return (
-		<InputGroup label="Number of generations">
+		<Input label="Number of generations">
 			<label htmlFor="maxRepeatingPlayers">
 				<span className="sr-only">Number of generations</span>
 				<input
@@ -36,7 +36,7 @@ const Rule = () => {
 					onChange={handleChange}
 				/>
 			</label>
-		</InputGroup>
+		</Input>
 	);
 };
 

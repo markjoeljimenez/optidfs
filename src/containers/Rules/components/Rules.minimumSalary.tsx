@@ -2,7 +2,7 @@ import { useAppDispatch } from '../../../hooks';
 
 import { RULE, setRule } from '../Rules.actions';
 
-import InputGroup from '../../../components/form/inputGroup';
+import Input from '../../../components/form/input';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ const Rule = () => {
 	}
 
 	return (
-		<InputGroup label="Minimum salary cap">
+		<Input label="Minimum salary cap">
 			<input
 				className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 				id="minSalaryCap"
@@ -24,7 +24,7 @@ const Rule = () => {
 				step={5000}
 				onChange={handleMinSalaryCapChange}
 			/>
-		</InputGroup>
+		</Input>
 	);
 };
 

@@ -7,7 +7,7 @@ import {
 	STACKING_TYPE,
 } from '../../Stacking.actions';
 
-import InputGroup from '../../../../components/form/inputGroup';
+import Input from '../../../../components/form/input';
 
 export interface IMEPT {
 	team?: string;
@@ -54,7 +54,7 @@ const StackSetting = () => {
 	}, [maxExposurePerTeam]);
 
 	return (
-		<InputGroup label="Max exposure per team">
+		<Input label="Max exposure per team">
 			<div className="flex">
 				<label htmlFor="positionMaxExposurePerTeamSelect">
 					<span className="sr-only">Teams</span>
@@ -90,7 +90,7 @@ const StackSetting = () => {
 					/>
 				</label>
 			</div>
-		</InputGroup>
+		</Input>
 	);
 };
 

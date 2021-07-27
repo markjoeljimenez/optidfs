@@ -63,7 +63,6 @@ const Index = () => {
 
 			{PANELS.map(({ id, element }) => (
 				<div
-					className="mb-8"
 					role="tabpanel"
 					aria-labelledby={`panel-${id}`}
 					hidden={tabs.activeTab !== id}
