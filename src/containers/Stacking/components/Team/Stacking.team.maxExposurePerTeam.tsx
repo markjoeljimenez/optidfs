@@ -56,7 +56,7 @@ const StackSetting = () => {
 			</legend>
 			<Select
 				id="maxExposurePerTeamSelect"
-				items={players.teams!}
+				options={players.teams!}
 				label="Teams"
 				onChange={handleTeamForMEPT}
 				placeholder="Select team"

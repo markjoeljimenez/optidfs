@@ -7,7 +7,7 @@ interface ISelect {
 	error?: string | boolean;
 	hideLabel?: boolean;
 	id: string;
-	items: any[];
+	options: any[];
 	label: string;
 	placeholder?: string;
 	position?: 'prepend' | 'append';
@@ -26,7 +26,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 			error,
 			hideLabel,
 			id,
-			items,
+			options,
 			label,
 			placeholder,
 			position,
@@ -71,7 +71,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 						<option value="" disabled>
 							{placeholder}
 						</option>
-						{items?.map((item, i) => (
+						{options?.map((item, i) => (
 							<option value={item} key={i}>
 								{item}
 							</option>

@@ -27,7 +27,7 @@ const SelectWithAdd = forwardRef<HTMLSelectElement, IAddFromSelectProps>(
 					<Select
 						error={error}
 						id={select.id}
-						items={select.items}
+						options={select.items}
 						label={select.label}
 						placeholder={select.placeholder}
 						ref={ref}

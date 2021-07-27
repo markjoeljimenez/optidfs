@@ -26,21 +26,16 @@ const StackSetting = () => {
 	}
 
 	return (
-		<Input label="Max Exposure">
-			<label htmlFor="positionsMaxExposure">
-				<span className="sr-only">Max Exposure</span>
-				<input
-					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-					id="positionsMaxExposure"
-					placeholder="0"
-					type="number"
-					step={0.1}
-					max={1}
-					min={0.1}
-					onChange={handleMaxExposure}
-				/>
-			</label>
-		</Input>
+		<Input
+			id="positionsMaxExposure"
+			label="Max Exposure"
+			max={1}
+			min={0.1}
+			onChange={handleMaxExposure}
+			placeholder="0"
+			step={0.1}
+			type="number"
+		/>
 	);
 };
 

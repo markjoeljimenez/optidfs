@@ -66,7 +66,7 @@ const Stacking = () => {
 							>
 								<button
 									className={clsx(
-										'p-2 font-medium rounded w-full text-left pr-8',
+										'p-2 font-medium rounded w-full text-left pr-14',
 										stacking.activeTab === id
 											? 'bg-gray-100'
 											: ''
