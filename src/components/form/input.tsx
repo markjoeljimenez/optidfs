@@ -3,6 +3,7 @@ import { ChangeEvent } from 'react';
 
 interface IInput {
 	className?: string;
+	defaultValue?: number;
 	error?: string | boolean;
 	id: string;
 	label: string;
@@ -19,6 +20,7 @@ interface IInput {
 
 const Input = ({
 	className,
+	defaultValue,
 	error,
 	id,
 	label,
@@ -43,14 +45,15 @@ const Input = ({
 
 		<input
 			className="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md mt-2"
+			defaultValue={defaultValue}
 			id={id}
 			max={max}
 			min={min}
 			onChange={onChange}
 			placeholder={placeholder}
 			required
-			type={type}
 			step={step}
+			type={type}
 		/>
 	</div>
 );

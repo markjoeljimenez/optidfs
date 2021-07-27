@@ -10,6 +10,7 @@ import {
 } from '../../Stacking.actions';
 
 import Input from '../../../../components/form/input';
+import Select from '../../../../components/form/select';
 
 const StackingSettings = () => {
 	const dispatch = useAppDispatch();
@@ -163,35 +164,27 @@ const StackingSettings = () => {
 
 	return players.all ? (
 		<>
-			<Input label="Player">
-				<label htmlFor="customPlayers" className="flex-1">
-					<span className="sr-only">Players</span>
-					<select
-						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						id="customPlayers"
-						defaultValue=""
-						ref={playerSelectRef}
-					>
-						<option value="" disabled>
-							Select player
-						</option>
-						{players.all?.map(
-							({ id, first_name, last_name, position }, i) => (
-								<option value={id} key={i}>
-									{id} -{position} -{first_name} {last_name}
-								</option>
-							)
-						)}
-					</select>
-				</label>
-				<button
-					className="px-6 py-2 ml-4 font-black rounded-lg bg-blue-300 text-blue-900"
-					type="button"
-					onClick={handleAddPlayer}
+			<div>
+				<Select
+					id="customPlayers"
+					label="Player"
+					options={players.all?.map(
+						({ id, position, first_name, last_name }) =>
+							`${id} - ${position} - ${first_name} ${last_name}`
+					)}
+					placeholder="Select player"
+					ref={playerSelectRef}
+					position="append"
 				>
-					Add
-				</button>
-			</Input>
+					<button
+						className="px-3 rounded rounded-tl-none rounded-bl-none border border-gray-300 border-l-0 bg-gray-200 focus:bg-indigo-600 hover:bg-indigo-600 focus:text-white hover:text-white"
+						type="button"
+						onClick={handleAddPlayer}
+					>
+						Add
+					</button>
+				</Select>
+			</div>
 			{/* <InputGroup label="Max Exposure">
 				<label htmlFor="maxExposure">
 					<span className="sr-only">Max Exposure</span>
@@ -294,18 +287,17 @@ const StackingSettings = () => {
 						</div>
 					</div>
 					<div className="flex px-4 py-3 justify-between items-center text-xs border-t">
-						<p>
-							<strong>MAX EXPOSURE</strong>
-							<input
-								type="number"
-								step="0.1"
-								max="1"
-								className="border-b ml-3"
-								onChange={handleMaxExposureUpdate}
-								defaultValue={stacks[page]?.MAX_EXPOSURE}
-								ref={maxExposureInputRef}
-							/>
-						</p>
+						<Input
+							id="maxExposure"
+							label="Max exposure"
+							type="number"
+							step={0.1}
+							max={1}
+							className="ml-3"
+							onChange={handleMaxExposureUpdate}
+							defaultValue={stacks[page]?.MAX_EXPOSURE}
+							// ref={maxExposureInputRef}
+						/>
 
 						{page >= 1 && (
 							<button
@@ -338,7 +330,7 @@ const StackingSettings = () => {
 								</button>
 							</li> */}
 							{stacks?.map((stack, i) => (
-								<li>
+								<li key={i}>
 									<button
 										type="button"
 										className={clsx(

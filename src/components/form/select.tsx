@@ -7,7 +7,7 @@ interface ISelect {
 	error?: string | boolean;
 	hideLabel?: boolean;
 	id: string;
-	options: any[];
+	options: string[];
 	label: string;
 	placeholder?: string;
 	position?: 'prepend' | 'append';
