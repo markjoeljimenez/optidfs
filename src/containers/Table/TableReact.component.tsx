@@ -1,57 +1,15 @@
 /* eslint-disable react/jsx-key */
-import { Column, useGlobalFilter, useTable } from 'react-table';
+import { useExpanded, useGlobalFilter, useTable } from 'react-table';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import clsx from 'clsx';
-
-import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 
 import { setPage, setView } from '../Table/Table.actions';
 import { updateLineupsPage } from '../Players/Players.actions';
 
 import Error from '../Error/Error.component';
 import TableSearch from './components/Table.search';
-
-const KEYS: Column<IDraftKingsPlayer>[] = [
-	// { Header: 'Positions', accessor: 'draft_positions' },
-	{ Header: 'First Name', accessor: 'first_name', Footer: 'Total' },
-	{ Header: 'Last Name', accessor: 'last_name' },
-	{ Header: 'Position', accessor: 'position' },
-	{ Header: 'Team', accessor: 'team' },
-	{
-		Header: 'Salary',
-		accessor: 'salary',
-		Footer: (info) => {
-			const total = useMemo(
-				() =>
-					info.rows.reduce((sum, row) => row.values.salary + sum, 0),
-				[info.rows]
-			);
-
-			return new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'USD',
-				minimumFractionDigits: 0,
-			}).format(total);
-		},
-	},
-	{
-		Header: 'FPPG',
-		accessor: 'points_per_contest',
-		Footer: (info) => {
-			const total = useMemo(
-				() =>
-					info.rows.reduce(
-						(sum, row) => row.values.points_per_contest + sum,
-						0
-					),
-				[info.rows]
-			);
-
-			return total.toFixed(2);
-		},
-	},
-];
+import KEYS from './Table.columns';
 
 const Table = () => {
 	const { error, players, contests, table } = useAppSelector(
@@ -82,7 +40,8 @@ const Table = () => {
 		state,
 		preGlobalFilteredRows,
 		setGlobalFilter,
-	} = useTable({ columns, data }, useGlobalFilter) as any;
+		visibleColumns,
+	} = useTable({ columns, data }, useGlobalFilter, useExpanded) as any;
 
 	function handleNext() {
 		const pageNum = table.page + 1;
@@ -198,35 +157,51 @@ const Table = () => {
 					{rows.map((row) => {
 						prepareRow(row);
 
+						const rowProps = row.getRowProps();
+						delete rowProps.role;
+
 						return (
-							<tr
-								{...row.getRowProps()}
-								className="border-b border-gray-200"
-							>
-								{row.cells.map((cell) => {
-									switch (cell.column.Header) {
-										case 'Salary':
-											cell.column.Cell =
-												new Intl.NumberFormat('en-US', {
-													style: 'currency',
-													currency: 'USD',
-													minimumFractionDigits: 0,
-												}).format(cell.value);
+							<React.Fragment {...rowProps}>
+								<tr className="border-b border-gray-200">
+									{row.cells.map((cell) => {
+										switch (cell.column.Header) {
+											case 'Salary':
+												cell.column.Cell =
+													new Intl.NumberFormat(
+														'en-US',
+														{
+															style: 'currency',
+															currency: 'USD',
+															minimumFractionDigits: 0,
+														}
+													).format(cell.value);
 
-										default:
-											cell.column.Cell;
-									}
+											default:
+												cell.column.Cell;
+										}
 
-									return (
+										return (
+											<td
+												{...cell.getCellProps()}
+												className="px-8 py-4 whitespace-nowrap"
+											>
+												{cell.render('Cell')}
+											</td>
+										);
+									})}
+								</tr>
+
+								{row.isExpanded ? (
+									<tr>
 										<td
-											{...cell.getCellProps()}
-											className="px-8 py-4 whitespace-nowrap"
+											colSpan={visibleColumns.length}
+											className="px-8 py-4 bg-gray-50 border-b border-gray-200"
 										>
-											{cell.render('Cell')}
+											this is the content
 										</td>
-									);
-								})}
-							</tr>
+									</tr>
+								) : null}
+							</React.Fragment>
 						);
 					})}
 				</tbody>
