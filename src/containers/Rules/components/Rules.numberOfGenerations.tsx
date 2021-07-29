@@ -21,22 +21,17 @@ const Rule = () => {
 	}
 
 	return (
-		<Input label="Number of generations">
-			<label htmlFor="maxRepeatingPlayers">
-				<span className="sr-only">Number of generations</span>
-				<input
-					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-					defaultValue={1}
-					id="numberOfGenerations"
-					min={1}
-					max={max}
-					placeholder="Number of generations"
-					required
-					type="number"
-					onChange={handleChange}
-				/>
-			</label>
-		</Input>
+		<Input
+			label="Number of generations"
+			defaultValue={1}
+			id="numberOfGenerations"
+			min={1}
+			max={max}
+			placeholder="Number of generations"
+			required
+			type="number"
+			onChange={handleChange}
+		/>
 	);
 };
 

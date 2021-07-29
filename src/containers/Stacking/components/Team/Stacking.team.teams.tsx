@@ -53,10 +53,6 @@ const StackingSetting = () => {
 		);
 	}
 
-	useEffect(() => {
-		console.log(currentTeams);
-	}, [currentTeams]);
-
 	return players.teams ? (
 		<SelectWithAdd
 			select={{

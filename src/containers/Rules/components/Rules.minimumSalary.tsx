@@ -14,17 +14,15 @@ const Rule = () => {
 	}
 
 	return (
-		<Input label="Minimum salary cap">
-			<input
-				className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-				id="minSalaryCap"
-				placeholder="0"
-				type="number"
-				min={0}
-				step={5000}
-				onChange={handleMinSalaryCapChange}
-			/>
-		</Input>
+		<Input
+			id="minSalaryCap"
+			label="Minimum salary cap"
+			min={0}
+			onChange={handleMinSalaryCapChange}
+			placeholder="0"
+			step={5000}
+			type="number"
+		/>
 	);
 };
 
