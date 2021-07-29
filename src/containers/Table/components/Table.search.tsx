@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAsyncDebounce } from 'react-table';
+import Input from '../../../components/form/input';
 import { useAppDispatch } from '../../../hooks';
 import { setView } from '../Table.actions';
 
@@ -31,7 +32,10 @@ const TableSearch = ({
 					d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z"
 				/>
 			</svg>
-			<input
+			<Input
+				id="tableSearch"
+				label="Search by player or team"
+				hideLabel
 				type="text"
 				placeholder="Search by player or team"
 				className="ml-3"

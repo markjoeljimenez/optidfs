@@ -15,6 +15,7 @@ interface IInput {
 	tippy?: any;
 	type: string;
 	hideLabel?: boolean;
+	value?: any;
 
 	onChange?(e: ChangeEvent<HTMLInputElement>): void;
 }
@@ -35,6 +36,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 			step,
 			tippy,
 			type,
+			value,
 			onChange,
 		}: IInput,
 		ref
@@ -68,6 +70,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 				required
 				step={step}
 				type={type}
+				value={value}
 			/>
 		</div>
 	)
