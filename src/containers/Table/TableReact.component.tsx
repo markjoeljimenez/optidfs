@@ -9,7 +9,8 @@ import { updateLineupsPage } from '../Players/Players.actions';
 
 import Error from '../Error/Error.component';
 import TableSearch from './components/Table.search';
-import KEYS from './Table.columns';
+
+import columnKeys from './Table.columns';
 
 const Table = () => {
 	const { error, players, contests, table } = useAppSelector(
@@ -28,7 +29,7 @@ const Table = () => {
 
 		return [];
 	}, [players, table.view]);
-	const columns = useMemo(() => KEYS, []);
+	const columns = useMemo(() => columnKeys, []);
 
 	const {
 		footerGroups,
@@ -164,22 +165,6 @@ const Table = () => {
 							<React.Fragment {...rowProps}>
 								<tr className="border-b border-gray-200">
 									{row.cells.map((cell) => {
-										switch (cell.column.Header) {
-											case 'Salary':
-												cell.column.Cell =
-													new Intl.NumberFormat(
-														'en-US',
-														{
-															style: 'currency',
-															currency: 'USD',
-															minimumFractionDigits: 0,
-														}
-													).format(cell.value);
-
-											default:
-												cell.column.Cell;
-										}
-
 										return (
 											<td
 												{...cell.getCellProps()}
@@ -227,7 +212,10 @@ const Table = () => {
 							players.lineups &&
 							players.lineups.length > 1 && (
 								<tr>
-									<td colSpan={6} className="px-8 py-4">
+									<td
+										colSpan={visibleColumns.length}
+										className="px-8 py-4"
+									>
 										<div className="flex justify-between items-center">
 											<button
 												type="button"

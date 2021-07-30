@@ -1,16 +1,25 @@
+/* eslint-disable react/display-name */
 import { useMemo } from 'react';
 import { Column } from 'react-table';
 import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 
+import Toggle from './components/Table.lockExclude';
+
 const KEYS: Column<IDraftKingsPlayer>[] = [
 	// { Header: 'Positions', accessor: 'draft_positions' },
-	{ Header: () => null, id: 'lockExclude' },
+	{
+		Header: () => null,
+		accessor: 'id',
+		Cell: (cell) => {
+			return <Toggle id={cell.value} />;
+		},
+	},
 	{ Header: 'First Name', accessor: 'first_name', Footer: 'Total' },
 	{ Header: 'Last Name', accessor: 'last_name' },
 	{ Header: 'Position', accessor: 'position' },
 	{ Header: 'Team', accessor: 'team' },
 	{
-		Header: 'Salary',
+		Header: () => <div className="text-right">Salary</div>,
 		accessor: 'salary',
 		Footer: (info) => {
 			const total = useMemo(
@@ -19,15 +28,28 @@ const KEYS: Column<IDraftKingsPlayer>[] = [
 				[info.rows]
 			);
 
-			return new Intl.NumberFormat('en-US', {
-				style: 'currency',
-				currency: 'USD',
-				minimumFractionDigits: 0,
-			}).format(total);
+			return (
+				<div className="text-right">
+					{new Intl.NumberFormat('en-US', {
+						style: 'currency',
+						currency: 'USD',
+						minimumFractionDigits: 0,
+					}).format(total)}
+				</div>
+			);
 		},
+		Cell: (cell) => (
+			<div className="text-right">
+				{new Intl.NumberFormat('en-US', {
+					style: 'currency',
+					currency: 'USD',
+					minimumFractionDigits: 0,
+				}).format(cell.value)}
+			</div>
+		),
 	},
 	{
-		Header: 'FPPG',
+		Header: () => <div className="text-right">FPPG</div>,
 		accessor: 'points_per_contest',
 		Footer: (info) => {
 			const total = useMemo(
@@ -39,13 +61,13 @@ const KEYS: Column<IDraftKingsPlayer>[] = [
 				[info.rows]
 			);
 
-			return total.toFixed(2);
+			return <div className="text-right">{total.toFixed(2)}</div>;
 		},
+		Cell: (cell) => <div className="text-right">{cell.value}</div>,
 	},
 	{
 		Header: () => null,
 		id: 'moreActions',
-		// eslint-disable-next-line react/display-name
 		Cell: ({ row }) => (
 			<span {...row.getToggleRowExpandedProps()}>
 				<svg

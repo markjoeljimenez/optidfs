@@ -85,7 +85,7 @@ const Table = () => {
 						</div>
 					</div>
 				</div>
-				<div role="rowgroup">
+				{/* <div role="rowgroup">
 					{players?.searched?.length
 						? players?.searched?.map((player, i) => (
 								<PlayerRow
@@ -105,7 +105,7 @@ const Table = () => {
 									key={player.id}
 								/>
 						  ))}
-				</div>
+				</div> */}
 
 				<Footer />
 			</div>

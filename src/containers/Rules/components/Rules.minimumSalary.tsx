@@ -17,6 +17,7 @@ const Rule = () => {
 		<Input
 			id="minSalaryCap"
 			label="Minimum salary cap"
+			max={50000}
 			min={0}
 			onChange={handleMinSalaryCapChange}
 			placeholder="0"

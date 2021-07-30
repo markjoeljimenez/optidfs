@@ -62,6 +62,7 @@ const Rule = () => {
 					/>
 					<Input
 						className="flex-1"
+						hideLabel
 						id="numberOfPlayersPerTeam"
 						label="Number of players from same team"
 						max={8}
@@ -69,7 +70,6 @@ const Rule = () => {
 						placeholder="# of players"
 						ref={playersFromSameTeamInputRef}
 						type="number"
-						hideLabel
 					/>
 
 					<Button onClick={handleNumberOfPlayersFromTeamClick}>
