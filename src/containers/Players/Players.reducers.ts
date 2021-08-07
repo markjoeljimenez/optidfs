@@ -67,7 +67,7 @@ const PlayersReducers = (
 			}
 
 			const player = state.all?.find(
-				(_player) => _player.id === parseInt(player)
+				(_player) => _player.id === parseInt(id)
 			);
 
 			if (player) {

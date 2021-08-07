@@ -1,5 +1,10 @@
 /* eslint-disable react/jsx-key */
-import { useExpanded, useGlobalFilter, useTable } from 'react-table';
+import {
+	useExpanded,
+	useGlobalFilter,
+	usePagination,
+	useTable,
+} from 'react-table';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import React, { useMemo } from 'react';
 import clsx from 'clsx';
@@ -11,6 +16,7 @@ import Error from '../Error/Error.component';
 import TableSearch from './components/Table.search';
 
 import columnKeys from './Table.columns';
+import TableSubRow from './components/Table.subRow';
 
 const Table = () => {
 	const { error, players, contests, table } = useAppSelector(
@@ -29,20 +35,34 @@ const Table = () => {
 
 		return [];
 	}, [players, table.view]);
-	const columns = useMemo(() => columnKeys, []);
+	const columns = useMemo(() => columnKeys(contests.gameType), []);
 
 	const {
 		footerGroups,
 		getTableProps,
 		getTableBodyProps,
 		headerGroups,
-		rows,
+		// rows,
 		prepareRow,
-		state,
 		preGlobalFilteredRows,
 		setGlobalFilter,
 		visibleColumns,
-	} = useTable({ columns, data }, useGlobalFilter, useExpanded) as any;
+		page,
+		canPreviousPage,
+		canNextPage,
+		pageOptions,
+		pageCount,
+		gotoPage,
+		nextPage,
+		previousPage,
+		setPageSize,
+		state: { pageIndex, pageSize, globalFilter },
+	} = useTable(
+		{ columns, data, initialState: { pageSize: 100 } as any },
+		useGlobalFilter,
+		useExpanded,
+		usePagination
+	) as any;
 
 	function handleNext() {
 		const pageNum = table.page + 1;
@@ -96,7 +116,7 @@ const Table = () => {
 				<div className="flex-1 flex justify-end space-x-2 text-gray-600">
 					<TableSearch
 						preGlobalFilteredRows={preGlobalFilteredRows}
-						globalFilter={state.globalFilter}
+						globalFilter={globalFilter}
 						setGlobalFilter={setGlobalFilter}
 					/>
 					<svg
@@ -135,7 +155,10 @@ const Table = () => {
 					</svg>
 				</div>
 			</div>
-			<table {...getTableProps()} className="w-full table-auto">
+			<table
+				{...getTableProps()}
+				className="w-full table-auto relative border-collapse"
+			>
 				<thead className="border-b border-t border-gray-200">
 					{headerGroups.map((headerGroup) => (
 						<tr
@@ -155,7 +178,7 @@ const Table = () => {
 				</thead>
 
 				<tbody {...getTableBodyProps()}>
-					{rows.map((row) => {
+					{page.map((row) => {
 						prepareRow(row);
 
 						const rowProps = row.getRowProps();
@@ -182,7 +205,7 @@ const Table = () => {
 											colSpan={visibleColumns.length}
 											className="px-8 py-4 bg-gray-50 border-b border-gray-200"
 										>
-											this is the content
+											<TableSubRow player={row.values} />
 										</td>
 									</tr>
 								) : null}
@@ -191,12 +214,70 @@ const Table = () => {
 					})}
 				</tbody>
 
-				{players.optimized && table.view === 'optimized' && (
-					<tfoot>
-						{footerGroups.map((group) => (
+				<tfoot className="sticky bottom-0 bg-white">
+					{table.view === 'all' && visibleColumns.length < 1 && (
+						<tr>
+							<td colSpan={visibleColumns.length} className="p-0">
+								<div className="flex justify-between border-t border-gray-200 px-8 py-4">
+									<div>
+										<button
+											onClick={() => previousPage()}
+											disabled={!canPreviousPage}
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M15 19l-7-7 7-7"
+												/>
+											</svg>
+										</button>
+									</div>
+									<div className="flex-1 text-center">
+										<span>
+											Page {pageIndex + 1} of{' '}
+											{pageOptions.length}
+										</span>
+									</div>
+									<div>
+										<button
+											onClick={() => nextPage()}
+											disabled={!canNextPage}
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M9 5l7 7-7 7"
+												/>
+											</svg>
+										</button>
+									</div>
+								</div>
+							</td>
+						</tr>
+					)}
+
+					{players.optimized &&
+						table.view === 'optimized' &&
+						footerGroups.map((group) => (
 							<tr
 								{...group.getFooterGroupProps()}
-								className="border-b border-gray-200 font-bold"
+								className="font-bold border-b border-t border-gray-200"
 							>
 								{group.headers.map((column) => (
 									<td
@@ -208,73 +289,73 @@ const Table = () => {
 								))}
 							</tr>
 						))}
-						{players.optimized &&
-							players.lineups &&
-							players.lineups.length > 1 && (
-								<tr>
-									<td
-										colSpan={visibleColumns.length}
-										className="px-8 py-4"
-									>
-										<div className="flex justify-between items-center">
-											<button
-												type="button"
-												onClick={handlePrevious}
+					{players.optimized &&
+						players.lineups &&
+						players.lineups.length > 1 &&
+						table.view === 'optimized' && (
+							<tr className="border-b border-gray-200">
+								<td
+									colSpan={visibleColumns.length}
+									className="px-8 py-4"
+								>
+									<div className="flex justify-between items-center">
+										<button
+											type="button"
+											onClick={handlePrevious}
+										>
+											<span className="sr-only">
+												Previous
+											</span>
+
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
 											>
-												<span className="sr-only">
-													Previous
-												</span>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M15 19l-7-7 7-7"
+												/>
+											</svg>
+										</button>
 
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													className="h-4 w-4"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth="2"
-														d="M15 19l-7-7 7-7"
-													/>
-												</svg>
-											</button>
+										<p>
+											{`${table.page + 1} of ${
+												players.lineups.length
+											} generated lineups`}
+										</p>
 
-											<p>
-												{`${table.page + 1} of ${
-													players.lineups.length
-												} generated lineups`}
-											</p>
-
-											<button
-												type="button"
-												onClick={handleNext}
+										<button
+											type="button"
+											onClick={handleNext}
+										>
+											<span className="sr-only">
+												Next
+											</span>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
 											>
-												<span className="sr-only">
-													Next
-												</span>
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													className="h-5 w-5"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth="2"
-														d="M9 5l7 7-7 7"
-													/>
-												</svg>
-											</button>
-										</div>
-									</td>
-								</tr>
-							)}
-					</tfoot>
-				)}
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M9 5l7 7-7 7"
+												/>
+											</svg>
+										</button>
+									</div>
+								</td>
+							</tr>
+						)}
+				</tfoot>
 			</table>
 		</>
 	) : error.display ? (

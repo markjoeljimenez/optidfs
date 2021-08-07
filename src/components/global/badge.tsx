@@ -1,17 +1,14 @@
 import clsx from 'clsx';
+import { IDataAttributes } from '../../interfaces/IDataAttributes';
 
 export enum BadgeColor {
 	Yellow = 'bg-yellow-300',
 }
 
-type Data = {
-	[key: string]: string;
-};
-
 interface IBadge {
 	text: string;
 	color: BadgeColor;
-	data?: Data;
+	data?: IDataAttributes;
 	value?: string | number;
 
 	onClick?(e: React.MouseEvent<HTMLButtonElement>): void;

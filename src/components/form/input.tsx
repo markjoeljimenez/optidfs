@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { ChangeEvent, forwardRef } from 'react';
+import { IDataAttributes } from '../../interfaces/IDataAttributes';
 
 interface IInput {
 	className?: string;
@@ -16,6 +17,7 @@ interface IInput {
 	type: string;
 	hideLabel?: boolean;
 	value?: any;
+	data?: IDataAttributes;
 
 	onChange?(e: ChangeEvent<HTMLInputElement>): void;
 }
@@ -25,6 +27,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 	(
 		{
 			className,
+			data,
 			defaultValue,
 			error,
 			hideLabel,
@@ -71,6 +74,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 				step={step}
 				type={type}
 				value={value}
+				{...data}
 			/>
 		</div>
 	)

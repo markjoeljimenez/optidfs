@@ -61,7 +61,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 
 				<select
 					className={clsx(
-						'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded',
+						'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer',
 						position === 'append' &&
 							'rounded-tr-none rounded-br-none',
 						position === 'prepend' &&
