@@ -59,6 +59,7 @@ const Table = () => {
 		state: { pageIndex, pageSize, globalFilter },
 	} = useTable(
 		{
+			autoResetPage: false,
 			autoResetExpanded: false,
 			columns,
 			data,
@@ -222,7 +223,7 @@ const Table = () => {
 				</tbody>
 
 				<tfoot className="sticky bottom-0 bg-white">
-					{table.view === 'all' && visibleColumns.length < 1 && (
+					{table.view === 'all' && visibleColumns.length > 1 && (
 						<tr>
 							<td colSpan={visibleColumns.length} className="p-0">
 								<div className="flex justify-between border-t border-gray-200 px-8 py-4">
