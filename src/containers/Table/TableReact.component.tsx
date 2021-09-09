@@ -58,7 +58,12 @@ const Table = () => {
 		setPageSize,
 		state: { pageIndex, pageSize, globalFilter },
 	} = useTable(
-		{ columns, data, initialState: { pageSize: 100 } as any },
+		{
+			autoResetExpanded: false,
+			columns,
+			data,
+			initialState: { pageSize: 100 } as any,
+		} as any,
 		useGlobalFilter,
 		useExpanded,
 		usePagination
@@ -205,7 +210,9 @@ const Table = () => {
 											colSpan={visibleColumns.length}
 											className="px-8 py-4 bg-gray-50 border-b border-gray-200"
 										>
-											<TableSubRow player={row.values} />
+											<TableSubRow
+												player={row.original}
+											/>
 										</td>
 									</tr>
 								) : null}
