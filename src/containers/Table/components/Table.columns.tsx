@@ -1,9 +1,9 @@
 /* eslint-disable react/display-name */
 import { useMemo } from 'react';
 import { Column } from 'react-table';
-import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
+import { IDraftKingsPlayer } from '../../../interfaces/IDraftKingsResponse';
 
-import Toggle from './components/Table.lockExclude';
+import Toggle from './Table.lockExclude';
 
 const KEYS = (gameType?: string) =>
 	[

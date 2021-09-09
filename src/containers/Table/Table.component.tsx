@@ -1,115 +1,370 @@
-import { useState } from 'react';
-import { useAppSelector } from '../../hooks';
+/* eslint-disable react/jsx-key */
+import {
+	useExpanded,
+	useGlobalFilter,
+	usePagination,
+	useTable,
+} from 'react-table';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import React, { useMemo } from 'react';
+import clsx from 'clsx';
+
+import { setPage, setView } from './Table.actions';
+import { updateLineupsPage } from '../Players/Players.actions';
 
 import Error from '../Error/Error.component';
-import Loading from '../../components/loading/loading';
+import TableSearch from './components/Table.search';
 
-import Footer from './components/Table.footer';
-import PlayerRow from './components/Table.player';
+import columnKeys from './components/Table.columns';
+import TableSubRow from './components/Table.subRow';
 
 const Table = () => {
-	const { loading, view } = useAppSelector((state) => state.table);
-	const { error, players } = useAppSelector((state) => state);
+	const { error, players, contests, table } = useAppSelector(
+		(state) => state
+	);
+	const dispatch = useAppDispatch();
 
-	const [activeRow, setActiveRow] = useState<number>();
+	const data = useMemo(() => {
+		if (table.view === 'optimized' && players.optimized) {
+			return players.optimized;
+		}
 
-	function handleOptionsClick(e: React.MouseEvent<HTMLButtonElement>) {
-		const { value } = e.currentTarget;
+		if (table.view === 'all' && players.all) {
+			return players.all;
+		}
 
-		setActiveRow(
-			activeRow === parseInt(value) ? undefined : parseInt(value)
-		);
+		return [];
+	}, [players, table.view]);
+	const columns = useMemo(() => columnKeys(contests.gameType), []);
+
+	const {
+		footerGroups,
+		getTableProps,
+		getTableBodyProps,
+		headerGroups,
+		// rows,
+		prepareRow,
+		preGlobalFilteredRows,
+		setGlobalFilter,
+		visibleColumns,
+		page,
+		canPreviousPage,
+		canNextPage,
+		pageOptions,
+		pageCount,
+		gotoPage,
+		nextPage,
+		previousPage,
+		setPageSize,
+		state: { pageIndex, pageSize, globalFilter },
+	} = useTable(
+		{
+			autoResetExpanded: false,
+			columns,
+			data,
+			initialState: { pageSize: 100 } as any,
+		} as any,
+		useGlobalFilter,
+		useExpanded,
+		usePagination
+	) as any;
+
+	function handleNext() {
+		const pageNum = table.page + 1;
+
+		if (players.lineups && pageNum < players.lineups?.length) {
+			dispatch(setPage(pageNum));
+			dispatch(updateLineupsPage(pageNum));
+		}
+	}
+
+	function handlePrevious() {
+		const pageNum = table.page - 1;
+
+		if (players.lineups && pageNum >= 0) {
+			dispatch(setPage(pageNum));
+			dispatch(updateLineupsPage(pageNum));
+		}
 	}
 
 	return players.all || players.optimized ? (
-		<Loading loading={loading} message="Loading players...">
-			<div role="table">
-				<div
-					className="border-b border-gray-200 md:block hidden"
-					role="rowgroup"
-				>
-					<div
-						className="grid grid-cols-table-md text-xs uppercase font-black container mx-auto px-8 bg-gray-50"
-						role="row"
+		<>
+			<div className="px-8 py-3 flex items-center">
+				<div className="flex-1 space-x-3 font-medium">
+					<button
+						className={clsx(
+							table.view === 'all' ? 'bg-gray-100' : '',
+							'rounded',
+							'p-2'
+						)}
+						onClick={() => dispatch(setView('all'))}
 					>
-						<div
-							className="md:p-2 md:py-4 pl-0 flex align"
-							role="columnheader"
+						All
+					</button>
+					{players.optimized !== undefined && (
+						<button
+							className={clsx(
+								table.view === 'optimized' ? 'bg-gray-100' : '',
+								'rounded',
+								'p-2'
+							)}
+							onClick={() => dispatch(setView('optimized'))}
+							disabled={players.optimized === undefined}
 						>
-							Lock / exclude
-						</div>
-						{/* <div
-							className="p-2 flex items-center justify-center"
-							role="columnheader"
-						>
-							Status
-						</div> */}
-						<div
-							className="p-2 flex items-center"
-							role="columnheader"
-						>
-							First name
-						</div>
-						<div
-							className="p-2 flex items-center"
-							role="columnheader"
-						>
-							Last name
-						</div>
-						<div
-							className="p-2 flex items-center"
-							role="columnheader"
-						>
-							Positions
-						</div>
-						<div
-							className="p-2 flex items-center"
-							role="columnheader"
-						>
-							Team
-						</div>
-						<div
-							className="p-2 flex items-center justify-end"
-							role="columnheader"
-						>
-							Salary
-						</div>
-						<div
-							className="p-2 flex items-center justify-end"
-							role="columnheader"
-						>
-							FPPG
-						</div>
-						<div className="p-2" role="columnheader">
-							<span hidden>Options</span>
-						</div>
-					</div>
+							Optimized
+						</button>
+					)}
 				</div>
-				{/* <div role="rowgroup">
-					{players?.searched?.length
-						? players?.searched?.map((player, i) => (
-								<PlayerRow
-									player={player}
-									i={i}
-									handleOptionsClick={handleOptionsClick}
-									activeRow={activeRow}
-									key={player.id}
-								/>
-						  ))
-						: players?.[view]?.map((player, i) => (
-								<PlayerRow
-									player={player}
-									i={i}
-									handleOptionsClick={handleOptionsClick}
-									activeRow={activeRow}
-									key={player.id}
-								/>
-						  ))}
-				</div> */}
-
-				<Footer />
+				<span className="font-light flex-1 text-center">
+					{contests.gameType}
+				</span>
+				<div className="flex-1 flex justify-end space-x-2 text-gray-600">
+					<TableSearch
+						preGlobalFilteredRows={preGlobalFilteredRows}
+						globalFilter={globalFilter}
+						setGlobalFilter={setGlobalFilter}
+					/>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						className="h-5 w-5"
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+						/>
+					</svg>
+					<span className="mx-3">&middot;</span>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						className={clsx(
+							'h-5 w-5',
+							players.optimized
+								? 'stroke-current'
+								: 'text-gray-200'
+						)}
+						fill="none"
+						viewBox="0 0 24 24"
+						stroke="currentColor"
+					>
+						<path
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							strokeWidth="2"
+							d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+						/>
+					</svg>
+				</div>
 			</div>
-		</Loading>
+			<table
+				{...getTableProps()}
+				className="w-full table-auto relative border-collapse"
+			>
+				<thead className="border-b border-t border-gray-200">
+					{headerGroups.map((headerGroup) => (
+						<tr
+							{...headerGroup.getHeaderGroupProps()}
+							className="bg-gray-50"
+						>
+							{headerGroup.headers.map((column) => (
+								<th
+									{...column.getHeaderProps()}
+									className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+								>
+									{column.render('Header')}
+								</th>
+							))}
+						</tr>
+					))}
+				</thead>
+
+				<tbody {...getTableBodyProps()}>
+					{page.map((row) => {
+						prepareRow(row);
+
+						const rowProps = row.getRowProps();
+						delete rowProps.role;
+
+						return (
+							<React.Fragment {...rowProps}>
+								<tr className="border-b border-gray-200">
+									{row.cells.map((cell) => {
+										return (
+											<td
+												{...cell.getCellProps()}
+												className="px-8 py-4 whitespace-nowrap"
+											>
+												{cell.render('Cell')}
+											</td>
+										);
+									})}
+								</tr>
+
+								{row.isExpanded ? (
+									<tr>
+										<td
+											colSpan={visibleColumns.length}
+											className="px-8 py-4 bg-gray-50 border-b border-gray-200"
+										>
+											<TableSubRow
+												player={row.original}
+											/>
+										</td>
+									</tr>
+								) : null}
+							</React.Fragment>
+						);
+					})}
+				</tbody>
+
+				<tfoot className="sticky bottom-0 bg-white">
+					{table.view === 'all' && visibleColumns.length < 1 && (
+						<tr>
+							<td colSpan={visibleColumns.length} className="p-0">
+								<div className="flex justify-between border-t border-gray-200 px-8 py-4">
+									<div>
+										<button
+											onClick={() => previousPage()}
+											disabled={!canPreviousPage}
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M15 19l-7-7 7-7"
+												/>
+											</svg>
+										</button>
+									</div>
+									<div className="flex-1 text-center">
+										<span>
+											Page {pageIndex + 1} of{' '}
+											{pageOptions.length}
+										</span>
+									</div>
+									<div>
+										<button
+											onClick={() => nextPage()}
+											disabled={!canNextPage}
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M9 5l7 7-7 7"
+												/>
+											</svg>
+										</button>
+									</div>
+								</div>
+							</td>
+						</tr>
+					)}
+
+					{players.optimized &&
+						table.view === 'optimized' &&
+						footerGroups.map((group) => (
+							<tr
+								{...group.getFooterGroupProps()}
+								className="font-bold border-b border-t border-gray-200"
+							>
+								{group.headers.map((column) => (
+									<td
+										{...column.getFooterProps()}
+										className="px-8 py-4"
+									>
+										{column.render('Footer')}
+									</td>
+								))}
+							</tr>
+						))}
+					{players.optimized &&
+						players.lineups &&
+						players.lineups.length > 1 &&
+						table.view === 'optimized' && (
+							<tr className="border-b border-gray-200">
+								<td
+									colSpan={visibleColumns.length}
+									className="px-8 py-4"
+								>
+									<div className="flex justify-between items-center">
+										<button
+											type="button"
+											onClick={handlePrevious}
+										>
+											<span className="sr-only">
+												Previous
+											</span>
+
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M15 19l-7-7 7-7"
+												/>
+											</svg>
+										</button>
+
+										<p>
+											{`${table.page + 1} of ${
+												players.lineups.length
+											} generated lineups`}
+										</p>
+
+										<button
+											type="button"
+											onClick={handleNext}
+										>
+											<span className="sr-only">
+												Next
+											</span>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												className="h-5 w-5"
+												fill="none"
+												viewBox="0 0 24 24"
+												stroke="currentColor"
+											>
+												<path
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+													d="M9 5l7 7-7 7"
+												/>
+											</svg>
+										</button>
+									</div>
+								</td>
+							</tr>
+						)}
+				</tfoot>
+			</table>
+		</>
 	) : error.display ? (
 		<div className="container mx-auto py-4">
 			<Error />
