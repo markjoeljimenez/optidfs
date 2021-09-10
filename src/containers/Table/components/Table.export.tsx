@@ -1,16 +1,20 @@
 import clsx from 'clsx';
 
 interface ITableExport {
-	disabled?: boolean;
+	active?: boolean;
 }
 
-const TableExport = ({ disabled }: ITableExport) => (
-	<a href={`${process.env.ENDPOINT}/export`} download="DKSalaries.csv">
+const TableExport = ({ active }: ITableExport) => (
+	<a
+		href={`${process.env.ENDPOINT}/export`}
+		download="DKSalaries.csv"
+		className={clsx(!active && 'pointer-events-none cursor-default')}
+	>
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
 			className={clsx(
 				'h-5 w-5',
-				disabled ? 'stroke-current' : 'text-gray-200'
+				active ? 'stroke-current' : 'text-gray-200'
 			)}
 			fill="none"
 			viewBox="0 0 24 24"

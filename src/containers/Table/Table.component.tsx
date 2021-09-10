@@ -137,7 +137,7 @@ const Table = () => {
 						/>
 					</svg>
 					<span className="mx-3">&middot;</span>
-					<TableExport disabled={players.optimized?.length! > 0} />
+					<TableExport active={players.optimized !== undefined} />
 				</div>
 			</div>
 			<table
