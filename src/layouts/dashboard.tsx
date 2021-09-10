@@ -2,43 +2,31 @@ import { useAppSelector } from '../hooks';
 
 import Dropdown from '../containers/Dropdown/Dropdown.component';
 import Nav from '../components/global/nav';
-import SkipLink from '../components/global/skiplink';
-import Providers from '../containers/Providers/Providers.components';
-import Sports from '../containers/Sports/Sports.component';
 import Upload from '../containers/Upload/Upload.component';
+import Optimize from '../containers/Optimize/Optimize.component';
 
 export interface ILayoutProps {
 	children: React.ReactNode;
 }
 
 const Dashboard = ({ children }: ILayoutProps) => {
-	const { selectedSport } = useAppSelector((state) => state.sports);
+	const { contests, sports, table, tabs, players } = useAppSelector(
+		(state) => state
+	);
+	const { selectedSport } = sports;
+	const { contest } = contests;
 
 	return (
-		<div className="md:flex md:min-h-screen text-blue-800">
+		<div className="md:flex md:min-h-screen">
 			<Nav />
 
-			<main className="w-full">
-				{selectedSport && (
-					<>
-						<div className="border-b border-gray-300">
-							<div className="container mx-auto py-4 px-6 md:p-8 md:flex justify-between items-center">
-								<div className="flex flex-1 justify-between">
-									<Upload />
-									<div className="flex items-center mx-4">
-										or
-									</div>
-									<div className="flex-1">
-										<Dropdown />
-									</div>
-								</div>
-							</div>
-						</div>
+			<div className="md:flex md:flex-col w-full">
+				<header className="border-b border-gray-200 bg-white">
+					<div className="mx-auto py-4 px-6 md:p-8 md:flex justify-between items-center"></div>
+				</header>
 
-						{children}
-					</>
-				)}
-			</main>
+				<main>{selectedSport ? <>{children}</> : <></>}</main>
+			</div>
 		</div>
 	);
 };

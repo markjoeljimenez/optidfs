@@ -1,4 +1,4 @@
-import { useRef, MouseEvent } from 'react';
+import { useRef, MouseEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
 import {
@@ -8,7 +8,7 @@ import {
 	STACKING_TYPE,
 } from '../../Stacking.actions';
 
-import AddFromSelect from '../../../../components/form/addFromSelect';
+import SelectWithAdd from '../../../../components/form/selectWithAdd';
 
 const StackingSetting = () => {
 	const dispatch = useAppDispatch();
@@ -54,7 +54,7 @@ const StackingSetting = () => {
 	}
 
 	return players.teams ? (
-		<AddFromSelect
+		<SelectWithAdd
 			select={{
 				id: 'teamStacking',
 				items: players.teams,

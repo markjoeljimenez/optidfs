@@ -7,7 +7,8 @@ import {
 	STACKING_TYPE,
 } from '../../Stacking.actions';
 
-import InputGroup from '../../../../components/form/inputGroup';
+import Input from '../../../../components/form/input';
+import Select from '../../../../components/form/select';
 
 export interface IMEPT {
 	team?: string;
@@ -54,43 +55,30 @@ const StackSetting = () => {
 	}, [maxExposurePerTeam]);
 
 	return (
-		<InputGroup label="Max exposure per team">
-			<div className="flex">
-				<label htmlFor="positionMaxExposurePerTeamSelect">
-					<span className="sr-only">Teams</span>
-					<div>
-						<select
-							className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							onChange={handleTeamForMEPT}
-							id="positionMaxExposurePerTeamSelect"
-							defaultValue=""
-						>
-							<option value="" disabled>
-								Select team
-							</option>
-							{teams?.map((team) => (
-								<option value={team} key={team}>
-									{team}
-								</option>
-							))}
-						</select>
-					</div>
-				</label>
-				<label htmlFor="positionMaxExposurePerTeamInputPlayer">
-					<span className="sr-only">Max Exposure</span>
-					<input
-						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						id="maxExposurePerTeamInputPlayer"
-						placeholder="0"
-						step={0.1}
-						type="number"
-						min={0.1}
-						max={1}
-						onChange={handleExposureForMEPT}
-					/>
-				</label>
-			</div>
-		</InputGroup>
+		<fieldset className="flex">
+			<legend className="mb-2 block text-sm font-medium text-gray-700">
+				Max exposure per team
+			</legend>
+
+			<Select
+				id="positionMaxExposurePerTeamSelect"
+				onChange={handleTeamForMEPT}
+				label="Teams"
+				options={teams!}
+				placeholder="Select team"
+			/>
+			<Input
+				className="ml-3"
+				label="Exposure"
+				id="maxExposurePerTeamInputPlayer"
+				placeholder="0"
+				step={0.1}
+				type="number"
+				min={0.1}
+				max={1}
+				onChange={handleExposureForMEPT}
+			/>
+		</fieldset>
 	);
 };
 

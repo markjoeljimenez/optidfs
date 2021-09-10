@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import { setActiveTab } from './Tabs.actions';
-import { setView } from '../Table/Table.actions';
+import Optimize from '../Optimize/Optimize.component';
 
 const TABS = [
 	{
@@ -20,7 +20,7 @@ const TABS = [
 ];
 
 const Tabs = () => {
-	const { tabs, table, players, contests } = useAppSelector((state) => state);
+	const { tabs } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
 	function handleTabClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -29,39 +29,10 @@ const Tabs = () => {
 		dispatch(setActiveTab(value));
 	}
 
-	function handleViewAllPlayers() {
-		dispatch(setView('all'));
-	}
-
-	function handleViewOptimizedLineups() {
-		dispatch(setView('optimized'));
-	}
-
 	return (
-		<div className="flex relative justify-center">
-			{players.optimized?.length && (
-				<div className="absolute inset-y-0 left-0 p-2">
-					{table.view === 'all' ? (
-						<button
-							className="uppercase text-xs font-black text-blue-900"
-							type="button"
-							onClick={handleViewOptimizedLineups}
-						>
-							&lt; View Optimized Lineups
-						</button>
-					) : (
-						<button
-							className="uppercase text-xs font-black text-blue-900"
-							type="button"
-							onClick={handleViewAllPlayers}
-						>
-							&lt; View All Players
-						</button>
-					)}
-				</div>
-			)}
+		<div className="flex relative justify-between">
 			<nav>
-				<ul className="flex" role="tablist">
+				<ul className="flex space-x-2" role="tablist">
 					{TABS.map(({ name, id }) => (
 						<li
 							role="tab"
@@ -71,10 +42,10 @@ const Tabs = () => {
 						>
 							<button
 								className={clsx(
-									'py-2 px-4 font-black text-blue-600',
-									tabs.activeTab === id
-										? 'border-b-2 border-blue-900 text-blue-900'
-										: ''
+									'p-2',
+									'font-medium',
+									'rounded',
+									tabs.activeTab === id ? 'bg-gray-100' : ''
 								)}
 								type="button"
 								onClick={handleTabClick}
@@ -86,11 +57,7 @@ const Tabs = () => {
 					))}
 				</ul>
 			</nav>
-			<p className="p-2 uppercase text-xs font-black text-blue-900 whitespace-no-wrap overflow-hidden truncate absolute inset-y-0 right-0 flex items-center">
-				Game type:
-				{' '}
-				{contests.gameType}
-			</p>
+			<Optimize />
 		</div>
 	);
 };

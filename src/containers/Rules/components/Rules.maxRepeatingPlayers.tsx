@@ -3,7 +3,7 @@ import { useAppDispatch } from '../../../hooks';
 
 import { RULE, setRule } from '../Rules.actions';
 
-import InputGroup from '../../../components/form/inputGroup';
+import Input from '../../../components/form/input';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();
@@ -17,18 +17,21 @@ const Rule = () => {
 	}
 
 	return (
-		<InputGroup
+		<Input
+			id="maxRepeatingPlayers"
 			label="Maximum repeating players"
-			tippy={(
+			min={0}
+			onChange={handleMaxRepeatingPlayers}
+			placeholder="0"
+			type="number"
+			tippy={
 				<Tippy
-					className="bg-white rounded shadow-xl p-4"
-					content={(
+					className="bg-white rounded shadow p-4"
+					content={
 						<div>
 							<p>
 								<strong>
-									Value:
-									{' '}
-									<i>n</i>
+									Value: <i>n</i>
 								</strong>
 							</p>
 
@@ -37,46 +40,27 @@ const Rule = () => {
 								lineups.
 							</p>
 						</div>
-    )}
+					}
 				>
-					<div className="absolute inset-y-0 right-0 flex -mt-1">
+					<div className="inline-block ml-2 align-top">
 						<svg
-							className="fill-current"
 							xmlns="http://www.w3.org/2000/svg"
+							className="h-5 w-5"
+							fill="none"
 							viewBox="0 0 24 24"
-							width="24"
-							height="24"
+							stroke="currentColor"
 						>
-							<g data-name="Layer 2">
-								<g data-name="info">
-									<rect
-										width="24"
-										height="24"
-										transform="rotate(180 12 12)"
-										opacity="0"
-									/>
-									<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
-									<circle cx="12" cy="8" r="1" />
-									<path d="M12 10a1 1 0 0 0-1 1v5a1 1 0 0 0 2 0v-5a1 1 0 0 0-1-1z" />
-								</g>
-							</g>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+							/>
 						</svg>
 					</div>
 				</Tippy>
-  )}
-		>
-			<label htmlFor="maxRepeatingPlayers">
-				<span className="sr-only">Maximum repeating players</span>
-				<input
-					className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-					id="maxRepeatingPlayers"
-					placeholder="0"
-					type="number"
-					min={0}
-					onChange={handleMaxRepeatingPlayers}
-				/>
-			</label>
-		</InputGroup>
+			}
+		/>
 	);
 };
 

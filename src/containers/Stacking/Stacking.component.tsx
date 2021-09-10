@@ -53,10 +53,10 @@ const Stacking = () => {
 	}
 
 	return (
-		<div className="container mx-auto px-8 my-8">
-			<div className="flex justify-between">
+		<div className="p-8 flex">
+			<div>
 				<nav>
-					<ul className="flex" role="tablist">
+					<ul className="" role="tablist">
 						{TABS.map(({ id, name }) => (
 							<li
 								role="tab"
@@ -66,9 +66,9 @@ const Stacking = () => {
 							>
 								<button
 									className={clsx(
-										'py-2 px-4 font-black text-blue-600',
+										'p-2 font-medium rounded w-full text-left pr-14',
 										stacking.activeTab === id
-											? 'border-b-2 border-blue-900 text-blue-900'
+											? 'bg-gray-100'
 											: ''
 									)}
 									type="button"
@@ -82,7 +82,7 @@ const Stacking = () => {
 					</ul>
 				</nav>
 				<button
-					className="py-2 px-5 bg-blue-200 rounded text-blue-900 font-black hover:bg-blue-800 hover:text-white"
+					className="px-4 py-3 bg-indigo-700 text-white rounded shadow font-black hover:bg-indigo-800 mt-6"
 					type="button"
 					onClick={handleResetSettings}
 				>
@@ -92,7 +92,7 @@ const Stacking = () => {
 
 			{TABS.map(({ id, children }) => (
 				<div
-					className="my-8"
+					className="flex-1 ml-8"
 					role="tabpanel"
 					aria-labelledby={`panel-${id}`}
 					hidden={stacking.activeTab !== id}

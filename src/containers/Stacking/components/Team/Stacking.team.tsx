@@ -6,26 +6,14 @@ import NumberOfPlayersToStack from './Stacking.team.players';
 import Spacing from './Stacking.team.spacing';
 
 const TeamStacking = () => (
-	<>
-		<div>
-			<NumberOfPlayersToStack />
-		</div>
-		<div className="mt-8">
-			<FromTeams />
-		</div>
-		<div className="mt-8">
-			<FromPositions />
-		</div>
-		<div className="mt-8">
-			<Spacing />
-		</div>
-		<div className="mt-8">
-			<MaxExposure />
-		</div>
-		<div className="mt-8">
-			<MaxExposurePerTeam />
-		</div>
-	</>
+	<div className="space-y-8">
+		<NumberOfPlayersToStack />
+		<FromTeams />
+		<FromPositions />
+		<Spacing />
+		<MaxExposure />
+		<MaxExposurePerTeam />
+	</div>
 );
 
 export default TeamStacking;

@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 import { RULE, setRule, removeRule } from '../Rules.actions';
 
-import InputGroup from '../../../components/form/inputGroup';
+import Input from '../../../components/form/input';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();
@@ -43,7 +43,7 @@ const Rule = () => {
 	}
 
 	return (
-		<InputGroup label="Number of players from same team">
+		<Input label="Number of players from same team">
 			<div className="flex">
 				<div className="flex-1">
 					<label htmlFor="playersFromSameTeam">
@@ -135,7 +135,7 @@ const Rule = () => {
 					)}
 				</div>
 			)}
-		</InputGroup>
+		</Input>
 	);
 };
 

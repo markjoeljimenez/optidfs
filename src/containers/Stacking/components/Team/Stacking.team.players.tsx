@@ -7,7 +7,7 @@ import {
 	STACKING_TYPE,
 } from '../../Stacking.actions';
 
-import InputGroup from '../../../../components/form/inputGroup';
+import Input from '../../../../components/form/input';
 
 const StackSetting = () => {
 	const dispatch = useAppDispatch();
@@ -29,27 +29,16 @@ const StackSetting = () => {
 	}
 
 	return (
-		<InputGroup label="Number of Players (Required)" error={isError}>
-			<div>
-				<label htmlFor="numberOfPlayers">
-					<span className="sr-only">Number of Players</span>
-					<input
-						className="font-bold cursor-pointer shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-						id="numberOfPlayers"
-						placeholder="0"
-						type="number"
-						min={0}
-						onChange={handleNumberOfPlayers}
-						required
-					/>
-				</label>
-				{isError && (
-					<p className="text-red-700 text-xs uppercase font-black mt-3">
-						Field cannot remain empty
-					</p>
-				)}
-			</div>
-		</InputGroup>
+		<Input
+			error={isError}
+			id="numberOfPlayers"
+			label="Number of Players (Required)"
+			min={0}
+			onChange={handleNumberOfPlayers}
+			placeholder="0"
+			required
+			type="number"
+		/>
 	);
 };
 

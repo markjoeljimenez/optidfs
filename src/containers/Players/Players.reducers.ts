@@ -18,7 +18,6 @@ interface IPlayersState {
 	lineups?: ILineup[];
 	locked?: IDraftKingsPlayer[];
 	optimized?: IDraftKingsPlayer[];
-	searched?: IDraftKingsPlayer[];
 	positions?: string[];
 	teams?: string[];
 	totalFppg?: number;
@@ -29,7 +28,17 @@ const DEFAULT_STATE: IPlayersState = {};
 
 const PlayersReducers = (
 	state = DEFAULT_STATE,
-	{ type, players, lineups, page, payload, search, view, id, value }: AnyAction
+	{
+		type,
+		players,
+		lineups,
+		page,
+		payload,
+		search,
+		view,
+		id,
+		value,
+	}: AnyAction
 ): IPlayersState => {
 	switch (type) {
 		case PLAYERS_ACTIONS.GET_PLAYERS_SUCCEEDED: {
@@ -58,7 +67,7 @@ const PlayersReducers = (
 			}
 
 			const player = state.all?.find(
-				(_player) => _player.id === parseInt(player)
+				(_player) => _player.id === parseInt(id)
 			);
 
 			if (player) {
@@ -156,34 +165,34 @@ const PlayersReducers = (
 			};
 		}
 
-		case PLAYERS_ACTIONS.SEARCH_PLAYERS: {
-			if (!search) {
-				return {
-					...state,
-					searched: undefined
-				};
-			}
+		// case PLAYERS_ACTIONS.SEARCH_PLAYERS: {
+		// 	if (!search) {
+		// 		return {
+		// 			...state,
+		// 			searched: undefined
+		// 		};
+		// 	}
 
-			if (state) {
-				const fuse = new Fuse(
-					state[view],
-					{
-						includeScore: true,
-						threshold: 0.2,
-						keys: ['first_name', 'last_name', 'team'],
-					}
-				);
+		// 	if (state) {
+		// 		const fuse = new Fuse(
+		// 			state[view],
+		// 			{
+		// 				includeScore: true,
+		// 				threshold: 0.2,
+		// 				keys: ['first_name', 'last_name', 'team'],
+		// 			}
+		// 		);
 
-				const result: Fuse.FuseResult<IDraftKingsPlayer>[] = fuse.search(search);
+		// 		const result: Fuse.FuseResult<IDraftKingsPlayer>[] = fuse.search(search);
 
-				return {
-					...state,
-					searched: result.map((player) => player.item),
-				};
-			}
+		// 		return {
+		// 			...state,
+		// 			searched: result.map((player) => player.item),
+		// 		};
+		// 	}
 
-			return state;
-		}
+		// 	return state;
+		// }
 
 		case PLAYERS_ACTIONS.RESET_PLAYERS:
 			return {

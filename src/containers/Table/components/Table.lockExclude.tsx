@@ -19,52 +19,14 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 	const excluded = players?.excluded?.some((_player) => _player.id === id);
 
 	function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
-		// const value = parseInt(e.currentTarget.value);
-		// const player = players.all?.find((_player) => _player.id === value);
-
-		// if (player) {
-		// 	// Remove from excluded players
-		// 	setExcludedPlayers(
-		// 		excludedPlayers?.filter((_player) => _player.id !== value)
-		// 	);
-
-		// 	setLockedPlayers(
-		// 		lockedPlayers ? [...lockedPlayers, player] : [player]
-		// 	);
-		// }
-
 		dispatch(lockPlayer(e));
 	}
 
 	function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
-		// const value = parseInt(e.currentTarget.value);
-		// const player = players.all?.find((_player) => _player.id === value);
-
-		// if (player) {
-		// 	// Remove from locked players
-		// 	setLockedPlayers(
-		// 		lockedPlayers?.filter((_player) => _player.id !== value)
-		// 	);
-
-		// 	setExcludedPlayers(
-		// 		excludedPlayers ? [...excludedPlayers, player] : [player]
-		// 	);
-		// }
-
 		dispatch(excludePlayer(e));
 	}
 
 	function handleClearSelection(e: React.MouseEvent<HTMLButtonElement>) {
-		// const value = parseInt(e.currentTarget.value);
-
-		// setLockedPlayers(
-		// 	lockedPlayers?.filter((_player) => _player.id !== value)
-		// );
-
-		// setExcludedPlayers(
-		// 	excludedPlayers?.filter((_player) => _player.id !== value)
-		// );
-
 		dispatch(clearToggle(e));
 	}
 
