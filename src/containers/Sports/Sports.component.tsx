@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import Select from '../../components/form/select';
+import Select, { IValueLabel } from '../../components/form/select';
 import { useAppSelector } from '../../hooks';
 
 import { DROPDOWN_ACTIONS } from '../Dropdown/Dropdown.actions';
@@ -27,10 +27,18 @@ const Sports = () => {
 							sport.hasPublicContests &&
 							sport.supported
 					)
-					.map((sport) => ({
-						value: sport.sportId,
-						label: sport.regionAbbreviatedSportName,
-					}))}
+					.sort((a, b) =>
+						a.regionAbbreviatedSportName.localeCompare(
+							b.regionAbbreviatedSportName
+						)
+					)
+					.map(
+						(sport) =>
+							({
+								value: sport.sportId,
+								label: sport.regionAbbreviatedSportName,
+							} as IValueLabel)
+					)}
 				defaultValue=""
 				hideLabel
 				id="selectSport"

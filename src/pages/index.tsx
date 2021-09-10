@@ -2,7 +2,7 @@ import { wrapper } from '../store';
 import { useAppSelector } from '../hooks';
 
 import { SET_SPORTS } from '../containers/Sports/Sports.actions';
-import { ISports } from '../interfaces/ISports';
+import { ISport } from '../interfaces/ISports';
 
 import Bar from '../containers/Bar/Bar.component';
 import Rules from '../containers/Rules/Rules.component';
@@ -84,7 +84,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 		const { dispatch, getState } = store;
 
 		const response = await fetch(API);
-		const sports: ISports[] = await response.json();
+		const sports: ISport[] = await response.json();
 
 		dispatch({
 			type: SET_SPORTS,
