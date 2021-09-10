@@ -7,7 +7,6 @@ import Toggle from './Table.lockExclude';
 
 const KEYS = (gameType?: string) =>
 	[
-		// { Header: 'Positions', accessor: 'draft_positions' },
 		{
 			Header: () => null,
 			accessor: 'id',

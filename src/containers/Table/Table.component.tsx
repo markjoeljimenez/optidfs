@@ -42,7 +42,6 @@ const Table = () => {
 		getTableProps,
 		getTableBodyProps,
 		headerGroups,
-		// rows,
 		prepareRow,
 		preGlobalFilteredRows,
 		setGlobalFilter,
@@ -51,12 +50,9 @@ const Table = () => {
 		canPreviousPage,
 		canNextPage,
 		pageOptions,
-		pageCount,
-		gotoPage,
 		nextPage,
 		previousPage,
-		setPageSize,
-		state: { pageIndex, pageSize, globalFilter },
+		state: { pageIndex, globalFilter },
 	} = useTable(
 		{
 			autoResetPage: false,
