@@ -28,7 +28,6 @@ const StackSetting = () => {
 	return (
 		<Input
 			label="Spacing"
-			htmlFor="spacing"
 			id="spacing"
 			placeholder="0"
 			onChange={handleSpacing}
