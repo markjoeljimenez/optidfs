@@ -1,11 +1,12 @@
 import clsx from 'clsx';
 import { ChangeEvent, forwardRef } from 'react';
 import { IDataAttributes } from '../../interfaces/IDataAttributes';
+import { IError } from '../../interfaces/IError';
 
 interface IInput {
 	className?: string;
 	defaultValue?: number;
-	error?: string | boolean;
+	error?: IError;
 	id: string;
 	label?: string;
 	max?: number;
@@ -45,7 +46,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 		ref
 	) => (
 		<div className={className}>
-			<div className={clsx(error && 'text-red-700', tippy && 'pr-8')}>
+			<div className={clsx(tippy && 'pr-8')}>
 				<label
 					htmlFor={id}
 					className={clsx(
@@ -61,6 +62,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 			<input
 				className={clsx(
 					'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md',
+					error?.isError && 'border-red-500',
 					!hideLabel && 'mt-2'
 				)}
 				defaultValue={defaultValue}
@@ -76,6 +78,10 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 				value={value}
 				{...data}
 			/>
+
+			{error?.isError && (
+				<div className="mt-2 text-red-500">{error.message}</div>
+			)}
 		</div>
 	)
 );
