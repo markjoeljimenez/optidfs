@@ -9,7 +9,7 @@ import {
 } from './Stacking.actions';
 
 export interface ITeamStack {
-	NUMBER_OF_PLAYERS_TO_STACK: string;
+	NUMBER_OF_PLAYERS_TO_STACK: number;
 	FROM_TEAMS: string;
 	FROM_POSITIONS: string;
 	SPACING: string;
@@ -54,7 +54,12 @@ const StackingReducer = (
 ) => {
 	switch (type) {
 		case SET_SETTING: {
-			if (!value || !stackingType || key === '') {
+			if (
+				value === undefined ||
+				value === null ||
+				!stackingType ||
+				key === ''
+			) {
 				return state;
 			}
 

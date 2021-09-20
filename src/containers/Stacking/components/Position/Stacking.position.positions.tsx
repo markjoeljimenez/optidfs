@@ -20,6 +20,8 @@ const StackingSetting = () => {
 			STACKING_POSITION_SETTINGS.NUMBER_OF_POSITIONS
 		];
 
+	const isError = stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS;
+
 	function handleAddPosition(e: MouseEvent<HTMLButtonElement>) {
 		if (
 			positionsSelectRef.current &&
@@ -74,11 +76,10 @@ const StackingSetting = () => {
 						'data-stacking-type': STACKING_TYPE.POSITION,
 					},
 				}}
-				error={
-					stacking.POSITION && !stacking.POSITION.NUMBER_OF_POSITIONS
-						? 'Field cannot remain empty'
-						: undefined
-				}
+				error={{
+					isError,
+					message: 'Field cannot remain empty',
+				}}
 				onAdd={handleAddPosition}
 				ref={positionsSelectRef}
 			/>

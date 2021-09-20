@@ -30,7 +30,10 @@ const StackSetting = () => {
 
 	return (
 		<Input
-			error={isError}
+			error={{
+				isError,
+				message: 'Field cannot remain empty',
+			}}
 			id="numberOfPlayers"
 			label="Number of Players (Required)"
 			min={0}
