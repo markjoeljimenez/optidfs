@@ -1,5 +1,6 @@
 import clsx from 'clsx';
 import { ChangeEvent, forwardRef, ReactNode } from 'react';
+import { IError } from '../../interfaces/IError';
 
 export interface IValueLabel {
 	value: string | number;
@@ -10,7 +11,7 @@ interface ISelect {
 	children?: ReactNode;
 	className?: string;
 	defaultValue?: string;
-	error?: string | boolean;
+	error?: IError;
 	hideLabel?: boolean;
 	id: string;
 	options: string[] | IValueLabel[];
@@ -66,7 +67,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 							'rounded-tr-none rounded-br-none',
 						position === 'prepend' &&
 							'rounded-tl-none rounded-bl-none',
-						error && 'border-red-700'
+						error?.isError && 'border-red-700'
 					)}
 					ref={ref}
 					id={id}
@@ -76,6 +77,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 					<option value="" disabled>
 						{placeholder}
 					</option>
+
 					{options?.map((item, i) => (
 						<option value={item.value || item} key={i}>
 							{item.label || item}
@@ -85,6 +87,10 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 
 				{position === 'append' && children}
 			</div>
+
+			{error?.isError && (
+				<div className="mt-2 text-red-500">{error.message}</div>
+			)}
 		</div>
 	)
 );
