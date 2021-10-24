@@ -6,7 +6,7 @@ import { setContest, setGameType } from './Dropdown.actions';
 import { getPlayers } from '../Players/Players.actions';
 import { resetRules } from '../Rules/Rules.actions';
 
-import { IContest } from '../../interfaces/IApp';
+import { IDraftKingContest } from '../../interfaces/IApp';
 
 const Dropdown = () => {
 	const { contests } = useAppSelector((state) => state.contests);
@@ -16,7 +16,9 @@ const Dropdown = () => {
 
 	const [filteredContests, setFilteredContests] = useState(contests);
 
-	function onStateChange(selection: UseComboboxStateChange<IContest>) {
+	function onStateChange(
+		selection: UseComboboxStateChange<IDraftKingContest>
+	) {
 		if (!selection?.selectedItem) {
 			return;
 		}
@@ -123,7 +125,8 @@ const Dropdown = () => {
 							})}
 							key={index}
 						>
-							{item.game_type} -{item.name}
+							{item.game_type || item.id} -
+							{item.name || item.title}
 						</li>
 					))}
 				</ul>

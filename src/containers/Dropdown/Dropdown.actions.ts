@@ -1,4 +1,4 @@
-import { IContest } from '../../interfaces/IApp';
+import { IDraftKingContest } from '../../interfaces/IApp';
 
 export const DROPDOWN_ACTIONS = {
 	LOADING_CONTESTS: 'LOADING_CONTESTS',
@@ -8,7 +8,7 @@ export const DROPDOWN_ACTIONS = {
 	SET_CONTEST: 'SET_CONTEST',
 };
 
-export const setContests = (contests: IContest[]) => ({
+export const setContests = (contests: IDraftKingContest[]) => ({
 	type: DROPDOWN_ACTIONS.SET_CONTESTS,
 	contests,
 });
@@ -18,7 +18,7 @@ export const setGameType = (gameType: string) => ({
 	gameType,
 });
 
-export const setContest = (contest: IContest) => ({
+export const setContest = (contest: IDraftKingContest) => ({
 	type: DROPDOWN_ACTIONS.SET_CONTEST,
 	contest,
 });

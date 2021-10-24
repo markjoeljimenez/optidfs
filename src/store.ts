@@ -18,6 +18,7 @@ export const reducer = combineReducers({
 	contests,
 	error,
 	players,
+	providers,
 	rules,
 	sports,
 	stacking,

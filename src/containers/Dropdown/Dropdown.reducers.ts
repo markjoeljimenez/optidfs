@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { IContest } from '../../interfaces/IApp';
+import { IDraftKingContest, IYahooContest } from '../../interfaces/IApp';
 import { DROPDOWN_ACTIONS } from './Dropdown.actions';
 
 type IDropdownState = {
@@ -7,8 +7,8 @@ type IDropdownState = {
 	gameType?: string;
 	error?: string | null;
 	message?: string | null;
-	contests?: IContest[];
-	contest?: IContest;
+	contests?: (IDraftKingContest | IYahooContest)[];
+	contest?: IDraftKingContest | IYahooContest;
 };
 
 const DEFAULT_STATE: IDropdownState = {

@@ -13,10 +13,14 @@ export interface ILineup {
 	totalFppg: number;
 }
 
-export interface IContest {
+export interface IDraftKingContest {
 	draft_group_id: number;
 	name: string;
 	game_type: string;
+
+	// TODO: Need to make new contest interface for Yahoo
+	id: number;
+	title: string;
 }
 
 export interface IGroup {
