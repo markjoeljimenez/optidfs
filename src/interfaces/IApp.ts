@@ -1,4 +1,4 @@
-import { IDraftKingsPlayer } from './IDraftKingsResponse';
+import { IPlayer } from './IPlayer';
 
 export interface IResponse {
 	lineups: ILineup[];
@@ -7,20 +7,9 @@ export interface IResponse {
 }
 
 export interface ILineup {
-	players: (string | IDraftKingsPlayer)[];
-	// players: string[];
+	players: IPlayer[];
 	totalSalary: number;
 	totalFppg: number;
-}
-
-export interface IDraftKingContest {
-	draft_group_id: number;
-	name: string;
-	game_type: string;
-
-	// TODO: Need to make new contest interface for Yahoo
-	id: number;
-	title: string;
 }
 
 export interface IGroup {

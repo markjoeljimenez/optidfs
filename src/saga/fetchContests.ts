@@ -38,7 +38,7 @@ export default function* fetchContests(action) {
 
 		const { contests } = yield res.json();
 
-		yield put(setContests(contests));
+		yield put(setContests(contests, providers.provider!));
 		yield put(resetError());
 	} catch (e) {
 		yield put(setInternalServerError(e));
