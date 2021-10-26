@@ -6,7 +6,7 @@ import { IYahooPlayer } from '../../interfaces/yahoo/IYahooPlayer';
 import {
 	mapDraftKingsPlayersToPlayers,
 	mapYahooPlayersToPlayers,
-} from './mapPlayers';
+} from '../../scripts/services/mapPlayers';
 import { IDraftKingsPlayer } from '../../interfaces/draftkings/IDraftKingsPlayer';
 import { IPlayer } from '../../interfaces/IPlayer';
 import { ILineup } from '../../interfaces/IApp';

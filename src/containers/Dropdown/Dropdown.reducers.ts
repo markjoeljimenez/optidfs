@@ -5,7 +5,7 @@ import { DROPDOWN_ACTIONS } from './Dropdown.actions';
 import {
 	mapDraftKingsContestsToContests,
 	mapYahooContestsToContests,
-} from './mapContests';
+} from '../../scripts/services/mapContests';
 
 interface IDropdownState {
 	loading?: boolean;
