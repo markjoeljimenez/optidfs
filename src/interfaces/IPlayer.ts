@@ -13,4 +13,7 @@ export interface IPlayer {
 
 	// Yahoo attributes
 	fppgHistory?: number[];
+
+	// DraftKings attributes
+	draftPositions?: string;
 }

@@ -19,11 +19,9 @@ const KEYS = (gameType?: string) =>
 		{
 			Header: 'Position',
 			accessor: (accessor) =>
-				// @TODO: Fix this at some point
-				// gameType?.includes('Showdown')
-				// 	? accessor.position
-				// 	: accessor.draft_positions,
-				accessor.position,
+				gameType?.toLowerCase().includes('showdown')
+					? accessor.draftPositions
+					: accessor.position,
 		},
 		{ Header: 'Team', accessor: 'team' },
 		{

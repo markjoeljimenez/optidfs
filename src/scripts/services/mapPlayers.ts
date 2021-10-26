@@ -10,9 +10,10 @@ export const mapDraftKingsPlayersToPlayers = (
 		firstName: draftKingsPlayer.first_name,
 		lastName: draftKingsPlayer.last_name,
 		fppg: draftKingsPlayer.points_per_contest,
-		position: draftKingsPlayer.draft_positions,
+		position: draftKingsPlayer.position,
 		salary: draftKingsPlayer.salary,
 		team: draftKingsPlayer.team,
+		draftPositions: draftKingsPlayer.draft_positions,
 	}));
 
 export const mapYahooPlayersToPlayers = (
