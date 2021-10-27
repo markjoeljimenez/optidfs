@@ -1,8 +1,9 @@
+import { DROPDOWN_ACTIONS } from '../Dropdown/Dropdown.actions';
+import { PLAYERS_ACTIONS } from '../Players/Players.actions';
+import { TABLE_ACTIONS } from '../Table/Table.actions';
+import { useAppSelector } from '../../hooks';
 import { useDispatch } from 'react-redux';
 import Select, { IValueLabel } from '../../components/form/select';
-import { useAppSelector } from '../../hooks';
-
-import { DROPDOWN_ACTIONS } from '../Dropdown/Dropdown.actions';
 
 const Sports = () => {
 	const { sports } = useAppSelector((state) => state);
@@ -16,6 +17,18 @@ const Sports = () => {
 			sport: sports.allSports.find(
 				(_sport) => _sport.sportId === sportId
 			),
+		});
+
+		dispatch({
+			type: PLAYERS_ACTIONS.RESET_PLAYERS,
+		});
+
+		dispatch({
+			type: DROPDOWN_ACTIONS.RESET,
+		});
+
+		dispatch({
+			type: TABLE_ACTIONS.RESET,
 		});
 	}
 
@@ -41,7 +54,7 @@ const Sports = () => {
 								label: sport.regionAbbreviatedSportName,
 							} as IValueLabel)
 					)}
-				defaultValue=""
+				value={sports.selectedSport?.sportId.toString() || ''}
 				hideLabel
 				id="selectSport"
 				label="Select sport"

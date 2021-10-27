@@ -75,6 +75,17 @@ const dropdown = (
 			};
 		}
 
+		case DROPDOWN_ACTIONS.RESET: {
+			return {
+				loading: false,
+				contest: undefined,
+				contests: undefined,
+				error: undefined,
+				gameType: undefined,
+				message: undefined,
+			};
+		}
+
 		default:
 			return state;
 	}

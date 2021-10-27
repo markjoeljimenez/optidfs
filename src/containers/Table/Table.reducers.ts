@@ -39,6 +39,9 @@ const TableReducer = (
 				page,
 			};
 
+		case TABLE_ACTIONS.RESET:
+			return DEFAULT_STATE;
+
 		default:
 			return state;
 	}

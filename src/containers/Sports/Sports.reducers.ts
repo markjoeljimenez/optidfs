@@ -1,6 +1,10 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { ISport } from '../../interfaces/ISports';
-import { SET_SPORTS, UPDATE_SPORT } from './Sports.actions';
+import {
+	RESET_SELECTED_SPORT,
+	SET_SPORTS,
+	UPDATE_SPORT,
+} from './Sports.actions';
 
 interface ISportsState {
 	allSports: ISport[];
@@ -38,6 +42,9 @@ const SportsReducer = (
 				...state,
 				allSports,
 			};
+
+		case RESET_SELECTED_SPORT:
+			return DEFAULT_STATE;
 
 		default:
 			return state;

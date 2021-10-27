@@ -217,21 +217,7 @@ const PlayersReducers = (
 		// }
 
 		case PLAYERS_ACTIONS.RESET_PLAYERS:
-			return {
-				...state,
-				// contests: undefined,
-				all: undefined,
-				// draftGroupId: undefined,
-				lineups: undefined,
-				locked: undefined,
-				excluded: undefined,
-				optimized: undefined,
-				// page: 0,
-				// players: undefined,
-				teams: undefined,
-				totalFppg: undefined,
-				totalSalary: undefined,
-			};
+			return DEFAULT_STATE;
 
 		case PLAYERS_ACTIONS.UPDATE_LINEUPS_PAGE: {
 			const lineup = state.lineups?.[page];
