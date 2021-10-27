@@ -1,4 +1,3 @@
-import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { TABS } from './Stacking.component';
 import {
 	REMOVE_FROM_SETTING,
@@ -7,6 +6,7 @@ import {
 	SET_SETTING_ERROR,
 	SET_STACKING_ACTIVE_TAB,
 } from './Stacking.actions';
+import { IPlayer } from '../../interfaces/IPlayer';
 
 export interface ITeamStack {
 	NUMBER_OF_PLAYERS_TO_STACK: number;
@@ -24,7 +24,7 @@ export interface IPositionStack {
 export interface ICustomStack {
 	STACKS: [
 		{
-			players: IDraftKingsPlayer[];
+			players: IPlayer[];
 			MAX_EXPOSURE?: number;
 		}
 	];

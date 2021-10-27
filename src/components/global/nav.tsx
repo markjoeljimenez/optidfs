@@ -5,6 +5,7 @@ import clsx from 'clsx';
 
 import Sports from '../../containers/Sports/Sports.component';
 import Donate from './donate';
+import Providers from '../../containers/Providers/Providers.components';
 
 const Nav = () => {
 	const router = useRouter();
@@ -100,9 +101,6 @@ const Nav = () => {
 				)}
 			>
 				<ul>
-					<li className="mt-6">
-						<Sports />
-					</li>
 					<li className="mt-6">
 						<Link href="/">
 							<a

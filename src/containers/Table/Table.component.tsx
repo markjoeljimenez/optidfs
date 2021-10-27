@@ -36,7 +36,10 @@ const Table = () => {
 
 		return [];
 	}, [players, table.view]);
-	const columns = useMemo(() => columnKeys(contests.gameType), []);
+	const columns = useMemo(
+		() => columnKeys(contests.gameType!),
+		[contests.gameType]
+	);
 
 	const {
 		footerGroups,
