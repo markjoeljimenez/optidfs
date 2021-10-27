@@ -1,23 +1,17 @@
 const providers = [
 	{
-		id: 0,
+		id: 'draftkings',
 		name: 'DraftKings',
+		isEnabled: true,
+		hasPublicContests: true,
+		supported: true,
 	},
 	{
-		id: 1,
-		name: 'FanDuel',
-	},
-	{
-		id: 2,
-		name: 'FantasyDraft',
-	},
-	{
-		id: 3,
+		id: 'yahoo',
 		name: 'Yahoo',
-	},
-	{
-		id: 4,
-		name: 'FanBall',
+		isEnabled: true,
+		hasPublicContests: true,
+		supported: true,
 	},
 ];
 

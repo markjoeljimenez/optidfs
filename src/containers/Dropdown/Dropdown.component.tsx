@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
@@ -6,7 +6,7 @@ import { setContest, setGameType } from './Dropdown.actions';
 import { getPlayers } from '../Players/Players.actions';
 import { resetRules } from '../Rules/Rules.actions';
 
-import { IContest } from '../../interfaces/IApp';
+import { IContest } from '../../interfaces/IContest';
 
 const Dropdown = () => {
 	const { contests } = useAppSelector((state) => state.contests);
@@ -25,14 +25,11 @@ const Dropdown = () => {
 
 		if (selectedItem) {
 			dispatch(setContest(selectedItem));
-		}
+			dispatch(getPlayers(selectedItem.id));
 
-		if (selectedItem.draft_group_id) {
-			dispatch(getPlayers(selection?.selectedItem?.draft_group_id));
-		}
-
-		if (selectedItem.game_type) {
-			dispatch(setGameType(selection?.selectedItem?.game_type));
+			if (selectedItem.gameType) {
+				dispatch(setGameType(selectedItem.gameType));
+			}
 		}
 	}
 
@@ -51,17 +48,17 @@ const Dropdown = () => {
 	} = useCombobox({
 		itemToString: (item) => (item ? item.name : ''),
 		items: filteredContests || [],
-		onInputValueChange: ({ inputValue }) => {
-			setFilteredContests(
-				inputValue && inputValue !== ''
-					? filteredContests?.filter((contest) =>
-							contest.name
-								.toLowerCase()
-								.includes(inputValue?.toLocaleLowerCase())
-					  )
-					: contests
-			);
-		},
+		// onInputValueChange: ({ inputValue }) => {
+		// 	setFilteredContests(
+		// 		inputValue && inputValue !== ''
+		// 			? filteredContests?.filter((contest) =>
+		// 					contest.name
+		// 						.toLowerCase()
+		// 						.includes(inputValue?.toLocaleLowerCase())
+		// 			  )
+		// 			: contests
+		// 	);
+		// },
 		onStateChange,
 	});
 
@@ -123,7 +120,7 @@ const Dropdown = () => {
 							})}
 							key={index}
 						>
-							{item.game_type} -{item.name}
+							{item.gameType || item.id} - {item.name}
 						</li>
 					))}
 				</ul>

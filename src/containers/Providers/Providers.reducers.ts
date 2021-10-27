@@ -1,11 +1,29 @@
+import { HYDRATE } from 'next-redux-wrapper';
 import { SET_PROVIDER } from './Providers.actions';
 
-const DEFAULT_STATE = true;
+interface IProviderState {
+	provider: string | null;
+}
 
-const ProviderReducers = (state = DEFAULT_STATE, { type, provider }) => {
+interface ProviderAction extends IProviderState {
+	type: string;
+	payload: any;
+}
+
+const DEFAULT_STATE: IProviderState = {
+	provider: null,
+};
+
+const ProviderReducers = (
+	state = DEFAULT_STATE,
+	{ type, provider, payload }: ProviderAction
+) => {
 	switch (type) {
 		case SET_PROVIDER:
-			return provider;
+			return {
+				...state,
+				provider,
+			};
 
 		default:
 			return state;

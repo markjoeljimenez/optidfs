@@ -5,22 +5,24 @@ import { useAppSelector } from '../../hooks';
 import { DROPDOWN_ACTIONS } from '../Dropdown/Dropdown.actions';
 
 const Sports = () => {
-	const { allSports } = useAppSelector((state) => state.sports);
+	const { sports } = useAppSelector((state) => state);
 	const dispatch = useDispatch();
 
 	function handleSportChange(e: React.ChangeEvent<HTMLSelectElement>) {
-		const sport = parseInt(e.currentTarget.value);
+		const sportId = parseInt(e.currentTarget.value);
 
 		dispatch({
 			type: DROPDOWN_ACTIONS.FETCH_CONTESTS,
-			sport,
+			sport: sports.allSports.find(
+				(_sport) => _sport.sportId === sportId
+			),
 		});
 	}
 
 	return (
 		<div className="relative">
 			<Select
-				options={allSports
+				options={sports.allSports
 					?.filter(
 						(sport) =>
 							sport.isEnabled &&

@@ -1,4 +1,5 @@
-import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
+import { IDraftKingsPlayer } from '../../interfaces/draftkings/IDraftKingsPlayer';
+import { IYahooPlayer } from '../../interfaces/yahoo/IYahooPlayer';
 import { View } from '../Table/Table.reducers';
 
 export const PLAYERS_ACTIONS = {
@@ -11,7 +12,7 @@ export const PLAYERS_ACTIONS = {
 	SET_PLAYER_PROJECTED_OWNERSHIP: 'SET_PLAYER_PROJECTED_OWNERSHIP',
 	RESET_PLAYERS: 'RESET_PLAYERS',
 	UPDATE_LINEUPS_PAGE: 'UPDATE_LINEUPS_PAGE',
-	SEARCH_PLAYERS: 'SEARCH_PLAYERS'
+	SEARCH_PLAYERS: 'SEARCH_PLAYERS',
 };
 
 export const getPlayers = (value: number | File) => ({
@@ -19,9 +20,13 @@ export const getPlayers = (value: number | File) => ({
 	value,
 });
 
-export const getPlayersSucceeded = (players: IDraftKingsPlayer[]) => ({
+export const getPlayersSucceeded = (
+	players: (IDraftKingsPlayer | IYahooPlayer)[],
+	provider: string
+) => ({
 	type: PLAYERS_ACTIONS.GET_PLAYERS_SUCCEEDED,
 	players,
+	provider,
 });
 
 export const setPlayerExposure = (id: string, value: number) => ({
@@ -54,7 +59,7 @@ export const clearToggle = (e: React.MouseEvent<HTMLButtonElement>) => ({
 export const searchPlayers = (search: number | string, view: View) => ({
 	type: PLAYERS_ACTIONS.SEARCH_PLAYERS,
 	search,
-	view
+	view,
 });
 
 export const updateLineupsPage = (page: number) => ({

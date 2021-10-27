@@ -1,27 +1,38 @@
-import Fuse from 'fuse.js';
 import uniq from 'lodash.uniqby';
-import { AnyAction } from 'redux';
 
-import { IDraftKingsPlayer } from '../../interfaces/IDraftKingsResponse';
 import { PLAYERS_ACTIONS } from './Players.actions';
 import { OPTIMIZE_ACTIONS } from '../Optimize/Optimize.actions';
-
-interface ILineup {
-	players: IDraftKingsPlayer[];
-	totalFppg: number;
-	totalSalary: number;
-}
+import { IYahooPlayer } from '../../interfaces/yahoo/IYahooPlayer';
+import {
+	mapDraftKingsPlayersToPlayers,
+	mapYahooPlayersToPlayers,
+} from '../../scripts/services/mapPlayers';
+import { IDraftKingsPlayer } from '../../interfaces/draftkings/IDraftKingsPlayer';
+import { IPlayer } from '../../interfaces/IPlayer';
+import { ILineup } from '../../interfaces/IApp';
 
 interface IPlayersState {
-	all?: IDraftKingsPlayer[];
-	excluded?: IDraftKingsPlayer[];
+	all?: IPlayer[];
+	excluded?: IPlayer[];
 	lineups?: ILineup[];
-	locked?: IDraftKingsPlayer[];
-	optimized?: IDraftKingsPlayer[];
+	locked?: IPlayer[];
+	optimized?: IPlayer[];
 	positions?: string[];
 	teams?: string[];
 	totalFppg?: number;
 	totalSalary?: number;
+}
+
+interface PlayersAction extends IPlayersState {
+	id: string;
+	page: number;
+	payload: any;
+	players: (IDraftKingsPlayer | IYahooPlayer)[];
+	provider: string;
+	search: string;
+	type: string;
+	value?: number;
+	view: string;
 }
 
 const DEFAULT_STATE: IPlayersState = {};
@@ -29,33 +40,44 @@ const DEFAULT_STATE: IPlayersState = {};
 const PlayersReducers = (
 	state = DEFAULT_STATE,
 	{
-		type,
-		players,
+		id,
 		lineups,
 		page,
 		payload,
+		players,
+		provider,
 		search,
-		view,
-		id,
+		type,
 		value,
-	}: AnyAction
+		view,
+	}: PlayersAction
 ): IPlayersState => {
 	switch (type) {
 		case PLAYERS_ACTIONS.GET_PLAYERS_SUCCEEDED: {
+			const transformedPlayers =
+				provider === 'draftkings'
+					? mapDraftKingsPlayersToPlayers(
+							players as IDraftKingsPlayer[]
+					  )
+					: mapYahooPlayersToPlayers(players as IYahooPlayer[]);
+
 			const teams =
-				players && uniq(players, 'team').map(({ team }) => team);
+				transformedPlayers &&
+				uniq(transformedPlayers, 'team').map(({ team }) => team);
 			const positions =
-				players &&
+				transformedPlayers &&
 				uniq(
-					uniq(players, 'position')
+					uniq(transformedPlayers, 'position')
 						.map(({ position }) => position)
-						.map((pos: string) => pos.split('/'))
+						.map((pos) =>
+							pos.includes('/') ? pos.split('/') : pos
+						)
 						.flat()
 				);
 
 			return {
 				...state,
-				all: players,
+				all: transformedPlayers,
 				positions,
 				teams,
 			};
@@ -71,7 +93,7 @@ const PlayersReducers = (
 			);
 
 			if (player) {
-				player.min_exposure = value || undefined;
+				player.minExposure = value || undefined;
 
 				return {
 					...state,
@@ -92,7 +114,7 @@ const PlayersReducers = (
 			);
 
 			if (player) {
-				player.projected_ownership = value || undefined;
+				player.projectedOwnership = value || undefined;
 
 				return {
 					...state,
@@ -225,12 +247,14 @@ const PlayersReducers = (
 		case OPTIMIZE_ACTIONS.OPTIMIZE_PLAYERS_SUCCEEDED: {
 			const transformedLineups: ILineup[] = lineups?.map((lineup) => ({
 				...lineup,
-				players: lineup.players.map((player) =>
-					state.all?.find(
-						(_player) => _player.id === parseInt(player)
-					)
+				players: lineup.players.map(
+					(player) =>
+						state.all?.find(
+							(_player) =>
+								_player.id === (player as unknown as number) // The backend gives us an array of strings
+						)!
 				),
-			}));
+			}))!;
 
 			const { totalSalary, totalFppg } = transformedLineups[0];
 

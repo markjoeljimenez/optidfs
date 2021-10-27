@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import { useMemo } from 'react';
 import { Column } from 'react-table';
-import { IDraftKingsPlayer } from '../../../interfaces/IDraftKingsResponse';
+import { IPlayer } from '../../../interfaces/IPlayer';
 
 import Toggle from './Table.lockExclude';
 
@@ -14,14 +14,14 @@ const KEYS = (gameType?: string) =>
 				return <Toggle id={cell.value} />;
 			},
 		},
-		{ Header: 'First Name', accessor: 'first_name', Footer: 'Total' },
-		{ Header: 'Last Name', accessor: 'last_name' },
+		{ Header: 'First Name', accessor: 'firstName', Footer: 'Total' },
+		{ Header: 'Last Name', accessor: 'lastName' },
 		{
 			Header: 'Position',
 			accessor: (accessor) =>
-				gameType?.includes('Showdown')
-					? accessor.position
-					: accessor.draft_positions,
+				gameType?.toLowerCase().includes('showdown')
+					? accessor.draftPositions
+					: accessor.position,
 		},
 		{ Header: 'Team', accessor: 'team' },
 		{
@@ -59,12 +59,12 @@ const KEYS = (gameType?: string) =>
 		},
 		{
 			Header: () => <div className="text-right">FPPG</div>,
-			accessor: 'points_per_contest',
+			accessor: 'fppg',
 			Footer: (info) => {
 				const total = useMemo(
 					() =>
 						info.rows.reduce(
-							(sum, row) => row.values.points_per_contest + sum,
+							(sum, row) => row.values.fppg + sum,
 							0
 						),
 					[info.rows]
@@ -96,6 +96,6 @@ const KEYS = (gameType?: string) =>
 				</span>
 			),
 		},
-	] as Column<IDraftKingsPlayer>[];
+	] as Column<IPlayer>[];
 
 export default KEYS;
