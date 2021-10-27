@@ -17,7 +17,7 @@ export interface IValueLabel {
 interface ISelect {
 	children?: ReactNode;
 	className?: string;
-	// defaultValue?: string;
+	defaultValue?: string;
 	error?: IError;
 	hideLabel?: boolean;
 	id: string;
@@ -38,7 +38,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 		{
 			children,
 			className,
-			// defaultValue,
+			defaultValue,
 			error,
 			hideLabel,
 			id,
@@ -71,7 +71,8 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 					{position === 'prepend' && children}
 
 					<select
-						value={value}
+						defaultValue={defaultValue || undefined}
+						value={value || undefined}
 						className={clsx(
 							'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer',
 							position === 'append' &&
