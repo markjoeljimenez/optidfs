@@ -71,8 +71,12 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 					{position === 'prepend' && children}
 
 					<select
-						defaultValue={defaultValue || undefined}
-						value={value || undefined}
+						defaultValue={
+							defaultValue !== undefined
+								? defaultValue
+								: undefined
+						}
+						value={value !== undefined ? value : undefined}
 						className={clsx(
 							'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer',
 							position === 'append' &&
