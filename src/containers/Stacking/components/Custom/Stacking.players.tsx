@@ -169,8 +169,8 @@ const StackingSettings = () => {
 					id="customPlayers"
 					label="Player"
 					options={players.all?.map(
-						({ id, position, first_name, last_name }) =>
-							`${id} - ${position} - ${first_name} ${last_name}`
+						({ id, position, firstName, lastName }) =>
+							`${id} - ${position} - ${firstName} ${lastName}`
 					)}
 					placeholder="Select player"
 					ref={playerSelectRef}
@@ -228,16 +228,13 @@ const StackingSettings = () => {
 											{player.team}
 										</div>
 										<div className="px-4 py-3" role="cell">
-											{player.first_name}{' '}
-											{player.last_name}
+											{player.firstName} {player.lastName}
 										</div>
 										<div
 											className="pl-4 py-3 text-right"
 											role="cell"
 										>
-											<strong>
-												{player.points_per_contest}
-											</strong>
+											<strong>{player.fppg}</strong>
 										</div>
 										<div className="px-2 py-3 flex justify-center items-center">
 											<button

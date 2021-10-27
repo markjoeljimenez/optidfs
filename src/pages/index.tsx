@@ -83,13 +83,13 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
 		const { dispatch, getState } = store;
 
-		const response = await fetch(API);
-		const sports: ISport[] = await response.json();
+		// const response = await fetch(API);
+		// const sports: ISport[] = await response.json();
 
-		dispatch({
-			type: SET_SPORTS,
-			allSports: sports,
-		});
+		// dispatch({
+		// 	type: SET_SPORTS,
+		// 	allSports: sports,
+		// });
 
 		return { props: { initialReduxState: getState() } };
 	}

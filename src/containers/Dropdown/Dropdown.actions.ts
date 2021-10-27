@@ -1,4 +1,6 @@
-import { IContest } from '../../interfaces/IApp';
+import { IDraftKingsContest } from '../../interfaces/draftkings/IDraftKingsContest';
+import { IContest } from '../../interfaces/IContest';
+import { IYahooContest } from '../../interfaces/yahoo/IYahooContest';
 
 export const DROPDOWN_ACTIONS = {
 	LOADING_CONTESTS: 'LOADING_CONTESTS',
@@ -8,9 +10,13 @@ export const DROPDOWN_ACTIONS = {
 	SET_CONTEST: 'SET_CONTEST',
 };
 
-export const setContests = (contests: IContest[]) => ({
+export const setContests = (
+	contests: (IDraftKingsContest | IYahooContest)[],
+	provider: string
+) => ({
 	type: DROPDOWN_ACTIONS.SET_CONTESTS,
 	contests,
+	provider,
 });
 
 export const setGameType = (gameType: string) => ({

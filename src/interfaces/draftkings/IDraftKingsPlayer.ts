@@ -1,8 +1,3 @@
-export interface IDraftKingsResponse {
-	players: IDraftKingsPlayer[];
-	team_series_list: IDraftKingsTeamSeriesList[];
-}
-
 export interface IDraftKingsPlayer {
 	draft: {
 		draftable: boolean;
@@ -27,21 +22,5 @@ export interface IDraftKingsPlayer {
 	status: string | null;
 	min_exposure?: number;
 	projected_ownership?: number;
-	draft_positions: string | string[];
-}
-
-interface IDraftKingsTeamSeriesList {
-	away_team_id: number;
-	home_team_id: number;
-	id: number;
-	starts_at: string;
-	status_id: number;
-	weather: null;
-}
-
-export interface IDraftKingsDraftStatAttributes {
-	id: number;
-	value: string;
-	sortValue: number;
-	quality?: string;
+	draft_positions: string;
 }

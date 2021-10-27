@@ -4,7 +4,7 @@ import { SET_SPORTS, UPDATE_SPORT } from './Sports.actions';
 
 interface ISportsState {
 	allSports: ISport[];
-	selectedSport?: string;
+	selectedSport?: ISport;
 }
 
 interface SportsAction extends ISportsState {

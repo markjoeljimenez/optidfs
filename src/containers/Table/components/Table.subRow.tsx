@@ -1,6 +1,6 @@
 import Input from '../../../components/form/input';
 import { useAppDispatch } from '../../../hooks';
-import { IDraftKingsPlayer } from '../../../interfaces/IDraftKingsResponse';
+import { IPlayer } from '../../../interfaces/IPlayer';
 
 import {
 	setPlayerExposure,
@@ -8,7 +8,7 @@ import {
 } from '../../Players/Players.actions';
 
 interface ITableSubRow {
-	player: IDraftKingsPlayer;
+	player: IPlayer;
 }
 
 const TableSubRow = ({ player }: ITableSubRow) => {
@@ -38,7 +38,7 @@ const TableSubRow = ({ player }: ITableSubRow) => {
 		<div className="flex">
 			<div className="w-1/4">
 				<Input
-					defaultValue={player.min_exposure}
+					defaultValue={player.minExposure}
 					id={`set-exposure-${player.id}`}
 					label="Minimum exposure"
 					max={1}
@@ -53,7 +53,7 @@ const TableSubRow = ({ player }: ITableSubRow) => {
 			</div>
 			<div className="w-1/4 ml-8">
 				<Input
-					defaultValue={player.projected_ownership}
+					defaultValue={player.projectedOwnership}
 					id={`set-ownership-projection-${player.id}`}
 					label="Projected Ownership"
 					max={1}
