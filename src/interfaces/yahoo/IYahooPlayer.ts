@@ -42,6 +42,8 @@ export interface Game {
 	odds: Odds;
 }
 
+export type IYahooPlayerStatus = 'N/A' | 'INJ' | 'O' | 'Q' | 'IR';
+
 export interface IYahooPlayer {
 	code: string;
 	firstName: string;

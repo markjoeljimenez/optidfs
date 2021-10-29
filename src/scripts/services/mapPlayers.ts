@@ -13,7 +13,9 @@ export const mapDraftKingsPlayersToPlayers = (
 		position: draftKingsPlayer.position,
 		salary: draftKingsPlayer.salary,
 		team: draftKingsPlayer.team,
+		status: draftKingsPlayer.status,
 		draftPositions: draftKingsPlayer.draft_positions,
+		image: draftKingsPlayer.images?.[160] || draftKingsPlayer.images?.[50],
 	}));
 
 export const mapYahooPlayersToPlayers = (
@@ -27,4 +29,6 @@ export const mapYahooPlayersToPlayers = (
 		position: yahooPlayer.eligiblePositions.join('/'),
 		salary: yahooPlayer.salary,
 		team: yahooPlayer.teamAbbr,
+		status: yahooPlayer.status,
+		image: yahooPlayer.imageUrl,
 	}));

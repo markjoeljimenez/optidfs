@@ -14,33 +14,42 @@ import { UPDATE_SPORT } from '../containers/Sports/Sports.actions';
 import { RootState } from '../store';
 
 export default function* fetchContests(action) {
-	try {
-		if (!action.sport) {
-			throw new Error('Invalid sport selected');
-		}
-
-		const { providers }: RootState = yield select();
-
-		yield put({
-			type: DROPDOWN_ACTIONS.LOADING_CONTESTS,
-		});
-
-		yield put({
-			type: UPDATE_SPORT,
-			selectedSport: action.sport,
-		});
-
-		const res = yield post(`${API}/contests`, {
-			sportId: action.sport.sportId,
-			sport: action.sport.regionAbbreviatedSportName,
-			provider: providers.provider,
-		});
-
-		const { contests } = yield res.json();
-
-		yield put(setContests(contests, providers.provider!));
-		yield put(resetError());
-	} catch (e) {
-		yield put(setInternalServerError(e));
+	if (!action.sport) {
+		throw new Error('Invalid sport selected');
 	}
+
+	const { providers }: RootState = yield select();
+
+	yield put({
+		type: DROPDOWN_ACTIONS.LOADING_CONTESTS,
+	});
+
+	yield put({
+		type: UPDATE_SPORT,
+		selectedSport: action.sport,
+	});
+
+	const { contests, e } = yield post(`${API}/contests`, {
+		sportId: action.sport.sportId,
+		sport: action.sport.regionAbbreviatedSportName,
+		provider: providers.provider,
+	})
+		.then((res) => res.json())
+		.catch((e) => {
+			console.log(e);
+			return e;
+		});
+	// const { contests } = res.json();
+
+	// yield put(resetError());
+	if (contests) {
+		yield put(setContests(contests, providers.provider!));
+	} else {
+		console.log(e);
+	}
+	// try {
+	// } catch (e) {
+	// 	console.log(e);
+	// 	yield put(setInternalServerError(e));
+	// }
 }

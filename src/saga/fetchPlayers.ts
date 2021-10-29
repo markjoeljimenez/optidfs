@@ -21,7 +21,7 @@ export default function* fetchPlayers(action: Action) {
 			throw new Error('Missing draft ID');
 		}
 
-		const { providers }: RootState = yield select();
+		const { providers, contests }: RootState = yield select();
 
 		yield put(loadingTable(true));
 
@@ -40,7 +40,7 @@ export default function* fetchPlayers(action: Action) {
 			yield put(getPlayersSucceeded(players, provider));
 		} else {
 			const res = yield fetch(
-				`${API}/players?provider=${providers.provider}&id=${action.value}`
+				`${API}/players?provider=${providers.provider}&id=${action.value}&gameType="${contests.gameType}"`
 			);
 			const { players, provider } = yield res.json();
 

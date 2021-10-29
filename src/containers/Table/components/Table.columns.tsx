@@ -14,7 +14,21 @@ const KEYS = (gameType?: string) =>
 				return <Toggle id={cell.value} />;
 			},
 		},
-		{ Header: 'First Name', accessor: 'firstName', Footer: 'Total' },
+		{
+			Header: () => null,
+			id: 'profile_picture',
+			accessor: (accessor) => (
+				<img
+					src={accessor.image}
+					width="50"
+					height="50"
+					alt={`${accessor.firstName} ${accessor.lastName}`}
+				/>
+			),
+			Footer: 'Total',
+		},
+		{ Header: 'Status', accessor: 'status' },
+		{ Header: 'First Name', accessor: 'firstName' },
 		{ Header: 'Last Name', accessor: 'lastName' },
 		{
 			Header: 'Position',
@@ -64,11 +78,13 @@ const KEYS = (gameType?: string) =>
 				const total = useMemo(
 					() =>
 						info.rows.reduce(
-							(sum, row) => row.values.fppg + sum,
+							(sum, row) => parseFloat(row.values.fppg) + sum,
 							0
 						),
 					[info.rows]
 				);
+
+				console.log(total);
 
 				return <div className="text-right">{total.toFixed(2)}</div>;
 			},
