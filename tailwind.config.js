@@ -13,11 +13,11 @@ module.exports = {
 	purge: {
 		content: ['./src/**/*.tsx'],
 		safelist: [
-			'bg-green-500',
+			'bg-green-600',
 			'text-green-100',
-			'bg-red-500',
+			'bg-red-600',
 			'text-red-100',
-			'bg-yellow-500',
+			'bg-yellow-600',
 			'text-yellow-100',
 		],
 	},
