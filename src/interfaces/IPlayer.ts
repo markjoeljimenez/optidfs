@@ -6,6 +6,7 @@ export interface IPlayer {
 	fppg: number;
 	position: string;
 	team: string;
+	status: string;
 
 	// User entered attributes
 	minExposure?: number;
@@ -16,4 +17,5 @@ export interface IPlayer {
 
 	// DraftKings attributes
 	draftPositions?: string;
+	image?: string;
 }

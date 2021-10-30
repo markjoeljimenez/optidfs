@@ -1,7 +1,9 @@
 /* eslint-disable react/display-name */
 import { useMemo } from 'react';
 import { Column } from 'react-table';
+import Pill from '../../../components/global/pill';
 import { IPlayer } from '../../../interfaces/IPlayer';
+import { StatusTranslation } from '../../../interfaces/IStatus';
 
 import Toggle from './Table.lockExclude';
 
@@ -14,7 +16,30 @@ const KEYS = (gameType?: string) =>
 				return <Toggle id={cell.value} />;
 			},
 		},
-		{ Header: 'First Name', accessor: 'firstName', Footer: 'Total' },
+		{
+			Header: () => null,
+			id: 'profile_picture',
+			accessor: (accessor) => (
+				<div
+					className="text-center overflow-hidden"
+					style={{ maxHeight: '62px', maxWidth: '62px' }}
+				>
+					<img
+						src={accessor.image}
+						alt={`${accessor.firstName} ${accessor.lastName}`}
+					/>
+				</div>
+			),
+			Footer: 'Total',
+		},
+		{
+			Header: 'Status',
+			accessor: 'status',
+			Cell: (cell) => (
+				<Pill status={cell.value}>{StatusTranslation[cell.value]}</Pill>
+			),
+		},
+		{ Header: 'First Name', accessor: 'firstName' },
 		{ Header: 'Last Name', accessor: 'lastName' },
 		{
 			Header: 'Position',
@@ -64,11 +89,13 @@ const KEYS = (gameType?: string) =>
 				const total = useMemo(
 					() =>
 						info.rows.reduce(
-							(sum, row) => row.values.fppg + sum,
+							(sum, row) => parseFloat(row.values.fppg) + sum,
 							0
 						),
 					[info.rows]
 				);
+
+				console.log(total);
 
 				return <div className="text-right">{total.toFixed(2)}</div>;
 			},

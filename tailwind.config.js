@@ -58,6 +58,7 @@ module.exports = {
 			10: '10rem',
 			nav: '12rem',
 			dropdown: '30rem',
+			profilePicture: '72px',
 		},
 		maxWidth: {
 			...maxWidth,
@@ -80,7 +81,7 @@ module.exports = {
 		extend: {
 			gridTemplateColumns: {
 				'table-sm': '5rem 1fr 1fr 3rem',
-				'table-md': '10rem 6.5fr 9fr 5fr 4fr 4fr 4fr 4rem',
+				'table-md': '5rem 5fr 5fr 6.5fr 9fr 5fr 4fr 4fr 4fr 4rem',
 				'custom-stacking-md': '4rem 4rem 4fr 1fr 3.25rem',
 			},
 		},

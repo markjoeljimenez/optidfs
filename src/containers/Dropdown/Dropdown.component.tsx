@@ -24,12 +24,12 @@ const Dropdown = () => {
 		const { selectedItem } = selection;
 
 		if (selectedItem) {
-			dispatch(setContest(selectedItem));
-			dispatch(getPlayers(selectedItem.id));
-
 			if (selectedItem.gameType) {
 				dispatch(setGameType(selectedItem.gameType));
 			}
+
+			dispatch(setContest(selectedItem));
+			dispatch(getPlayers(selectedItem.id));
 		}
 	}
 

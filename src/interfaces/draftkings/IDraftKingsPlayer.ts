@@ -1,3 +1,5 @@
+export type IDraftKingsPlayerStatus = 'None' | 'OUT';
+
 export interface IDraftKingsPlayer {
 	draft: {
 		draftable: boolean;
@@ -19,8 +21,14 @@ export interface IDraftKingsPlayer {
 	points_per_contest: number;
 	position: string;
 	team: string;
-	status: string | null;
+	status: IDraftKingsPlayerStatus;
 	min_exposure?: number;
 	projected_ownership?: number;
 	draft_positions: string;
+	images?: {
+		50: string | undefined;
+		65: string | undefined;
+		160: string | undefined;
+		full: string | undefined;
+	};
 }
