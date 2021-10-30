@@ -58,6 +58,7 @@ module.exports = {
 			10: '10rem',
 			nav: '12rem',
 			dropdown: '30rem',
+			profilePicture: '72px',
 		},
 		maxWidth: {
 			...maxWidth,

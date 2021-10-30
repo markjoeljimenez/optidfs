@@ -1,7 +1,9 @@
 /* eslint-disable react/display-name */
 import { useMemo } from 'react';
 import { Column } from 'react-table';
+import Pill from '../../../components/global/pill';
 import { IPlayer } from '../../../interfaces/IPlayer';
+import { StatusTranslation } from '../../../interfaces/IStatus';
 
 import Toggle from './Table.lockExclude';
 
@@ -18,16 +20,25 @@ const KEYS = (gameType?: string) =>
 			Header: () => null,
 			id: 'profile_picture',
 			accessor: (accessor) => (
-				<img
-					src={accessor.image}
-					width="50"
-					height="50"
-					alt={`${accessor.firstName} ${accessor.lastName}`}
-				/>
+				<div
+					className="text-center overflow-hidden"
+					style={{ maxHeight: '62px', maxWidth: '62px' }}
+				>
+					<img
+						src={accessor.image}
+						alt={`${accessor.firstName} ${accessor.lastName}`}
+					/>
+				</div>
 			),
 			Footer: 'Total',
 		},
-		{ Header: 'Status', accessor: 'status' },
+		{
+			Header: 'Status',
+			accessor: 'status',
+			Cell: (cell) => (
+				<Pill status={cell.value}>{StatusTranslation[cell.value]}</Pill>
+			),
+		},
 		{ Header: 'First Name', accessor: 'firstName' },
 		{ Header: 'Last Name', accessor: 'lastName' },
 		{
