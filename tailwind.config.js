@@ -10,7 +10,10 @@ const {
 } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-	// purge: ['./src/**/*.tsx'],
+	purge: [
+		'./src/pages/**/*.{js,ts,jsx,tsx}',
+		'./src/components/**/*.{js,ts,jsx,tsx}',
+	],
 	future: {
 		removeDeprecatedGapUtilities: true,
 		purgeLayersByDefault: true,
