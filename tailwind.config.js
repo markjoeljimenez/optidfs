@@ -10,7 +10,17 @@ const {
 } = require('tailwindcss/defaultTheme');
 
 module.exports = {
-	purge: false,
+	purge: {
+		content: ['./src/**/*.tsx'],
+		safelist: [
+			'bg-green-500',
+			'text-green-100',
+			'bg-red-500',
+			'text-red-100',
+			'bg-yellow-500',
+			'text-yellow-100',
+		],
+	},
 	future: {
 		removeDeprecatedGapUtilities: true,
 		purgeLayersByDefault: true,
