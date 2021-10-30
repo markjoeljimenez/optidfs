@@ -8,6 +8,7 @@ export const DROPDOWN_ACTIONS = {
 	SET_CONTESTS: 'SET_CONTESTS',
 	SET_GAMETYPE: 'SET_GAMETYPE',
 	SET_CONTEST: 'SET_CONTEST',
+	RESET: 'RESET',
 };
 
 export const setContests = (

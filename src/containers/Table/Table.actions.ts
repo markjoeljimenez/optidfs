@@ -4,6 +4,7 @@ export const TABLE_ACTIONS = {
 	SET_PAGE: 'SET_PAGE',
 	VIEW_ALL_PLAYERS: 'VIEW_ALL_PLAYERS',
 	VIEW_OPTIMIZED_LINEUPS: 'VIEW_OPTIMIZED_LINEUPS',
+	RESET: 'RESET',
 };
 
 export const loadingTable = (loading: boolean) => ({
