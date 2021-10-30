@@ -156,7 +156,7 @@ const Table = () => {
 							{headerGroup.headers.map((column) => (
 								<th
 									{...column.getHeaderProps()}
-									className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+									className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
 								>
 									{column.render('Header')}
 								</th>

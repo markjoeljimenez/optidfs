@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 
 import {
@@ -6,6 +7,11 @@ import {
 	excludePlayer,
 	clearToggle,
 } from '../../Players/Players.actions';
+
+export enum ELockOrExclude {
+	Locked = 'locked',
+	Excluded = 'excluded',
+}
 
 interface ILockOrExclude {
 	id: number;
@@ -18,16 +24,32 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 	const locked = players?.locked?.some((_player) => _player.id === id);
 	const excluded = players?.excluded?.some((_player) => _player.id === id);
 
+	const [lockOrExclude, setLockOrExclude] = useState<ELockOrExclude | null>(
+		null
+	);
+
 	function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
-		dispatch(lockPlayer(e));
+		if (e.currentTarget.getAttribute('data-type') === lockOrExclude) {
+			setLockOrExclude(null);
+			dispatch(clearToggle(e));
+		} else {
+			setLockOrExclude(
+				e.currentTarget.getAttribute('data-type')! as ELockOrExclude
+			);
+			dispatch(lockPlayer(e));
+		}
 	}
 
 	function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
-		dispatch(excludePlayer(e));
-	}
-
-	function handleClearSelection(e: React.MouseEvent<HTMLButtonElement>) {
-		dispatch(clearToggle(e));
+		if (e.currentTarget.getAttribute('data-type') === lockOrExclude) {
+			setLockOrExclude(null);
+			dispatch(clearToggle(e));
+		} else {
+			setLockOrExclude(
+				e.currentTarget.getAttribute('data-type')! as ELockOrExclude
+			);
+			dispatch(excludePlayer(e));
+		}
 	}
 
 	return (
@@ -42,13 +64,13 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 				htmlFor={`lock-${id}`}
 			>
 				<input
-					defaultChecked={locked}
+					// checked={lockOrExclude === ELockOrExclude.Locked}
+					data-type={ELockOrExclude.Locked}
 					id={`lock-${id}`}
 					name={`lockOrExclude-${id}`}
 					onClick={handleLockPlayer}
 					type="radio"
 					value={id}
-					data-value={id}
 				/>
 				<span className="sr-only">Lock</span>
 				<svg
@@ -77,7 +99,8 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 				htmlFor={`exclude-${id}`}
 			>
 				<input
-					// defaultChecked={excluded}
+					// checked={lockOrExclude === ELockOrExclude.Excluded}
+					data-type={ELockOrExclude.Excluded}
 					id={`exclude-${id}`}
 					name={`lockOrExclude-${id}`}
 					onClick={handleExcludePlayer}
@@ -100,7 +123,7 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 					</g>
 				</svg>
 			</label>
-			{locked || excluded ? (
+			{/* {locked || excluded ? (
 				<button
 					type="button"
 					className="ml-4 text-xs uppercase font-bold text-red-700 hover:underline"
@@ -111,7 +134,7 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 				</button>
 			) : (
 				<></>
-			)}
+			)} */}
 		</div>
 	);
 };

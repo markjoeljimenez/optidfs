@@ -10,6 +10,7 @@ import {
 import { IDraftKingsPlayer } from '../../interfaces/draftkings/IDraftKingsPlayer';
 import { IPlayer } from '../../interfaces/IPlayer';
 import { ILineup } from '../../interfaces/IApp';
+import { ELockOrExclude } from '../Table/components/Table.lockExclude';
 
 interface IPlayersState {
 	all?: IPlayer[];
@@ -170,20 +171,23 @@ const PlayersReducers = (
 		}
 
 		case PLAYERS_ACTIONS.CLEAR_TOGGLE: {
-			// Remove player from lockedPlayers
-			const locked = state.locked?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
-
-			// Remove player from excludedPlayers
-			const excluded = state.excluded?.filter(
-				(_player) => _player.id !== parseInt(payload.value)
-			);
-
 			return {
 				...state,
-				locked,
-				excluded,
+				locked:
+					payload.getAttribute('data-type') === ELockOrExclude.Locked
+						? state.locked?.filter(
+								(_player) =>
+									_player.id !== parseInt(payload.value)
+						  )
+						: state.locked,
+				excluded:
+					payload.getAttribute('data-type') ===
+					ELockOrExclude.Excluded
+						? state.locked?.filter(
+								(_player) =>
+									_player.id !== parseInt(payload.value)
+						  )
+						: state.excluded,
 			};
 		}
 

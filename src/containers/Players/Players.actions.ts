@@ -51,7 +51,7 @@ export const excludePlayer = (e: React.MouseEvent<HTMLInputElement>) => ({
 	payload: e.currentTarget,
 });
 
-export const clearToggle = (e: React.MouseEvent<HTMLButtonElement>) => ({
+export const clearToggle = (e: React.MouseEvent<HTMLInputElement>) => ({
 	type: PLAYERS_ACTIONS.CLEAR_TOGGLE,
 	payload: e.currentTarget,
 });

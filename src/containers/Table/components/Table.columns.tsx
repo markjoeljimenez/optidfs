@@ -11,13 +11,6 @@ const KEYS = (gameType?: string) =>
 	[
 		{
 			Header: () => null,
-			accessor: 'id',
-			Cell: (cell) => {
-				return <Toggle id={cell.value} />;
-			},
-		},
-		{
-			Header: () => null,
 			id: 'profile_picture',
 			accessor: (accessor) => (
 				<div
@@ -95,11 +88,16 @@ const KEYS = (gameType?: string) =>
 					[info.rows]
 				);
 
-				console.log(total);
-
 				return <div className="text-right">{total.toFixed(2)}</div>;
 			},
 			Cell: (cell) => <div className="text-right">{cell.value}</div>,
+		},
+		{
+			Header: () => null,
+			accessor: 'id',
+			Cell: (cell) => {
+				return <Toggle id={cell.value} />;
+			},
 		},
 		{
 			Header: () => null,
