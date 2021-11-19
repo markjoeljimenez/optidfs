@@ -13,6 +13,7 @@ export const PLAYERS_ACTIONS = {
 	RESET_PLAYERS: 'RESET_PLAYERS',
 	UPDATE_LINEUPS_PAGE: 'UPDATE_LINEUPS_PAGE',
 	SEARCH_PLAYERS: 'SEARCH_PLAYERS',
+	FILTER_PLAYERS: 'FILTER_PLAYERS',
 };
 
 export const getPlayers = (value: number | File) => ({
@@ -65,6 +66,11 @@ export const searchPlayers = (search: number | string, view: View) => ({
 export const updateLineupsPage = (page: number) => ({
 	type: PLAYERS_ACTIONS.UPDATE_LINEUPS_PAGE,
 	page,
+});
+
+export const filterPlayers = (filter: 'all' | string[]) => ({
+	type: PLAYERS_ACTIONS.FILTER_PLAYERS,
+	filter,
 });
 
 export const resetPlayers = () => ({

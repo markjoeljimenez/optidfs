@@ -13,11 +13,12 @@ import { ILineup } from '../../interfaces/IApp';
 import { ELockOrExclude } from '../Table/components/Table.lockExclude';
 
 interface IPlayersState {
+	defaultPlayers?: IPlayer[];
 	all?: IPlayer[];
 	excluded?: IPlayer[];
-	lineups?: ILineup[];
 	locked?: IPlayer[];
 	optimized?: IPlayer[];
+	lineups?: ILineup[];
 	positions?: string[];
 	teams?: string[];
 	totalFppg?: number;
@@ -34,6 +35,7 @@ interface PlayersAction extends IPlayersState {
 	type: string;
 	value?: number;
 	view: string;
+	filter: 'all' | string[];
 }
 
 const DEFAULT_STATE: IPlayersState = {};
@@ -51,6 +53,7 @@ const PlayersReducers = (
 		type,
 		value,
 		view,
+		filter,
 	}: PlayersAction
 ): IPlayersState => {
 	switch (type) {
@@ -78,6 +81,7 @@ const PlayersReducers = (
 
 			return {
 				...state,
+				defaultPlayers: transformedPlayers,
 				all: transformedPlayers,
 				positions,
 				teams,
@@ -189,6 +193,26 @@ const PlayersReducers = (
 						  )
 						: state.excluded,
 			};
+		}
+
+		case PLAYERS_ACTIONS.FILTER_PLAYERS: {
+			if (Array.isArray(filter)) {
+				const filteredPlayers = state.defaultPlayers?.filter((player) =>
+					filter.some((f) => f === player.status)
+				);
+
+				return {
+					...state,
+					all: filteredPlayers,
+				};
+			} else if (filter === 'all') {
+				return {
+					...state,
+					all: state.defaultPlayers,
+				};
+			}
+
+			return state;
 		}
 
 		// case PLAYERS_ACTIONS.SEARCH_PLAYERS: {

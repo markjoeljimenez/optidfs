@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import {
 	useExpanded,
+	useFilters,
 	useGlobalFilter,
 	usePagination,
 	useTable,
@@ -18,6 +19,7 @@ import TableSearch from './components/Table.search';
 import columnKeys from './components/Table.columns';
 import TableSubRow from './components/Table.subRow';
 import TableExport from './components/Table.export';
+import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
 
 const Table = () => {
 	const { error, players, contests, table } = useAppSelector(
@@ -30,8 +32,8 @@ const Table = () => {
 			return players.optimized;
 		}
 
-		if (table.view === 'all' && players.all) {
-			return players.all;
+		if (table.view === 'all' && players.defaultPlayers) {
+			return players.defaultPlayers;
 		}
 
 		return [];
@@ -39,6 +41,28 @@ const Table = () => {
 	const columns = useMemo(
 		() => columnKeys(contests.gameType!),
 		[contests.gameType]
+	);
+
+	const defaultColumn = useMemo(
+		() => ({
+			// Let's set up our default Filter UI
+			Filter: MultiSelectColumnFilter,
+		}),
+		[]
+	);
+
+	const filterTypes = useMemo(
+		() => ({
+			multiple: (rows, id, filterValue) => {
+				return rows.filter((row) => {
+					const rowValue = row.values[id];
+					return rowValue !== undefined
+						? filterValue.includes(rowValue)
+						: true;
+				});
+			},
+		}),
+		[]
 	);
 
 	const {
@@ -62,9 +86,12 @@ const Table = () => {
 			autoResetPage: false,
 			autoResetExpanded: false,
 			columns,
+			defaultColumn,
+			filterTypes,
 			data,
 			initialState: { pageSize: 100 } as any,
 		} as any,
+		useFilters,
 		useGlobalFilter,
 		useExpanded,
 		usePagination
@@ -110,7 +137,6 @@ const Table = () => {
 								'p-2'
 							)}
 							onClick={() => dispatch(setView('optimized'))}
-							disabled={players.optimized === undefined}
 						>
 							Optimized
 						</button>
@@ -156,9 +182,15 @@ const Table = () => {
 							{headerGroup.headers.map((column) => (
 								<th
 									{...column.getHeaderProps()}
-									className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+									className="relative px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
 								>
 									{column.render('Header')}
+									{/* Render the columns filter UI */}
+									<div className="inline-block align-middle ml-2">
+										{column.canFilter
+											? column.render('Filter')
+											: null}
+									</div>
 								</th>
 							))}
 						</tr>
