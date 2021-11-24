@@ -24,30 +24,18 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 	const locked = players?.locked?.some((_player) => _player.id === id);
 	const excluded = players?.excluded?.some((_player) => _player.id === id);
 
-	const [lockOrExclude, setLockOrExclude] = useState<ELockOrExclude | null>(
-		null
-	);
-
 	function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
-		if (e.currentTarget.getAttribute('data-type') === lockOrExclude) {
-			setLockOrExclude(null);
+		if (locked) {
 			dispatch(clearToggle(e));
 		} else {
-			setLockOrExclude(
-				e.currentTarget.getAttribute('data-type')! as ELockOrExclude
-			);
 			dispatch(lockPlayer(e));
 		}
 	}
 
 	function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
-		if (e.currentTarget.getAttribute('data-type') === lockOrExclude) {
-			setLockOrExclude(null);
+		if (excluded) {
 			dispatch(clearToggle(e));
 		} else {
-			setLockOrExclude(
-				e.currentTarget.getAttribute('data-type')! as ELockOrExclude
-			);
 			dispatch(excludePlayer(e));
 		}
 	}
@@ -64,7 +52,7 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 				htmlFor={`lock-${id}`}
 			>
 				<input
-					// checked={lockOrExclude === ELockOrExclude.Locked}
+					checked={locked}
 					data-type={ELockOrExclude.Locked}
 					id={`lock-${id}`}
 					name={`lockOrExclude-${id}`}
@@ -99,7 +87,7 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 				htmlFor={`exclude-${id}`}
 			>
 				<input
-					// checked={lockOrExclude === ELockOrExclude.Excluded}
+					checked={excluded}
 					data-type={ELockOrExclude.Excluded}
 					id={`exclude-${id}`}
 					name={`lockOrExclude-${id}`}

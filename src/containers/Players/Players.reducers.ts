@@ -175,7 +175,7 @@ const PlayersReducers = (
 		}
 
 		case PLAYERS_ACTIONS.CLEAR_TOGGLE: {
-			return {
+			const test = {
 				...state,
 				locked:
 					payload.getAttribute('data-type') === ELockOrExclude.Locked
@@ -193,6 +193,8 @@ const PlayersReducers = (
 						  )
 						: state.excluded,
 			};
+
+			return test;
 		}
 
 		case PLAYERS_ACTIONS.FILTER_PLAYERS: {
