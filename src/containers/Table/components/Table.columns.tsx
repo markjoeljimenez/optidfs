@@ -3,7 +3,8 @@ import { useMemo } from 'react';
 import { Column } from 'react-table';
 import Pill from '../../../components/global/pill';
 import { IPlayer } from '../../../interfaces/IPlayer';
-import { StatusTranslation } from '../../../interfaces/IStatus';
+import { Status, StatusTranslation } from '../../../interfaces/IStatus';
+import { MultiSelectColumnFilter } from './filters/StatusFilter';
 
 import Toggle from './Table.lockExclude';
 
@@ -24,24 +25,30 @@ const KEYS = (gameType?: string) =>
 				</div>
 			),
 			Footer: 'Total',
+			disableFilters: true,
 		},
 		{
 			Header: 'Status',
 			accessor: 'status',
 			Cell: (cell) => (
-				<Pill status={cell.value}>{StatusTranslation[cell.value]}</Pill>
+				<Pill status={Status[cell.value]}>
+					{StatusTranslation[cell.value]}
+				</Pill>
 			),
+			Filter: MultiSelectColumnFilter,
+			filter: 'multiple',
 		},
-		{ Header: 'First Name', accessor: 'firstName' },
-		{ Header: 'Last Name', accessor: 'lastName' },
+		{ Header: 'First Name', accessor: 'firstName', disableFilters: true },
+		{ Header: 'Last Name', accessor: 'lastName', disableFilters: true },
 		{
 			Header: 'Position',
 			accessor: (accessor) =>
 				gameType?.toLowerCase().includes('showdown')
 					? accessor.draftPositions
 					: accessor.position,
+			disableFilters: true,
 		},
-		{ Header: 'Team', accessor: 'team' },
+		{ Header: 'Team', accessor: 'team', disableFilters: true },
 		{
 			Header: () => <div className="text-right">Salary</div>,
 			accessor: 'salary',
@@ -74,6 +81,7 @@ const KEYS = (gameType?: string) =>
 					}).format(cell.value)}
 				</div>
 			),
+			disableFilters: true,
 		},
 		{
 			Header: () => <div className="text-right">FPPG</div>,
@@ -91,6 +99,7 @@ const KEYS = (gameType?: string) =>
 				return <div className="text-right">{total.toFixed(2)}</div>;
 			},
 			Cell: (cell) => <div className="text-right">{cell.value}</div>,
+			disableFilters: true,
 		},
 		{
 			Header: () => null,
@@ -98,6 +107,7 @@ const KEYS = (gameType?: string) =>
 			Cell: (cell) => {
 				return <Toggle id={cell.value} />;
 			},
+			disableFilters: true,
 		},
 		{
 			Header: () => null,

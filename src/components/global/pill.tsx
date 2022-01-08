@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { Status } from '../../interfaces/IStatus';
 
 interface Props {
 	status: string;
@@ -10,7 +9,7 @@ const Pill = ({ status, children }: Props) => (
 	<span
 		className={clsx(
 			'inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full',
-			`text-${Status[status]}-100 bg-${Status[status]}-600`
+			`text-${status}-100 bg-${status}-600`
 		)}
 	>
 		{children}
