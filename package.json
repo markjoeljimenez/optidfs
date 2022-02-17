@@ -47,7 +47,7 @@
 		"jest": "^27.0.6",
 		"lodash.get": "^4.4.2",
 		"lodash.uniqby": "^4.7.0",
-		"next": "^11.0.1",
+		"next": "^12.1.0",
 		"next-redux-wrapper": "^6.0.2",
 		"next-seo": "^4.26.0",
 		"node-fetch": "^2.6.1",
