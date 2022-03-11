@@ -101,7 +101,6 @@ const Index = () => {
 					</div>
 				)}
 			</div>
-			{console.log(players)}
 			{/* {players ? (
 				PANELS.map(({ id, element }) => (
 					<div

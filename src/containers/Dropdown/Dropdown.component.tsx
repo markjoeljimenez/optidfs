@@ -49,16 +49,7 @@ const Dropdown = () => {
 
 	useEffect(() => {
 		if (data) {
-			const { provider, contests } = data;
-
-			const transformedContests =
-				provider === 'draftkings'
-					? mapDraftKingsContestsToContests(
-							contests as IDraftKingsContest[]
-					  )
-					: mapYahooContestsToContests(contests as IYahooContest[]);
-
-			setFilteredContests(transformedContests);
+			setFilteredContests(data.contests as IContest[]);
 		}
 	}, [data]);
 
