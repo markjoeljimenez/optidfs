@@ -1,0 +1,36 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { ISport } from '../interfaces/ISports';
+import { IContestsResponse, IContestsBody, IPlayersBody } from './interfaces';
+
+export const API = process.env.ENDPOINT;
+
+export const OptidfsApi = createApi({
+	reducerPath: 'optidfs',
+	baseQuery: fetchBaseQuery({ baseUrl: API }),
+	endpoints: (builder) => ({
+		getSportsFromProvider: builder.query<ISport[], string>({
+			query: (provider) => `?provider=${provider}`,
+		}),
+		getContestsFromSport: builder.query<IContestsResponse, IContestsBody>({
+			query: (body) => ({
+				url: 'contests',
+				method: 'POST',
+				body,
+			}),
+			extraOptions: {},
+		}),
+		getPlayers: builder.query<any, IPlayersBody>({
+			query: (body) => {
+				const params = new URLSearchParams(body as any);
+
+				return `players?${params.toString()}`;
+			},
+		}),
+	}),
+});
+
+export const {
+	useGetSportsFromProviderQuery,
+	useGetContestsFromSportQuery,
+	useGetPlayersQuery,
+} = OptidfsApi;

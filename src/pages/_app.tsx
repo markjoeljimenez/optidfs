@@ -1,8 +1,9 @@
 import * as Sentry from '@sentry/browser';
 import { DefaultSeo } from 'next-seo';
-import { wrapper } from '../store';
+import { Provider } from 'react-redux';
 
 import Dashboard from '../layouts/dashboard';
+import store from '../store';
 
 import '../styles/styles.scss';
 
@@ -20,7 +21,7 @@ const App = ({ Component, pageProps }: IApp) => {
 	}
 
 	return (
-		<>
+		<Provider store={store}>
 			<DefaultSeo
 				title="Optidfs"
 				description="A web app that generates the most optimized lineups for DraftKings."
@@ -28,8 +29,8 @@ const App = ({ Component, pageProps }: IApp) => {
 			<Dashboard>
 				<Component {...pageProps} />
 			</Dashboard>
-		</>
+		</Provider>
 	);
 };
 
-export default wrapper.withRedux(App);
+export default App;

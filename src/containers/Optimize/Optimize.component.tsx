@@ -13,7 +13,9 @@ interface IOptimizeProps {
 
 const Optimize = ({ disabled }: IOptimizeProps) => {
 	const dispatch = useAppDispatch();
-	const { stacking } = useAppSelector((state) => state);
+	// TODO: Undo this
+	// const { stacking } = useAppSelector((state) => state);
+	const stacking = {} as any;
 
 	function handleClick() {
 		if (

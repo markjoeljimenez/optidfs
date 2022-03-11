@@ -4,17 +4,31 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import { setContest, setGameType } from './Dropdown.actions';
 import { getPlayers } from '../Players/Players.actions';
-import { resetRules } from '../Rules/Rules.actions';
 
 import { IContest } from '../../interfaces/IContest';
+import { useGetContestsFromSportQuery } from '../../api';
+import { selectSports } from '../Sports/Sports.reducers';
+import { selectProviders } from '../Providers/Providers.reducers';
+import { IDraftKingsContest } from '../../interfaces/draftkings/IDraftKingsContest';
+import { IYahooContest } from '../../interfaces/yahoo/IYahooContest';
+import {
+	mapDraftKingsContestsToContests,
+	mapYahooContestsToContests,
+} from '../../scripts/services/mapContests';
+import { setSelectedContest } from './Dropdown.reducers';
 
 const Dropdown = () => {
-	const { contests } = useAppSelector((state) => state.contests);
+	const sports = useAppSelector(selectSports);
+	const providers = useAppSelector(selectProviders);
 	const dispatch = useAppDispatch();
 
-	// const ref = useRef<any | null>(null);
+	const { data } = useGetContestsFromSportQuery({
+		sportId: sports.selectedSport!.sportId,
+		sport: sports.selectedSport!.regionAbbreviatedSportName,
+		provider: providers.provider!,
+	});
 
-	const [filteredContests, setFilteredContests] = useState(contests);
+	const [filteredContests, setFilteredContests] = useState<IContest[]>([]);
 
 	function onStateChange(selection: UseComboboxStateChange<IContest>) {
 		if (!selection?.selectedItem) {
@@ -24,18 +38,29 @@ const Dropdown = () => {
 		const { selectedItem } = selection;
 
 		if (selectedItem) {
-			if (selectedItem.gameType) {
-				dispatch(setGameType(selectedItem.gameType));
-			}
-
-			dispatch(setContest(selectedItem));
-			dispatch(getPlayers(selectedItem.id));
+			dispatch(setSelectedContest(selectedItem));
+			// if (selectedItem.gameType) {
+			// 	dispatch(setGameType(selectedItem.gameType));
+			// }
+			// dispatch(setContest(selectedItem));
+			// dispatch(getPlayers(selectedItem.id));
 		}
 	}
 
 	useEffect(() => {
-		setFilteredContests(contests);
-	}, [contests]);
+		if (data) {
+			const { provider, contests } = data;
+
+			const transformedContests =
+				provider === 'draftkings'
+					? mapDraftKingsContestsToContests(
+							contests as IDraftKingsContest[]
+					  )
+					: mapYahooContestsToContests(contests as IYahooContest[]);
+
+			setFilteredContests(transformedContests);
+		}
+	}, [data]);
 
 	const {
 		isOpen,
@@ -47,7 +72,7 @@ const Dropdown = () => {
 		getItemProps,
 	} = useCombobox({
 		itemToString: (item) => (item ? item.name : ''),
-		items: filteredContests || [],
+		items: filteredContests,
 		// onInputValueChange: ({ inputValue }) => {
 		// 	setFilteredContests(
 		// 		inputValue && inputValue !== ''
@@ -61,12 +86,6 @@ const Dropdown = () => {
 		// },
 		onStateChange,
 	});
-
-	// useEffect(() => {
-	// 	if (!players && ref.current) {
-	// 		ref.current.clearSelection();
-	// 	}
-	// }, [players]);
 
 	return (
 		<div className="relative" {...getComboboxProps()}>

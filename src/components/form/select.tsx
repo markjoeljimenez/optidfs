@@ -18,11 +18,12 @@ interface ISelect {
 	children?: ReactNode;
 	className?: string;
 	defaultValue?: string;
+	disabled?: boolean;
 	error?: IError;
 	hideLabel?: boolean;
 	id: string;
-	options: string[] | IValueLabel[];
 	label?: string;
+	options: string[] | IValueLabel[];
 	placeholder?: string;
 	position?: 'prepend' | 'append';
 	required?: boolean;
@@ -39,6 +40,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 			children,
 			className,
 			defaultValue,
+			disabled,
 			error,
 			hideLabel,
 			id,
@@ -88,6 +90,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 						ref={ref}
 						id={id}
 						onChange={onChange}
+						disabled={disabled}
 					>
 						<option value="" disabled>
 							{placeholder}

@@ -1,22 +1,17 @@
 import { useAppSelector } from '../hooks';
 
-import Dropdown from '../containers/Dropdown/Dropdown.component';
 import Nav from '../components/global/nav';
-import Upload from '../containers/Upload/Upload.component';
-import Optimize from '../containers/Optimize/Optimize.component';
 import Providers from '../containers/Providers/Providers.components';
 import Sports from '../containers/Sports/Sports.component';
+
+import { selectSports } from '../containers/Sports/Sports.reducers';
 
 export interface ILayoutProps {
 	children: React.ReactNode;
 }
 
 const Dashboard = ({ children }: ILayoutProps) => {
-	const { contests, sports, table, tabs, players } = useAppSelector(
-		(state) => state
-	);
-	const { selectedSport } = sports;
-	const { contest } = contests;
+	const { selectedSport } = useAppSelector(selectSports);
 
 	return (
 		<div className="md:flex md:min-h-screen">

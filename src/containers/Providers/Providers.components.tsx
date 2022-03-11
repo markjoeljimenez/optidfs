@@ -1,28 +1,20 @@
-import { connect, useDispatch } from 'react-redux';
 import { ChangeEvent } from 'react';
 
 import providersData from '../../data/providers';
-import { setProviderAction, SET_PROVIDER } from './Providers.actions';
-import Select, { IValueLabel } from '../../components/form/select';
+import Select from '../../components/form/select';
 import { RESET_SELECTED_SPORT } from '../Sports/Sports.actions';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-type Props = {
-	setProvider: (provider: string) => void;
-};
+import { selectProviders, setProvider } from './Providers.reducers';
 
-const Providers = ({ setProvider }: Props) => {
-	const { sports, providers } = useAppSelector((state) => state);
-	const dispatch = useDispatch();
+const Providers = () => {
+	const providers = useAppSelector(selectProviders);
+	const dispatch = useAppDispatch();
 
 	const handleProviderSelection = (e: ChangeEvent<HTMLSelectElement>) => {
 		const { value } = e.currentTarget;
 
-		dispatch({
-			type: SET_PROVIDER,
-			provider: value,
-		});
-
+		dispatch(setProvider(value));
 		dispatch({
 			type: RESET_SELECTED_SPORT,
 		});
@@ -44,8 +36,4 @@ const Providers = ({ setProvider }: Props) => {
 	);
 };
 
-const mapDispatchToProps = (dispatch) => ({
-	setProvider: (provider: string) => dispatch(setProviderAction(provider)),
-});
-
-export default connect(null, mapDispatchToProps)(Providers);
+export default Providers;

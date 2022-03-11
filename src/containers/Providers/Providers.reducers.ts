@@ -1,33 +1,26 @@
-import { HYDRATE } from 'next-redux-wrapper';
-import { SET_PROVIDER } from './Providers.actions';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import type { AppState } from '../../store';
 
 interface IProviderState {
 	provider: string | null;
 }
 
-interface ProviderAction extends IProviderState {
-	type: string;
-	payload: any;
-}
-
-const DEFAULT_STATE: IProviderState = {
+const initialState: IProviderState = {
 	provider: null,
 };
 
-const ProviderReducers = (
-	state = DEFAULT_STATE,
-	{ type, provider, payload }: ProviderAction
-) => {
-	switch (type) {
-		case SET_PROVIDER:
-			return {
-				...state,
-				provider,
-			};
+export const ProviderReducers = createSlice({
+	name: 'providers',
+	initialState,
+	reducers: {
+		setProvider: (state, action: PayloadAction<string>) => {
+			state.provider = action.payload;
+		},
+	},
+});
 
-		default:
-			return state;
-	}
-};
+export const { setProvider } = ProviderReducers.actions;
+export const selectProviders = (state: AppState) => state.providers;
 
-export default ProviderReducers;
+export default ProviderReducers.reducer;
