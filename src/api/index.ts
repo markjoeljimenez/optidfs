@@ -23,21 +23,6 @@ export const OptidfsApi = createApi({
 				method: 'POST',
 				body,
 			}),
-			transformResponse: (response: any, meta, arg) => {
-				const transformedContests =
-					response.provider === 'draftkings'
-						? mapDraftKingsContestsToContests(
-								response.contests as IDraftKingsContest[]
-						  )
-						: mapYahooContestsToContests(
-								response.contests as IYahooContest[]
-						  );
-
-				return {
-					...response,
-					contests: transformedContests,
-				} as any;
-			},
 		}),
 		getPlayers: builder.query<any, IPlayersBody>({
 			query: (body) => {
