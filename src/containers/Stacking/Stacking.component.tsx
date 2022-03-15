@@ -32,7 +32,7 @@ export const TABS = [
 
 const Stacking = () => {
 	const dispatch = useAppDispatch();
-	const { stacking } = useAppSelector((state) => state);
+	// const { stacking } = useAppSelector((state) => state);
 
 	const forms = useRef<(HTMLFormElement | null)[]>([]);
 
@@ -55,7 +55,7 @@ const Stacking = () => {
 	return (
 		<div className="p-8 flex">
 			<div>
-				<nav>
+				{/* <nav>
 					<ul className="" role="tablist">
 						{TABS.map(({ id, name }) => (
 							<li
@@ -80,7 +80,7 @@ const Stacking = () => {
 							</li>
 						))}
 					</ul>
-				</nav>
+				</nav> */}
 				<button
 					className="px-4 py-3 bg-indigo-700 text-white rounded shadow font-black hover:bg-indigo-800 mt-6"
 					type="button"
@@ -90,7 +90,7 @@ const Stacking = () => {
 				</button>
 			</div>
 
-			{TABS.map(({ id, children }) => (
+			{/* {TABS.map(({ id, children }) => (
 				<div
 					className="flex-1 ml-8"
 					role="tabpanel"
@@ -105,7 +105,7 @@ const Stacking = () => {
 						{children}
 					</form>
 				</div>
-			))}
+			))} */}
 		</div>
 	);
 };

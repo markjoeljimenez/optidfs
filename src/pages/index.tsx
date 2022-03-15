@@ -1,4 +1,4 @@
-import { useAppSelector } from '../hooks';
+import { useAppDispatch, useAppSelector } from '../hooks';
 // import { wrapper } from '../store';
 import Dropdown from '../containers/Dropdown/Dropdown.component';
 import Loading from '../components/loading/loading';
@@ -13,26 +13,32 @@ import { useEffect } from 'react';
 import { selectContests } from '../containers/Dropdown/Dropdown.reducers';
 import { selectProviders } from '../containers/Providers/Providers.reducers';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
+import {
+	selectPlayers,
+	setDefaultPlayers,
+} from '../containers/Players/Players.reducers';
 
 const PANELS = [
 	{
 		id: 'players',
 		element: <Table />,
 	},
-	{
-		id: 'stacking',
-		element: <Stacking />,
-	},
-	{
-		id: 'settings',
-		element: <Rules />,
-	},
+	// {
+	// 	id: 'stacking',
+	// 	element: <Stacking />,
+	// },
+	// {
+	// 	id: 'settings',
+	// 	element: <Rules />,
+	// },
 ];
 
 const Index = () => {
 	const { selectedSport } = useAppSelector(selectSports);
 	const { selectedContest } = useAppSelector(selectContests);
+	const { defaultPlayers } = useAppSelector(selectPlayers);
 	const { provider } = useAppSelector(selectProviders);
+	const dispatch = useAppDispatch();
 
 	const { data } = useGetPlayersQuery(
 		selectedContest
@@ -44,7 +50,11 @@ const Index = () => {
 	);
 
 	useEffect(() => {
-		console.log(data);
+		if (data && provider) {
+			const { players } = data;
+
+			dispatch(setDefaultPlayers({ players, provider }));
+		}
 	}, [data]);
 
 	return (
@@ -101,7 +111,8 @@ const Index = () => {
 					</div>
 				)}
 			</div>
-			{/* {players ? (
+
+			{defaultPlayers.length ? (
 				PANELS.map(({ id, element }) => (
 					<div
 						role="tabpanel"
@@ -114,21 +125,9 @@ const Index = () => {
 				))
 			) : (
 				<></>
-			)} */}
+			)}
 		</div>
 	);
 };
-
-// export const getServerSideProps = getServerSideProps(
-// 	async ({ store }) => {
-// 		if (!API) {
-// 			return null;
-// 		}
-
-// 		const { getState } = store;
-
-// 		return { props: { initialReduxState: getState() } };
-// 	}
-// );
 
 export default Index;

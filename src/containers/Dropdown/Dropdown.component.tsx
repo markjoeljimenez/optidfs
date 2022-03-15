@@ -2,9 +2,6 @@ import { useState, useEffect } from 'react';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
-import { setContest, setGameType } from './Dropdown.actions';
-import { getPlayers } from '../Players/Players.actions';
-
 import { IContest } from '../../interfaces/IContest';
 import { useGetContestsFromSportQuery } from '../../api';
 import { selectSports } from '../Sports/Sports.reducers';
@@ -15,7 +12,7 @@ import {
 	mapDraftKingsContestsToContests,
 	mapYahooContestsToContests,
 } from '../../scripts/services/mapContests';
-import { setSelectedContest } from './Dropdown.reducers';
+import { setGameType, setSelectedContest } from './Dropdown.reducers';
 
 const Dropdown = () => {
 	const sports = useAppSelector(selectSports);
@@ -39,9 +36,10 @@ const Dropdown = () => {
 
 		if (selectedItem) {
 			dispatch(setSelectedContest(selectedItem));
-			// if (selectedItem.gameType) {
-			// 	dispatch(setGameType(selectedItem.gameType));
-			// }
+
+			if (selectedItem.gameType) {
+				dispatch(setGameType(selectedItem.gameType));
+			}
 			// dispatch(setContest(selectedItem));
 			// dispatch(getPlayers(selectedItem.id));
 		}

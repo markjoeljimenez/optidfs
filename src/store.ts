@@ -8,7 +8,7 @@ import rules from './containers/Rules/Rules.reducers';
 import sports from './containers/Sports/Sports.reducers';
 import stacking from './containers/Stacking/Stacking.reducers';
 import table from './containers/Table/Table.reducers';
-import tabs from './containers/Tabs/Tabs.reducers';
+import tabs from './containers/Tabs/Tabs.reducers.old';
 import { OptidfsApi } from './api';
 
 // export const reducers = combineReducers({
@@ -28,12 +28,12 @@ export function makeStore() {
 		reducer: {
 			contests,
 			error,
-			// players,
+			players,
 			providers,
 			// rules,
 			sports,
 			// stacking,
-			// table,
+			table,
 			// tabs,
 			[OptidfsApi.reducerPath]: OptidfsApi.reducer,
 		},

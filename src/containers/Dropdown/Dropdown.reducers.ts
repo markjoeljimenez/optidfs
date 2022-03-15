@@ -11,10 +11,12 @@ import { AppState } from '../../store';
 
 interface IContestState {
 	selectedContest: IContest | null;
+	gameType;
 }
 
 const initialState: IContestState = {
 	selectedContest: null,
+	gameType: null,
 };
 
 export const ContestsReducers = createSlice({
@@ -24,10 +26,13 @@ export const ContestsReducers = createSlice({
 		setSelectedContest: (state, action: PayloadAction<IContest>) => {
 			state.selectedContest = action.payload;
 		},
+		setGameType: (state, action: PayloadAction<string>) => {
+			state.gameType = action.payload;
+		},
 	},
 });
 
-export const { setSelectedContest } = ContestsReducers.actions;
+export const { setSelectedContest, setGameType } = ContestsReducers.actions;
 export const selectContests = (state: AppState) => state.contests;
 
 export default ContestsReducers.reducer;

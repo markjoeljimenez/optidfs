@@ -1,50 +1,25 @@
-import { AnyAction } from 'redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AppState } from '../../store';
 
-import { TABLE_ACTIONS } from './Table.actions';
+export enum View {
+	All = 'all',
+}
 
-export type View = 'all' | 'optimized';
-
-type ITableState = {
-	page: number;
-	view: View;
-	loading: boolean;
+const initialState = {
+	view: View.All,
 };
 
-const DEFAULT_STATE: ITableState = {
-	page: 0,
-	view: 'all',
-	loading: false,
-};
+export const TableReducers = createSlice({
+	name: 'table',
+	initialState,
+	reducers: {
+		setView: (state, action: PayloadAction<View>) => {
+			state.view = action.payload;
+		},
+	},
+});
 
-const TableReducer = (
-	state = DEFAULT_STATE,
-	{ type, loading, view, page }: AnyAction
-): ITableState => {
-	switch (type) {
-		case TABLE_ACTIONS.LOADING_TABLE:
-			return {
-				...state,
-				loading,
-			};
+export const { setView } = TableReducers.actions;
+export const selectTable = (state: AppState) => state.table;
 
-		case TABLE_ACTIONS.SET_VIEW:
-			return {
-				...state,
-				view,
-			};
-
-		case TABLE_ACTIONS.SET_PAGE:
-			return {
-				...state,
-				page,
-			};
-
-		case TABLE_ACTIONS.RESET:
-			return DEFAULT_STATE;
-
-		default:
-			return state;
-	}
-};
-
-export default TableReducer;
+export default TableReducers.reducer;
