@@ -14,24 +14,28 @@ const Dashboard = ({ children }: ILayoutProps) => {
 	const { selectedSport } = useAppSelector(selectSports);
 
 	return (
-		<div className="md:flex md:min-h-screen">
+		<div className="md:flex md:min-h-screen bg-gray-100">
 			<Nav />
 
 			<div className="md:flex md:flex-col w-full">
 				<header className="border-b border-gray-200 bg-white">
 					<div className="mx-auto py-4 px-6 md:p-8 md:flex justify-between items-center">
-						<ul className="flex space-x-4">
+						{/* <ul className="flex space-x-4">
 							<li>
 								<Providers />
 							</li>
 							<li>
 								<Sports />
 							</li>
-						</ul>
+						</ul> */}
 					</div>
 				</header>
 
-				<main>{selectedSport ? <>{children}</> : <></>}</main>
+				<main className="flex-1 flex items-center justify-center flex-col">
+					{children}
+				</main>
+
+				{/* <main>{selectedSport ? <>{children}</> : <></>}</main> */}
 			</div>
 		</div>
 	);
