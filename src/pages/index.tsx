@@ -7,11 +7,20 @@ import Stacking from '../containers/Stacking/Stacking.component';
 import Table from '../containers/Table/Table.component';
 import Tabs from '../containers/Tabs/Tabs.component';
 import Upload from '../containers/Upload/Upload.component';
-import { selectSports } from '../containers/Sports/Sports.reducers';
+import {
+	selectSports,
+	setSelectedSport,
+} from '../containers/Sports/Sports.reducers';
 import { useGetPlayersQuery } from '../api';
 import { useEffect, useState } from 'react';
-import { selectContests } from '../containers/Dropdown/Dropdown.reducers';
-import { selectProviders } from '../containers/Providers/Providers.reducers';
+import {
+	selectContests,
+	setSelectedContest,
+} from '../containers/Dropdown/Dropdown.reducers';
+import {
+	selectProviders,
+	setProvider,
+} from '../containers/Providers/Providers.reducers';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import {
 	selectPlayers,
@@ -21,6 +30,8 @@ import Providers from '../containers/Providers/Providers.components';
 import Sports from '../containers/Sports/Sports.component';
 import IconButton from '../components/global/icon-button';
 import Chevron from '../components/icons/chevron';
+import { setHasVisited } from '../store';
+import { useLocalStorage } from 'react-use';
 
 const PANELS = new Map([
 	['players', <Table />],
@@ -39,46 +50,84 @@ interface StepRenders {
 }
 
 const Index = () => {
-	const { sports, contests, players, providers } = useAppSelector(
+	const { sports, contests, players, providers, global } = useAppSelector(
 		(state) => state
 	);
 	const dispatch = useAppDispatch();
+
+	const [value, setValue, remove] = useLocalStorage('optidfs-initial-visit');
 	const [step, setStep] = useState(1);
 
-	const { data } = useGetPlayersQuery(
-		contests.selectedContest
-			? {
-					id: contests.selectedContest?.id!,
-					provider: providers.provider!,
-			  }
-			: skipToken
-	);
+	// const { data } = useGetPlayersQuery(
+	// 	contests.selectedContest
+	// 		? {
+	// 				id: contests.selectedContest?.id!,
+	// 				provider: providers.provider!,
+	// 		  }
+	// 		: skipToken
+	// );
 
+	// useEffect(() => {
+	// 	if (data && providers.provider) {
+	// 		const { players } = data;
+
+	// 		dispatch(
+	// 			setDefaultPlayers({ players, provider: providers.provider })
+	// 		);
+	// 	}
+	// }, [data]);
+
+	/**
+	 * If there is a local storage value, set redux state
+	 * and go to step 3 (view players)
+	 */
 	useEffect(() => {
-		if (data && providers.provider) {
-			const { players } = data;
+		if (value) {
+			if (!providers.provider && !sports.selectedSport) {
+				dispatch(setProvider(value.provider));
+				dispatch(setSelectedSport(value.sport));
+				dispatch(setHasVisited(true));
 
-			dispatch(
-				setDefaultPlayers({ players, provider: providers.provider })
-			);
+				setStep(3);
+			}
 		}
-	}, [data]);
+	}, [value]);
 
-	const onNext = () => {
+	/**
+	 * If there is no local storage and provider, sport and contest has been selected,
+	 * set local storage
+	 */
+	useEffect(() => {
+		if (
+			!value &&
+			providers.provider &&
+			sports.selectedSport &&
+			step === 3
+		) {
+			setValue({
+				provider: providers.provider,
+				sport: sports.selectedSport,
+			});
+
+			dispatch(setHasVisited(true));
+		}
+	}, [providers.provider, sports.selectedSport, step]);
+
+	function onNext() {
 		if (step >= Object.keys(steps).length) {
 			setStep(step);
 		} else {
 			setStep(step + 1);
 		}
-	};
+	}
 
-	const onBack = () => {
+	function onBack() {
 		if (step < 0) {
 			setStep(0);
 		} else {
 			setStep(step - 1);
 		}
-	};
+	}
 
 	const steps: Record<number, StepRenders> = {
 		1: {
@@ -132,7 +181,16 @@ const Index = () => {
 		},
 	};
 
-	return <div className="space-y-3">{steps[step].content}</div>;
+	return (
+		<div
+			className="flex flex-col items-center justify-center"
+			data-step={step}
+		>
+			<div className="flex-1">
+				<div className="space-y-3">{steps[step].content}</div>
+			</div>
+		</div>
+	);
 };
 
 export default Index;

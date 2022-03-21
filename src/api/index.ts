@@ -7,12 +7,13 @@ import {
 	mapYahooContestsToContests,
 } from '../scripts/services/mapContests';
 import { IContestsResponse, IContestsBody, IPlayersBody } from './interfaces';
+import fetch from 'whatwg-fetch';
 
 export const API = process.env.ENDPOINT;
 
 export const OptidfsApi = createApi({
 	reducerPath: 'optidfs',
-	baseQuery: fetchBaseQuery({ baseUrl: API }),
+	baseQuery: fetchBaseQuery({ baseUrl: API, fetchFn: fetch }),
 	endpoints: (builder) => ({
 		getSportsFromProvider: builder.query<ISport[], string>({
 			query: (provider) => `?provider=${provider}`,

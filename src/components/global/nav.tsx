@@ -16,7 +16,10 @@ const Nav = () => {
 	};
 
 	return (
-		<nav className="px-6 py-4 md:py-8 border-r border-gray-200 font-bold flex flex-col bg-white">
+		<nav
+			className="px-6 py-4 md:py-8 border-r border-gray-200 font-bold flex flex-col bg-white"
+			data-testid="nav"
+		>
 			<div className="relative flex justify-between items-center md:block md:min-w-nav">
 				<button onClick={onClick} type="button" className="md:hidden">
 					{isActive ? (

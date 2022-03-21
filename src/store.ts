@@ -1,4 +1,10 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import {
+	configureStore,
+	ThunkAction,
+	Action,
+	createSlice,
+	PayloadAction,
+} from '@reduxjs/toolkit';
 
 import contests from './containers/Dropdown/Dropdown.reducers';
 import error from './containers/Error/Error.reducers';
@@ -23,6 +29,22 @@ import { OptidfsApi } from './api';
 // 	tabs,
 // });
 
+const initialState = {
+	hasVisited: false,
+};
+
+const GlobalReducers = createSlice({
+	name: 'global',
+	initialState,
+	reducers: {
+		setHasVisited: (state, action: PayloadAction<boolean>) => {
+			state.hasVisited = action.payload;
+		},
+	},
+});
+
+export const { setHasVisited } = GlobalReducers.actions;
+
 export function makeStore() {
 	return configureStore({
 		reducer: {
@@ -35,6 +57,7 @@ export function makeStore() {
 			// stacking,
 			table,
 			// tabs,
+			global: GlobalReducers.reducer,
 			[OptidfsApi.reducerPath]: OptidfsApi.reducer,
 		},
 		middleware: (getDefaultMiddleware) =>
