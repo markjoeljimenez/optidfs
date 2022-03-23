@@ -1,18 +1,30 @@
-import React from 'react';
-import { render as rtlRender } from '@testing-library/react';
+import React, { PropsWithChildren } from 'react';
+import { render as renderRtl, RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
+import { setupStore } from '../../store';
+import { RootState, AppStore } from '../../store';
+import type { PreloadedState } from '@reduxjs/toolkit';
 
-import { makeStore } from '../../store';
+interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
+	preloadedState?: PreloadedState<RootState>;
+	store?: AppStore;
+}
 
 function render(
-	ui,
-	{ initialState, store = makeStore(), ...options }: any = {}
+	ui: React.ReactElement,
+	{
+		preloadedState = {},
+		store = setupStore(preloadedState),
+		...renderOptions
+	}: ExtendedRenderOptions = {}
 ) {
-	function wrapper({ children }: { children: React.ReactNode }) {
+	function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
 		return <Provider store={store}>{children}</Provider>;
 	}
-
-	return rtlRender(ui, { wrapper, ...options });
+	return {
+		store,
+		...renderRtl(ui, { wrapper: Wrapper, ...renderOptions }),
+	};
 }
 
 // re-export everything

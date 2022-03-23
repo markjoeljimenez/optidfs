@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
-import { mockNextUseRouter } from '../../scripts/testing/util/mockNextUseRouter';
 import { render, screen } from '../../scripts/testing/render';
+import { mockNextUseRouter } from '../../scripts/testing/util/mockNextUseRouter';
 import Dashboard from '../dashboard';
 
 describe('Dashboard', () => {

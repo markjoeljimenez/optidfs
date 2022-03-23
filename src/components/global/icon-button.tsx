@@ -9,6 +9,8 @@ interface IIconButton {
 	children: JSX.Element;
 	width?: number;
 	height?: number;
+	testId?: string;
+	key?: string;
 }
 
 const disabledClass = 'bg-gray-300 cursor-default';
@@ -28,6 +30,8 @@ const IconButton = ({
 		onSubmit={props.onSubmit}
 		onClick={props.onClick}
 		disabled={props.disabled}
+		data-testid={props.testId}
+		key={props.key}
 	>
 		<div
 			className={clsx(

@@ -4,6 +4,8 @@ import {
 	Action,
 	createSlice,
 	PayloadAction,
+	PreloadedState,
+	combineReducers,
 } from '@reduxjs/toolkit';
 
 import contests from './containers/Dropdown/Dropdown.reducers';
@@ -45,28 +47,34 @@ const GlobalReducers = createSlice({
 
 export const { setHasVisited } = GlobalReducers.actions;
 
-export function makeStore() {
+const rootReducer = combineReducers({
+	contests,
+	error,
+	players,
+	providers,
+	// rules,
+	sports,
+	// stacking,
+	table,
+	// tabs,
+	global: GlobalReducers.reducer,
+	[OptidfsApi.reducerPath]: OptidfsApi.reducer,
+});
+
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
 	return configureStore({
-		reducer: {
-			contests,
-			error,
-			players,
-			providers,
-			// rules,
-			sports,
-			// stacking,
-			table,
-			// tabs,
-			global: GlobalReducers.reducer,
-			[OptidfsApi.reducerPath]: OptidfsApi.reducer,
-		},
+		reducer: rootReducer,
 		middleware: (getDefaultMiddleware) =>
+			// adding the api middleware enables caching, invalidation, polling and other features of `rtk-query`
 			getDefaultMiddleware().concat(OptidfsApi.middleware),
+		preloadedState,
 	});
-}
+};
 
-const store = makeStore();
+const store = setupStore();
 
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export type AppThunk<ReturnType = void> = ThunkAction<

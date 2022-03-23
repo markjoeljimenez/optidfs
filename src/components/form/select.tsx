@@ -29,85 +29,82 @@ interface ISelect {
 	required?: boolean;
 	tippy?: any;
 	value?: string;
+	testId?: string;
 
 	onChange?(e: ChangeEvent<HTMLSelectElement>): void;
 }
 
 // eslint-disable-next-line react/display-name
 const Select = forwardRef<HTMLSelectElement, ISelect>(
-	(
-		{
-			children,
-			className,
-			defaultValue,
-			disabled,
-			error,
-			hideLabel,
-			id,
-			options,
-			label,
-			placeholder,
-			position,
-			tippy,
-			value,
-			onChange,
-		}: ISelect,
-		ref
-	) => {
+	({ children, ...props }: ISelect, ref) => {
 		return (
-			<div className={className}>
-				<div className={clsx(error && 'text-red-700', tippy && 'pr-8')}>
+			<div className={props.className}>
+				<div
+					className={clsx(
+						props.error && 'text-red-700',
+						props.tippy && 'pr-8'
+					)}
+				>
 					<label
-						htmlFor={id}
+						htmlFor={props.id}
 						className={clsx(
 							'block text-sm font-medium text-gray-700',
-							hideLabel && 'sr-only'
+							props.hideLabel && 'sr-only'
 						)}
 					>
-						{label}
+						{props.label}
 					</label>
-					{tippy}
+					{props.tippy}
 				</div>
 
-				<div className={clsx('flex', !hideLabel && 'mt-2')}>
-					{position === 'prepend' && children}
+				<div className={clsx('flex', !props.hideLabel && 'mt-2')}>
+					{props.position === 'prepend' && children}
 
 					<select
 						defaultValue={
-							defaultValue !== undefined
-								? defaultValue
+							props.defaultValue !== undefined
+								? props.defaultValue
 								: undefined
 						}
-						value={value !== undefined ? value : undefined}
+						value={
+							props.value !== undefined ? props.value : undefined
+						}
 						className={clsx(
 							'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer',
-							position === 'append' &&
+							props.position === 'append' &&
 								'rounded-tr-none rounded-br-none',
-							position === 'prepend' &&
+							props.position === 'prepend' &&
 								'rounded-tl-none rounded-bl-none',
-							error?.isError && 'border-red-700'
+							props.error?.isError && 'border-red-700'
 						)}
 						ref={ref}
-						id={id}
-						onChange={onChange}
-						disabled={disabled}
+						id={props.id}
+						onChange={props.onChange}
+						disabled={props.disabled}
+						data-testid={props.testId}
 					>
 						<option value="" disabled>
-							{placeholder}
+							{props.placeholder}
 						</option>
 
-						{options?.map((item, i) => (
-							<option value={item.value || item} key={i}>
-								{item.label || item}
+						{props.options?.map((item, i) => (
+							<option
+								value={item.value || item}
+								key={`${item.label}`}
+								data-testid={`${item.label}`.toLocaleLowerCase()}
+							>
+								{item.label}
 							</option>
 						))}
 					</select>
 
-					{position === 'append' && children}
+					{props.position === 'append' && children}
 				</div>
 
-				{error?.isError && (
-					<div className="mt-2 text-red-500">{error.message}</div>
+				{props.error?.isError && (
+					<div className="mt-2 text-red-500">
+						{props.error.message}
+					</div>
 				)}
 			</div>
 		);

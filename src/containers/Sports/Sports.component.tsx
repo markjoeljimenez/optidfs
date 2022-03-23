@@ -13,13 +13,15 @@ const Sports = () => {
 	const providers = useAppSelector(selectProviders);
 	const sports = useAppSelector(selectSports);
 
-	const { data } = useGetSportsFromProviderQuery(
-		providers.provider ?? skipToken
-	);
+	const test = useGetSportsFromProviderQuery(providers.provider ?? skipToken);
+
+	// console.log(providers.provider, test);
 
 	function handleSportChange(e: React.ChangeEvent<HTMLSelectElement>) {
 		const sportId = parseInt(e.currentTarget.value);
-		const selectedSport = data?.find((sport) => sport.sportId === sportId);
+		const selectedSport = test.data?.find(
+			(sport) => sport.sportId === sportId
+		);
 
 		if (selectedSport) {
 			dispatch(setSelectedSport(selectedSport));
@@ -41,7 +43,7 @@ const Sports = () => {
 	return (
 		<div className="relative">
 			<Select
-				options={(data ?? [])
+				options={(test.data ?? [])
 					.filter(
 						(sport) =>
 							sport.isEnabled &&
@@ -65,8 +67,9 @@ const Sports = () => {
 				id="selectSport"
 				label="Select sport"
 				placeholder="Select sport"
-				disabled={!data}
+				disabled={!test.data}
 				onChange={handleSportChange}
+				testId="sports-select"
 			/>
 		</div>
 	);

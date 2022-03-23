@@ -15,9 +15,10 @@ const Providers = () => {
 		const { value } = e.currentTarget;
 
 		dispatch(setProvider(value));
-		dispatch({
-			type: RESET_SELECTED_SPORT,
-		});
+
+		// dispatch({
+		// 	type: RESET_SELECTED_SPORT,
+		// });
 	};
 
 	return (
@@ -32,6 +33,7 @@ const Providers = () => {
 			label="Select provider"
 			placeholder="Select provider"
 			onChange={handleProviderSelection}
+			testId="provider-select"
 		/>
 	);
 };

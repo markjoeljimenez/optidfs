@@ -58,6 +58,8 @@ const Index = () => {
 	const [value, setValue, remove] = useLocalStorage('optidfs-initial-visit');
 	const [step, setStep] = useState(1);
 
+	// console.log(sports);
+
 	// const { data } = useGetPlayersQuery(
 	// 	contests.selectedContest
 	// 		? {
@@ -143,6 +145,8 @@ const Index = () => {
 						<IconButton
 							disabled={!sports.selectedSport}
 							onClick={onNext}
+							testId="to-next-step"
+							key="step-1"
 						>
 							<Chevron />
 						</IconButton>
@@ -169,6 +173,7 @@ const Index = () => {
 						<IconButton
 							disabled={!contests.selectedContest}
 							onClick={onNext}
+							key="step-2"
 						>
 							<Chevron />
 						</IconButton>
