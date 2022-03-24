@@ -1,3 +1,4 @@
+import { getSportsFromProvider } from './api/getSportsFromProvider';
 import sportsHandler from './handlers/sports.handler';
 import sportsMock from './mocks/sports.mocks';
 import SportsReducers, {
@@ -5,6 +6,9 @@ import SportsReducers, {
 	setSelectedSport,
 } from './redux/reducers';
 import Sports from './components/Sports';
+
+// Api
+export { getSportsFromProvider };
 
 // Handlers
 export { sportsHandler };
