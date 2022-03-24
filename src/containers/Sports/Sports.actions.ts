@@ -1,3 +1,0 @@
-export const UPDATE_SPORT = 'UPDATE_SPORT';
-export const SET_SPORTS = 'SET_SPORTS';
-export const RESET_SELECTED_SPORT = 'RESET_SELECTED_SPORT';

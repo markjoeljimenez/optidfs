@@ -1,10 +1,10 @@
-import { DROPDOWN_ACTIONS } from '../Dropdown/Dropdown.actions';
-import { PLAYERS_ACTIONS } from '../Players/Players.actions';
-import { TABLE_ACTIONS } from '../Table/Table.actions';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import Select, { IValueLabel } from '../../components/form/select';
-import { selectSports, setSelectedSport } from './Sports.reducers';
-import { useGetSportsFromProviderQuery } from '../../api';
+import { DROPDOWN_ACTIONS } from '../../Dropdown/Dropdown.actions';
+import { PLAYERS_ACTIONS } from '../../Players/Players.actions';
+import { TABLE_ACTIONS } from '../../Table/Table.actions';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import Select, { IValueLabel } from '../../../components/form/select';
+import { selectSports, setSelectedSport } from '../Sports.reducers';
+import { useGetSportsFromProviderQuery } from '../../../api';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { selectProviders } from '@/containers/Providers';
 

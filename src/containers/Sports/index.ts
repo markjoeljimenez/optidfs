@@ -1,4 +1,4 @@
-import Sports from './Sports.component';
+import Sports from './components/Sports';
 import sportsHandler from './handlers/sports.handler';
 import sportsMock from './mocks/sports.mocks';
 

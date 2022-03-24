@@ -1,7 +1,7 @@
 import { useAppSelector } from '../hooks';
 
 import Nav from '../components/global/nav';
-import Sports from '../containers/Sports/Sports.component';
+import Sports from '@/containers/Sports';
 import clsx from 'clsx';
 
 export interface ILayoutProps {

@@ -26,7 +26,7 @@ import {
 	selectPlayers,
 	setDefaultPlayers,
 } from '../containers/Players/Players.reducers';
-import Sports from '../containers/Sports/Sports.component';
+import Sports from '../containers/Sports/components/Sports';
 import IconButton from '../components/global/icon-button';
 import Chevron from '../components/icons/chevron';
 import { setHasVisited } from '../store';

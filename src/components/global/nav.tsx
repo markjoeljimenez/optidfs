@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import clsx from 'clsx';
 
-import Sports from '../../containers/Sports/Sports.component';
 import Donate from './donate';
 
 const Nav = () => {
