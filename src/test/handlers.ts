@@ -1,4 +1,4 @@
-import sportsHandler from '../containers/Sports/__handlers__/sports.handler';
+import sportsHandler from '@/containers/Sports';
 
 const handlers = [sportsHandler];
 
