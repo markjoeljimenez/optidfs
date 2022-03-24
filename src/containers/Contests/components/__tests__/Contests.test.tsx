@@ -1,8 +1,9 @@
-import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor, logRoles } from '@/test/render';
-import Contests from '../Contests';
+import { render, screen } from '@/test/render';
 import { RootState } from 'src/store';
 import { sportsMock } from '@/containers/Sports';
+import { yahooContestsMock } from '../../mocks/contests.mocks';
+import Contests from '../Contests';
+import userEvent from '@testing-library/user-event';
 
 const preloadedState: Partial<RootState> = {
 	providers: {
@@ -57,5 +58,27 @@ describe('Contests', () => {
 			id: 10632517,
 			name: 'NBA $10 10-Team Group',
 		});
+	});
+
+	it('should narrow results if searching', async () => {
+		// Arrange
+		render(<Contests />, { preloadedState });
+
+		const contestsSearchInput = screen.getByPlaceholderText(
+			'Search contest by ID or name'
+		);
+
+		// Act
+		await userEvent.type(contestsSearchInput, 'NBA $10 10-Team Group', {
+			delay: 10,
+		});
+
+		// Wait for list appear
+		const contestsList = await screen.findByRole('listbox');
+
+		// Assert
+		expect(contestsList.children.length).toBeLessThan(
+			yahooContestsMock.contests.length
+		);
 	});
 });

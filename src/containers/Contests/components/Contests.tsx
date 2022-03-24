@@ -1,18 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useCombobox, UseComboboxStateChange } from 'downshift';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-
-import { IContest } from '../../../interfaces/IContest';
-import { useGetContestsFromSportQuery } from '../../../api';
-import { IDraftKingsContest } from '../../../interfaces/draftkings/IDraftKingsContest';
-import { IYahooContest } from '../../../interfaces/yahoo/IYahooContest';
-import {
-	mapDraftKingsContestsToContests,
-	mapYahooContestsToContests,
-} from '../../../scripts/services/mapContests';
-import { setGameType, setSelectedContest } from '../redux/reducers';
+import { IContest } from '../interfaces/IContest';
+import { IDraftKingsContest } from '../interfaces/IDraftKingsContest';
+import { IYahooContest } from '../interfaces/IYahooContest';
 import { selectProviders } from '@/containers/Providers';
+import { setGameType, setSelectedContest } from '../redux/reducers';
 import { sportsState } from '@/containers/Sports';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useCombobox, UseComboboxStateChange } from 'downshift';
+import { useGetContestsFromSportQuery } from '../../../api';
+import { useState, useEffect } from 'react';
+import {
+	mapDraftKingsContests,
+	mapYahooContests,
+} from '../services/mapContests';
 
 const Dropdown = () => {
 	const sports = useAppSelector(sportsState);
@@ -25,6 +24,7 @@ const Dropdown = () => {
 		provider: providers.provider!,
 	});
 
+	const [defaultContests, setDefaultContests] = useState<IContest[]>([]);
 	const [filteredContests, setFilteredContests] = useState<IContest[]>([]);
 
 	function onStateChange(selection: UseComboboxStateChange<IContest>) {
@@ -50,11 +50,10 @@ const Dropdown = () => {
 			const { provider, contests } = data;
 			const transformedContests =
 				provider === 'draftkings'
-					? mapDraftKingsContestsToContests(
-							contests as IDraftKingsContest[]
-					  )
-					: mapYahooContestsToContests(contests as IYahooContest[]);
+					? mapDraftKingsContests(contests as IDraftKingsContest[])
+					: mapYahooContests(contests as IYahooContest[]);
 
+			setDefaultContests(transformedContests);
 			setFilteredContests(transformedContests);
 		}
 	}, [data]);
@@ -70,17 +69,17 @@ const Dropdown = () => {
 	} = useCombobox({
 		itemToString: (item) => (item ? item.name : ''),
 		items: filteredContests,
-		// onInputValueChange: ({ inputValue }) => {
-		// 	setFilteredContests(
-		// 		inputValue && inputValue !== ''
-		// 			? filteredContests?.filter((contest) =>
-		// 					contest.name
-		// 						.toLowerCase()
-		// 						.includes(inputValue?.toLocaleLowerCase())
-		// 			  )
-		// 			: contests
-		// 	);
-		// },
+		onInputValueChange: ({ inputValue }) => {
+			setFilteredContests(
+				inputValue && inputValue !== ''
+					? defaultContests.filter((contest) =>
+							contest.name
+								.toLowerCase()
+								.includes(inputValue?.toLocaleLowerCase())
+					  )
+					: defaultContests
+			);
+		},
 		onStateChange,
 	});
 

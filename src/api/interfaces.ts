@@ -1,5 +1,4 @@
-import { IDraftKingsContest } from '../interfaces/draftkings/IDraftKingsContest';
-import { IYahooContest } from '../interfaces/yahoo/IYahooContest';
+import { IDraftKingsContest, IYahooContest } from '@/containers/Contests';
 
 export interface IContestsBody {
 	sportId: number;

@@ -1,8 +1,8 @@
-import { IDraftKingsContest } from '../../interfaces/draftkings/IDraftKingsContest';
-import { IContest } from '../../interfaces/IContest';
-import { IYahooContest } from '../../interfaces/yahoo/IYahooContest';
+import { IContest } from '../interfaces/IContest';
+import { IDraftKingsContest } from '../interfaces/IDraftKingsContest';
+import { IYahooContest } from '../interfaces/IYahooContest';
 
-export const mapDraftKingsContestsToContests = (
+export const mapDraftKingsContests = (
 	draftKingsContests: IDraftKingsContest[]
 ): IContest[] =>
 	draftKingsContests.map((contest) => ({
@@ -11,7 +11,7 @@ export const mapDraftKingsContestsToContests = (
 		gameType: contest.game_type,
 	}));
 
-export const mapYahooContestsToContests = (
+export const mapYahooContests = (
 	draftKingsContests: IYahooContest[]
 ): IContest[] =>
 	draftKingsContests.map((contest) => ({
