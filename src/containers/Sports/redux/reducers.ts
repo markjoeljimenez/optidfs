@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ISport } from '../../../interfaces/ISports';
-import { AppState } from '../../../store';
+import { ISport } from '../interfaces/ISports';
+import { AppState } from 'src/store';
 
 interface ISportsState {
 	selectedSport?: ISport;
