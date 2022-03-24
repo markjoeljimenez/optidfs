@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../hooks';
 // import { wrapper } from '../store';
-import Dropdown from '../containers/Contests/Dropdown.component';
+import Dropdown from '../containers/Contests/components/Contests';
 import Loading from '../components/loading/loading';
 import Rules from '../containers/Rules/Rules.component';
 import Stacking from '../containers/Stacking/Stacking.component';
@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import {
 	selectContests,
 	setSelectedContest,
-} from '../containers/Contests/Dropdown.reducers';
+} from '../containers/Contests/redux/reducers';
 import {
 	selectProviders,
 	setProvider,

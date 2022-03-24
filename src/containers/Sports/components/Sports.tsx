@@ -1,6 +1,3 @@
-import { DROPDOWN_ACTIONS } from '../../Contests/Dropdown.actions';
-import { PLAYERS_ACTIONS } from '../../Players/Players.actions';
-import { TABLE_ACTIONS } from '../../Table/Table.actions';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import Select, { IValueLabel } from '../../../components/form/select';
 import { sportsState, setSelectedSport } from '../redux/reducers';

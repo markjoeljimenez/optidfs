@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 
-import { IContest } from '../../interfaces/IContest';
-import { useGetContestsFromSportQuery } from '../../api';
-import { IDraftKingsContest } from '../../interfaces/draftkings/IDraftKingsContest';
-import { IYahooContest } from '../../interfaces/yahoo/IYahooContest';
+import { IContest } from '../../../interfaces/IContest';
+import { useGetContestsFromSportQuery } from '../../../api';
+import { IDraftKingsContest } from '../../../interfaces/draftkings/IDraftKingsContest';
+import { IYahooContest } from '../../../interfaces/yahoo/IYahooContest';
 import {
 	mapDraftKingsContestsToContests,
 	mapYahooContestsToContests,
-} from '../../scripts/services/mapContests';
-import { setGameType, setSelectedContest } from './Dropdown.reducers';
+} from '../../../scripts/services/mapContests';
+import { setGameType, setSelectedContest } from '../redux/reducers';
 import { selectProviders } from '@/containers/Providers';
 import { sportsState } from '@/containers/Sports';
 

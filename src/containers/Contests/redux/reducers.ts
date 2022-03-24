@@ -1,13 +1,13 @@
-import { IDraftKingsContest } from '../../interfaces/draftkings/IDraftKingsContest';
-import { IContest } from '../../interfaces/IContest';
-import { IYahooContest } from '../../interfaces/yahoo/IYahooContest';
+import { IDraftKingsContest } from '../../../interfaces/draftkings/IDraftKingsContest';
+import { IContest } from '../../../interfaces/IContest';
+import { IYahooContest } from '../../../interfaces/yahoo/IYahooContest';
 import { DROPDOWN_ACTIONS } from './Dropdown.actions';
 import {
 	mapDraftKingsContestsToContests,
 	mapYahooContestsToContests,
-} from '../../scripts/services/mapContests';
+} from '../../../scripts/services/mapContests';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../../store';
+import { AppState } from '../../../store';
 
 interface IContestState {
 	selectedContest: IContest | null;
