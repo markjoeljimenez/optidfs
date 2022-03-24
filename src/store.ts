@@ -8,7 +8,7 @@ import {
 	combineReducers,
 } from '@reduxjs/toolkit';
 
-import contests from './containers/Contests/redux/reducers';
+import { ContestsReducers } from '@/containers/Contests';
 import error from './containers/Error/Error.reducers';
 import players from './containers/Players/Players.reducers';
 import { ProvidersReducer } from '@/containers/Providers';
@@ -48,7 +48,7 @@ const GlobalReducers = createSlice({
 export const { setHasVisited } = GlobalReducers.actions;
 
 const rootReducer = combineReducers({
-	contests,
+	contests: ContestsReducers,
 	error,
 	players,
 	providers: ProvidersReducer,

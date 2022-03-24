@@ -10,7 +10,7 @@ import Upload from '../containers/Upload/Upload.component';
 import { useGetPlayersQuery } from '../api';
 import { useEffect, useState } from 'react';
 import {
-	selectContests,
+	contestsState,
 	setSelectedContest,
 } from '../containers/Contests/redux/reducers';
 import {

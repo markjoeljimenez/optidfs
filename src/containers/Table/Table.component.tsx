@@ -14,11 +14,11 @@ import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
 import TableSubRow from './components/Table.subRow';
 import { selectTable } from './Table.reducers';
 import columnKeys from './components/Table.columns';
-import { selectContests } from '../Contests/redux/reducers';
+import { contestsState } from '../Contests/redux/reducers';
 
 const Table = () => {
 	const players = useAppSelector(selectPlayers);
-	const contests = useAppSelector(selectContests);
+	const contests = useAppSelector(contestsState);
 	const table = useAppSelector(selectTable);
 	const dispatch = useAppDispatch();
 

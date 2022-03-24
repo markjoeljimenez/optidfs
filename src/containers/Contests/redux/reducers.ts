@@ -1,11 +1,4 @@
-import { IDraftKingsContest } from '../../../interfaces/draftkings/IDraftKingsContest';
 import { IContest } from '../../../interfaces/IContest';
-import { IYahooContest } from '../../../interfaces/yahoo/IYahooContest';
-import { DROPDOWN_ACTIONS } from './Dropdown.actions';
-import {
-	mapDraftKingsContestsToContests,
-	mapYahooContestsToContests,
-} from '../../../scripts/services/mapContests';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppState } from '../../../store';
 
@@ -33,7 +26,7 @@ export const ContestsReducers = createSlice({
 });
 
 export const { setSelectedContest, setGameType } = ContestsReducers.actions;
-export const selectContests = (state: AppState) => state.contests;
+export const contestsState = (state: AppState) => state.contests;
 
 export default ContestsReducers.reducer;
 
