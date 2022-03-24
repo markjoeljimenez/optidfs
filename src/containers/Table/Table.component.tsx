@@ -10,7 +10,6 @@ import {
 } from 'react-table';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { selectPlayers } from '../Players/Players.reducers';
-import { selectProviders } from '../Providers/Providers.reducers';
 import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
 import TableSubRow from './components/Table.subRow';
 import { selectTable } from './Table.reducers';

@@ -5,7 +5,6 @@ import clsx from 'clsx';
 
 import Sports from '../../containers/Sports/Sports.component';
 import Donate from './donate';
-import Providers from '../../containers/Providers/Providers.components';
 
 const Nav = () => {
 	const router = useRouter();

@@ -3,10 +3,7 @@
 		"module": "esnext",
 		"target": "esnext",
 		"jsx": "preserve",
-		"lib": [
-			"dom",
-			"esnext"
-		],
+		"lib": ["dom", "esnext"],
 		"strict": true,
 		"noEmit": true,
 		"noImplicitAny": false,
@@ -19,18 +16,14 @@
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"sourceMap": true,
-		"outDir": "out"
+		"outDir": "out",
+		"baseUrl": ".",
+		"paths": {
+			"@/components/*": ["src/components/*"],
+			"@/containers/*": ["src/containers/*"],
+			"@/test/*": ["src/test/*"]
+		}
 	},
-	"exclude": [
-		"node_modules",
-		"**/*.spec.ts",
-		"**/*.spec.tsx",
-		"**/*.test.ts",
-		"**/*.test.tsx"
-	],
-	"include": [
-		"next-env.d.ts",
-		"**/*.ts",
-		"**/*.tsx"
-	]
+	"exclude": ["node_modules"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

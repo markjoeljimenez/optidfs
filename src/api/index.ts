@@ -1,11 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { IDraftKingsContest } from '../interfaces/draftkings/IDraftKingsContest';
-import { ISport } from '../interfaces/ISports';
-import { IYahooContest } from '../interfaces/yahoo/IYahooContest';
-import {
-	mapDraftKingsContestsToContests,
-	mapYahooContestsToContests,
-} from '../scripts/services/mapContests';
+import { getSportsFromProvider } from '@/containers/Providers';
 import { IContestsResponse, IContestsBody, IPlayersBody } from './interfaces';
 
 export const API = process.env.ENDPOINT;
@@ -14,9 +8,7 @@ export const OptidfsApi = createApi({
 	reducerPath: 'optidfs',
 	baseQuery: fetchBaseQuery({ baseUrl: API }),
 	endpoints: (builder) => ({
-		getSportsFromProvider: builder.query<ISport[], string>({
-			query: (provider) => `?provider=${provider}`,
-		}),
+		getSportsFromProvider: getSportsFromProvider(builder),
 		getContestsFromSport: builder.query<IContestsResponse, IContestsBody>({
 			query: (body) => ({
 				url: 'contests',

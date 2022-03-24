@@ -11,7 +11,7 @@ import {
 import contests from './containers/Dropdown/Dropdown.reducers';
 import error from './containers/Error/Error.reducers';
 import players from './containers/Players/Players.reducers';
-import providers from './containers/Providers/Providers.reducers';
+import { ProvidersReducer } from './containers/Providers';
 import rules from './containers/Rules/Rules.reducers';
 import sports from './containers/Sports/Sports.reducers';
 import stacking from './containers/Stacking/Stacking.reducers';
@@ -51,7 +51,7 @@ const rootReducer = combineReducers({
 	contests,
 	error,
 	players,
-	providers,
+	providers: ProvidersReducer,
 	// rules,
 	sports,
 	// stacking,

@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import Select, { IValueLabel } from '../../components/form/select';
 import { selectSports, setSelectedSport } from './Sports.reducers';
 import { useGetSportsFromProviderQuery } from '../../api';
-import { selectProviders } from '../Providers/Providers.reducers';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { selectProviders } from 'containers/Providers';
 
 const Sports = () => {
 	const dispatch = useAppDispatch();

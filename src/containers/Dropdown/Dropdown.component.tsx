@@ -5,7 +5,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { IContest } from '../../interfaces/IContest';
 import { useGetContestsFromSportQuery } from '../../api';
 import { selectSports } from '../Sports/Sports.reducers';
-import { selectProviders } from '../Providers/Providers.reducers';
 import { IDraftKingsContest } from '../../interfaces/draftkings/IDraftKingsContest';
 import { IYahooContest } from '../../interfaces/yahoo/IYahooContest';
 import {
@@ -13,6 +12,7 @@ import {
 	mapYahooContestsToContests,
 } from '../../scripts/services/mapContests';
 import { setGameType, setSelectedContest } from './Dropdown.reducers';
+import { selectProviders } from 'containers/Providers';
 
 const Dropdown = () => {
 	const sports = useAppSelector(selectSports);

@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-import type { AppState } from '../../store';
+import { AppState } from 'store';
 
 interface IProviderState {
 	provider: string | null;
@@ -10,7 +9,7 @@ const initialState: IProviderState = {
 	provider: null,
 };
 
-export const ProviderReducers = createSlice({
+const ProviderReducers = createSlice({
 	name: 'providers',
 	initialState,
 	reducers: {

@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import { render as renderRtl, RenderOptions } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { setupStore } from '../../store';
-import { RootState, AppStore } from '../../store';
+import { setupStore } from '../store';
+import { RootState, AppStore } from '../store';
 import type { PreloadedState } from '@reduxjs/toolkit';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {

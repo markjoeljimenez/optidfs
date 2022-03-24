@@ -20,18 +20,18 @@ import {
 import {
 	selectProviders,
 	setProvider,
-} from '../containers/Providers/Providers.reducers';
+} from '../containers/Providers/redux/reducers';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import {
 	selectPlayers,
 	setDefaultPlayers,
 } from '../containers/Players/Players.reducers';
-import Providers from '../containers/Providers/Providers.components';
 import Sports from '../containers/Sports/Sports.component';
 import IconButton from '../components/global/icon-button';
 import Chevron from '../components/icons/chevron';
 import { setHasVisited } from '../store';
 import { useLocalStorage } from 'react-use';
+import Providers from 'containers/Providers';
 
 const PANELS = new Map([
 	['players', <Table />],

@@ -1,7 +1,6 @@
 import { useAppSelector } from '../hooks';
 
 import Nav from '../components/global/nav';
-import Providers from '../containers/Providers/Providers.components';
 import Sports from '../containers/Sports/Sports.component';
 import clsx from 'clsx';
 
