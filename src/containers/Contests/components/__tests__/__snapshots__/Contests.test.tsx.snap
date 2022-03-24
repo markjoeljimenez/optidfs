@@ -65,6 +65,12 @@ Object {
             Down
           </span>
         </button>
+        <ul
+          aria-labelledby="downshift-0-label"
+          class=""
+          id="downshift-0-menu"
+          role="listbox"
+        />
       </div>
     </div>
   </body>,
@@ -129,6 +135,12 @@ Object {
           Down
         </span>
       </button>
+      <ul
+        aria-labelledby="downshift-0-label"
+        class=""
+        id="downshift-0-menu"
+        role="listbox"
+      />
     </div>
   </div>,
   "debug": [Function],

@@ -7,11 +7,12 @@ import { sportsState } from '@/containers/Sports';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useGetContestsFromSportQuery } from '../../../api';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
 	mapDraftKingsContests,
 	mapYahooContests,
 } from '../services/mapContests';
+import clsx from 'clsx';
 
 const Dropdown = () => {
 	const sports = useAppSelector(sportsState);
@@ -121,25 +122,30 @@ const Dropdown = () => {
 				</svg>
 				<span className="sr-only">Down</span>
 			</button>
-			{isOpen && filteredContests?.length ? (
-				<ul
-					className="absolute top-1/1 left-0 right-0 max-h-20 bg-white overflow-y-scroll shadow border rounded mt-4 z-10"
-					{...getMenuProps()}
-				>
-					{filteredContests?.map((item, index) => (
-						<li
-							className="p-4 border-b border-gray-300 hover:bg-gray-100 cursor-pointer"
-							{...getItemProps({
-								index,
-								item,
-							})}
-							key={index}
-						>
-							{item.gameType || item.id} - {item.name}
-						</li>
-					))}
-				</ul>
-			) : null}
+			<ul
+				className={clsx(
+					isOpen &&
+						'absolute top-1/1 left-0 right-0 max-h-20 bg-white overflow-y-scroll shadow border rounded mt-4 z-10'
+				)}
+				{...getMenuProps()}
+			>
+				{isOpen && filteredContests?.length ? (
+					<>
+						{filteredContests?.map((item, index) => (
+							<li
+								className="p-4 border-b border-gray-300 hover:bg-gray-100 cursor-pointer"
+								{...getItemProps({
+									index,
+									item,
+								})}
+								key={index}
+							>
+								{item.gameType || item.id} - {item.name}
+							</li>
+						))}
+					</>
+				) : null}
+			</ul>
 		</div>
 	);
 };
