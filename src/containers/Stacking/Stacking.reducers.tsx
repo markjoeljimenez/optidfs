@@ -6,7 +6,7 @@ import {
 	SET_SETTING_ERROR,
 	SET_STACKING_ACTIVE_TAB,
 } from './Stacking.actions';
-import { IPlayer } from '../../interfaces/IPlayer';
+import { IPlayer } from '../Players/interfaces/IPlayer';
 
 export interface ITeamStack {
 	NUMBER_OF_PLAYERS_TO_STACK: number;

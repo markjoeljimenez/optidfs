@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 
-import { searchPlayers } from '../Players/Players.actions';
+import { searchPlayers } from '../Players/redux/Players.actions';
 
 const Search = () => {
 	const dispatch = useAppDispatch();

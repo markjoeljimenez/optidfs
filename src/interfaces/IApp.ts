@@ -1,4 +1,4 @@
-import { IPlayer } from './IPlayer';
+import { IPlayer } from '@/containers/Players';
 
 export interface IResponse {
 	lineups: ILineup[];

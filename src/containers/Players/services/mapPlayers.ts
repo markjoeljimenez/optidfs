@@ -1,8 +1,8 @@
-import { IDraftKingsPlayer } from '../../interfaces/draftkings/IDraftKingsPlayer';
-import { IPlayer } from '../../interfaces/IPlayer';
-import { IYahooPlayer } from '../../interfaces/yahoo/IYahooPlayer';
+import { IDraftKingsPlayer } from '../interfaces/IDraftKingsPlayer';
+import { IPlayer } from '../interfaces/IPlayer';
+import { IYahooPlayer } from '../interfaces/IYahooPlayer';
 
-export const mapDraftKingsPlayersToPlayers = (
+export const mapDraftKingsPlayers = (
 	draftKingsPlayers: IDraftKingsPlayer[]
 ): IPlayer[] =>
 	draftKingsPlayers.map((draftKingsPlayer) => ({
@@ -18,9 +18,7 @@ export const mapDraftKingsPlayersToPlayers = (
 		image: draftKingsPlayer.images?.[160] || draftKingsPlayer.images?.[50],
 	}));
 
-export const mapYahooPlayersToPlayers = (
-	yahooPlayers: IYahooPlayer[]
-): IPlayer[] =>
+export const mapYahooPlayers = (yahooPlayers: IYahooPlayer[]): IPlayer[] =>
 	yahooPlayers.map((yahooPlayer) => ({
 		id: yahooPlayer.playerSalaryId,
 		firstName: yahooPlayer.firstName,

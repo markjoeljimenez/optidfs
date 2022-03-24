@@ -1,12 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IDraftKingsPlayer } from '../../interfaces/draftkings/IDraftKingsPlayer';
-import { IPlayer } from '../../interfaces/IPlayer';
-import { IYahooPlayer } from '../../interfaces/yahoo/IYahooPlayer';
-import {
-	mapDraftKingsPlayersToPlayers,
-	mapYahooPlayersToPlayers,
-} from '../../scripts/services/mapPlayers';
-import { AppState } from '../../store';
+import { IDraftKingsPlayer } from '../interfaces/IDraftKingsPlayer';
+import { IPlayer } from '../interfaces/IPlayer';
+import { IYahooPlayer } from '../interfaces/IYahooPlayer';
+import { mapDraftKingsPlayers, mapYahooPlayers } from '../services/mapPlayers';
+import { AppState } from '../../../store';
 
 interface IInitialState {
 	defaultPlayers: IPlayer[];
@@ -31,10 +28,8 @@ export const PlayersReducers = createSlice({
 
 			const transformedPlayers =
 				provider === 'draftkings'
-					? mapDraftKingsPlayersToPlayers(
-							players as IDraftKingsPlayer[]
-					  )
-					: mapYahooPlayersToPlayers(players as IYahooPlayer[]);
+					? mapDraftKingsPlayers(players as IDraftKingsPlayer[])
+					: mapYahooPlayers(players as IYahooPlayer[]);
 
 			state.defaultPlayers = transformedPlayers;
 		},
@@ -42,6 +37,6 @@ export const PlayersReducers = createSlice({
 });
 
 export const { setDefaultPlayers } = PlayersReducers.actions;
-export const selectPlayers = (state: AppState) => state.players;
+export const playersState = (state: AppState) => state.players;
 
 export default PlayersReducers.reducer;

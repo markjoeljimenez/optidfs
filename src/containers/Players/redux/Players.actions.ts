@@ -1,6 +1,6 @@
-import { IDraftKingsPlayer } from '../../interfaces/draftkings/IDraftKingsPlayer';
-import { IYahooPlayer } from '../../interfaces/yahoo/IYahooPlayer';
-import { View } from '../Table/Table.reducers';
+import { IDraftKingsPlayer } from '../interfaces/IDraftKingsPlayer';
+import { IYahooPlayer } from '../interfaces/IYahooPlayer';
+import { View } from '../../Table/Table.reducers';
 
 export const PLAYERS_ACTIONS = {
 	CLEAR_TOGGLE: 'CLEAR_TOGGLE',

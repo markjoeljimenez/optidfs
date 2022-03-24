@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 import { Column } from 'react-table';
 import Pill from '../../../components/global/pill';
-import { IPlayer } from '../../../interfaces/IPlayer';
+import { IPlayer } from '@/containers/Players';
 import { Status, StatusTranslation } from '../../../interfaces/IStatus';
 import { MultiSelectColumnFilter } from './filters/StatusFilter';
 

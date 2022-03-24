@@ -11,7 +11,7 @@ import React, { useMemo } from 'react';
 import clsx from 'clsx';
 
 import { setPage, setView } from './Table.actions';
-import { updateLineupsPage } from '../Players/Players.actions';
+import { updateLineupsPage } from '../Players/redux/Players.actions';
 
 import Error from '../Error/Error.component';
 import TableSearch from './components/Table.search';

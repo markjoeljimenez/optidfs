@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import Modal from 'react-modal';
 import { useAppDispatch } from '../../hooks';
 
-import { getPlayers } from '../Players/Players.actions';
+import { getPlayers } from '../Players/redux/Players.actions';
 import { setGameType } from '../Contests/Dropdown.actions';
 
 Modal.setAppElement('#__next');

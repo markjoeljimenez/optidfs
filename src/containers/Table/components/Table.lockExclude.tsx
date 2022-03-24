@@ -6,7 +6,7 @@ import {
 	lockPlayer,
 	excludePlayer,
 	clearToggle,
-} from '../../Players/Players.actions';
+} from '../../Players/redux/Players.actions';
 
 export enum ELockOrExclude {
 	Locked = 'locked',

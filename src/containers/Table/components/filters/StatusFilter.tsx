@@ -2,7 +2,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useAppDispatch } from '../../../../hooks';
 import { StatusTranslation } from '../../../../interfaces/IStatus';
-import { filterPlayers } from '../../../Players/Players.actions';
+import { filterPlayers } from '../../../Players/redux/Players.actions';
 
 export function MultiSelectColumnFilter({
 	column: { setFilter, preFilteredRows, id },

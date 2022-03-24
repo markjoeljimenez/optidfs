@@ -1,11 +1,11 @@
 import Input from '../../../components/form/input';
 import { useAppDispatch } from '../../../hooks';
-import { IPlayer } from '../../../interfaces/IPlayer';
+import { IPlayer } from '@/containers/Players';
 
 import {
 	setPlayerExposure,
 	setProjectedOwnership,
-} from '../../Players/Players.actions';
+} from '../../Players/redux/Players.actions';
 
 interface ITableSubRow {
 	player: IPlayer;

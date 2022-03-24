@@ -10,7 +10,7 @@ import {
 
 import { ContestsReducers } from '@/containers/Contests';
 import error from './containers/Error/Error.reducers';
-import players from './containers/Players/Players.reducers';
+import { PlayersReducers } from '@/containers/Players';
 import { ProvidersReducer } from '@/containers/Providers';
 import rules from './containers/Rules/Rules.reducers';
 import { SportsReducers } from '@/containers/Sports';
@@ -50,7 +50,7 @@ export const { setHasVisited } = GlobalReducers.actions;
 const rootReducer = combineReducers({
 	contests: ContestsReducers,
 	error,
-	players,
+	players: PlayersReducers,
 	providers: ProvidersReducer,
 	// rules,
 	sports: SportsReducers,

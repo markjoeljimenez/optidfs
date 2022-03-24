@@ -1,7 +1,7 @@
 import { put, select } from 'redux-saga/effects';
 import { API } from './saga';
 
-import { getPlayersSucceeded } from '../containers/Players/Players.actions';
+import { getPlayersSucceeded } from '../containers/Players/redux/Players.actions';
 import { loadingTable } from '../containers/Table/Table.actions';
 import {
 	resetError,
