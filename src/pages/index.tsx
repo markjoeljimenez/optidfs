@@ -7,10 +7,6 @@ import Stacking from '../containers/Stacking/Stacking.component';
 import Table from '../containers/Table/Table.component';
 import Tabs from '../containers/Tabs/Tabs.component';
 import Upload from '../containers/Upload/Upload.component';
-import {
-	selectSports,
-	setSelectedSport,
-} from '../containers/Sports/Sports.reducers';
 import { useGetPlayersQuery } from '../api';
 import { useEffect, useState } from 'react';
 import {
@@ -32,6 +28,7 @@ import Chevron from '../components/icons/chevron';
 import { setHasVisited } from '../store';
 import { useLocalStorage } from 'react-use';
 import Providers from '@/containers/Providers';
+import { setSelectedSport } from '@/containers/Sports';
 
 const PANELS = new Map([
 	['players', <Table />],

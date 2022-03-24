@@ -3,7 +3,7 @@ import { PLAYERS_ACTIONS } from '../../Players/Players.actions';
 import { TABLE_ACTIONS } from '../../Table/Table.actions';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import Select, { IValueLabel } from '../../../components/form/select';
-import { selectSports, setSelectedSport } from '../Sports.reducers';
+import { sportsState, setSelectedSport } from '../redux/reducers';
 import { useGetSportsFromProviderQuery } from '../../../api';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { selectProviders } from '@/containers/Providers';
@@ -11,7 +11,7 @@ import { selectProviders } from '@/containers/Providers';
 const Sports = () => {
 	const dispatch = useAppDispatch();
 	const providers = useAppSelector(selectProviders);
-	const sports = useAppSelector(selectSports);
+	const sports = useAppSelector(sportsState);
 
 	const test = useGetSportsFromProviderQuery(providers.provider ?? skipToken);
 

@@ -11,9 +11,9 @@ import {
 import contests from './containers/Dropdown/Dropdown.reducers';
 import error from './containers/Error/Error.reducers';
 import players from './containers/Players/Players.reducers';
-import { ProvidersReducer } from './containers/Providers';
+import { ProvidersReducer } from '@/containers/Providers';
 import rules from './containers/Rules/Rules.reducers';
-import sports from './containers/Sports/Sports.reducers';
+import { SportsReducers } from '@/containers/Sports';
 import stacking from './containers/Stacking/Stacking.reducers';
 import table from './containers/Table/Table.reducers';
 import tabs from './containers/Tabs/Tabs.reducers.old';
@@ -53,7 +53,7 @@ const rootReducer = combineReducers({
 	players,
 	providers: ProvidersReducer,
 	// rules,
-	sports,
+	sports: SportsReducers,
 	// stacking,
 	table,
 	// tabs,

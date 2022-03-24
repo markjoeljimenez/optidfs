@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ISport } from '../../interfaces/ISports';
-import { AppState } from '../../store';
+import { ISport } from '../../../interfaces/ISports';
+import { AppState } from '../../../store';
 
 interface ISportsState {
 	selectedSport?: ISport;
@@ -19,6 +19,6 @@ export const SportsReducers = createSlice({
 });
 
 export const { setSelectedSport } = SportsReducers.actions;
-export const selectSports = (state: AppState) => state.sports;
+export const sportsState = (state: AppState) => state.sports;
 
 export default SportsReducers.reducer;

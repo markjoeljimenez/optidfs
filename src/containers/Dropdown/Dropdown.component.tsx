@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 
 import { IContest } from '../../interfaces/IContest';
 import { useGetContestsFromSportQuery } from '../../api';
-import { selectSports } from '../Sports/Sports.reducers';
 import { IDraftKingsContest } from '../../interfaces/draftkings/IDraftKingsContest';
 import { IYahooContest } from '../../interfaces/yahoo/IYahooContest';
 import {
@@ -13,9 +12,10 @@ import {
 } from '../../scripts/services/mapContests';
 import { setGameType, setSelectedContest } from './Dropdown.reducers';
 import { selectProviders } from '@/containers/Providers';
+import { sportsState } from '@/containers/Sports';
 
 const Dropdown = () => {
-	const sports = useAppSelector(selectSports);
+	const sports = useAppSelector(sportsState);
 	const providers = useAppSelector(selectProviders);
 	const dispatch = useAppDispatch();
 
