@@ -17,5 +17,5 @@ export interface IPlayer {
 
 	// DraftKings attributes
 	draftPositions?: string;
-	image?: string;
+	image?: string | null;
 }

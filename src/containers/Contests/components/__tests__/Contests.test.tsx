@@ -1,4 +1,4 @@
-import { render, screen } from '@/test/render';
+import { render, screen, waitFor } from '@/test/render';
 import { RootState } from 'src/store';
 import { sportsMock } from '@/containers/Sports';
 import { yahooContestsMock } from '../../mocks/contests.mocks';
@@ -46,11 +46,10 @@ describe('Contests', () => {
 		// Act
 		userEvent.click(contestsExpandButton);
 
-		// Wait for list appear
-		await screen.findByRole('listbox');
-
 		// Get first contest and click
-		const firstContest = screen.getAllByRole('option')[0];
+		const firstContest = await waitFor(
+			() => screen.getAllByRole('option')[0]
+		);
 		userEvent.click(firstContest);
 
 		// Assert
@@ -74,7 +73,7 @@ describe('Contests', () => {
 		});
 
 		// Wait for list appear
-		const contestsList = await screen.findByRole('listbox');
+		const contestsList = screen.getByRole('listbox');
 
 		// Assert
 		expect(contestsList.children.length).toBeLessThan(

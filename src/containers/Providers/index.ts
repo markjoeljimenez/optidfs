@@ -2,7 +2,7 @@ import Providers from './components/Providers';
 import ProvidersReducer, {
 	setProvider,
 	selectProviders,
-} from './redux/reducers';
+} from './redux/Providers.reducers';
 
 // Reducer
 export { ProvidersReducer };

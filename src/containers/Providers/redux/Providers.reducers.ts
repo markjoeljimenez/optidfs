@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from 'store';
+import { AppState } from '../../../store';
 
 interface IProviderState {
 	provider: string | null;
 }
 
-const initialState: IProviderState = {
+export const initialState: IProviderState = {
 	provider: null,
 };
 

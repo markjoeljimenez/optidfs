@@ -13,18 +13,18 @@ import {
 	contestsState,
 	setSelectedContest,
 } from '../containers/Contests/redux/reducers';
-import {
-	selectProviders,
-	setProvider,
-} from '../containers/Providers/redux/reducers';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import Sports from '@/containers/Sports';
 import IconButton from '../components/global/icon-button';
 import Chevron from '../components/icons/chevron';
 import { setHasVisited } from '../store';
 import { useLocalStorage } from 'react-use';
-import Providers from '@/containers/Providers';
+import Providers, {
+	selectProviders,
+	setProvider,
+} from '@/containers/Providers';
 import { setSelectedSport } from '@/containers/Sports';
+import { setDefaultPlayers } from '@/containers/Players';
 
 const PANELS = new Map([
 	['players', <Table />],
@@ -62,15 +62,15 @@ const Index = () => {
 			: skipToken
 	);
 
-	// useEffect(() => {
-	// 	if (data && providers.provider) {
-	// 		const { players } = data;
+	useEffect(() => {
+		if (data && providers.provider) {
+			const { players } = data;
 
-	// 		dispatch(
-	// 			setDefaultPlayers({ players, provider: providers.provider })
-	// 		);
-	// 	}
-	// }, [data]);
+			dispatch(
+				setDefaultPlayers({ players, provider: providers.provider })
+			);
+		}
+	}, [data]);
 
 	/**
 	 * If there is a local storage value, set redux state
