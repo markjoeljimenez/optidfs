@@ -1,4 +1,4 @@
-import { DROPDOWN_ACTIONS } from '../../Dropdown/Dropdown.actions';
+import { DROPDOWN_ACTIONS } from '../../Contests/Dropdown.actions';
 import { PLAYERS_ACTIONS } from '../../Players/Players.actions';
 import { TABLE_ACTIONS } from '../../Table/Table.actions';
 import { useAppDispatch, useAppSelector } from '../../../hooks';

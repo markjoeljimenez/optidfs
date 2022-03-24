@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { useAppDispatch } from '../../hooks';
 
 import { getPlayers } from '../Players/Players.actions';
-import { setGameType } from '../Dropdown/Dropdown.actions';
+import { setGameType } from '../Contests/Dropdown.actions';
 
 Modal.setAppElement('#__next');
 
