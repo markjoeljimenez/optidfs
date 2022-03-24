@@ -1,8 +1,9 @@
 import userEvent from '@testing-library/user-event';
-import { logRoles, render, screen, waitFor } from '@/test/render';
+import { render, screen, waitFor } from '@/test/render';
 import Sports from '../Sports';
+import { RootState } from 'src/store';
 
-const preloadedState = {
+const preloadedState: Partial<RootState> = {
 	providers: {
 		provider: 'draftkings',
 	},

@@ -1,4 +1,6 @@
-const sportsMock = [
+import { ISport } from '../interfaces/ISports';
+
+const sportsMock: ISport[] = [
 	{
 		fullName: 'Football',
 		hasPublicContests: true,
