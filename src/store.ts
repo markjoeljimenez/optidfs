@@ -8,7 +8,7 @@ import {
 	combineReducers,
 } from '@reduxjs/toolkit';
 
-import contests from './containers/Dropdown/Dropdown.reducers';
+import contests from './containers/Contests/Dropdown.reducers';
 import error from './containers/Error/Error.reducers';
 import players from './containers/Players/Players.reducers';
 import { ProvidersReducer } from '@/containers/Providers';

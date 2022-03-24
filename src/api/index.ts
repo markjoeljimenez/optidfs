@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getSportsFromProvider } from '@/containers/Sports';
-import { IContestsResponse, IContestsBody, IPlayersBody } from './interfaces';
+import { IPlayersBody } from './interfaces';
+import { getContestsFromSport } from '@/containers/Contests';
 
 export const API = process.env.ENDPOINT;
 
@@ -9,13 +10,7 @@ export const OptidfsApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: API }),
 	endpoints: (builder) => ({
 		getSportsFromProvider: getSportsFromProvider(builder),
-		getContestsFromSport: builder.query<IContestsResponse, IContestsBody>({
-			query: (body) => ({
-				url: 'contests',
-				method: 'POST',
-				body,
-			}),
-		}),
+		getContestsFromSport: getContestsFromSport(builder),
 		getPlayers: builder.query<any, IPlayersBody>({
 			query: (body) => {
 				const params = new URLSearchParams(body as any);
