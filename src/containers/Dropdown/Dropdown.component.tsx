@@ -12,7 +12,7 @@ import {
 	mapYahooContestsToContests,
 } from '../../scripts/services/mapContests';
 import { setGameType, setSelectedContest } from './Dropdown.reducers';
-import { selectProviders } from 'containers/Providers';
+import { selectProviders } from '@/containers/Providers';
 
 const Dropdown = () => {
 	const sports = useAppSelector(selectSports);

@@ -6,7 +6,7 @@ import Select, { IValueLabel } from '../../components/form/select';
 import { selectSports, setSelectedSport } from './Sports.reducers';
 import { useGetSportsFromProviderQuery } from '../../api';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
-import { selectProviders } from 'containers/Providers';
+import { selectProviders } from '@/containers/Providers';
 
 const Sports = () => {
 	const dispatch = useAppDispatch();

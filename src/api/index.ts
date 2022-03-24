@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getSportsFromProvider } from '@/containers/Providers';
+import { getSportsFromProvider } from '@/containers/Sports/api/getSportsFromProvider';
 import { IContestsResponse, IContestsBody, IPlayersBody } from './interfaces';
 
 export const API = process.env.ENDPOINT;
