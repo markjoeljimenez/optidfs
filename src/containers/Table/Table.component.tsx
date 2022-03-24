@@ -9,7 +9,7 @@ import {
 	usePagination,
 } from 'react-table';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { selectPlayers } from '../Players/Players.reducers';
+import { playersState } from '@/containers/Players';
 import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
 import TableSubRow from './components/Table.subRow';
 import { selectTable } from './Table.reducers';
@@ -17,7 +17,7 @@ import columnKeys from './components/Table.columns';
 import { contestsState } from '../Contests/redux/reducers';
 
 const Table = () => {
-	const players = useAppSelector(selectPlayers);
+	const players = useAppSelector(playersState);
 	const contests = useAppSelector(contestsState);
 	const table = useAppSelector(selectTable);
 	const dispatch = useAppDispatch();

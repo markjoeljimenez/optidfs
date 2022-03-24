@@ -18,10 +18,6 @@ import {
 	setProvider,
 } from '../containers/Providers/redux/reducers';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
-import {
-	selectPlayers,
-	setDefaultPlayers,
-} from '../containers/Players/Players.reducers';
 import Sports from '@/containers/Sports';
 import IconButton from '../components/global/icon-button';
 import Chevron from '../components/icons/chevron';
@@ -57,14 +53,14 @@ const Index = () => {
 
 	// console.log(sports);
 
-	// const { data } = useGetPlayersQuery(
-	// 	contests.selectedContest
-	// 		? {
-	// 				id: contests.selectedContest?.id!,
-	// 				provider: providers.provider!,
-	// 		  }
-	// 		: skipToken
-	// );
+	const { data } = useGetPlayersQuery(
+		contests.selectedContest
+			? {
+					id: contests.selectedContest?.id!,
+					provider: providers.provider!,
+			  }
+			: skipToken
+	);
 
 	// useEffect(() => {
 	// 	if (data && providers.provider) {

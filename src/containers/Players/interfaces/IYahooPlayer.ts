@@ -1,13 +1,5 @@
 export interface Team {
 	code: string;
-	location: string;
-	name: string;
-	teamName: string;
-	abbr: string;
-}
-
-export interface Team {
-	code: string;
 	abbr: string;
 }
 

@@ -2,7 +2,7 @@ import { useAppSelector } from '../hooks';
 
 import Nav from '../components/global/nav';
 import Sports from '@/containers/Sports';
-import clsx from 'clsx';
+import Providers from '@/containers/Providers';
 
 export interface ILayoutProps {
 	children: React.ReactNode;

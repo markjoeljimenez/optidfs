@@ -1,4 +1,6 @@
 import { getPlayers } from './api/getPlayers';
+import { draftKingsPlayersMock, yahooPlayersMock } from './mocks/players.mocks';
+import playersHandler from './handlers/players.handler';
 import PlayersReducers, {
 	setDefaultPlayers,
 	playersState,
@@ -10,6 +12,12 @@ import { IYahooPlayer } from './interfaces/IYahooPlayer';
 
 // Api
 export { getPlayers };
+
+// Mocks
+export { yahooPlayersMock, draftKingsPlayersMock };
+
+// Handler
+export { playersHandler };
 
 // Reducers
 export { PlayersReducers };
