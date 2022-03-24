@@ -1,10 +1,9 @@
 import { getContestsFromSport } from './api/getContestsFromSport';
-import { IContest } from './interfaces/IContest';
-import { IDraftKingsContest } from './interfaces/IDraftKingsContest';
-import { IYahooContest } from './interfaces/IYahooContest';
-import { yahooContestsMock } from './mocks/contests.mocks';
-import Contests from './components/Contests';
 import contestsHandler from './handlers/contests.handler';
+import {
+	yahooContestsMock,
+	draftKingsContestsMock,
+} from './mocks/contests.mocks';
 import ContestsReducers, {
 	setSelectedContest,
 	setGameType,
@@ -14,12 +13,16 @@ import {
 	mapDraftKingsContests,
 	mapYahooContests,
 } from './services/mapContests';
+import { IYahooContest } from './interfaces/IYahooContest';
+import { IDraftKingsContest } from './interfaces/IDraftKingsContest';
+import { IContest } from './interfaces/IContest';
+import Contests from './components/Contests';
 
 // Api
 export { getContestsFromSport };
 
 // Mocks
-export { yahooContestsMock };
+export { yahooContestsMock, draftKingsContestsMock };
 
 // Handler
 export { contestsHandler };

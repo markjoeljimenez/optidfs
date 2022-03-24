@@ -346,3 +346,233 @@ export const yahooContestsMock = {
 	],
 	provider: 'yahoo',
 };
+
+export const draftKingsContestsMock = {
+	contests: [
+		{
+			double_up: false,
+			draft_group_id: 65923,
+			entries: {
+				fee: 777,
+				maximum: 434,
+				total: 140,
+			},
+			fantasy_player_points: 777,
+			fifty_fifty: false,
+			game_type: 'Classic',
+			guaranteed: true,
+			head_to_head: false,
+			id: 125040241,
+			name: 'NBA $300K Swish [$100K to 1st]',
+			payout: 303500,
+			sport: {
+				'py/reduce': [
+					{
+						'py/type': 'draft_kings.data.Sport',
+					},
+					{
+						'py/tuple': ['NBA'],
+					},
+				],
+			},
+			starred: true,
+			starts_at: {
+				__reduce__: [
+					{
+						'py/type': 'datetime.datetime',
+					},
+					[
+						'B+YDGBceAAAAAA==',
+						{
+							'py/reduce': [
+								{
+									'py/function': 'pytz._UTC',
+								},
+								{
+									'py/tuple': [],
+								},
+							],
+						},
+					],
+				],
+				'py/object': 'datetime.datetime',
+			},
+		},
+		{
+			double_up: false,
+			draft_group_id: 65923,
+			entries: {
+				fee: 15,
+				maximum: 23529,
+				total: 8242,
+			},
+			fantasy_player_points: 15,
+			fifty_fifty: false,
+			game_type: 'Classic',
+			guaranteed: true,
+			head_to_head: false,
+			id: 125040243,
+			name: 'NBA $300K Fadeaway [$100K to 1st]',
+			payout: 300000,
+			sport: {
+				'py/id': 1,
+			},
+			starred: true,
+			starts_at: {
+				__reduce__: [
+					{
+						'py/type': 'datetime.datetime',
+					},
+					[
+						'B+YDGBceAAAAAA==',
+						{
+							'py/id': 3,
+						},
+					],
+				],
+				'py/object': 'datetime.datetime',
+			},
+		},
+		{
+			double_up: false,
+			draft_group_id: 65923,
+			entries: {
+				fee: 88,
+				maximum: 645,
+				total: 302,
+			},
+			fantasy_player_points: 88,
+			fifty_fifty: false,
+			game_type: 'Classic',
+			guaranteed: true,
+			head_to_head: false,
+			id: 125040245,
+			name: 'NBA $50K Box Out [$10K to 1st]',
+			payout: 50000,
+			sport: {
+				'py/id': 1,
+			},
+			starred: true,
+			starts_at: {
+				__reduce__: [
+					{
+						'py/type': 'datetime.datetime',
+					},
+					[
+						'B+YDGBceAAAAAA==',
+						{
+							'py/id': 3,
+						},
+					],
+				],
+				'py/object': 'datetime.datetime',
+			},
+		},
+		{
+			double_up: false,
+			draft_group_id: 65923,
+			entries: {
+				fee: 4,
+				maximum: 20808,
+				total: 7613,
+			},
+			fantasy_player_points: 4,
+			fifty_fifty: false,
+			game_type: 'Classic',
+			guaranteed: true,
+			head_to_head: false,
+			id: 125040239,
+			name: 'NBA $70K Four Point Play [20 Entry Max]',
+			payout: 70000,
+			sport: {
+				'py/id': 1,
+			},
+			starred: true,
+			starts_at: {
+				__reduce__: [
+					{
+						'py/type': 'datetime.datetime',
+					},
+					[
+						'B+YDGBceAAAAAA==',
+						{
+							'py/id': 3,
+						},
+					],
+				],
+				'py/object': 'datetime.datetime',
+			},
+		},
+		{
+			double_up: false,
+			draft_group_id: 65929,
+			entries: {
+				fee: 15,
+				maximum: 9411,
+				total: 3229,
+			},
+			fantasy_player_points: 15,
+			fifty_fifty: false,
+			game_type: 'Showdown Captain Mode',
+			guaranteed: true,
+			head_to_head: false,
+			id: 125044189,
+			name: 'NBA Showdown $120K Fadeaway [$30K to 1st] (PHX vs DEN)',
+			payout: 120000,
+			sport: {
+				'py/id': 1,
+			},
+			starred: true,
+			starts_at: {
+				__reduce__: [
+					{
+						'py/type': 'datetime.datetime',
+					},
+					[
+						'B+YDGQEAAAAAAA==',
+						{
+							'py/id': 3,
+						},
+					],
+				],
+				'py/object': 'datetime.datetime',
+			},
+		},
+		{
+			double_up: false,
+			draft_group_id: 65929,
+			entries: {
+				fee: 222,
+				maximum: 75,
+				total: 23,
+			},
+			fantasy_player_points: 222,
+			fifty_fifty: false,
+			game_type: 'Showdown Captain Mode',
+			guaranteed: true,
+			head_to_head: false,
+			id: 125044188,
+			name: 'NBA Showdown $15K SLAM Jam [$5K to 1st] (PHX vs DEN)',
+			payout: 15000,
+			sport: {
+				'py/id': 1,
+			},
+			starred: true,
+			starts_at: {
+				__reduce__: [
+					{
+						'py/type': 'datetime.datetime',
+					},
+					[
+						'B+YDGQEAAAAAAA==',
+						{
+							'py/id': 3,
+						},
+					],
+				],
+				'py/object': 'datetime.datetime',
+			},
+		},
+	],
+	provider: 'draftkings',
+};
