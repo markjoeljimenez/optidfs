@@ -13,6 +13,7 @@
 		"serve": "next start",
 		"test": "jest",
 		"test:watch": "jest --watch",
+		"cypress": "cypress open",
 		"fix:eslint": "npx eslint --fix **/*.tsx",
 		"fix:stylelint": "npx stylelint --fix \"src/**/*.scss\"",
 		"lint": "next lint"
@@ -71,6 +72,7 @@
 		"@testing-library/react": "^12.1.4",
 		"@testing-library/user-event": "^13.5.0",
 		"babel-jest": "^27.5.1",
+		"cypress": "^9.5.2",
 		"eslint-plugin-testing-library": "^5.1.0",
 		"jest": "^27.5.1",
 		"msw": "^0.39.2",

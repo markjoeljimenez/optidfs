@@ -2,7 +2,6 @@ import { ChangeEvent } from 'react';
 
 import providersData from '../../../data/providers';
 import Select from '../../../components/form/select';
-import { RESET_SELECTED_SPORT } from '../../Sports/Sports.actions';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectProviders, setProvider } from '..';
 
