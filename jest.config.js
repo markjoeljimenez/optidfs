@@ -15,7 +15,7 @@ const customJestConfig = {
 	testEnvironment: 'jest-environment-jsdom',
 	setupFilesAfterEnv: [
 		'@testing-library/jest-dom',
-		'<rootDir>/jest.setup.js',
+		'<rootDir>/jest.setup.ts',
 	],
 	moduleNameMapper: {
 		// Handle module aliases (this will be automatically configured for you soon)
