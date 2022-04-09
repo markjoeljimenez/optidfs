@@ -13,11 +13,17 @@ import {
 	mapYahooContests,
 } from '../services/mapContests';
 import clsx from 'clsx';
+import { useLocalStorage } from 'react-use';
 
 const Dropdown = () => {
-	const sports = useAppSelector(sportsState);
-	const providers = useAppSelector(selectProviders);
+	const { sports, providers, contests } = useAppSelector((state) => state);
+	// const sports = useAppSelector(sportsState);
+	// const providers = useAppSelector(selectProviders);
 	const dispatch = useAppDispatch();
+
+	const [localStorage, setLocalStorage] = useLocalStorage(
+		'optidfs-initial-visit'
+	);
 
 	const { data } = useGetContestsFromSportQuery({
 		sportId: sports.selectedSport!.sportId,
@@ -41,6 +47,7 @@ const Dropdown = () => {
 			if (selectedItem.gameType) {
 				dispatch(setGameType(selectedItem.gameType));
 			}
+
 			// dispatch(setContest(selectedItem));
 			// dispatch(getPlayers(selectedItem.id));
 		}
@@ -48,16 +55,17 @@ const Dropdown = () => {
 
 	useEffect(() => {
 		if (data) {
-			const { provider, contests } = data;
 			const transformedContests =
-				provider === 'draftkings'
-					? mapDraftKingsContests(contests as IDraftKingsContest[])
-					: mapYahooContests(contests as IYahooContest[]);
+				data.provider === 'draftkings'
+					? mapDraftKingsContests(
+							data.contests as IDraftKingsContest[]
+					  )
+					: mapYahooContests(data.contests as IYahooContest[]);
 
 			setDefaultContests(transformedContests);
 			setFilteredContests(transformedContests);
 		}
-	}, [data]);
+	}, [data, localStorage]);
 
 	const {
 		isOpen,
@@ -81,6 +89,9 @@ const Dropdown = () => {
 					: defaultContests
 			);
 		},
+		selectedItem: defaultContests.find(
+			(contest) => contest.id === contests?.selectedContest?.id
+		),
 		onStateChange,
 	});
 

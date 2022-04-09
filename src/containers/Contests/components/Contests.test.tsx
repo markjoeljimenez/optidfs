@@ -1,8 +1,8 @@
 import { render, screen, waitFor } from '@/test/render';
 import { RootState } from 'src/store';
 import { sportsMock } from '@/containers/Sports';
-import { yahooContestsMock } from '../../mocks/contests.mocks';
-import Contests from '../Contests';
+import { yahooContestsMock } from '../mocks/contests.mocks';
+import Contests from './Contests';
 import userEvent from '@testing-library/user-event';
 
 const preloadedState: Partial<RootState> = {

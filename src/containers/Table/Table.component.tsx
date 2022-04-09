@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
 	useTable,
 	defaultColumn,
@@ -9,25 +9,51 @@ import {
 	usePagination,
 } from 'react-table';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { playersState } from '@/containers/Players';
+import { playersState, setDefaultPlayers } from '@/containers/Players';
 import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
 import TableSubRow from './components/Table.subRow';
 import { selectTable } from './Table.reducers';
 import columnKeys from './components/Table.columns';
 import { contestsState } from '../Contests/redux/reducers';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { useGetPlayersQuery } from 'src/api';
+import Loading, { LoadingSize } from '@/components/loading/loading';
 
 const Table = () => {
-	const players = useAppSelector(playersState);
-	const contests = useAppSelector(contestsState);
-	const table = useAppSelector(selectTable);
+	const { players, contests, providers, table } = useAppSelector(
+		(state) => state
+	);
+	// const players = useAppSelector(playersState);
+	// const contests = useAppSelector(contestsState);
+	// const table = useAppSelector(selectTable);
 	const dispatch = useAppDispatch();
+
+	const response = useGetPlayersQuery(
+		contests.selectedContest
+			? {
+					id: contests.selectedContest?.id!,
+					provider: providers.provider!,
+					gameType: contests.gameType,
+			  }
+			: skipToken
+	);
+
+	useEffect(() => {
+		if (response.data) {
+			const { players } = response.data;
+
+			dispatch(
+				setDefaultPlayers({ players, provider: providers.provider })
+			);
+		}
+	}, [response.data]);
 
 	const data = useMemo(() => {
 		// if (table.view === 'optimized' && players.optimized) {
 		// 	return players.optimized;
 		// }
 
-		if (table.view === 'all' && players.defaultPlayers) {
+		if (table.view === 'all' && players?.defaultPlayers) {
 			return players.defaultPlayers;
 		}
 
@@ -93,7 +119,7 @@ const Table = () => {
 		usePagination
 	) as any;
 
-	return (
+	return !response.isLoading && !response.isFetching ? (
 		<table
 			{...getTableProps()}
 			className="w-full table-auto relative border-collapse"
@@ -302,6 +328,8 @@ const Table = () => {
 				)} */}
 			</tfoot>
 		</table>
+	) : (
+		<Loading text="Loading players. This may take a while..." />
 	);
 };
 

@@ -1,42 +1,16 @@
-import { useAppDispatch, useAppSelector } from '../hooks';
-// import { wrapper } from '../store';
-import Dropdown from '../containers/Contests/components/Contests';
-import Loading from '../components/loading/loading';
-import Rules from '../containers/Rules/Rules.component';
-import Stacking from '../containers/Stacking/Stacking.component';
-import Table from '../containers/Table/Table.component';
-import Tabs from '../containers/Tabs/Tabs.component';
-import Upload from '../containers/Upload/Upload.component';
-import { useGetPlayersQuery } from '../api';
-import { useEffect, useState } from 'react';
-import {
-	contestsState,
-	setSelectedContest,
-} from '../containers/Contests/redux/reducers';
-import { skipToken } from '@reduxjs/toolkit/dist/query';
-import Sports from '@/containers/Sports';
-import IconButton from '../components/global/icon-button';
-import Chevron from '../components/icons/chevron';
 import { setHasVisited } from '../store';
-import { useLocalStorage } from 'react-use';
-import Providers, {
-	selectProviders,
-	setProvider,
-} from '@/containers/Providers';
+import { setSelectedContest } from '../containers/Contests/redux/reducers';
 import { setSelectedSport } from '@/containers/Sports';
-import { setDefaultPlayers } from '@/containers/Players';
-
-const PANELS = new Map([
-	['players', <Table />],
-	// {
-	// 	id: 'stacking',
-	// 	element: <Stacking />,
-	// },
-	// {
-	// 	id: 'settings',
-	// 	element: <Rules />,
-	// },
-]);
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { useEffect, useState } from 'react';
+import { useLocalStorage } from 'react-use';
+import Chevron from '../components/icons/chevron';
+import Contests from '@/containers/Contests';
+import Dropdown from '../containers/Contests/components/Contests';
+import IconButton from '../components/global/icon-button';
+import Providers, { setProvider } from '@/containers/Providers';
+import Sports from '@/containers/Sports';
+import Table from '../containers/Table/Table.component';
 
 interface StepRenders {
 	content: JSX.Element;
@@ -48,29 +22,8 @@ const Index = () => {
 	);
 	const dispatch = useAppDispatch();
 
-	const [value, setValue, remove] = useLocalStorage('optidfs-initial-visit');
+	const [value, setValue] = useLocalStorage('optidfs-initial-visit');
 	const [step, setStep] = useState(1);
-
-	// console.log(sports);
-
-	const { data } = useGetPlayersQuery(
-		contests.selectedContest
-			? {
-					id: contests.selectedContest?.id!,
-					provider: providers.provider!,
-			  }
-			: skipToken
-	);
-
-	useEffect(() => {
-		if (data && providers.provider) {
-			const { players } = data;
-
-			dispatch(
-				setDefaultPlayers({ players, provider: providers.provider })
-			);
-		}
-	}, [data]);
 
 	/**
 	 * If there is a local storage value, set redux state
@@ -78,9 +31,14 @@ const Index = () => {
 	 */
 	useEffect(() => {
 		if (value) {
-			if (!providers.provider && !sports.selectedSport) {
+			if (
+				!providers.provider &&
+				!sports.selectedSport &&
+				!contests.selectedContest
+			) {
 				dispatch(setProvider(value.provider));
 				dispatch(setSelectedSport(value.sport));
+				dispatch(setSelectedContest(value.contest));
 				dispatch(setHasVisited(true));
 
 				setStep(3);
@@ -97,16 +55,23 @@ const Index = () => {
 			!value &&
 			providers.provider &&
 			sports.selectedSport &&
+			contests.selectedContest &&
 			step === 3
 		) {
 			setValue({
 				provider: providers.provider,
 				sport: sports.selectedSport,
+				contest: contests.selectedContest,
 			});
 
 			dispatch(setHasVisited(true));
 		}
-	}, [providers.provider, sports.selectedSport, step]);
+	}, [
+		providers.provider,
+		sports.selectedSport,
+		contests.selectedContest,
+		step,
+	]);
 
 	function onNext() {
 		if (step >= Object.keys(steps).length) {
@@ -175,15 +140,17 @@ const Index = () => {
 			),
 		},
 		3: {
-			content: <div>{PANELS.get('players')}</div>,
+			content: (
+				<>
+					<Contests />
+					<Table />
+				</>
+			),
 		},
 	};
 
 	return (
-		<div
-			className="flex flex-col items-center justify-center"
-			data-step={step}
-		>
+		<div data-step={step}>
 			<div className="flex-1">
 				<div className="space-y-3">{steps[step].content}</div>
 			</div>

@@ -1,8 +1,8 @@
 import {
 	draftKingsContestsMock,
 	yahooContestsMock,
-} from '../../mocks/contests.mocks';
-import { mapDraftKingsContests, mapYahooContests } from '../mapContests';
+} from '../mocks/contests.mocks';
+import { mapDraftKingsContests, mapYahooContests } from './mapContests';
 
 describe('mapContests', () => {
 	it('should map DraftKings', () => {
