@@ -48,19 +48,23 @@ const Dropdown = () => {
 
 	useEffect(() => {
 		if (data) {
-			const foundContest = data?.contests.find(
-				(contest) => contest.id === contests?.selectedContest?.id
-			);
+			setDefaultContests(data.contests);
 
-			if (!foundContest) {
-				toast(
-					`No contest found with id: ${contests.selectedContest?.id}`
+			if (contests.selectedContest) {
+				const foundContest = data?.contests.find(
+					(contest) => contest.id === contests?.selectedContest!.id
 				);
 
-				return;
-			}
+				if (!foundContest) {
+					toast(
+						`No contest found with id: ${contests.selectedContest.id}`
+					);
 
-			setSelectedItem(foundContest);
+					return;
+				}
+
+				setSelectedItem(foundContest);
+			}
 		}
 	}, [data]);
 
@@ -76,13 +80,15 @@ const Dropdown = () => {
 		itemToString: (item) => (item ? item.name : ''),
 		items: defaultContests,
 		onInputValueChange: ({ inputValue }) => {
-			setDefaultContests(
-				data?.contests.filter((contest) =>
-					contest.name
-						.toLocaleLowerCase()
-						.includes(inputValue!.toLocaleLowerCase())
-				)!
-			);
+			if (data?.contests) {
+				setDefaultContests(
+					data?.contests.filter((contest) =>
+						contest.name
+							.toLocaleLowerCase()
+							.includes(inputValue!.toLocaleLowerCase())
+					)!
+				);
+			}
 		},
 		selectedItem,
 		onStateChange,
