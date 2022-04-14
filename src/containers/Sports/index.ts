@@ -5,6 +5,7 @@ import SportsReducers, {
 	sportsState,
 	setSelectedSport,
 } from './redux/reducers';
+import { ISport } from './interfaces/ISports';
 import Sports from './components/Sports';
 
 // Api
@@ -24,6 +25,9 @@ export { setSelectedSport };
 
 // State
 export { sportsState };
+
+// Interfaces
+export type { ISport };
 
 // Components
 export default Sports;

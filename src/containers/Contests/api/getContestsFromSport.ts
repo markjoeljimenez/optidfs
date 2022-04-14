@@ -6,6 +6,12 @@ import {
 } from '@reduxjs/toolkit/dist/query';
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
 import { IContestsResponse, IContestsBody } from 'src/api/interfaces';
+import { IContest } from '../interfaces/IContest';
+import { mapContests } from '../services/mapContests';
+
+interface IContestTransformedResponse {
+	contests: IContest[];
+}
 
 const getContestsFromSport = (
 	builder: EndpointBuilder<
@@ -20,12 +26,21 @@ const getContestsFromSport = (
 		'optidfs'
 	>
 ) =>
-	builder.query<IContestsResponse, IContestsBody>({
+	builder.query({
 		query: (body) => ({
 			url: 'contests',
 			method: 'POST',
 			body,
 		}),
+		transformResponse: (
+			response: IContestsResponse,
+			meta,
+			arg: IContestsBody
+		): IContestTransformedResponse => {
+			return {
+				contests: mapContests(response.contests, arg.provider),
+			};
+		},
 	});
 
 export { getContestsFromSport };

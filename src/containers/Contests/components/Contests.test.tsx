@@ -80,4 +80,20 @@ describe('Contests', () => {
 			yahooContestsMock.contests.length
 		);
 	});
+
+	it('should display error message if selectedContest id is invalid', () => {
+		// Arrange
+		render(<Contests />, {
+			preloadedState: {
+				...preloadedState,
+				contests: {
+					selectedContest: {
+						id: 12345,
+						name: 'Invalid contest',
+					},
+					gameType: null,
+				},
+			},
+		});
+	});
 });

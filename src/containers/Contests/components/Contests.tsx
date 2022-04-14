@@ -1,27 +1,19 @@
 import { IContest } from '../interfaces/IContest';
-import { IDraftKingsContest } from '../interfaces/IDraftKingsContest';
-import { IYahooContest } from '../interfaces/IYahooContest';
-import { selectProviders } from '@/containers/Providers';
 import { setGameType, setSelectedContest } from '../redux/reducers';
-import { sportsState } from '@/containers/Sports';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useGetContestsFromSportQuery } from '../../../api';
-import { useState, useEffect, useRef } from 'react';
-import {
-	mapDraftKingsContests,
-	mapYahooContests,
-} from '../services/mapContests';
+import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { useLocalStorage } from 'react-use';
+import { ILocalStorage } from 'src/interfaces/ILocalStorage';
+import { toast } from 'react-toastify';
 
 const Dropdown = () => {
 	const { sports, providers, contests } = useAppSelector((state) => state);
-	// const sports = useAppSelector(sportsState);
-	// const providers = useAppSelector(selectProviders);
 	const dispatch = useAppDispatch();
 
-	const [localStorage, setLocalStorage] = useLocalStorage(
+	const [localStorage, setLocalStorage] = useLocalStorage<ILocalStorage>(
 		'optidfs-initial-visit'
 	);
 
@@ -31,8 +23,10 @@ const Dropdown = () => {
 		provider: providers.provider!,
 	});
 
-	const [defaultContests, setDefaultContests] = useState<IContest[]>([]);
-	const [filteredContests, setFilteredContests] = useState<IContest[]>([]);
+	const [defaultContests, setDefaultContests] = useState<IContest[]>(
+		data?.contests ?? []
+	);
+	const [selectedItem, setSelectedItem] = useState<IContest>();
 
 	function onStateChange(selection: UseComboboxStateChange<IContest>) {
 		if (!selection?.selectedItem) {
@@ -44,28 +38,31 @@ const Dropdown = () => {
 		if (selectedItem) {
 			dispatch(setSelectedContest(selectedItem));
 
+			setLocalStorage({ ...localStorage!, contest: selectedItem });
+
 			if (selectedItem.gameType) {
 				dispatch(setGameType(selectedItem.gameType));
 			}
-
-			// dispatch(setContest(selectedItem));
-			// dispatch(getPlayers(selectedItem.id));
 		}
 	}
 
 	useEffect(() => {
 		if (data) {
-			const transformedContests =
-				data.provider === 'draftkings'
-					? mapDraftKingsContests(
-							data.contests as IDraftKingsContest[]
-					  )
-					: mapYahooContests(data.contests as IYahooContest[]);
+			const foundContest = data?.contests.find(
+				(contest) => contest.id === contests?.selectedContest?.id
+			);
 
-			setDefaultContests(transformedContests);
-			setFilteredContests(transformedContests);
+			if (!foundContest) {
+				toast(
+					`No contest found with id: ${contests.selectedContest?.id}`
+				);
+
+				return;
+			}
+
+			setSelectedItem(foundContest);
 		}
-	}, [data, localStorage]);
+	}, [data]);
 
 	const {
 		isOpen,
@@ -77,21 +74,17 @@ const Dropdown = () => {
 		getItemProps,
 	} = useCombobox({
 		itemToString: (item) => (item ? item.name : ''),
-		items: filteredContests,
+		items: defaultContests,
 		onInputValueChange: ({ inputValue }) => {
-			setFilteredContests(
-				inputValue && inputValue !== ''
-					? defaultContests.filter((contest) =>
-							contest.name
-								.toLowerCase()
-								.includes(inputValue?.toLocaleLowerCase())
-					  )
-					: defaultContests
+			setDefaultContests(
+				data?.contests.filter((contest) =>
+					contest.name
+						.toLocaleLowerCase()
+						.includes(inputValue!.toLocaleLowerCase())
+				)!
 			);
 		},
-		selectedItem: defaultContests.find(
-			(contest) => contest.id === contests?.selectedContest?.id
-		),
+		selectedItem,
 		onStateChange,
 	});
 
@@ -140,9 +133,9 @@ const Dropdown = () => {
 				)}
 				{...getMenuProps()}
 			>
-				{isOpen && filteredContests?.length ? (
-					<>
-						{filteredContests?.map((item, index) => (
+				{isOpen &&
+					(defaultContests.length ? (
+						defaultContests?.map((item, index) => (
 							<li
 								className="p-4 border-b border-gray-300 hover:bg-gray-100 cursor-pointer"
 								{...getItemProps({
@@ -151,11 +144,14 @@ const Dropdown = () => {
 								})}
 								key={index}
 							>
-								{item.gameType || item.id} - {item.name}
+								{item.gameType} - {item.name}
 							</li>
-						))}
-					</>
-				) : null}
+						))
+					) : (
+						<li className="p-4 border-b border-gray-300">
+							No contests found
+						</li>
+					))}
 			</ul>
 		</div>
 	);

@@ -7,7 +7,7 @@ export interface IContestsBody {
 }
 
 export interface IContestsResponse {
-	contests: (IDraftKingsContest | IYahooContest)[];
+	contests: IDraftKingsContest[] | IYahooContest[];
 	provider: string;
 }
 
