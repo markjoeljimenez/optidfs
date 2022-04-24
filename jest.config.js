@@ -11,6 +11,7 @@ const customJestConfig = {
 	// Add more setup options before each test is run
 	// setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 	// if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
+	roots: ['<rootDir>/src'],
 	moduleDirectories: ['node_modules', '<rootDir>/src'],
 	testEnvironment: 'jest-environment-jsdom',
 	setupFilesAfterEnv: [
@@ -21,6 +22,12 @@ const customJestConfig = {
 		// Handle module aliases (this will be automatically configured for you soon)
 		'^@/containers/(.*)$': '<rootDir>/src/containers/$1',
 		'^@/test/(.*)$': '<rootDir>/src/test/$1',
+	},
+	transform: {
+		'<rootDir>/src/^.+\\.(js|jsx|ts|tsx)$': [
+			'babel-jest',
+			{ presets: ['next/babel'] },
+		],
 	},
 };
 

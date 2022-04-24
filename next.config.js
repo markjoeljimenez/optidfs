@@ -14,6 +14,7 @@ const config = {
 		domains: ['www.paypal.com'],
 	},
 	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
+	swcMinify: true,
 };
 
 module.exports = withMDX(config);
