@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { useLocalStorage } from 'react-use';
 import { ILocalStorage } from 'src/interfaces/ILocalStorage';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 const Dropdown = () => {
 	const { sports, providers, contests } = useAppSelector((state) => state);
@@ -57,7 +57,9 @@ const Dropdown = () => {
 
 				if (!foundContest) {
 					toast(
-						`No contest found with id: ${contests.selectedContest.id}`
+						`No contest found with id: ${
+							contests.selectedContest!.id
+						}`
 					);
 
 					return;

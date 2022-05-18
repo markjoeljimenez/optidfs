@@ -1,11 +1,11 @@
 import { DefaultSeo } from 'next-seo';
 import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 import * as Sentry from '@sentry/browser';
 import Dashboard from '../layouts/dashboard';
 import store from '../store';
+import toast, { resolveValue, Toaster } from 'react-hot-toast';
+import Toast from '@/components/toast/toast';
 
-import 'react-toastify/dist/ReactToastify.minimal.css';
 import '../styles/styles.scss';
 
 interface IApp {
@@ -23,34 +23,21 @@ const App = ({ Component, pageProps }: IApp) => {
 
 	return (
 		<Provider store={store}>
-			<ToastContainer
-				className="absolute top-4 right-4 p-4 rounded shadow"
-				toastClassName="flex flex-row"
-				draggable={false}
-				hideProgressBar
-				closeButton={({ closeButton }) => (
-					<button onClick={closeButton}>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							width={24}
-							height={24}
-						>
-							<g data-name="Layer 2">
-								<g data-name="close">
-									<rect
-										width="24"
-										height="24"
-										transform="rotate(180 12 12)"
-										opacity="0"
-									/>
-									<path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
-								</g>
-							</g>
-						</svg>
-					</button>
+			<Toaster
+				position="top-right"
+				toastOptions={{
+					duration: Infinity,
+				}}
+			>
+				{(t) => (
+					<Toast
+						onClose={() => toast.dismiss(t.id)}
+						visible={t.visible}
+					>
+						{resolveValue(t.message, t)}
+					</Toast>
 				)}
-			/>
+			</Toaster>
 			<DefaultSeo
 				title="Optidfs"
 				description="A web app that generates the most optimized lineups for DraftKings."
