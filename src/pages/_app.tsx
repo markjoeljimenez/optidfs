@@ -30,10 +30,7 @@ const App = ({ Component, pageProps }: IApp) => {
 				}}
 			>
 				{(t) => (
-					<Toast
-						onClose={() => toast.dismiss(t.id)}
-						visible={t.visible}
-					>
+					<Toast id={t.id} visible={false}>
 						{resolveValue(t.message, t)}
 					</Toast>
 				)}
