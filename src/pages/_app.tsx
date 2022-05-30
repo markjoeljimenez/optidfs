@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import * as Sentry from '@sentry/browser';
 import Dashboard from '../layouts/dashboard';
 import store from '../store';
-import toast, { resolveValue, Toaster } from 'react-hot-toast';
+import { resolveValue, Toaster } from 'react-hot-toast';
 import Toast from '@/components/toast/toast';
 
 import '../styles/styles.scss';
@@ -26,14 +26,13 @@ const App = ({ Component, pageProps }: IApp) => {
 			<Toaster
 				position="top-right"
 				toastOptions={{
-					duration: Infinity,
+					duration: 5000,
+					error: {
+						duration: Infinity,
+					},
 				}}
 			>
-				{(t) => (
-					<Toast id={t.id} visible={false}>
-						{resolveValue(t.message, t)}
-					</Toast>
-				)}
+				{(t) => <Toast {...t}>{resolveValue(t.message, t)}</Toast>}
 			</Toaster>
 			<DefaultSeo
 				title="Optidfs"

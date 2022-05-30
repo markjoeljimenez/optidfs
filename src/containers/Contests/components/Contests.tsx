@@ -56,7 +56,7 @@ const Dropdown = () => {
 				);
 
 				if (!foundContest) {
-					toast(
+					toast.error(
 						`No contest found with id: ${
 							contests.selectedContest!.id
 						}`
