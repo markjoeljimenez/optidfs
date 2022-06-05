@@ -1,48 +1,31 @@
-import { setHasVisited } from '../store';
-import { setSelectedContest } from '../containers/Contests/redux/reducers';
-import { setSelectedSport } from '@/containers/Sports';
-import { useAppDispatch, useAppSelector } from '../hooks';
+import { setHasVisited } from 'src/store';
+import { useAppSelector, useAppDispatch } from 'src/hooks';
 import { useEffect, useState } from 'react';
-import { useLocalStorage } from 'react-use';
-import Chevron from '../components/icons/chevron';
-import Contests from '@/containers/Contests';
-import Dropdown from '../containers/Contests/components/Contests';
-import IconButton from '../components/global/icon-button';
-import Providers, { setProvider } from '@/containers/Providers';
+import { useRouter } from 'next/router';
+import Chevron from '@/components/icons/chevron';
+import Dropdown from '@/containers/Contests/components/Contests';
+import IconButton from '@/components/global/icon-button';
+import Providers from '@/containers/Providers';
 import Sports from '@/containers/Sports';
-import Table from '../containers/Table/Table.component';
+import { useLocalStorage } from 'react-use';
 
 interface StepRenders {
 	content: JSX.Element;
 }
 
-const Index = () => {
-	const { sports, contests, players, providers, global } = useAppSelector(
-		(state) => state
-	);
+const Start = () => {
+	const { sports, contests, providers } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
-
+	const router = useRouter();
 	const [value, setValue] = useLocalStorage('optidfs-initial-visit');
 	const [step, setStep] = useState(1);
 
 	/**
-	 * If there is a local storage value, set redux state
-	 * and go to step 3 (view players)
+	 * If there is a local storage value, redirect to /optimize
 	 */
 	useEffect(() => {
 		if (value) {
-			if (
-				!providers.provider &&
-				!sports.selectedSport &&
-				!contests.selectedContest
-			) {
-				dispatch(setProvider(value.provider));
-				dispatch(setSelectedSport(value.sport));
-				dispatch(setSelectedContest(value.contest));
-				dispatch(setHasVisited(true));
-
-				setStep(3);
-			}
+			router.push('/optimize', '', { shallow: true });
 		}
 	}, [value]);
 
@@ -51,31 +34,28 @@ const Index = () => {
 	 * set local storage
 	 */
 	useEffect(() => {
-		if (
-			!value &&
-			providers.provider &&
-			sports.selectedSport &&
-			contests.selectedContest &&
-			step === 3
-		) {
-			setValue({
-				provider: providers.provider,
-				sport: sports.selectedSport,
-				contest: contests.selectedContest,
-			});
+		if (step >= Object.keys(steps).length) {
+			if (
+				!value &&
+				providers.provider &&
+				sports.selectedSport &&
+				contests.selectedContest
+			) {
+				setValue({
+					provider: providers.provider,
+					sport: sports.selectedSport,
+					contest: contests.selectedContest,
+				});
 
-			dispatch(setHasVisited(true));
+				dispatch(setHasVisited(true));
+			}
 		}
-	}, [
-		providers.provider,
-		sports.selectedSport,
-		contests.selectedContest,
-		step,
-	]);
+	}, [step]);
 
 	function onNext() {
 		if (step >= Object.keys(steps).length) {
 			setStep(step);
+			router.push('/optimize', '', { shallow: true });
 		} else {
 			setStep(step + 1);
 		}
@@ -139,14 +119,6 @@ const Index = () => {
 				</>
 			),
 		},
-		3: {
-			content: (
-				<>
-					<Contests />
-					<Table />
-				</>
-			),
-		},
 	};
 
 	return (
@@ -158,4 +130,4 @@ const Index = () => {
 	);
 };
 
-export default Index;
+export default Start;

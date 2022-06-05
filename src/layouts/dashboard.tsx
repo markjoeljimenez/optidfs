@@ -3,6 +3,7 @@ import { useAppSelector } from '../hooks';
 import Nav from '../components/global/nav';
 import Sports from '@/containers/Sports';
 import Providers from '@/containers/Providers';
+import clsx from 'clsx';
 
 export interface ILayoutProps {
 	children: React.ReactNode;
@@ -38,17 +39,15 @@ const Dashboard = ({ children }: ILayoutProps) => {
 				</header>
 
 				<main
-					// className={clsx(
-					// 	'flex-1 flex flex-col',
-					// 	!isLoaded ? 'items-center justify-center' : ''
-					// )}
-					// className="flex-1"
+					className={clsx(
+						'flex-1 flex flex-col',
+						'p-8',
+						!isLoaded ? 'items-center justify-center' : ''
+					)}
 					data-testid="main-content"
 				>
 					{children}
 				</main>
-
-				{/* <main>{selectedSport ? <>{children}</> : <></>}</main> */}
 			</div>
 		</div>
 	);

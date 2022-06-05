@@ -5,16 +5,24 @@ const StylelintPlugin = require('stylelint-webpack-plugin');
 
 require('dotenv').config();
 
+const { env } = process;
+
 const config = {
-	env: {
-		ENDPOINT: process.env.ENDPOINT,
-		GA_TRACKING_ID: process.env.GA_TRACKING_ID,
-	},
+	env,
 	images: {
 		domains: ['www.paypal.com'],
 	},
 	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 	swcMinify: true,
+	async redirects() {
+		return [
+			{
+				source: '/',
+				destination: '/optimize',
+				permanent: true,
+			},
+		];
+	},
 };
 
 module.exports = withMDX(config);

@@ -103,10 +103,11 @@ const Nav = () => {
 			>
 				<ul>
 					<li className="mt-6">
-						<Link href="/">
+						<Link href="/optimize">
 							<a
 								className={clsx(
-									router.pathname === '/' && 'bg-gray-100',
+									router.pathname.includes('optimize') &&
+										'bg-gray-100',
 									'hover:bg-gray-200',
 									'block',
 									'px-4',

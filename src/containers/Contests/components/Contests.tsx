@@ -17,11 +17,14 @@ const Dropdown = () => {
 		'optidfs-initial-visit'
 	);
 
-	const { data } = useGetContestsFromSportQuery({
-		sportId: sports.selectedSport!.sportId,
-		sport: sports.selectedSport!.regionAbbreviatedSportName,
-		provider: providers.provider!,
-	});
+	const { data } = useGetContestsFromSportQuery(
+		{
+			sportId: sports.selectedSport?.sportId,
+			sport: sports.selectedSport?.regionAbbreviatedSportName,
+			provider: providers.provider,
+		},
+		{ skip: providers.provider === null }
+	);
 
 	const [defaultContests, setDefaultContests] = useState<IContest[]>(
 		data?.contests ?? []
@@ -38,10 +41,12 @@ const Dropdown = () => {
 		if (selectedItem) {
 			dispatch(setSelectedContest(selectedItem));
 
-			setLocalStorage({ ...localStorage!, contest: selectedItem });
-
 			if (selectedItem.gameType) {
 				dispatch(setGameType(selectedItem.gameType));
+			}
+
+			if (localStorage) {
+				setLocalStorage({ ...localStorage!, contest: selectedItem });
 			}
 		}
 	}
