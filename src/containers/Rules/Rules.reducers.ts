@@ -1,11 +1,12 @@
 import uniqBy from 'lodash.uniqby';
+
 import {
-	SET_RULE,
-	REMOVE_RULE,
-	RESET_RULES,
-	SET_RULE_ERROR,
-	REMOVE_RULE_ERROR,
 	OPEN_MODAL,
+	REMOVE_RULE,
+	REMOVE_RULE_ERROR,
+	RESET_RULES,
+	SET_RULE,
+	SET_RULE_ERROR,
 } from './Rules.actions';
 
 interface IRules {

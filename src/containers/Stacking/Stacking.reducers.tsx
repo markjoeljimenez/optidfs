@@ -1,4 +1,4 @@
-import { TABS } from './Stacking.component';
+import { IPlayer } from '../Players/interfaces/IPlayer';
 import {
 	REMOVE_FROM_SETTING,
 	RESET_SETTINGS,
@@ -6,7 +6,7 @@ import {
 	SET_SETTING_ERROR,
 	SET_STACKING_ACTIVE_TAB,
 } from './Stacking.actions';
-import { IPlayer } from '../Players/interfaces/IPlayer';
+import { TABS } from './Stacking.component';
 
 export interface ITeamStack {
 	NUMBER_OF_PLAYERS_TO_STACK: number;

@@ -1,11 +1,11 @@
 import clsx from 'clsx';
 import { useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
-	lockPlayer,
-	excludePlayer,
 	clearToggle,
+	excludePlayer,
+	lockPlayer,
 } from '../../Players/redux/Players.actions';
 
 export enum ELockOrExclude {

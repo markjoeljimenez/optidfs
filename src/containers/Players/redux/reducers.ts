@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { AppState } from '../../../store';
 import { IDraftKingsPlayer } from '../interfaces/IDraftKingsPlayer';
 import { IPlayer } from '../interfaces/IPlayer';
 import { IYahooPlayer } from '../interfaces/IYahooPlayer';
 import { mapDraftKingsPlayers, mapYahooPlayers } from '../services/mapPlayers';
-import { AppState } from '../../../store';
 
 interface IInitialState {
 	defaultPlayers: IPlayer[];

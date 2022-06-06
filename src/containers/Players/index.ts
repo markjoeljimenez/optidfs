@@ -1,20 +1,20 @@
 import { getPlayers } from './api/getPlayers';
-import { draftKingsPlayersMock, yahooPlayersMock } from './mocks/players.mocks';
 import playersHandler from './handlers/players.handler';
-import PlayersReducers, {
-	setDefaultPlayers,
-	playersState,
-} from './redux/reducers';
-import { mapDraftKingsPlayers, mapYahooPlayers } from './services/mapPlayers';
 import { IDraftKingsPlayer } from './interfaces/IDraftKingsPlayer';
 import { IPlayer } from './interfaces/IPlayer';
 import { IYahooPlayer } from './interfaces/IYahooPlayer';
+import { draftKingsPlayersMock, yahooPlayersMock } from './mocks/players.mocks';
+import PlayersReducers, {
+	playersState,
+	setDefaultPlayers,
+} from './redux/reducers';
+import { mapDraftKingsPlayers, mapYahooPlayers } from './services/mapPlayers';
 
 // Api
 export { getPlayers };
 
 // Mocks
-export { yahooPlayersMock, draftKingsPlayersMock };
+export { draftKingsPlayersMock,yahooPlayersMock };
 
 // Handler
 export { playersHandler };
@@ -32,4 +32,4 @@ export { playersState };
 export { mapDraftKingsPlayers, mapYahooPlayers };
 
 // Interfaces
-export type { IYahooPlayer, IDraftKingsPlayer, IPlayer };
+export type { IDraftKingsPlayer, IPlayer,IYahooPlayer };

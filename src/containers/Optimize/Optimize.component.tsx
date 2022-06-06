@@ -1,10 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-
-import { setActiveTab } from '../Tabs/Tabs.actions';
 import {
 	setActiveStackingTab,
 	STACKING_TYPE,
 } from '../Stacking/Stacking.actions';
+import { setActiveTab } from '../Tabs/Tabs.actions';
 import { optimize } from './Optimize.actions';
 
 interface IOptimizeProps {

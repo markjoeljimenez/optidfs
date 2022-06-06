@@ -1,23 +1,24 @@
 import {
-	configureStore,
-	ThunkAction,
 	Action,
+	combineReducers,
+	configureStore,
 	createSlice,
 	PayloadAction,
 	PreloadedState,
-	combineReducers,
+	ThunkAction,
 } from '@reduxjs/toolkit';
 
 import { ContestsReducers } from '@/containers/Contests';
-import error from './containers/Error/Error.reducers';
 import { PlayersReducers } from '@/containers/Players';
 import { ProvidersReducer } from '@/containers/Providers';
-import rules from './containers/Rules/Rules.reducers';
 import { SportsReducers } from '@/containers/Sports';
+
+import { OptidfsApi } from './api';
+import error from './containers/Error/Error.reducers';
+import rules from './containers/Rules/Rules.reducers';
 import stacking from './containers/Stacking/Stacking.reducers';
 import table from './containers/Table/Table.reducers';
 import tabs from './containers/Tabs/Tabs.reducers.old';
-import { OptidfsApi } from './api';
 
 // export const reducers = combineReducers({
 // 	contests,

@@ -5,6 +5,7 @@ import {
 	FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/dist/query';
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
+
 import { ISport } from '../interfaces/ISports';
 
 const getSportsFromProvider = (

@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import { IDataAttributes } from '../../interfaces/IDataAttributes';
 
 export enum BadgeColor {

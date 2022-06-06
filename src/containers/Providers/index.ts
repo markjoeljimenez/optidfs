@@ -1,7 +1,7 @@
 import Providers from './components/Providers';
 import ProvidersReducer, {
-	setProvider,
 	selectProviders,
+	setProvider,
 } from './redux/Providers.reducers';
 
 // Reducer

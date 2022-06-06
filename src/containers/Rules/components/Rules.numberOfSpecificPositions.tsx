@@ -1,13 +1,12 @@
 import React, { useRef } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
 
-import { removeRule, RULE, setRule } from '../Rules.actions';
-
+import Button from '../../../components/form/button';
+import Fieldset from '../../../components/form/fieldset';
 import Input from '../../../components/form/input';
 import Select from '../../../components/form/select';
-import Fieldset from '../../../components/form/fieldset';
-import Button from '../../../components/form/button';
 import Badge, { BadgeColor } from '../../../components/global/badge';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { removeRule, RULE, setRule } from '../Rules.actions';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();

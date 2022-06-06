@@ -1,14 +1,13 @@
-import { useRef, MouseEvent, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { MouseEvent, useEffect,useRef } from 'react';
 
+import SelectWithAdd from '../../../../components/form/selectWithAdd';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
 	removeFromSetting,
 	setSetting,
 	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
 } from '../../Stacking.actions';
-
-import SelectWithAdd from '../../../../components/form/selectWithAdd';
 
 const StackingSetting = () => {
 	const dispatch = useAppDispatch();

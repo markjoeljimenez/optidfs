@@ -1,13 +1,14 @@
-import { setHasVisited } from 'src/store';
-import { useAppSelector, useAppDispatch } from 'src/hooks';
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import Chevron from '@/components/icons/chevron';
-import Dropdown from '@/containers/Contests/components/Contests';
+import { useEffect, useState } from 'react';
+import { useLocalStorage } from 'react-use';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
+import { setHasVisited } from 'src/store';
+
 import IconButton from '@/components/global/icon-button';
+import Chevron from '@/components/icons/chevron';
+import Contests from '@/containers/Contests';
 import Providers from '@/containers/Providers';
 import Sports from '@/containers/Sports';
-import { useLocalStorage } from 'react-use';
 
 interface StepRenders {
 	content: JSX.Element;
@@ -106,7 +107,7 @@ const Start = () => {
 						<IconButton onClick={onBack} rotate={180}>
 							<Chevron />
 						</IconButton>
-						<Dropdown />
+						<Contests />
 						{/* <Upload /> */}
 						<IconButton
 							disabled={!contests.selectedContest}

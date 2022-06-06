@@ -1,13 +1,14 @@
-import { IContest } from '../interfaces/IContest';
-import { setGameType, setSelectedContest } from '../redux/reducers';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { useCombobox, UseComboboxStateChange } from 'downshift';
-import { useGetContestsFromSportQuery } from '../../../api';
-import { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { useCombobox, UseComboboxStateChange } from 'downshift';
+import { useEffect,useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { useLocalStorage } from 'react-use';
 import { ILocalStorage } from 'src/interfaces/ILocalStorage';
-import { toast } from 'react-hot-toast';
+
+import { useGetContestsFromSportQuery } from '../../../api';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { IContest } from '../interfaces/IContest';
+import { setGameType, setSelectedContest } from '../redux/reducers';
 
 const Dropdown = () => {
 	const { sports, providers, contests } = useAppSelector((state) => state);

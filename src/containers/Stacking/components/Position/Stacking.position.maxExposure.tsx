@@ -1,13 +1,12 @@
 import { ChangeEvent } from 'react';
-import { useAppDispatch } from '../../../../hooks';
 
+import Input from '../../../../components/form/input';
+import { useAppDispatch } from '../../../../hooks';
 import {
 	setSetting,
 	STACKING_POSITION_SETTINGS,
 	STACKING_TYPE,
 } from '../../Stacking.actions';
-
-import Input from '../../../../components/form/input';
 
 const StackSetting = () => {
 	const dispatch = useAppDispatch();

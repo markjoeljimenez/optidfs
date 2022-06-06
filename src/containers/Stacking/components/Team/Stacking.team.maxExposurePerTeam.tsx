@@ -1,15 +1,14 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
-import { IMEPT } from '../Position/Stacking.position.maxExposurePerTeam';
+import Input from '../../../../components/form/input';
+import Select from '../../../../components/form/select';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
 	setSetting,
 	STACKING_TEAM_SETTINGS,
 	STACKING_TYPE,
 } from '../../Stacking.actions';
-
-import Input from '../../../../components/form/input';
-import Select from '../../../../components/form/select';
+import { IMEPT } from '../Position/Stacking.position.maxExposurePerTeam';
 
 const StackSetting = () => {
 	const dispatch = useAppDispatch();

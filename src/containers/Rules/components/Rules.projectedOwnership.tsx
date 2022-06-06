@@ -1,7 +1,8 @@
-import { useRef } from 'react';
 import Tippy from '@tippyjs/react';
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useRef } from 'react';
 
+import Input from '../../../components/form/input';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
 import {
 	removeRule,
 	removeRuleError,
@@ -9,8 +10,6 @@ import {
 	setRule,
 	setRuleError,
 } from '../Rules.actions';
-
-import Input from '../../../components/form/input';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();

@@ -1,12 +1,12 @@
 import { getSportsFromProvider } from './api/getSportsFromProvider';
+import Sports from './components/Sports';
 import sportsHandler from './handlers/sports.handler';
+import { ISport } from './interfaces/ISports';
 import sportsMock from './mocks/sports.mocks';
 import SportsReducers, {
-	sportsState,
 	setSelectedSport,
+	sportsState,
 } from './redux/reducers';
-import { ISport } from './interfaces/ISports';
-import Sports from './components/Sports';
 
 // Api
 export { getSportsFromProvider };

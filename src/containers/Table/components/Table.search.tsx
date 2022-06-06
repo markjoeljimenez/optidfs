@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAsyncDebounce } from 'react-table';
+
 import Input from '../../../components/form/input';
 import { useAppDispatch } from '../../../hooks';
 import { setView } from '../Table.actions';

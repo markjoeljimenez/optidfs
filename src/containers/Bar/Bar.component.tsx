@@ -1,7 +1,6 @@
 import { useAppSelector } from '../../hooks';
-
-import Search from '../Search/Search.component';
 import Optimize from '../Optimize/Optimize.component';
+import Search from '../Search/Search.component';
 
 const Bar = () => {
 	// TODO: undo this

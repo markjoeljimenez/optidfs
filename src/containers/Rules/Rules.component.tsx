@@ -1,5 +1,4 @@
 import { useAppSelector } from '../../hooks';
-
 import MaximumRepeatingSalaries from './components/Rules.maxRepeatingPlayers';
 import MinimumSalary from './components/Rules.minimumSalary';
 import NumberOfGenerations from './components/Rules.numberOfGenerations';

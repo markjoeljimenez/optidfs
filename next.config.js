@@ -1,14 +1,16 @@
 const withMDX = require('@next/mdx')({
 	extension: /\.(md|mdx)$/,
 });
-const StylelintPlugin = require('stylelint-webpack-plugin');
 
 require('dotenv').config();
 
-const { env } = process;
+const { ENDPOINT, GA_TRACKING_ID } = process.env;
 
 const config = {
-	env,
+	env: {
+		ENDPOINT,
+		GA_TRACKING_ID,
+	},
 	images: {
 		domains: ['www.paypal.com'],
 	},

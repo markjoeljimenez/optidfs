@@ -1,23 +1,25 @@
 /* eslint-disable react/jsx-key */
+import { skipToken } from '@reduxjs/toolkit/dist/query';
 import React, { useEffect, useMemo } from 'react';
 import {
-	useTable,
 	defaultColumn,
+	useExpanded,
 	useFilters,
 	useGlobalFilter,
-	useExpanded,
 	usePagination,
+	useTable,
 } from 'react-table';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useGetPlayersQuery } from 'src/api';
+
+import Loading, { LoadingSize } from '@/components/loading/loading';
 import { playersState, setDefaultPlayers } from '@/containers/Players';
+
+import { useAppDispatch,useAppSelector } from '../../hooks';
+import { contestsState } from '../Contests/redux/reducers';
 import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
+import columnKeys from './components/Table.columns';
 import TableSubRow from './components/Table.subRow';
 import { selectTable } from './Table.reducers';
-import columnKeys from './components/Table.columns';
-import { contestsState } from '../Contests/redux/reducers';
-import { skipToken } from '@reduxjs/toolkit/dist/query';
-import { useGetPlayersQuery } from 'src/api';
-import Loading, { LoadingSize } from '@/components/loading/loading';
 
 const Table = () => {
 	const { players, contests, providers, table } = useAppSelector(

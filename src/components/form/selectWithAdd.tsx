@@ -1,7 +1,7 @@
-import { MouseEvent, forwardRef } from 'react';
+import { forwardRef,MouseEvent } from 'react';
+
 import { IError } from '../../interfaces/IError';
 import Badge, { BadgeColor } from '../global/badge';
-
 import Select from './select';
 
 interface ISelectWithAdd {

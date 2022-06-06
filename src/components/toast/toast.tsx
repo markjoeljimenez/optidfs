@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { ReactNode } from 'react';
 import toast, { Toast as ToastProps } from 'react-hot-toast';
+
 import toastTypes from './toast.types';
 
 interface IToast {

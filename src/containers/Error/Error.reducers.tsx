@@ -1,4 +1,5 @@
 import { AnyAction } from 'redux';
+
 import { ERROR_ACTION } from './Error.actions';
 
 // export const SET_ERROR = 'SET_ERROR';

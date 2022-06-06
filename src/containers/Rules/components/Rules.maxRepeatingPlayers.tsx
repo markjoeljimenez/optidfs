@@ -1,9 +1,8 @@
 import Tippy from '@tippyjs/react';
-import { useAppDispatch } from '../../../hooks';
-
-import { RULE, setRule } from '../Rules.actions';
 
 import Input from '../../../components/form/input';
+import { useAppDispatch } from '../../../hooks';
+import { RULE, setRule } from '../Rules.actions';
 
 const Rule = () => {
 	const dispatch = useAppDispatch();

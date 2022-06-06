@@ -1,7 +1,4 @@
 import { put, select } from 'redux-saga/effects';
-import { post } from '../scripts/utilities/fetch';
-import { RootState } from '../store';
-import { API } from './saga';
 
 import {
 	resetError,
@@ -9,6 +6,9 @@ import {
 } from '../containers/Error/Error.actions';
 import { optimizePlayersSucceeded } from '../containers/Optimize/Optimize.actions';
 import { loadingTable, setView } from '../containers/Table/Table.actions';
+import { post } from '../scripts/utilities/fetch';
+import { RootState } from '../store';
+import { API } from './saga';
 
 export default function* optimizePlayers() {
 	try {

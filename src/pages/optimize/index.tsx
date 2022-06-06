@@ -1,13 +1,15 @@
-import { setHasVisited } from '../../store';
-import { setSelectedContest } from '../../containers/Contests/redux/reducers';
-import { setSelectedSport } from '@/containers/Sports';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useLocalStorage } from 'react-use';
+
 import Contests from '@/containers/Contests';
 import { setProvider } from '@/containers/Providers';
+import { setSelectedSport } from '@/containers/Sports';
+
+import { setSelectedContest } from '../../containers/Contests/redux/reducers';
 import Table from '../../containers/Table/Table.component';
-import { useRouter } from 'next/router';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { setHasVisited } from '../../store';
 
 const Index = () => {
 	const { sports, contests, providers } = useAppSelector((state) => state);

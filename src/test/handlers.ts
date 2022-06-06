@@ -1,7 +1,8 @@
-import { RestHandler, MockedRequest, DefaultRequestBody } from 'msw';
-import { sportsHandler } from '@/containers/Sports';
+import { DefaultRequestBody,MockedRequest, RestHandler } from 'msw';
+
 import { contestsHandler } from '@/containers/Contests';
 import { playersHandler } from '@/containers/Players';
+import { sportsHandler } from '@/containers/Sports';
 
 const handlers: RestHandler<MockedRequest<DefaultRequestBody>>[] = [
 	sportsHandler,

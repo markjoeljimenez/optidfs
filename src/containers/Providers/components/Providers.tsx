@@ -1,7 +1,7 @@
 import { ChangeEvent } from 'react';
 
-import providersData from '../../../data/providers';
 import Select from '../../../components/form/select';
+import providersData from '../../../data/providers';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { selectProviders, setProvider } from '..';
 

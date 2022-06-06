@@ -1,4 +1,6 @@
 /* eslint-disable react/jsx-key */
+import clsx from 'clsx';
+import React, { useMemo } from 'react';
 import {
 	useExpanded,
 	useFilters,
@@ -6,20 +8,16 @@ import {
 	usePagination,
 	useTable,
 } from 'react-table';
+
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import React, { useMemo } from 'react';
-import clsx from 'clsx';
-
-import { setPage, setView } from './Table.actions';
-import { updateLineupsPage } from '../Players/redux/Players.actions';
-
 import Error from '../Error/Error.component';
-import TableSearch from './components/Table.search';
-
-import columnKeys from './components/Table.columns';
-import TableSubRow from './components/Table.subRow';
-import TableExport from './components/Table.export';
+import { updateLineupsPage } from '../Players/redux/Players.actions';
 import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
+import columnKeys from './components/Table.columns';
+import TableExport from './components/Table.export';
+import TableSearch from './components/Table.search';
+import TableSubRow from './components/Table.subRow';
+import { setPage, setView } from './Table.actions';
 
 const Table = () => {
 	// const { error, players, contests, table } = useAppSelector(

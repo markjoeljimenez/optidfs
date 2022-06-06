@@ -5,7 +5,8 @@ import {
 	FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/dist/query';
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-import { IContestsResponse, IContestsBody } from 'src/api/interfaces';
+import { IContestsBody,IContestsResponse } from 'src/api/interfaces';
+
 import { IContest } from '../interfaces/IContest';
 import { mapContests } from '../services/mapContests';
 

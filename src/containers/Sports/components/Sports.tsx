@@ -1,9 +1,11 @@
-import { useAppDispatch, useAppSelector } from '../../../hooks';
-import Select, { IValueLabel } from '../../../components/form/select';
-import { sportsState, setSelectedSport } from '../redux/reducers';
-import { useGetSportsFromProviderQuery } from '../../../api';
 import { skipToken } from '@reduxjs/toolkit/dist/query';
+
 import { selectProviders } from '@/containers/Providers';
+
+import { useGetSportsFromProviderQuery } from '../../../api';
+import Select, { IValueLabel } from '../../../components/form/select';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { setSelectedSport,sportsState } from '../redux/reducers';
 
 const Sports = () => {
 	const dispatch = useAppDispatch();

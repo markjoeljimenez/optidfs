@@ -1,28 +1,28 @@
 import { getContestsFromSport } from './api/getContestsFromSport';
+import Contests from './components/Contests';
 import contestsHandler from './handlers/contests.handler';
+import { IContest } from './interfaces/IContest';
+import { IDraftKingsContest } from './interfaces/IDraftKingsContest';
+import { IYahooContest } from './interfaces/IYahooContest';
 import {
-	yahooContestsMock,
 	draftKingsContestsMock,
+	yahooContestsMock,
 } from './mocks/contests.mocks';
 import ContestsReducers, {
-	setSelectedContest,
-	setGameType,
 	contestsState,
+	setGameType,
+	setSelectedContest,
 } from './redux/reducers';
 import {
 	mapDraftKingsContests,
 	mapYahooContests,
 } from './services/mapContests';
-import { IYahooContest } from './interfaces/IYahooContest';
-import { IDraftKingsContest } from './interfaces/IDraftKingsContest';
-import { IContest } from './interfaces/IContest';
-import Contests from './components/Contests';
 
 // Api
 export { getContestsFromSport };
 
 // Mocks
-export { yahooContestsMock, draftKingsContestsMock };
+export { draftKingsContestsMock,yahooContestsMock };
 
 // Handler
 export { contestsHandler };
@@ -31,7 +31,7 @@ export { contestsHandler };
 export { ContestsReducers };
 
 // Actions
-export { setSelectedContest, setGameType };
+export { setGameType,setSelectedContest };
 
 // State
 export { contestsState };
@@ -40,7 +40,7 @@ export { contestsState };
 export { mapDraftKingsContests, mapYahooContests };
 
 // Interfaces
-export type { IYahooContest, IDraftKingsContest, IContest };
+export type { IContest,IDraftKingsContest, IYahooContest };
 
 // Components
 export default Contests;

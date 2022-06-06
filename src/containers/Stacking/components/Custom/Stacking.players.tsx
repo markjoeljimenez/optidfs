@@ -1,16 +1,15 @@
 import clsx from 'clsx';
 import { ChangeEvent, MouseEvent, useEffect, useRef, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
-import { ICustomStack } from '../../Stacking.reducers';
+import Input from '../../../../components/form/input';
+import Select from '../../../../components/form/select';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
 	setSetting,
 	STACKING_CUSTOM_SETTINGS,
 	STACKING_TYPE,
 } from '../../Stacking.actions';
-
-import Input from '../../../../components/form/input';
-import Select from '../../../../components/form/select';
+import { ICustomStack } from '../../Stacking.reducers';
 
 const StackingSettings = () => {
 	const dispatch = useAppDispatch();

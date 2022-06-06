@@ -1,13 +1,13 @@
 import { put, select } from 'redux-saga/effects';
-import { API } from './saga';
 
-import { getPlayersSucceeded } from '../containers/Players/redux/Players.actions';
-import { loadingTable } from '../containers/Table/Table.actions';
 import {
 	resetError,
 	setInternalServerError,
 } from '../containers/Error/Error.actions';
+import { getPlayersSucceeded } from '../containers/Players/redux/Players.actions';
+import { loadingTable } from '../containers/Table/Table.actions';
 import { RootState } from '../store';
+import { API } from './saga';
 
 type Action = {
 	type: string;

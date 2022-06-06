@@ -1,12 +1,14 @@
-import { DefaultSeo } from 'next-seo';
-import { Provider } from 'react-redux';
+import '../styles/styles.scss';
+
 import * as Sentry from '@sentry/browser';
-import Dashboard from '../layouts/dashboard';
-import store from '../store';
+import { DefaultSeo } from 'next-seo';
 import { resolveValue, Toaster } from 'react-hot-toast';
+import { Provider } from 'react-redux';
+
 import Toast from '@/components/toast/toast';
 
-import '../styles/styles.scss';
+import Dashboard from '../layouts/dashboard';
+import store from '../store';
 
 interface IApp {
 	Component: any;

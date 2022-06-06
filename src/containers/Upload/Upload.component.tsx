@@ -1,10 +1,10 @@
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Modal from 'react-modal';
-import { useAppDispatch } from '../../hooks';
 
-import { getPlayers } from '../Players/redux/Players.actions';
+import { useAppDispatch } from '../../hooks';
 import { setGameType } from '../Contests/Dropdown.actions';
+import { getPlayers } from '../Players/redux/Players.actions';
 
 Modal.setAppElement('#__next');
 

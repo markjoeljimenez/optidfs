@@ -1,14 +1,13 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
 
+import Input from '../../../../components/form/input';
+import Select from '../../../../components/form/select';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
 	setSetting,
 	STACKING_POSITION_SETTINGS,
 	STACKING_TYPE,
 } from '../../Stacking.actions';
-
-import Input from '../../../../components/form/input';
-import Select from '../../../../components/form/select';
 
 export interface IMEPT {
 	team?: string;
