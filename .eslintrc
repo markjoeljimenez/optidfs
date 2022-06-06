@@ -1,5 +1,10 @@
 {
-	"extends": ["next", "prettier", "next/core-web-vitals"],
+	"extends": [
+		"next",
+		"prettier",
+		"next/core-web-vitals",
+		"eslint-config-next"
+	],
 	"plugins": ["simple-import-sort"],
 	"rules": {
 		"simple-import-sort/imports": "error",

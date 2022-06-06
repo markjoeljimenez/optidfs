@@ -34,7 +34,6 @@ export const setSetting = (
 	stackingType: string,
 	setting: string,
 	key?: string,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	value?: any
 ) => ({
 	type: SET_SETTING,
