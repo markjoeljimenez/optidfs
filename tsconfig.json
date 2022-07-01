@@ -1,31 +1,45 @@
 {
-	"compilerOptions": {
-		"target": "es5",
-		"allowJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"isolatedModules": true,
-		"jsx": "preserve",
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"module": "esnext",
-		"moduleResolution": "node",
-		"noEmit": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"baseUrl": ".",
-		"paths": {
-			"@/components/*": ["src/components/*"],
-			"@/containers/*": ["src/containers/*"],
-			"@/test/*": ["src/test/*"]
-		}
-	},
-	"exclude": ["node_modules", "cypress"],
-	"include": [
-		"next-env.d.ts",
-		"./src/**/*.ts",
-		"./src/**/*.tsx",
-		"./src/**/*.test.ts",
-		"./src/**/*.test.tsx"
-	]
+  "compilerOptions": {
+    "target": "es5",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": [
+        "src/components/*"
+      ],
+      "@/containers/*": [
+        "src/containers/*"
+      ],
+      "@/test/*": [
+        "src/test/*"
+      ]
+    },
+    "incremental": true
+  },
+  "exclude": [
+    "node_modules",
+    "cypress"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.test.ts",
+    "./src/**/*.test.tsx"
+  ]
 }
