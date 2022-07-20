@@ -1,4 +1,5 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
 
 import Select from '../../../components/form/select';
 import providersData from '../../../data/providers';
@@ -7,6 +8,7 @@ import { selectProviders, setProvider } from '..';
 
 const Providers = () => {
 	const providers = useAppSelector(selectProviders);
+	const [localStorage, setLocalStorage] = useAppLocalStorage();
 	const dispatch = useAppDispatch();
 
 	const handleProviderSelection = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -14,10 +16,20 @@ const Providers = () => {
 
 		dispatch(setProvider(value));
 
-		// dispatch({
-		// 	type: RESET_SELECTED_SPORT,
-		// });
+		setLocalStorage({
+			...localStorage,
+			provider: value,
+		});
 	};
+
+	// useEffect(() => {
+	// 	if (providers.provider) {
+	// 		setLocalStorage({
+	// 			...localStorage,
+	// 			provider: providers.provider,
+	// 		});
+	// 	}
+	// }, [providers.provider]);
 
 	return (
 		<Select
@@ -25,7 +37,7 @@ const Providers = () => {
 				value: sport.id,
 				label: sport.name,
 			}))}
-			value={providers.provider || ''}
+			value={providers.provider ?? ''}
 			hideLabel
 			id="selectProvider"
 			label="Select provider"

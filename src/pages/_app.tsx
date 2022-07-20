@@ -1,21 +1,19 @@
 import '../styles/styles.scss';
 
 import * as Sentry from '@sentry/browser';
+import { AppProps } from 'next/app';
 import { DefaultSeo } from 'next-seo';
+import { useEffect, useState } from 'react';
 import { resolveValue, Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
+import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
 
 import Toast from '@/components/toast/toast';
 
 import Dashboard from '../layouts/dashboard';
-import store from '../store';
+import { setupStore } from '../store';
 
-interface IApp {
-	Component: any;
-	pageProps: any;
-}
-
-const App = ({ Component, pageProps }: IApp) => {
+const App = ({ Component, pageProps }: AppProps) => {
 	if (process.env.NODE_ENV !== 'development' && process.env.SENTRY_DSN) {
 		Sentry.init({
 			dsn: process.env.SENTRY_DSN,
@@ -23,8 +21,42 @@ const App = ({ Component, pageProps }: IApp) => {
 		});
 	}
 
+	const [localStorage] = useAppLocalStorage();
+	const [preloadedStoreState, setPreloadedStoreState] = useState({});
+
+	useEffect(() => {
+		if (localStorage) {
+			let state = {};
+
+			if (localStorage?.provider) {
+				state = {
+					...state,
+					providers: { provider: localStorage.provider },
+				};
+			}
+
+			if (localStorage?.sport) {
+				state = {
+					...state,
+					sports: {
+						selectedSport: localStorage.sport,
+					},
+				};
+			}
+
+			if (localStorage?.contest) {
+				state = {
+					...state,
+					contests: { contest: localStorage.contest },
+				};
+			}
+
+			setPreloadedStoreState(state);
+		}
+	}, [localStorage]);
+
 	return (
-		<Provider store={store}>
+		<Provider store={setupStore(preloadedStoreState)}>
 			<Toaster
 				position="top-right"
 				toastOptions={{

@@ -1,48 +1,42 @@
-import { skipToken } from '@reduxjs/toolkit/dist/query';
+import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
 
 import { selectProviders } from '@/containers/Providers';
 
 import { useGetSportsFromProviderQuery } from '../../../api';
 import Select, { IValueLabel } from '../../../components/form/select';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { setSelectedSport,sportsState } from '../redux/reducers';
+import { setSelectedSport, sportsState } from '../redux/reducers';
 
 const Sports = () => {
-	const dispatch = useAppDispatch();
 	const providers = useAppSelector(selectProviders);
 	const sports = useAppSelector(sportsState);
+	const dispatch = useAppDispatch();
+	const [localStorage, setLocalStorage] = useAppLocalStorage();
 
-	const test = useGetSportsFromProviderQuery(providers.provider ?? skipToken);
-
-	// console.log(providers.provider, test);
+	const response = useGetSportsFromProviderQuery(providers.provider!, {
+		skip: !providers.provider,
+	});
 
 	function handleSportChange(e: React.ChangeEvent<HTMLSelectElement>) {
 		const sportId = parseInt(e.currentTarget.value);
-		const selectedSport = test.data?.find(
+		const selectedSport = response.data?.find(
 			(sport) => sport.sportId === sportId
 		);
 
 		if (selectedSport) {
 			dispatch(setSelectedSport(selectedSport));
+
+			setLocalStorage({
+				...localStorage,
+				sport: selectedSport,
+			});
 		}
-
-		// dispatch({
-		// 	type: PLAYERS_ACTIONS.RESET_PLAYERS,
-		// });
-
-		// dispatch({
-		// 	type: DROPDOWN_ACTIONS.RESET,
-		// });
-
-		// dispatch({
-		// 	type: TABLE_ACTIONS.RESET,
-		// });
 	}
 
 	return (
 		<div className="relative">
 			<Select
-				options={(test.data ?? [])
+				options={(response.data ?? [])
 					.filter(
 						(sport) =>
 							sport.isEnabled &&
@@ -66,7 +60,7 @@ const Sports = () => {
 				id="selectSport"
 				label="Select sport"
 				placeholder="Select sport"
-				disabled={!test.data}
+				disabled={!response.data}
 				onChange={handleSportChange}
 				testId="sports-select"
 			/>

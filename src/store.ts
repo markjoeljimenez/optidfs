@@ -32,8 +32,14 @@ import tabs from './containers/Tabs/Tabs.reducers.old';
 // 	tabs,
 // });
 
-const initialState = {
+interface IGlobalInitialState {
+	hasVisited: boolean;
+	step: number | null;
+}
+
+const initialState: IGlobalInitialState = {
 	hasVisited: false,
+	step: null,
 };
 
 const GlobalReducers = createSlice({
@@ -42,6 +48,9 @@ const GlobalReducers = createSlice({
 	reducers: {
 		setHasVisited: (state, action: PayloadAction<boolean>) => {
 			state.hasVisited = action.payload;
+		},
+		setStep: (state, action: PayloadAction<number | null>) => {
+			state.step = action.payload;
 		},
 	},
 });
@@ -84,5 +93,3 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 	unknown,
 	Action<string>
 >;
-
-export default store;

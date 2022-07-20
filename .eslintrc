@@ -5,9 +5,10 @@
 		"next/core-web-vitals",
 		"eslint-config-next"
 	],
-	"plugins": ["simple-import-sort"],
+	"plugins": ["simple-import-sort", "sort-destructure-keys"],
 	"rules": {
 		"simple-import-sort/imports": "error",
-		"simple-import-sort/exports": "error"
+		"simple-import-sort/exports": "error",
+		"sort-destructure-keys/sort-destructure-keys": 2
 	}
 }

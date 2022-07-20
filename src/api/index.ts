@@ -17,7 +17,7 @@ export const OptidfsApi = createApi({
 });
 
 export const {
-	useGetSportsFromProviderQuery,
 	useGetContestsFromSportQuery,
 	useGetPlayersQuery,
+	useGetSportsFromProviderQuery,
 } = OptidfsApi;

@@ -1,9 +1,8 @@
 import clsx from 'clsx';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
-import { useEffect,useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useLocalStorage } from 'react-use';
-import { ILocalStorage } from 'src/interfaces/ILocalStorage';
+import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
 
 import { useGetContestsFromSportQuery } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -11,12 +10,9 @@ import { IContest } from '../interfaces/IContest';
 import { setGameType, setSelectedContest } from '../redux/reducers';
 
 const Dropdown = () => {
-	const { sports, providers, contests } = useAppSelector((state) => state);
+	const { contests, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
-
-	const [localStorage, setLocalStorage] = useLocalStorage<ILocalStorage>(
-		'optidfs-initial-visit'
-	);
+	const [localStorage, setLocalStorage] = useAppLocalStorage();
 
 	const { data } = useGetContestsFromSportQuery(
 		{
@@ -24,7 +20,11 @@ const Dropdown = () => {
 			sport: sports.selectedSport?.regionAbbreviatedSportName,
 			provider: providers.provider,
 		},
-		{ skip: providers.provider === null }
+		{
+			skip:
+				providers.provider === null ||
+				sports.selectedSport === undefined,
+		}
 	);
 
 	const [defaultContests, setDefaultContests] = useState<IContest[]>(
@@ -42,15 +42,25 @@ const Dropdown = () => {
 		if (selectedItem) {
 			dispatch(setSelectedContest(selectedItem));
 
+			setLocalStorage({
+				...localStorage,
+				contest: selectedItem,
+			});
+
 			if (selectedItem.gameType) {
 				dispatch(setGameType(selectedItem.gameType));
 			}
-
-			if (localStorage) {
-				setLocalStorage({ ...localStorage!, contest: selectedItem });
-			}
 		}
 	}
+
+	useEffect(() => {
+		if (contests.selectedContest && !localStorage?.contest) {
+			setLocalStorage({
+				...localStorage,
+				contest: contests.selectedContest,
+			});
+		}
+	}, [contests]);
 
 	useEffect(() => {
 		if (data) {
@@ -77,13 +87,13 @@ const Dropdown = () => {
 	}, [data]);
 
 	const {
-		isOpen,
-		getToggleButtonProps,
+		getComboboxProps,
+		getInputProps,
+		getItemProps,
 		getLabelProps,
 		getMenuProps,
-		getInputProps,
-		getComboboxProps,
-		getItemProps,
+		getToggleButtonProps,
+		isOpen,
 	} = useCombobox({
 		itemToString: (item) => (item ? item.name : ''),
 		items: defaultContests,
