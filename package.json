@@ -16,7 +16,8 @@
 		"cypress": "cypress open",
 		"fix:eslint": "npx eslint --fix **/*.tsx",
 		"fix:stylelint": "npx stylelint --fix \"src/**/*.scss\"",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prepare": "husky install"
 	},
 	"dependencies": {
 		"@headlessui/react": "^1.6.5",
@@ -78,6 +79,7 @@
 		"eslint-plugin-simple-import-sort": "^7.0.0",
 		"eslint-plugin-sort-destructure-keys": "^1.4.0",
 		"eslint-plugin-testing-library": "^5.1.0",
+		"husky": "^8.0.1",
 		"jest": "^27.5.1",
 		"msw": "^0.39.2",
 		"whatwg-fetch": "^3.6.2"
