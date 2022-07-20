@@ -44,13 +44,13 @@ describe('Contests', () => {
 		const contestsExpandButton = screen.getByRole('button');
 
 		// Act
-		userEvent.click(contestsExpandButton);
+		await userEvent.click(contestsExpandButton);
 
 		// Get first contest and click
 		const firstContest = await waitFor(
 			() => screen.getAllByRole('option')[0]
 		);
-		userEvent.click(firstContest);
+		await userEvent.click(firstContest);
 
 		// Assert
 		expect(store.getState().contests.selectedContest).toStrictEqual({
