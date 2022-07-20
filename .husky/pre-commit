@@ -4,3 +4,4 @@
 exec >/dev/tty 2>&1
 
 npm run test
+npm run cypress
