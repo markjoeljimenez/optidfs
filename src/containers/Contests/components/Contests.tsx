@@ -54,21 +54,14 @@ const Dropdown = () => {
 	}
 
 	useEffect(() => {
-		if (contests.selectedContest && !localStorage?.contest) {
-			setLocalStorage({
-				...localStorage,
-				contest: contests.selectedContest,
-			});
-		}
-	}, [contests]);
-
-	useEffect(() => {
 		if (data) {
 			setDefaultContests(data.contests);
 
 			if (contests.selectedContest) {
 				const foundContest = data?.contests.find(
-					(contest) => contest.id === contests?.selectedContest!.id
+					(contest) =>
+						contest.id === contests?.selectedContest!.id &&
+						contest.name === contests?.selectedContest!.name
 				);
 
 				if (!foundContest) {

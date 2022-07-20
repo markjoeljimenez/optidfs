@@ -47,7 +47,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 			if (localStorage?.contest) {
 				state = {
 					...state,
-					contests: { contest: localStorage.contest },
+					contests: { selectedContest: localStorage.contest },
 				};
 			}
 
