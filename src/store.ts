@@ -39,18 +39,18 @@ const rootReducer = combineReducers({
 	[OptidfsApi.reducerPath]: OptidfsApi.reducer,
 });
 
-const persistConfig = {
-	key: 'root',
-	version: 1,
-	storage,
-	blacklist: [OptidfsApi.reducerPath],
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(
+	{
+		blacklist: [OptidfsApi.reducerPath],
+		key: 'root',
+		storage,
+		version: 1,
+	},
+	rootReducer
+);
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
 	return configureStore({
-		reducer: persistedReducer,
 		middleware: (getDefaultMiddleware) =>
 			// adding the api middleware enables caching, invalidation, polling and other features of `rtk-query`
 			getDefaultMiddleware({
@@ -66,6 +66,7 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
 				},
 			}).concat(OptidfsApi.middleware),
 		preloadedState,
+		reducer: persistedReducer,
 	});
 };
 
