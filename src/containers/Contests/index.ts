@@ -22,7 +22,7 @@ import {
 export { getContestsFromSport };
 
 // Mocks
-export { draftKingsContestsMock,yahooContestsMock };
+export { draftKingsContestsMock, yahooContestsMock };
 
 // Handler
 export { contestsHandler };
@@ -31,7 +31,7 @@ export { contestsHandler };
 export { ContestsReducers };
 
 // Actions
-export { setGameType,setSelectedContest };
+export { setGameType, setSelectedContest };
 
 // State
 export { contestsState };
@@ -40,7 +40,7 @@ export { contestsState };
 export { mapDraftKingsContests, mapYahooContests };
 
 // Interfaces
-export type { IContest,IDraftKingsContest, IYahooContest };
+export type { IContest, IDraftKingsContest, IYahooContest };
 
 // Components
 export default Contests;

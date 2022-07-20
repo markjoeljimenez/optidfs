@@ -1,5 +1,3 @@
-import { IDraftKingsPlayerStatus } from '../interfaces/IDraftKingsPlayer';
-
 export const yahooPlayersMock = {
 	provider: 'yahoo',
 	players: [
@@ -409,7 +407,7 @@ export const draftKingsPlayersMock = {
 			salary: 11700,
 			points_per_contest: 57.99,
 			draft_positions: 'SF/PF/F/UTIL',
-			status: 'OUT' as IDraftKingsPlayerStatus,
+			status: 'OUT',
 			images: {
 				'50': 'https://dkn.gs/sports/images/nba/players/50/33178.png',
 				'65': null,
@@ -426,7 +424,7 @@ export const draftKingsPlayersMock = {
 			salary: 11400,
 			points_per_contest: 60.65,
 			draft_positions: 'C/UTIL',
-			status: 'None' as IDraftKingsPlayerStatus,
+			status: 'None',
 			images: {
 				'50': 'https://dkn.gs/sports/images/nba/players/50/33018.png',
 				'65': null,
@@ -443,7 +441,7 @@ export const draftKingsPlayersMock = {
 			salary: 9800,
 			points_per_contest: 47.27,
 			draft_positions: 'PG/G/UTIL',
-			status: 'Q' as IDraftKingsPlayerStatus,
+			status: 'Q',
 			images: {
 				'50': 'https://dkn.gs/sports/images/nba/players/50/33147.png',
 				'65': null,
@@ -460,7 +458,7 @@ export const draftKingsPlayersMock = {
 			salary: 9700,
 			points_per_contest: 41.2,
 			draft_positions: 'PG/G/UTIL',
-			status: 'None' as IDraftKingsPlayerStatus,
+			status: 'None',
 			images: {
 				'50': 'https://dkn.gs/sports/images/nba/players/50/32989.png',
 				'65': null,
@@ -477,7 +475,7 @@ export const draftKingsPlayersMock = {
 			salary: 9300,
 			points_per_contest: 43.06,
 			draft_positions: 'PG/SG/G/UTIL',
-			status: 'None' as IDraftKingsPlayerStatus,
+			status: 'None',
 			images: {
 				'50': 'https://dkn.gs/sports/images/nba/players/50/33309.png',
 				'65': null,
@@ -494,7 +492,7 @@ export const draftKingsPlayersMock = {
 			salary: 9100,
 			points_per_contest: 39.12,
 			draft_positions: 'PG/SG/G/UTIL',
-			status: 'None' as IDraftKingsPlayerStatus,
+			status: 'None',
 			images: {
 				'50': 'https://dkn.gs/sports/images/nba/players/50/33324.png',
 				'65': null,

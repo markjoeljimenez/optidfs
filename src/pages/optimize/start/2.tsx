@@ -30,13 +30,14 @@ const Start2 = () => {
 				</p>
 			</div>
 			<div className="flex space-x-3 items-center">
-				<IconButton onClick={onBack} rotate={180}>
+				<IconButton rotate={180} onClick={onBack}>
 					<Chevron />
 				</IconButton>
 				<Contests />
 				{/* <Upload /> */}
 				<IconButton
 					disabled={!contests.selectedContest}
+					testId="to-next-step"
 					onClick={onNext}
 				>
 					<Chevron />

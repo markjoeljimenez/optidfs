@@ -1,0 +1,107 @@
+{
+	"provider": "draftkings",
+	"players": [
+		{
+			"id": 21805621,
+			"first_name": "Giannis",
+			"last_name": "Antetokounmpo",
+			"position": "SF/PF",
+			"team": "MIL",
+			"salary": 11700,
+			"points_per_contest": 57.99,
+			"draft_positions": "SF/PF/F/UTIL",
+			"status": "OUT",
+			"images": {
+				"50": "https://dkn.gs/sports/images/nba/players/50/33178.png",
+				"65": null,
+				"160": "https://dkn.gs/sports/images/nba/players/160/33178.png",
+				"full": null
+			}
+		},
+		{
+			"id": 21805625,
+			"first_name": "Nikola",
+			"last_name": "Jokic",
+			"position": "C",
+			"team": "DEN",
+			"salary": 11400,
+			"points_per_contest": 60.65,
+			"draft_positions": "C/UTIL",
+			"status": "None",
+			"images": {
+				"50": "https://dkn.gs/sports/images/nba/players/50/33018.png",
+				"65": null,
+				"160": "https://dkn.gs/sports/images/nba/players/160/33018.png",
+				"full": null
+			}
+		},
+		{
+			"id": 21805627,
+			"first_name": "Ja",
+			"last_name": "Morant",
+			"position": "PG",
+			"team": "MEM",
+			"salary": 9800,
+			"points_per_contest": 47.27,
+			"draft_positions": "PG/G/UTIL",
+			"status": "Q",
+			"images": {
+				"50": "https://dkn.gs/sports/images/nba/players/50/33147.png",
+				"65": null,
+				"160": "https://dkn.gs/sports/images/nba/players/160/33147.png",
+				"full": null
+			}
+		},
+		{
+			"id": 21805630,
+			"first_name": "Darius",
+			"last_name": "Garland",
+			"position": "PG",
+			"team": "CLE",
+			"salary": 9700,
+			"points_per_contest": 41.2,
+			"draft_positions": "PG/G/UTIL",
+			"status": "None",
+			"images": {
+				"50": "https://dkn.gs/sports/images/nba/players/50/32989.png",
+				"65": null,
+				"160": "https://dkn.gs/sports/images/nba/players/160/32989.png",
+				"full": null
+			}
+		},
+		{
+			"id": 21805633,
+			"first_name": "Devin",
+			"last_name": "Booker",
+			"position": "PG/SG",
+			"team": "PHX",
+			"salary": 9300,
+			"points_per_contest": 43.06,
+			"draft_positions": "PG/SG/G/UTIL",
+			"status": "None",
+			"images": {
+				"50": "https://dkn.gs/sports/images/nba/players/50/33309.png",
+				"65": null,
+				"160": "https://dkn.gs/sports/images/nba/players/160/33309.png",
+				"full": null
+			}
+		},
+		{
+			"id": 21805637,
+			"first_name": "CJ",
+			"last_name": "McCollum",
+			"position": "PG/SG",
+			"team": "NOP",
+			"salary": 9100,
+			"points_per_contest": 39.12,
+			"draft_positions": "PG/SG/G/UTIL",
+			"status": "None",
+			"images": {
+				"50": "https://dkn.gs/sports/images/nba/players/50/33324.png",
+				"65": null,
+				"160": "https://dkn.gs/sports/images/nba/players/160/33324.png",
+				"full": null
+			}
+		}
+	]
+}
