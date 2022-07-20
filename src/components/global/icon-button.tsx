@@ -17,9 +17,9 @@ const disabledClass = 'bg-gray-300 cursor-default';
 const activeClass = 'bg-blue-500 cursor-pointer';
 
 const IconButton = ({
-	width = 30,
-	height = 30,
 	children,
+	height = 30,
+	width = 30,
 	...props
 }: IIconButton) => (
 	<button

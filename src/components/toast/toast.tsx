@@ -10,7 +10,7 @@ interface IToast {
 
 type Props = IToast & Partial<ToastProps>;
 
-const Toast = ({ type = 'blank', id, visible, children }: Props) => {
+const Toast = ({ children, id, type = 'blank', visible }: Props) => {
 	const { classNames, icon } = toastTypes.get(type)!;
 
 	function onClose() {

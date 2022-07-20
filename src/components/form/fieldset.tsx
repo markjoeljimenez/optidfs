@@ -4,7 +4,7 @@ interface IFieldset {
 	children: React.ReactNode;
 }
 
-const Fieldset = ({ legend, className, children }: IFieldset) => (
+const Fieldset = ({ children, className, legend }: IFieldset) => (
 	<fieldset className={className}>
 		<legend className="block text-sm font-medium text-gray-700">
 			{legend}

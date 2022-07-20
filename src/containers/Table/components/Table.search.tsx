@@ -6,8 +6,8 @@ import { useAppDispatch } from '../../../hooks';
 import { setView } from '../Table.actions';
 
 const TableSearch = ({
-	preGlobalFilteredRows,
 	globalFilter,
+	preGlobalFilteredRows,
 	setGlobalFilter,
 }) => {
 	const dispatch = useAppDispatch();

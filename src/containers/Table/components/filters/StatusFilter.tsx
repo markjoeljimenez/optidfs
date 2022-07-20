@@ -6,7 +6,7 @@ import { StatusTranslation } from '../../../../interfaces/IStatus';
 import { filterPlayers } from '../../../Players/redux/Players.actions';
 
 export function MultiSelectColumnFilter({
-	column: { setFilter, preFilteredRows, id },
+	column: { id, preFilteredRows, setFilter },
 }) {
 	const dispatch = useAppDispatch();
 	const [filterValues, setFilterValues] = useState<string[]>([]);

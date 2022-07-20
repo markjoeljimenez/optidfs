@@ -11,7 +11,7 @@ export interface ILayoutProps {
 }
 
 const Dashboard = ({ children }: ILayoutProps) => {
-	const { providers, sports, global } = useAppSelector((state) => state);
+	const { global, providers, sports } = useAppSelector((state) => state);
 
 	const isLoaded =
 		global.hasVisited && providers.provider && sports.selectedSport;

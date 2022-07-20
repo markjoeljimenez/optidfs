@@ -11,7 +11,7 @@ import {
 
 const StackingSetting = () => {
 	const dispatch = useAppDispatch();
-	const { stacking, players } = useAppSelector((state) => state);
+	const { players, stacking } = useAppSelector((state) => state);
 
 	const positionsSelectRef = useRef<HTMLSelectElement>(null);
 	const currentPositions =

@@ -22,7 +22,7 @@ import TableSubRow from './components/Table.subRow';
 import { selectTable } from './Table.reducers';
 
 const Table = () => {
-	const { players, contests, providers, table } = useAppSelector(
+	const { contests, players, providers, table } = useAppSelector(
 		(state) => state
 	);
 	// const players = useAppSelector(playersState);
@@ -90,21 +90,21 @@ const Table = () => {
 	);
 
 	const {
-		footerGroups,
-		getTableProps,
-		getTableBodyProps,
-		headerGroups,
-		prepareRow,
-		preGlobalFilteredRows,
-		setGlobalFilter,
-		visibleColumns,
-		page,
-		canPreviousPage,
 		canNextPage,
-		pageOptions,
+		canPreviousPage,
+		footerGroups,
+		getTableBodyProps,
+		getTableProps,
+		headerGroups,
 		nextPage,
+		page,
+		pageOptions,
+		preGlobalFilteredRows,
+		prepareRow,
 		previousPage,
-		state: { pageIndex, globalFilter },
+		setGlobalFilter,
+		state: { globalFilter, pageIndex },
+		visibleColumns,
 	} = useTable(
 		{
 			autoResetPage: false,

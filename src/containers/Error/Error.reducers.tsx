@@ -14,7 +14,7 @@ const DEFAULT_STATE: IError = {
 	display: false
 };
 
-const ErrorReducers = (state = DEFAULT_STATE, { type, message }: AnyAction) => {
+const ErrorReducers = (state = DEFAULT_STATE, { message, type }: AnyAction) => {
 	switch (type) {
 		case ERROR_ACTION.STATUS.INTERNAL_SERVER_ERROR:
 			return {

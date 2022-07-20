@@ -33,7 +33,7 @@ const Tabs = () => {
 		<div className="flex relative justify-between">
 			<nav>
 				<ul className="flex space-x-2" role="tablist">
-					{TABS.map(({ name, id }) => (
+					{TABS.map(({ id, name }) => (
 						<li
 							role="tab"
 							aria-selected={tabs.activeTab === id}

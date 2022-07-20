@@ -48,7 +48,7 @@ const Upload = () => {
 		}
 	}, []);
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+	const { getInputProps, getRootProps, isDragActive } = useDropzone({
 		accept: '.csv',
 		onDrop,
 	});

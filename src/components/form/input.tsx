@@ -37,12 +37,12 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 			label,
 			max,
 			min,
+			onChange,
 			placeholder,
 			step,
 			tippy,
 			type,
 			value,
-			onChange,
 		}: IInput,
 		ref
 	) => (

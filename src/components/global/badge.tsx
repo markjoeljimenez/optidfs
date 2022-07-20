@@ -15,7 +15,7 @@ interface IBadge {
 	onClick?(e: React.MouseEvent<HTMLButtonElement>): void;
 }
 
-const Badge = ({ text, color, value, data, onClick }: IBadge) => (
+const Badge = ({ color, data, onClick, text, value }: IBadge) => (
 	<button
 		className={clsx(
 			'relative px-3 py-2 rounded-full text-xs uppercase',

@@ -168,7 +168,7 @@ const StackingSettings = () => {
 					id="customPlayers"
 					label="Player"
 					options={players.all?.map(
-						({ id, position, firstName, lastName }) =>
+						({ firstName, id, lastName, position }) =>
 							`${id} - ${position} - ${firstName} ${lastName}`
 					)}
 					placeholder="Select player"

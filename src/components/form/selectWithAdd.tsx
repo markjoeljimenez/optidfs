@@ -22,7 +22,7 @@ interface ISelectWithAdd {
 
 // eslint-disable-next-line react/display-name
 const SelectWithAdd = forwardRef<HTMLSelectElement, ISelectWithAdd>(
-	({ select, error, list, onAdd }: ISelectWithAdd, ref) => (
+	({ error, list, onAdd, select }: ISelectWithAdd, ref) => (
 		<div>
 			<div>
 				{select && (

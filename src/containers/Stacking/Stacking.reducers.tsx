@@ -50,7 +50,7 @@ const DEFAULT_STATE: IStackingState = {
 
 const StackingReducer = (
 	state = DEFAULT_STATE,
-	{ type, setting, key, value, stackingType, activeTab }
+	{ activeTab, key, setting, stackingType, type, value }
 ) => {
 	switch (type) {
 		case SET_SETTING: {
