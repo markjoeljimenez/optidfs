@@ -2,8 +2,6 @@ import {
 	Action,
 	combineReducers,
 	configureStore,
-	createSlice,
-	PayloadAction,
 	PreloadedState,
 	ThunkAction,
 } from '@reduxjs/toolkit';
@@ -28,31 +26,6 @@ import { OptidfsApi } from './api';
 import error from './containers/Error/Error.reducers';
 import table from './containers/Table/Table.reducers';
 
-interface IGlobalInitialState {
-	hasVisited: boolean;
-	step: number | null;
-}
-
-const initialState: IGlobalInitialState = {
-	hasVisited: false,
-	step: null,
-};
-
-const GlobalReducers = createSlice({
-	name: 'global',
-	initialState,
-	reducers: {
-		setHasVisited: (state, action: PayloadAction<boolean>) => {
-			state.hasVisited = action.payload;
-		},
-		setStep: (state, action: PayloadAction<number | null>) => {
-			state.step = action.payload;
-		},
-	},
-});
-
-export const { setHasVisited } = GlobalReducers.actions;
-
 const rootReducer = combineReducers({
 	contests: ContestsReducers,
 	error,
@@ -63,7 +36,6 @@ const rootReducer = combineReducers({
 	// stacking,
 	table,
 	// tabs,
-	global: GlobalReducers.reducer,
 	[OptidfsApi.reducerPath]: OptidfsApi.reducer,
 });
 

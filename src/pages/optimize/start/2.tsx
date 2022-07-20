@@ -1,6 +1,5 @@
 import router from 'next/router';
 import { useAppSelector } from 'src/hooks';
-import { setHasVisited } from 'src/store';
 
 import IconButton from '@/components/global/icon-button';
 import Chevron from '@/components/icons/chevron';
@@ -14,8 +13,6 @@ const Start2 = () => {
 			router.push('/optimize', undefined, {
 				shallow: true,
 			});
-
-			setHasVisited(true);
 		}
 	}
 

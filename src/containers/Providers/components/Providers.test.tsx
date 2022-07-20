@@ -1,6 +1,6 @@
 import userEvent from '@testing-library/user-event';
 import { render, screen } from '@/test/render';
-import Providers from '../Providers';
+import Providers from './Providers';
 
 describe('Providers', () => {
 	it('should match snapshot', () => {
@@ -20,14 +20,14 @@ describe('Providers', () => {
 		expect(providerSelect.options[2].value).toBe('yahoo');
 	});
 
-	it('should set store provider on change', () => {
+	it('should set store provider on change', async () => {
 		const { store } = render(<Providers />);
 
 		const providerSelect = screen.getByTestId(
 			'provider-select'
 		) as HTMLSelectElement;
 
-		userEvent.selectOptions(providerSelect, ['draftkings']);
+		await userEvent.selectOptions(providerSelect, ['draftkings']);
 
 		expect(store.getState().providers.provider).toBe('draftkings');
 	});

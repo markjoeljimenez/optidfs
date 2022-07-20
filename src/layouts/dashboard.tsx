@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import router from 'next/router';
 
 import Providers from '@/containers/Providers';
 import Sports from '@/containers/Sports';
@@ -11,10 +12,13 @@ export interface ILayoutProps {
 }
 
 const Dashboard = ({ children }: ILayoutProps) => {
-	const { global, providers, sports } = useAppSelector((state) => state);
+	const { contests, providers, sports } = useAppSelector((state) => state);
 
 	const isLoaded =
-		global.hasVisited && providers.provider && sports.selectedSport;
+		router.pathname === '/optimize' &&
+		providers.provider &&
+		sports.selectedSport &&
+		contests.selectedContest;
 
 	return (
 		<div className="md:flex md:min-h-screen bg-gray-100">
