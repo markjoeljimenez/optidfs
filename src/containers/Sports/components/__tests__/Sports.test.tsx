@@ -64,7 +64,7 @@ describe('Sports', () => {
 		);
 
 		// Act
-		userEvent.selectOptions(sportsSelect, ['4']);
+		await userEvent.selectOptions(sportsSelect, ['4']);
 
 		// Assert
 		expect(store.getState().sports.selectedSport?.sportId).toBe(4);
