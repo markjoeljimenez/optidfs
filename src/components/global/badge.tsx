@@ -7,12 +7,12 @@ export enum BadgeColor {
 }
 
 interface IBadge {
-	text: string;
 	color: BadgeColor;
+	text: string;
 	data?: IDataAttributes;
-	value?: string | number;
-
 	onClick?(e: React.MouseEvent<HTMLButtonElement>): void;
+
+	value?: string | number;
 }
 
 const Badge = ({ color, data, onClick, text, value }: IBadge) => (

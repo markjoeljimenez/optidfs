@@ -5,11 +5,13 @@
 		"next/core-web-vitals",
 		"eslint-config-next"
 	],
-	"plugins": ["simple-import-sort", "sort-destructure-keys"],
+	"parser": "@typescript-eslint/parser",
+	"plugins": [
+		"simple-import-sort",
+		"sort-destructure-keys",
+		"typescript-sort-keys"
+	],
 	"rules": {
-		"simple-import-sort/imports": "error",
-		"simple-import-sort/exports": "error",
-		"sort-destructure-keys/sort-destructure-keys": 2,
 		"react/jsx-sort-props": [
 			"error",
 			{
@@ -20,6 +22,19 @@
 				"noSortAlphabetically": false,
 				"reservedFirst": true
 			}
+		],
+		"simple-import-sort/imports": "error",
+		"simple-import-sort/exports": "error",
+		"sort-destructure-keys/sort-destructure-keys": 2,
+		"sort-keys": [
+			"error",
+			"asc",
+			{ "caseSensitive": true, "natural": false, "minKeys": 2 }
+		],
+		"typescript-sort-keys/interface": [
+			"error",
+			"asc",
+			{ "caseSensitive": true, "natural": true, "requiredFirst": true }
 		]
 	}
 }

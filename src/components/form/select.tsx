@@ -11,28 +11,28 @@ import {
 import { IError } from '../../interfaces/IError';
 
 export interface IValueLabel {
-	value: string | number;
 	label: string;
+	value: string | number;
 }
 
 interface ISelect {
+	id: string;
+	options: string[] | IValueLabel[];
 	children?: ReactNode;
 	className?: string;
 	defaultValue?: string;
 	disabled?: boolean;
 	error?: IError;
 	hideLabel?: boolean;
-	id: string;
 	label?: string;
-	options: string[] | IValueLabel[];
+	onChange?(e: ChangeEvent<HTMLSelectElement>): void;
 	placeholder?: string;
 	position?: 'prepend' | 'append';
 	required?: boolean;
-	tippy?: any;
-	value?: string;
 	testId?: string;
+	tippy?: any;
 
-	onChange?(e: ChangeEvent<HTMLSelectElement>): void;
+	value?: string;
 }
 
 // eslint-disable-next-line react/display-name

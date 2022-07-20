@@ -10,8 +10,8 @@ import {
 } from '../../Stacking.actions';
 
 export interface IMEPT {
-	team?: string;
 	exposure?: number;
+	team?: string;
 }
 
 const StackSetting = () => {
@@ -26,8 +26,8 @@ const StackSetting = () => {
 		const { value } = e.currentTarget;
 
 		setMaxExposurePerTeam({
-			team: value,
 			exposure: maxExposurePerTeam?.exposure || undefined,
+			team: value,
 		});
 	}
 
@@ -35,8 +35,8 @@ const StackSetting = () => {
 		const { value } = e.currentTarget;
 
 		setMaxExposurePerTeam({
-			team: maxExposurePerTeam?.team || undefined,
 			exposure: parseFloat(value),
+			team: maxExposurePerTeam?.team || undefined,
 		});
 	}
 

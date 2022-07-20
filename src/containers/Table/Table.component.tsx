@@ -14,7 +14,7 @@ import { useGetPlayersQuery } from 'src/api';
 import Loading, { LoadingSize } from '@/components/loading/loading';
 import { playersState, setDefaultPlayers } from '@/containers/Players';
 
-import { useAppDispatch,useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { contestsState } from '../Contests/redux/reducers';
 import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
 import columnKeys from './components/Table.columns';
@@ -33,9 +33,9 @@ const Table = () => {
 	const response = useGetPlayersQuery(
 		contests.selectedContest
 			? {
+					gameType: contests.gameType,
 					id: contests.selectedContest?.id!,
 					provider: providers.provider!,
-					gameType: contests.gameType,
 			  }
 			: skipToken
 	);
@@ -107,12 +107,12 @@ const Table = () => {
 		visibleColumns,
 	} = useTable(
 		{
-			autoResetPage: false,
 			autoResetExpanded: false,
+			autoResetPage: false,
 			columns,
+			data,
 			defaultColumn,
 			filterTypes,
-			data,
 			initialState: { pageSize: 100 } as any,
 		} as any,
 		useFilters,

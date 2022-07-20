@@ -5,19 +5,19 @@ import Badge, { BadgeColor } from '../global/badge';
 import Select from './select';
 
 interface ISelectWithAdd {
-	select?: {
-		id: string;
-		placeholder: string;
-		items: string[];
-		label: string;
-	};
-	error?: IError;
 	list: {
-		props?: any;
-		items?: string[];
 		onClick(e: MouseEvent<HTMLButtonElement>): void;
+		items?: string[];
+		props?: any;
 	};
 	onAdd(e: MouseEvent<HTMLButtonElement>): void;
+	error?: IError;
+	select?: {
+		id: string;
+		items: string[];
+		label: string;
+		placeholder: string;
+	};
 }
 
 // eslint-disable-next-line react/display-name

@@ -47,8 +47,8 @@ const Sports = () => {
 					.map(
 						(sport) =>
 							({
-								value: sport.sportId,
 								label: sport.regionAbbreviatedSportName,
+								value: sport.sportId,
 							} as IValueLabel)
 					)}
 				placeholder="Select sport"

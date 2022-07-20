@@ -21,8 +21,8 @@ const StackSetting = () => {
 		const { value } = e.currentTarget;
 
 		setMaxExposurePerTeam({
-			team: value,
 			exposure: maxExposurePerTeam?.exposure || undefined,
+			team: value,
 		});
 	}
 

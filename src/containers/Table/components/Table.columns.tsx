@@ -12,8 +12,8 @@ import Toggle from './Table.lockExclude';
 const KEYS = (gameType?: string) =>
 	[
 		{
+			Footer: 'Total',
 			Header: () => null,
-			id: 'profile_picture',
 			accessor: (accessor) => (
 				<div
 					className="text-center overflow-hidden"
@@ -25,18 +25,18 @@ const KEYS = (gameType?: string) =>
 					/>
 				</div>
 			),
-			Footer: 'Total',
 			disableFilters: true,
+			id: 'profile_picture',
 		},
 		{
-			Header: 'Status',
-			accessor: 'status',
 			Cell: (cell) => (
 				<Pill status={Status[cell.value]}>
 					{StatusTranslation[cell.value]}
 				</Pill>
 			),
 			Filter: MultiSelectColumnFilter,
+			Header: 'Status',
+			accessor: 'status',
 			filter: 'multiple',
 		},
 		{ Header: 'First Name', accessor: 'firstName', disableFilters: true },
@@ -51,8 +51,15 @@ const KEYS = (gameType?: string) =>
 		},
 		{ Header: 'Team', accessor: 'team', disableFilters: true },
 		{
-			Header: () => <div className="text-right">Salary</div>,
-			accessor: 'salary',
+			Cell: (cell) => (
+				<div className="text-right">
+					{new Intl.NumberFormat('en-US', {
+						style: 'currency',
+						currency: 'USD',
+						minimumFractionDigits: 0,
+					}).format(cell.value)}
+				</div>
+			),
 			Footer: (info) => {
 				const total = useMemo(
 					() =>
@@ -66,27 +73,20 @@ const KEYS = (gameType?: string) =>
 				return (
 					<div className="text-right">
 						{new Intl.NumberFormat('en-US', {
-							style: 'currency',
 							currency: 'USD',
 							minimumFractionDigits: 0,
+							style: 'currency',
 						}).format(total)}
 					</div>
 				);
 			},
-			Cell: (cell) => (
-				<div className="text-right">
-					{new Intl.NumberFormat('en-US', {
-						style: 'currency',
-						currency: 'USD',
-						minimumFractionDigits: 0,
-					}).format(cell.value)}
-				</div>
-			),
+			Header: () => <div className="text-right">Salary</div>,
+
+			accessor: 'salary',
 			disableFilters: true,
 		},
 		{
-			Header: () => <div className="text-right">FPPG</div>,
-			accessor: 'fppg',
+			Cell: (cell) => <div className="text-right">{cell.value}</div>,
 			Footer: (info) => {
 				const total = useMemo(
 					() =>
@@ -99,20 +99,19 @@ const KEYS = (gameType?: string) =>
 
 				return <div className="text-right">{total.toFixed(2)}</div>;
 			},
-			Cell: (cell) => <div className="text-right">{cell.value}</div>,
+			Header: () => <div className="text-right">FPPG</div>,
+			accessor: 'fppg',
 			disableFilters: true,
 		},
 		{
-			Header: () => null,
-			accessor: 'id',
 			Cell: (cell) => {
 				return <Toggle id={cell.value} />;
 			},
+			Header: () => null,
+			accessor: 'id',
 			disableFilters: true,
 		},
 		{
-			Header: () => null,
-			id: 'more_actions',
 			Cell: ({ row }) => (
 				<span {...row.getToggleRowExpandedProps()}>
 					<svg
@@ -131,6 +130,8 @@ const KEYS = (gameType?: string) =>
 					</svg>
 				</span>
 			),
+			Header: () => null,
+			id: 'more_actions',
 		},
 	] as Column<IPlayer>[];
 

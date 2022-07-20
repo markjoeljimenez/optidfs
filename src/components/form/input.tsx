@@ -5,23 +5,22 @@ import { IDataAttributes } from '../../interfaces/IDataAttributes';
 import { IError } from '../../interfaces/IError';
 
 interface IInput {
+	id: string;
+	type: string;
 	className?: string;
+	data?: IDataAttributes;
 	defaultValue?: number;
 	error?: IError;
-	id: string;
+	hideLabel?: boolean;
 	label?: string;
 	max?: number;
 	min?: number;
+	onChange?(e: ChangeEvent<HTMLInputElement>): void;
 	placeholder?: string;
 	required?: boolean;
 	step?: number;
 	tippy?: any;
-	type: string;
-	hideLabel?: boolean;
 	value?: any;
-	data?: IDataAttributes;
-
-	onChange?(e: ChangeEvent<HTMLInputElement>): void;
 }
 
 // eslint-disable-next-line react/display-name

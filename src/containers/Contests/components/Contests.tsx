@@ -14,9 +14,9 @@ const Dropdown = () => {
 
 	const { data } = useGetContestsFromSportQuery(
 		{
-			sportId: sports.selectedSport?.sportId,
-			sport: sports.selectedSport?.regionAbbreviatedSportName,
 			provider: providers.provider,
+			sport: sports.selectedSport?.regionAbbreviatedSportName,
+			sportId: sports.selectedSport?.sportId,
 		},
 		{
 			skip:
@@ -94,8 +94,8 @@ const Dropdown = () => {
 				);
 			}
 		},
-		selectedItem,
 		onStateChange,
+		selectedItem,
 	});
 
 	return (

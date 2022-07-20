@@ -21,8 +21,8 @@ const Providers = () => {
 			id="selectProvider"
 			label="Select provider"
 			options={providersData.map((sport) => ({
-				value: sport.id,
 				label: sport.name,
+				value: sport.id,
 			}))}
 			placeholder="Select provider"
 			testId="provider-select"

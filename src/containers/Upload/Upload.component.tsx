@@ -9,22 +9,22 @@ import { getPlayers } from '../Players/redux/Players.actions';
 Modal.setAppElement('#__next');
 
 const customStyles = {
-	overlay: {
-		position: 'fixed',
-		top: 0,
-		left: 0,
-		right: 0,
-		bottom: 0,
-		backgroundColor: 'rgba(0, 0, 0, 0.35)',
-	},
 	content: {
-		padding: '30px',
-		top: '50%',
-		left: '50%',
-		right: 'auto',
 		bottom: 'auto',
+		left: '50%',
 		marginRight: '-50%',
+		padding: '30px',
+		right: 'auto',
+		top: '50%',
 		transform: 'translate(-50%, -50%)',
+	},
+	overlay: {
+		backgroundColor: 'rgba(0, 0, 0, 0.35)',
+		bottom: 0,
+		left: 0,
+		position: 'fixed',
+		right: 0,
+		top: 0,
 	},
 };
 

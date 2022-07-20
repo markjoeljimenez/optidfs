@@ -1,10 +1,10 @@
 import clsx from 'clsx';
 
 interface IButton {
-	className?: string;
 	children: any;
-
 	onClick(e: React.MouseEvent<HTMLButtonElement>): void;
+
+	className?: string;
 }
 
 const Button = ({ children, className, onClick }: IButton) => (

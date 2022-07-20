@@ -81,12 +81,12 @@ const Table = () => {
 		visibleColumns,
 	} = useTable(
 		{
-			autoResetPage: false,
 			autoResetExpanded: false,
+			autoResetPage: false,
 			columns,
+			data,
 			defaultColumn,
 			filterTypes,
-			data,
 			initialState: { pageSize: 100 } as any,
 		} as any,
 		useFilters,

@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 
 interface Props {
-	status: string;
 	children: React.ReactNode;
+	status: string;
 }
 
 const Pill = ({ children, status }: Props) => (

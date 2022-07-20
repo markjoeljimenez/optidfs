@@ -9,12 +9,12 @@ import {
 import { TABS } from './Stacking.component';
 
 export interface ITeamStack {
-	NUMBER_OF_PLAYERS_TO_STACK: number;
-	FROM_TEAMS: string;
 	FROM_POSITIONS: string;
-	SPACING: string;
+	FROM_TEAMS: string;
 	MAX_EXPOSURE: string;
 	MAX_EXPOSURE_PER_TEAM: string;
+	NUMBER_OF_PLAYERS_TO_STACK: number;
+	SPACING: string;
 }
 
 export interface IPositionStack {
@@ -31,10 +31,10 @@ export interface ICustomStack {
 }
 
 export interface IStackingState {
-	activeTab: string;
-	TEAM?: ITeamStack;
-	POSITION?: IPositionStack;
 	CUSTOM: ICustomStack;
+	activeTab: string;
+	POSITION?: IPositionStack;
+	TEAM?: ITeamStack;
 }
 
 const DEFAULT_STATE: IStackingState = {

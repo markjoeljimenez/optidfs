@@ -6,16 +6,16 @@ import { setActiveTab } from './Tabs.actions';
 
 const TABS = [
 	{
-		name: 'Players',
 		id: 'players',
+		name: 'Players',
 	},
 	{
-		name: 'Stacking',
 		id: 'stacking',
+		name: 'Stacking',
 	},
 	{
-		name: 'Settings',
 		id: 'settings',
+		name: 'Settings',
 	},
 ];
 

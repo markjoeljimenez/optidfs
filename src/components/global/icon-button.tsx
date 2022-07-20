@@ -2,15 +2,15 @@ import clsx from 'clsx';
 import { FormEvent, MouseEvent } from 'react';
 
 interface IIconButton {
-	onSubmit?(e: FormEvent<HTMLButtonElement>): void;
-	onClick?(e: MouseEvent<HTMLButtonElement>): void;
-	disabled?: boolean;
-	rotate?: number;
 	children: JSX.Element;
-	width?: number;
+	disabled?: boolean;
 	height?: number;
-	testId?: string;
 	key?: string;
+	onClick?(e: MouseEvent<HTMLButtonElement>): void;
+	onSubmit?(e: FormEvent<HTMLButtonElement>): void;
+	rotate?: number;
+	testId?: string;
+	width?: number;
 }
 
 const disabledClass = 'bg-gray-300 cursor-default';
@@ -38,8 +38,8 @@ const IconButton = ({
 				props.rotate ? `transform rotate-${props.rotate}` : ''
 			)}
 			style={{
-				width: width ? `${width}px` : undefined,
 				height: height ? `${height}px` : undefined,
+				width: width ? `${width}px` : undefined,
 			}}
 		>
 			{children}

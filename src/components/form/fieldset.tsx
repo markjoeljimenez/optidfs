@@ -1,7 +1,7 @@
 interface IFieldset {
+	children: React.ReactNode;
 	legend: string;
 	className?: string;
-	children: React.ReactNode;
 }
 
 const Fieldset = ({ children, className, legend }: IFieldset) => (

@@ -1,9 +1,9 @@
 export const ERROR_ACTION = {
-    STATUS: {
-        INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
-        STACKING_SETTING_ERROR: 'STACKING_SETTING_ERROR',
-    },
-    RESET_ERROR: 'RESET_ERROR'
+	RESET_ERROR: 'RESET_ERROR',
+	STATUS: {
+		INTERNAL_SERVER_ERROR: 'INTERNAL_SERVER_ERROR',
+		STACKING_SETTING_ERROR: 'STACKING_SETTING_ERROR',
+	},
 };
 
 // export interface IError {
@@ -13,10 +13,10 @@ export const ERROR_ACTION = {
 // }
 
 export const setInternalServerError = (error: Error) => ({
-    type: ERROR_ACTION.STATUS.INTERNAL_SERVER_ERROR,
-    message: error.message,
+	message: error.message,
+	type: ERROR_ACTION.STATUS.INTERNAL_SERVER_ERROR,
 });
 
 export const resetError = () => ({
-    type: ERROR_ACTION.RESET_ERROR,
+	type: ERROR_ACTION.RESET_ERROR,
 });

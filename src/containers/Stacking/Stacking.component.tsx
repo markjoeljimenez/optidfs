@@ -13,19 +13,19 @@ import {
 
 export const TABS = [
 	{
+		children: <TeamStacking />,
 		id: STACKING_TYPE.TEAM,
 		name: 'Team Stacking',
-		children: <TeamStacking />,
 	},
 	{
+		children: <PositionStacking />,
 		id: STACKING_TYPE.POSITION,
 		name: 'Position Stacking',
-		children: <PositionStacking />,
 	},
 	{
+		children: <CustomStacking />,
 		id: STACKING_TYPE.CUSTOM,
 		name: 'Custom Stacking',
-		children: <CustomStacking />,
 	},
 ];
 
