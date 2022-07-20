@@ -62,11 +62,10 @@ const StackingSetting = () => {
 	return players.positions ? (
 		<div>
 			<SelectWithAdd
-				select={{
-					id: 'mainPositions',
-					items: players.positions,
-					label: 'Main Positions (Required)',
-					placeholder: 'Select position',
+				ref={positionsSelectRef}
+				error={{
+					isError,
+					message: 'Field cannot remain empty',
 				}}
 				list={{
 					items: currentPositions,
@@ -75,12 +74,13 @@ const StackingSetting = () => {
 						'data-stacking-type': STACKING_TYPE.POSITION,
 					},
 				}}
-				error={{
-					isError,
-					message: 'Field cannot remain empty',
+				select={{
+					id: 'mainPositions',
+					items: players.positions,
+					label: 'Main Positions (Required)',
+					placeholder: 'Select position',
 				}}
 				onAdd={handleAddPosition}
-				ref={positionsSelectRef}
 			/>
 		</div>
 	) : (

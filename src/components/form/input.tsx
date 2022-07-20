@@ -49,11 +49,11 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 		<div className={className}>
 			<div className={clsx(tippy && 'pr-8')}>
 				<label
-					htmlFor={id}
 					className={clsx(
 						'block text-sm font-medium text-gray-700',
 						hideLabel && 'sr-only'
 					)}
+					htmlFor={id}
 				>
 					{label}
 					{tippy}
@@ -61,6 +61,8 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 			</div>
 
 			<input
+				ref={ref}
+				required
 				className={clsx(
 					'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md',
 					error?.isError && 'border-red-500',
@@ -70,13 +72,11 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 				id={id}
 				max={max}
 				min={min}
-				onChange={onChange}
 				placeholder={placeholder}
-				ref={ref}
-				required
 				step={step}
 				type={type}
 				value={value}
+				onChange={onChange}
 				{...data}
 			/>
 

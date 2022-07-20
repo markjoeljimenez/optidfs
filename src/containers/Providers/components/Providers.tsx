@@ -17,17 +17,17 @@ const Providers = () => {
 
 	return (
 		<Select
+			hideLabel
+			id="selectProvider"
+			label="Select provider"
 			options={providersData.map((sport) => ({
 				value: sport.id,
 				label: sport.name,
 			}))}
-			value={providers.provider ?? ''}
-			hideLabel
-			id="selectProvider"
-			label="Select provider"
 			placeholder="Select provider"
-			onChange={handleProviderSelection}
 			testId="provider-select"
+			value={providers.provider ?? ''}
+			onChange={handleProviderSelection}
 		/>
 	);
 };

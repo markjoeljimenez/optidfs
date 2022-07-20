@@ -20,13 +20,13 @@ const Rule = () => {
 
 	return (
 		<Input
-			label="Number of generations"
+			required
 			defaultValue={1}
 			id="numberOfGenerations"
-			min={1}
+			label="Number of generations"
 			max={max}
+			min={1}
 			placeholder="Number of generations"
-			required
 			type="number"
 			onChange={handleChange}
 		/>

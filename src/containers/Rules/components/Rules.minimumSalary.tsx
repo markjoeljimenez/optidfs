@@ -17,10 +17,10 @@ const Rule = () => {
 			label="Minimum salary cap"
 			max={50000}
 			min={0}
-			onChange={handleMinSalaryCapChange}
 			placeholder="0"
 			step={5000}
 			type="number"
+			onChange={handleMinSalaryCapChange}
 		/>
 	);
 };

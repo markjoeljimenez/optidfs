@@ -109,27 +109,27 @@ const Dropdown = () => {
 				Search contest by ID or name
 			</label>
 			<input
-				id="select-contest"
 				className="md:min-w-dropdown h-full shadow appearance-none border rounded w-full py-3 px-4 pr-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline truncate"
+				id="select-contest"
 				{...getInputProps({
 					placeholder: 'Search contest by ID or name',
 				})}
 			/>
 			<button
 				{...getToggleButtonProps()}
-				type="button"
 				className="absolute inset-y-0 right-0 px-2 text-gray-700 border-l border-gray-300"
+				type="button"
 			>
 				<svg
 					className="fill-current"
-					xmlns="http://www.w3.org/2000/svg"
+					height="24"
 					viewBox="0 0 24 24"
 					width="24"
-					height="24"
+					xmlns="http://www.w3.org/2000/svg"
 				>
 					<g data-name="Layer 2">
 						<g data-name="chevron-down">
-							<rect width="24" height="24" opacity="0" />
+							<rect height="24" opacity="0" width="24" />
 							<path d="M12 15.5a1 1 0 0 1-.71-.29l-4-4a1 1 0 1 1 1.42-1.42L12 13.1l3.3-3.18a1 1 0 1 1 1.38 1.44l-4 3.86a1 1 0 0 1-.68.28z" />
 						</g>
 					</g>

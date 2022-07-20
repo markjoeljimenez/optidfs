@@ -3,7 +3,7 @@ interface ISkipLinkProps {
 }
 
 const SkipLink = ({ text }: ISkipLinkProps) => (
-	<a href="#main" className="skip-link">
+	<a className="skip-link" href="#main">
 		{text}
 	</a>
 );

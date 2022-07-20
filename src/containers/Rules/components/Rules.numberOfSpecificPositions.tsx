@@ -53,25 +53,25 @@ const Rule = () => {
 			<Fieldset legend="Number of specific positions">
 				<div className="flex space-x-4 mt-2">
 					<Select
+						ref={numberOfSpecificPositionsSelectRef}
+						hideLabel
 						className="flex-1"
 						defaultValue=""
-						hideLabel
 						id="numberOfSpecificPositionsSelect"
 						label="Select position"
 						options={players?.positions!}
 						placeholder="Select position"
-						ref={numberOfSpecificPositionsSelectRef}
 					/>
 					<Input
+						ref={numberOfSpecificPositionsInputRef}
+						hideLabel
 						className="flex-1"
 						id="numberOfSpecificPositions"
 						label="Number of specific positions"
 						max={3}
 						min={0}
 						placeholder="# of players"
-						ref={numberOfSpecificPositionsInputRef}
 						type="number"
-						hideLabel
 					/>
 					<Button onClick={handleNumberOfSpecificPositionsClick}>
 						Add
@@ -85,14 +85,14 @@ const Rule = () => {
 						({ key, value }, i) => (
 							<div key={i} className="relative ml-4 first:ml-0">
 								<Badge
-									text={`${key} - ${value}`}
 									color={BadgeColor.Yellow}
-									value={key}
-									onClick={handleRemoveRule}
 									data={{
 										'data-rule':
 											RULE.NUMBER_OF_SPECIFIC_POSITIONS,
 									}}
+									text={`${key} - ${value}`}
+									value={key}
+									onClick={handleRemoveRule}
 								/>
 							</div>
 						)

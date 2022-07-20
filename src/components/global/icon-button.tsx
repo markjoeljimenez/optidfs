@@ -23,15 +23,15 @@ const IconButton = ({
 	...props
 }: IIconButton) => (
 	<button
+		key={props.key}
 		className={clsx(
 			'text-white rounded-full ',
 			props.disabled ? disabledClass : activeClass
 		)}
-		onSubmit={props.onSubmit}
-		onClick={props.onClick}
-		disabled={props.disabled}
 		data-testid={props.testId}
-		key={props.key}
+		disabled={props.disabled}
+		onClick={props.onClick}
+		onSubmit={props.onSubmit}
 	>
 		<div
 			className={clsx(

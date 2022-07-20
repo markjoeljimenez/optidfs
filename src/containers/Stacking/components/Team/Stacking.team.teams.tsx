@@ -54,12 +54,7 @@ const StackingSetting = () => {
 
 	return players.teams ? (
 		<SelectWithAdd
-			select={{
-				id: 'teamStacking',
-				items: players.teams,
-				label: 'Teams',
-				placeholder: 'Select team',
-			}}
+			ref={teamSelectRef}
 			list={{
 				items: currentTeams,
 				onClick: handleRemoveTeam,
@@ -67,8 +62,13 @@ const StackingSetting = () => {
 					'data-stacking-type': STACKING_TYPE.TEAM,
 				},
 			}}
+			select={{
+				id: 'teamStacking',
+				items: players.teams,
+				label: 'Teams',
+				placeholder: 'Select team',
+			}}
 			onAdd={handleAddTeam}
-			ref={teamSelectRef}
 		/>
 	) : (
 		<></>

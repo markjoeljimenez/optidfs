@@ -55,10 +55,10 @@ const StackSetting = () => {
 			</legend>
 			<Select
 				id="maxExposurePerTeamSelect"
-				options={players.teams!}
 				label="Teams"
-				onChange={handleTeamForMEPT}
+				options={players.teams!}
 				placeholder="Select team"
+				onChange={handleTeamForMEPT}
 			/>
 			<Input
 				className="ml-3"
@@ -66,10 +66,10 @@ const StackSetting = () => {
 				label="Exposure"
 				max={1}
 				min={0.1}
-				onChange={handleExposureForMEPT}
 				placeholder="0"
 				step={0.1}
 				type="number"
+				onChange={handleExposureForMEPT}
 			/>
 		</fieldset>
 	);

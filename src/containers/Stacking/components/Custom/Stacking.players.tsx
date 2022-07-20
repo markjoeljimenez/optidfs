@@ -165,6 +165,7 @@ const StackingSettings = () => {
 		<>
 			<div>
 				<Select
+					ref={playerSelectRef}
 					id="customPlayers"
 					label="Player"
 					options={players.all?.map(
@@ -172,7 +173,6 @@ const StackingSettings = () => {
 							`${id} - ${position} - ${firstName} ${lastName}`
 					)}
 					placeholder="Select player"
-					ref={playerSelectRef}
 					position="append"
 				>
 					<button
@@ -202,14 +202,14 @@ const StackingSettings = () => {
 			<div className="mt-4">
 				<div className="border border-gray-300 rounded-t rounded-br">
 					<div
+						ref={tableRef}
 						className="w-full bg-gray-100"
+						role="table"
 						style={{
 							minHeight: tableHeight
 								? `${tableHeight}px`
 								: '146px',
 						}}
-						ref={tableRef}
-						role="table"
 					>
 						<div role="rowgroup">
 							{page !== undefined &&
@@ -238,27 +238,27 @@ const StackingSettings = () => {
 										<div className="px-2 py-3 flex justify-center items-center">
 											<button
 												type="button"
+												value={player.id}
 												onClick={
 													handleRemovePlayerFromStack
 												}
-												value={player.id}
 											>
 												<p className="sr-only">
 													Remove player
 												</p>
 												<svg
-													xmlns="http://www.w3.org/2000/svg"
+													className=" text-red-600 fill-current"
+													height="24"
 													viewBox="0 0 24 24"
 													width="24"
-													height="24"
-													className=" text-red-600 fill-current"
+													xmlns="http://www.w3.org/2000/svg"
 												>
 													<g data-name="Layer 2">
 														<g data-name="minus-circle">
 															<rect
-																width="24"
 																height="24"
 																opacity="0"
+																width="24"
 															/>
 															<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
 															<path d="M15 11H9a1 1 0 0 0 0 2h6a1 1 0 0 0 0-2z" />
@@ -284,23 +284,23 @@ const StackingSettings = () => {
 					</div>
 					<div className="flex px-4 py-3 justify-between items-center text-xs border-t">
 						<Input
+							className="ml-3"
+							defaultValue={stacks[page]?.MAX_EXPOSURE}
 							id="maxExposure"
 							label="Max exposure"
-							type="number"
-							step={0.1}
 							max={1}
-							className="ml-3"
+							step={0.1}
+							type="number"
 							onChange={handleMaxExposureUpdate}
-							defaultValue={stacks[page]?.MAX_EXPOSURE}
 							// ref={maxExposureInputRef}
 						/>
 
 						{page >= 1 && (
 							<button
-								type="button"
-								onClick={handleDeleteStack}
 								className="text-red-600"
+								type="button"
 								value={page}
+								onClick={handleDeleteStack}
 							>
 								<strong>DELETE STACK</strong>
 							</button>
@@ -328,15 +328,15 @@ const StackingSettings = () => {
 							{stacks?.map((stack, i) => (
 								<li key={i}>
 									<button
-										type="button"
 										className={clsx(
 											'px-4 py-3 rounded-b border border-t-0 border-gray-300 whitespace-no-wrap',
 											page === i
 												? 'bg-indigo-200 border-indigo-200'
 												: ''
 										)}
-										onClick={handleStackSelection}
+										type="button"
 										value={i}
+										onClick={handleStackSelection}
 									>
 										<strong>
 											Stack
@@ -348,20 +348,20 @@ const StackingSettings = () => {
 						</ul>
 					</nav>
 					<button
-						type="button"
 						className="p-3"
+						type="button"
 						onClick={handleAddStack}
 					>
 						<svg
-							xmlns="http://www.w3.org/2000/svg"
+							fill="#2C5282"
+							height="16"
 							viewBox="0 0 24 24"
 							width="16"
-							height="16"
-							fill="#2C5282"
+							xmlns="http://www.w3.org/2000/svg"
 						>
 							<g data-name="Layer 2">
 								<g data-name="plus-circle">
-									<rect width="24" height="24" opacity="0" />
+									<rect height="24" opacity="0" width="24" />
 									<path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
 									<path d="M15 11h-2V9a1 1 0 0 0-2 0v2H9a1 1 0 0 0 0 2h2v2a1 1 0 0 0 2 0v-2h2a1 1 0 0 0 0-2z" />
 								</g>

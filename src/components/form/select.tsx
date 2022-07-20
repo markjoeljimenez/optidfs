@@ -47,11 +47,11 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 					)}
 				>
 					<label
-						htmlFor={props.id}
 						className={clsx(
 							'block text-sm font-medium text-gray-700',
 							props.hideLabel && 'sr-only'
 						)}
+						htmlFor={props.id}
 					>
 						{props.label}
 					</label>
@@ -62,14 +62,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 					{props.position === 'prepend' && children}
 
 					<select
-						defaultValue={
-							props.defaultValue !== undefined
-								? props.defaultValue
-								: undefined
-						}
-						value={
-							props.value !== undefined ? props.value : undefined
-						}
+						ref={ref}
 						className={clsx(
 							'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer',
 							props.position === 'append' &&
@@ -78,21 +71,28 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 								'rounded-tl-none rounded-bl-none',
 							props.error?.isError && 'border-red-700'
 						)}
-						ref={ref}
-						id={props.id}
-						onChange={props.onChange}
-						disabled={props.disabled}
 						data-testid={props.testId}
+						defaultValue={
+							props.defaultValue !== undefined
+								? props.defaultValue
+								: undefined
+						}
+						disabled={props.disabled}
+						id={props.id}
+						value={
+							props.value !== undefined ? props.value : undefined
+						}
+						onChange={props.onChange}
 					>
-						<option value="" disabled>
+						<option disabled value="">
 							{props.placeholder}
 						</option>
 
 						{props.options?.map((item, i) => (
 							<option
-								value={item.value || item}
 								key={`${item.label}`}
 								data-testid={`${item.label}`.toLocaleLowerCase()}
+								value={item.value || item}
 							>
 								{item.label}
 							</option>

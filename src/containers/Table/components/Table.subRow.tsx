@@ -38,32 +38,32 @@ const TableSubRow = ({ player }: ITableSubRow) => {
 		<div className="flex">
 			<div className="w-1/4">
 				<Input
+					data={{
+						'data-player-id': player.id,
+					}}
 					defaultValue={player.minExposure}
 					id={`set-exposure-${player.id}`}
 					label="Minimum exposure"
 					max={1}
 					min={0.1}
-					onChange={handleExposureChange}
 					step={0.1}
 					type="number"
-					data={{
-						'data-player-id': player.id,
-					}}
+					onChange={handleExposureChange}
 				/>
 			</div>
 			<div className="w-1/4 ml-8">
 				<Input
+					data={{
+						'data-player-id': player.id,
+					}}
 					defaultValue={player.projectedOwnership}
 					id={`set-ownership-projection-${player.id}`}
 					label="Projected Ownership"
 					max={1}
 					min={0.1}
-					onChange={handleProjectedOwnershipChange}
 					step={0.1}
 					type="number"
-					data={{
-						'data-player-id': player.id,
-					}}
+					onChange={handleProjectedOwnershipChange}
 				/>
 			</div>
 		</div>

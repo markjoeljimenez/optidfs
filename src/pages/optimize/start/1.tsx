@@ -30,8 +30,8 @@ const Start = () => {
 						<Sports />
 						<IconButton
 							disabled={!state.sports.selectedSport}
-							onClick={onNext}
 							testId="to-next-step"
+							onClick={onNext}
 						>
 							<Chevron />
 						</IconButton>

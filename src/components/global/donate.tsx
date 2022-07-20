@@ -6,22 +6,22 @@ const Donate = () => (
 		method="post"
 		target="_top"
 	>
-		<input type="hidden" name="cmd" value="_donations" />
-		<input type="hidden" name="business" value="DG67QWH46T6SC" />
-		<input type="hidden" name="item_name" value="Supporting the dev" />
-		<input type="hidden" name="currency_code" value="CAD" />
+		<input name="cmd" type="hidden" value="_donations" />
+		<input name="business" type="hidden" value="DG67QWH46T6SC" />
+		<input name="item_name" type="hidden" value="Supporting the dev" />
+		<input name="currency_code" type="hidden" value="CAD" />
 		<input
-			type="image"
-			src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
-			name="submit"
-			title="PayPal - The safer, easier way to pay online!"
 			alt="Donate with PayPal button"
+			name="submit"
+			src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
+			title="PayPal - The safer, easier way to pay online!"
+			type="image"
 		/>
 		<Image
 			alt="Donate"
+			height={1}
 			src="https://www.paypal.com/en_CA/i/scr/pixel.gif"
 			width={1}
-			height={1}
 		/>
 	</form>
 );

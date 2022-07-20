@@ -30,10 +30,10 @@ const StackSetting = () => {
 			label="Max Exposure"
 			max={1}
 			min={0}
-			onChange={handleMaxExposure}
 			placeholder="0"
 			step={0.1}
 			type="number"
+			onChange={handleMaxExposure}
 		/>
 	);
 };

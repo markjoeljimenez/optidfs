@@ -75,32 +75,32 @@ const Upload = () => {
 				Upload CSV
 			</button>
 			<Modal
-				isOpen={isModalActive}
+				validate
 				contentLabel="Drag 'n' drop your CSV here, or click to select files"
-				onRequestClose={() => setIsModalActive(false)}
+				isOpen={isModalActive}
 				multiple={false}
 				style={customStyles}
-				validate
+				onRequestClose={() => setIsModalActive(false)}
 			>
 				<form onSubmit={submitUpload}>
 					<button
 						className="absolute top-0 right-0"
-						onClick={() => setIsModalActive(false)}
 						type="button"
+						onClick={() => setIsModalActive(false)}
 					>
 						<svg
-							xmlns="http://www.w3.org/2000/svg"
+							height="24"
 							viewBox="0 0 24 24"
 							width="24"
-							height="24"
+							xmlns="http://www.w3.org/2000/svg"
 						>
 							<g data-name="Layer 2">
 								<g data-name="close">
 									<rect
-										width="24"
 										height="24"
-										transform="rotate(180 12 12)"
 										opacity="0"
+										transform="rotate(180 12 12)"
+										width="24"
 									/>
 									<path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z" />
 								</g>
@@ -129,14 +129,14 @@ const Upload = () => {
 					</div>
 					<div className="flex justify-between mt-6">
 						<select
-							className="font-bold cursor-pointer shadow appearance-none border rounded py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-							name="gameType"
-							id="gameType"
-							required
-							defaultValue=""
 							ref={gameTypeSelectRef}
+							required
+							className="font-bold cursor-pointer shadow appearance-none border rounded py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+							defaultValue=""
+							id="gameType"
+							name="gameType"
 						>
-							<option value="" disabled>
+							<option disabled value="">
 								Select game type
 							</option>
 							<option value="Classic">Classic</option>

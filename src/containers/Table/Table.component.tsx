@@ -175,8 +175,8 @@ const Table = () => {
 							{row.isExpanded ? (
 								<tr>
 									<td
-										colSpan={visibleColumns.length}
 										className="px-8 py-4 bg-gray-50 border-b border-gray-200"
+										colSpan={visibleColumns.length}
 									>
 										<TableSubRow player={row.original} />
 									</td>
@@ -190,25 +190,25 @@ const Table = () => {
 			<tfoot className="sticky bottom-0 bg-white">
 				{table.view === 'all' && visibleColumns.length > 1 && (
 					<tr>
-						<td colSpan={visibleColumns.length} className="p-0">
+						<td className="p-0" colSpan={visibleColumns.length}>
 							<div className="flex justify-between border-t border-gray-200 px-8 py-4">
 								<div>
 									<button
-										onClick={() => previousPage()}
 										disabled={!canPreviousPage}
+										onClick={() => previousPage()}
 									>
 										<svg
-											xmlns="http://www.w3.org/2000/svg"
 											className="h-5 w-5"
 											fill="none"
-											viewBox="0 0 24 24"
 											stroke="currentColor"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
 										>
 											<path
+												d="M15 19l-7-7 7-7"
 												strokeLinecap="round"
 												strokeLinejoin="round"
 												strokeWidth="2"
-												d="M15 19l-7-7 7-7"
 											/>
 										</svg>
 									</button>
@@ -221,21 +221,21 @@ const Table = () => {
 								</div>
 								<div>
 									<button
-										onClick={() => nextPage()}
 										disabled={!canNextPage}
+										onClick={() => nextPage()}
 									>
 										<svg
-											xmlns="http://www.w3.org/2000/svg"
 											className="h-5 w-5"
 											fill="none"
-											viewBox="0 0 24 24"
 											stroke="currentColor"
+											viewBox="0 0 24 24"
+											xmlns="http://www.w3.org/2000/svg"
 										>
 											<path
+												d="M9 5l7 7-7 7"
 												strokeLinecap="round"
 												strokeLinejoin="round"
 												strokeWidth="2"
-												d="M9 5l7 7-7 7"
 											/>
 										</svg>
 									</button>

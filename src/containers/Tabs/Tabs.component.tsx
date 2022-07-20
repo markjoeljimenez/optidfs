@@ -35,10 +35,10 @@ const Tabs = () => {
 				<ul className="flex space-x-2" role="tablist">
 					{TABS.map(({ id, name }) => (
 						<li
-							role="tab"
-							aria-selected={tabs.activeTab === id}
-							aria-controls={`panel-${name}`}
 							key={id}
+							aria-controls={`panel-${name}`}
+							aria-selected={tabs.activeTab === id}
+							role="tab"
 						>
 							<button
 								className={clsx(
@@ -48,8 +48,8 @@ const Tabs = () => {
 									tabs.activeTab === id ? 'bg-gray-100' : ''
 								)}
 								type="button"
-								onClick={handleTabClick}
 								value={id}
+								onClick={handleTabClick}
 							>
 								{name}
 							</button>

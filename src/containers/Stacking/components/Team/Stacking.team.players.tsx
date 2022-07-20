@@ -29,6 +29,7 @@ const StackSetting = () => {
 
 	return (
 		<Input
+			required
 			error={{
 				isError,
 				message: 'Field cannot remain empty',
@@ -36,10 +37,9 @@ const StackSetting = () => {
 			id="numberOfPlayers"
 			label="Number of Players (Required)"
 			min={0}
-			onChange={handleNumberOfPlayers}
 			placeholder="0"
-			required
 			type="number"
+			onChange={handleNumberOfPlayers}
 		/>
 	);
 };

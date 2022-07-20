@@ -35,8 +35,8 @@ const App = ({ Component, pageProps }: AppProps) => {
 					{(t) => <Toast {...t}>{resolveValue(t.message, t)}</Toast>}
 				</Toaster>
 				<DefaultSeo
-					title="Optidfs"
 					description="A web app that generates the most optimized lineups for DraftKings."
+					title="Optidfs"
 				/>
 				<Dashboard>
 					<Component {...pageProps} />

@@ -26,12 +26,12 @@ const StackSetting = () => {
 
 	return (
 		<Input
-			label="Spacing"
 			id="spacing"
-			placeholder="0"
-			onChange={handleSpacing}
-			type="number"
+			label="Spacing"
 			min={0}
+			placeholder="0"
+			type="number"
+			onChange={handleSpacing}
 		/>
 	);
 };

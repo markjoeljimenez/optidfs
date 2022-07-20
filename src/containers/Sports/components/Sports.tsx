@@ -28,6 +28,10 @@ const Sports = () => {
 	return (
 		<div className="relative">
 			<Select
+				hideLabel
+				disabled={!response.data}
+				id="selectSport"
+				label="Select sport"
 				options={(response.data ?? [])
 					.filter(
 						(sport) =>
@@ -47,14 +51,10 @@ const Sports = () => {
 								label: sport.regionAbbreviatedSportName,
 							} as IValueLabel)
 					)}
-				value={sports.selectedSport?.sportId.toString() || ''}
-				hideLabel
-				id="selectSport"
-				label="Select sport"
 				placeholder="Select sport"
-				disabled={!response.data}
-				onChange={handleSportChange}
 				testId="sports-select"
+				value={sports.selectedSport?.sportId.toString() || ''}
+				onChange={handleSportChange}
 			/>
 		</div>
 	);

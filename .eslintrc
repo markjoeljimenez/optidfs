@@ -9,6 +9,17 @@
 	"rules": {
 		"simple-import-sort/imports": "error",
 		"simple-import-sort/exports": "error",
-		"sort-destructure-keys/sort-destructure-keys": 2
+		"sort-destructure-keys/sort-destructure-keys": 2,
+		"react/jsx-sort-props": [
+			"error",
+			{
+				"callbacksLast": true,
+				"shorthandFirst": true,
+				"shorthandLast": false,
+				"ignoreCase": false,
+				"noSortAlphabetically": false,
+				"reservedFirst": true
+			}
+		]
 	}
 }

@@ -50,24 +50,24 @@ const Rule = () => {
 			<Fieldset legend="Number of players from same team">
 				<div className="flex space-x-4 mt-2">
 					<Select
+						ref={playersFromSameTeamSelectRef}
+						hideLabel
 						className="flex-1"
 						defaultValue=""
-						hideLabel
 						id="playersFromSameTeam"
 						label="Select team"
 						options={players?.teams!}
 						placeholder="Select team"
-						ref={playersFromSameTeamSelectRef}
 					/>
 					<Input
-						className="flex-1"
+						ref={playersFromSameTeamInputRef}
 						hideLabel
+						className="flex-1"
 						id="numberOfPlayersPerTeam"
 						label="Number of players from same team"
 						max={8}
 						min={0}
 						placeholder="# of players"
-						ref={playersFromSameTeamInputRef}
 						type="number"
 					/>
 
@@ -83,14 +83,14 @@ const Rule = () => {
 						({ key, value }, i) => (
 							<div key={i} className="ml-2 first:ml-0">
 								<Badge
-									text={`${key} - ${value}`}
 									color={BadgeColor.Yellow}
-									value={key}
-									onClick={handleRemoveRule}
 									data={{
 										'data-rule':
 											RULE.NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM,
 									}}
+									text={`${key} - ${value}`}
+									value={key}
+									onClick={handleRemoveRule}
 								/>
 							</div>
 						)

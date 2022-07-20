@@ -28,15 +28,15 @@ const SelectWithAdd = forwardRef<HTMLSelectElement, ISelectWithAdd>(
 				{select && (
 					<div>
 						<Select
+							ref={ref}
 							error={{
 								...error,
 								message: undefined,
 							}}
 							id={select.id}
-							options={select.items}
 							label={select.label}
+							options={select.items}
 							placeholder={select.placeholder}
-							ref={ref}
 							position="append"
 						>
 							<button
@@ -55,10 +55,10 @@ const SelectWithAdd = forwardRef<HTMLSelectElement, ISelectWithAdd>(
 						{list?.items?.map((item, i) => (
 							<li key={i} className="inline-block ml-2">
 								<Badge
-									color={BadgeColor.Yellow}
-									value={item}
-									text={item}
 									key={item}
+									color={BadgeColor.Yellow}
+									text={item}
+									value={item}
 									onClick={list.onClick}
 								/>
 							</li>
