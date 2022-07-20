@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
 
 import { useGetContestsFromSportQuery } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -12,7 +11,6 @@ import { setGameType, setSelectedContest } from '../redux/reducers';
 const Dropdown = () => {
 	const { contests, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
-	const [localStorage, setLocalStorage] = useAppLocalStorage();
 
 	const { data } = useGetContestsFromSportQuery(
 		{
@@ -41,11 +39,6 @@ const Dropdown = () => {
 
 		if (selectedItem) {
 			dispatch(setSelectedContest(selectedItem));
-
-			setLocalStorage({
-				...localStorage,
-				contest: selectedItem,
-			});
 
 			if (selectedItem.gameType) {
 				dispatch(setGameType(selectedItem.gameType));

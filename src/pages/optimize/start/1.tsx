@@ -1,7 +1,5 @@
 import router from 'next/router';
-import { useEffect } from 'react';
 import { useAppSelector } from 'src/hooks';
-import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
 
 import IconButton from '@/components/global/icon-button';
 import Chevron from '@/components/icons/chevron';
@@ -10,19 +8,6 @@ import Sports from '@/containers/Sports';
 
 const Start = () => {
 	const state = useAppSelector((state) => state);
-	const [localStorage, setLocalStorage] = useAppLocalStorage();
-	// const [step, setStep] = useState(1);
-
-	/**
-	 * If there is a local storage value, redirect to /optimize
-	 */
-	// useEffect(() => {
-	// 	console.log(state);
-	// 	// if (contests && providers && sports) {
-	// 	// 	router.push('/optimize', undefined, { shallow: true });
-	// 	// 	return;
-	// 	// }
-	// }, [state]);
 
 	function onNext() {
 		if (state.providers.provider && state.sports.selectedSport) {

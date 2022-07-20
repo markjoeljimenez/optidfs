@@ -58,6 +58,7 @@
 		"react-use": "^17.4.0",
 		"redux": "^4.1.0",
 		"redux-devtools-extension": "^2.13.9",
+		"redux-persist": "^6.0.0",
 		"sass": "^1.36.0",
 		"stylelint": "^13.13.1",
 		"stylelint-scss": "^3.20.1",

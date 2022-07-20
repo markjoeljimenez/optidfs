@@ -1,5 +1,3 @@
-import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
-
 import { selectProviders } from '@/containers/Providers';
 
 import { useGetSportsFromProviderQuery } from '../../../api';
@@ -11,7 +9,6 @@ const Sports = () => {
 	const providers = useAppSelector(selectProviders);
 	const sports = useAppSelector(sportsState);
 	const dispatch = useAppDispatch();
-	const [localStorage, setLocalStorage] = useAppLocalStorage();
 
 	const response = useGetSportsFromProviderQuery(providers.provider!, {
 		skip: !providers.provider,
@@ -25,11 +22,6 @@ const Sports = () => {
 
 		if (selectedSport) {
 			dispatch(setSelectedSport(selectedSport));
-
-			setLocalStorage({
-				...localStorage,
-				sport: selectedSport,
-			});
 		}
 	}
 

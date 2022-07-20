@@ -1,7 +1,5 @@
 import router from 'next/router';
-import { useEffect } from 'react';
 import { useAppSelector } from 'src/hooks';
-import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
 import { setHasVisited } from 'src/store';
 
 import IconButton from '@/components/global/icon-button';
@@ -10,15 +8,6 @@ import Contests from '@/containers/Contests';
 
 const Start2 = () => {
 	const { contests } = useAppSelector((state) => state);
-	const [localStorage] = useAppLocalStorage();
-
-	useEffect(() => {
-		if (!localStorage?.sport || !localStorage?.provider) {
-			router.push('/optimize/start/1', undefined, {
-				shallow: true,
-			});
-		}
-	}, [localStorage]);
 
 	function onNext() {
 		if (contests.selectedContest) {

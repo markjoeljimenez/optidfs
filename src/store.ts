@@ -7,6 +7,17 @@ import {
 	PreloadedState,
 	ThunkAction,
 } from '@reduxjs/toolkit';
+import {
+	FLUSH,
+	PAUSE,
+	PERSIST,
+	persistReducer,
+	persistStore,
+	PURGE,
+	REGISTER,
+	REHYDRATE,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import { ContestsReducers } from '@/containers/Contests';
 import { PlayersReducers } from '@/containers/Players';
@@ -15,22 +26,7 @@ import { SportsReducers } from '@/containers/Sports';
 
 import { OptidfsApi } from './api';
 import error from './containers/Error/Error.reducers';
-import rules from './containers/Rules/Rules.reducers';
-import stacking from './containers/Stacking/Stacking.reducers';
 import table from './containers/Table/Table.reducers';
-import tabs from './containers/Tabs/Tabs.reducers.old';
-
-// export const reducers = combineReducers({
-// 	contests,
-// 	error,
-// 	players,
-// 	providers,
-// 	rules,
-// 	sports,
-// 	stacking,
-// 	table,
-// 	tabs,
-// });
 
 interface IGlobalInitialState {
 	hasVisited: boolean;
@@ -71,12 +67,32 @@ const rootReducer = combineReducers({
 	[OptidfsApi.reducerPath]: OptidfsApi.reducer,
 });
 
+const persistConfig = {
+	key: 'root',
+	version: 1,
+	storage,
+	blacklist: [OptidfsApi.reducerPath],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
 	return configureStore({
-		reducer: rootReducer,
+		reducer: persistedReducer,
 		middleware: (getDefaultMiddleware) =>
 			// adding the api middleware enables caching, invalidation, polling and other features of `rtk-query`
-			getDefaultMiddleware().concat(OptidfsApi.middleware),
+			getDefaultMiddleware({
+				serializableCheck: {
+					ignoredActions: [
+						FLUSH,
+						REHYDRATE,
+						PAUSE,
+						PERSIST,
+						PURGE,
+						REGISTER,
+					],
+				},
+			}).concat(OptidfsApi.middleware),
 		preloadedState,
 	});
 };
@@ -93,3 +109,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 	unknown,
 	Action<string>
 >;
+
+export const persistor = persistStore(store);
+export default store;

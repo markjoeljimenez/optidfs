@@ -1,5 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { useAppLocalStorage } from 'src/hooks/useAppLocalStorage';
+import { ChangeEvent } from 'react';
 
 import Select from '../../../components/form/select';
 import providersData from '../../../data/providers';
@@ -8,28 +7,13 @@ import { selectProviders, setProvider } from '..';
 
 const Providers = () => {
 	const providers = useAppSelector(selectProviders);
-	const [localStorage, setLocalStorage] = useAppLocalStorage();
 	const dispatch = useAppDispatch();
 
 	const handleProviderSelection = (e: ChangeEvent<HTMLSelectElement>) => {
 		const { value } = e.currentTarget;
 
 		dispatch(setProvider(value));
-
-		setLocalStorage({
-			...localStorage,
-			provider: value,
-		});
 	};
-
-	// useEffect(() => {
-	// 	if (providers.provider) {
-	// 		setLocalStorage({
-	// 			...localStorage,
-	// 			provider: providers.provider,
-	// 		});
-	// 	}
-	// }, [providers.provider]);
 
 	return (
 		<Select
