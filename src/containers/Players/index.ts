@@ -1,9 +1,10 @@
 import { getPlayers } from './api/getPlayers';
 import playersHandler from './handlers/players.handler';
-import { IDraftKingsPlayer } from './interfaces/IDraftKingsPlayer';
-import { IPlayer } from './interfaces/IPlayer';
-import { IYahooPlayer } from './interfaces/IYahooPlayer';
 import { draftKingsPlayersMock, yahooPlayersMock } from './mocks/players.mocks';
+import { IDraftKingsPlayer } from './models/IDraftKingsPlayer';
+import { IPlayer } from './models/IPlayer';
+import { IYahooPlayer } from './models/IYahooPlayer';
+import { Providers } from './models/providers.enum';
 import PlayersReducers, {
 	playersState,
 	setDefaultPlayers,
@@ -14,7 +15,7 @@ import { mapDraftKingsPlayers, mapYahooPlayers } from './services/mapPlayers';
 export { getPlayers };
 
 // Mocks
-export { draftKingsPlayersMock,yahooPlayersMock };
+export { draftKingsPlayersMock, yahooPlayersMock };
 
 // Handler
 export { playersHandler };
@@ -31,5 +32,5 @@ export { playersState };
 // Services
 export { mapDraftKingsPlayers, mapYahooPlayers };
 
-// Interfaces
-export type { IDraftKingsPlayer, IPlayer,IYahooPlayer };
+// Models
+export type { IDraftKingsPlayer, IPlayer, IYahooPlayer, Providers };

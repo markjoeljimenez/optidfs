@@ -1,4 +1,4 @@
-import { IPlayer } from '../Players/interfaces/IPlayer';
+import { IPlayer } from '../Players/models/IPlayer';
 import {
 	REMOVE_FROM_SETTING,
 	RESET_SETTINGS,

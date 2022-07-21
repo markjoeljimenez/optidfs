@@ -31,24 +31,19 @@ const Table = () => {
 	const dispatch = useAppDispatch();
 
 	const response = useGetPlayersQuery(
-		contests.selectedContest
-			? {
-					gameType: contests.gameType,
-					id: contests.selectedContest?.contest_id!,
-					provider: providers.provider!,
-			  }
-			: skipToken
+		{
+			gameType: contests.gameType,
+			id: contests.selectedContest?.contest_id!,
+			provider: providers.provider!,
+		},
+		{
+			skip: !contests.selectedContest || !providers.provider,
+		}
 	);
 
 	useEffect(() => {
 		if (response.data) {
-			const { players } = response.data;
-
-			console.log(players);
-
-			// dispatch(
-			// 	setDefaultPlayers({ players, provider: providers.provider })
-			// );
+			dispatch(setDefaultPlayers({ players: response.data }));
 		}
 	}, [response.data]);
 

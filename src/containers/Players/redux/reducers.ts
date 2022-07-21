@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppState } from '../../../store';
-import { IDraftKingsPlayer } from '../interfaces/IDraftKingsPlayer';
-import { IPlayer } from '../interfaces/IPlayer';
-import { IYahooPlayer } from '../interfaces/IYahooPlayer';
+import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
+import { IPlayer } from '../models/IPlayer';
+import { IYahooPlayer } from '../models/IYahooPlayer';
 import { mapDraftKingsPlayers, mapYahooPlayers } from '../services/mapPlayers';
 
 interface IInitialState {
-	defaultPlayers: IPlayer[];
+	defaultPlayers: (IDraftKingsPlayer | IYahooPlayer)[];
 }
 
 const initialState: IInitialState = {
@@ -22,17 +22,18 @@ export const PlayersReducers = createSlice({
 			state,
 			action: PayloadAction<{
 				players: (IDraftKingsPlayer | IYahooPlayer)[];
-				provider: string;
 			}>
 		) => {
-			const { players, provider } = action.payload;
+			// const { players } = action.payload;
 
-			const transformedPlayers =
-				provider === 'draftkings'
-					? mapDraftKingsPlayers(players as IDraftKingsPlayer[])
-					: mapYahooPlayers(players as IYahooPlayer[]);
+			// const transformedPlayers =
+			// 	provider === 'draftkings'
+			// 		? mapDraftKingsPlayers(players as IDraftKingsPlayer[])
+			// 		: mapYahooPlayers(players as IYahooPlayer[]);
 
-			state.defaultPlayers = transformedPlayers;
+			console.log(action.payload);
+
+			state.defaultPlayers = action.payload.players;
 		},
 	},
 });

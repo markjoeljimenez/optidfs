@@ -1,6 +1,7 @@
-import { IDraftKingsPlayer } from '../interfaces/IDraftKingsPlayer';
-import { IPlayer } from '../interfaces/IPlayer';
-import { IYahooPlayer } from '../interfaces/IYahooPlayer';
+import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
+import { IPlayer } from '../models/IPlayer';
+import { IYahooPlayer } from '../models/IYahooPlayer';
+import { Providers } from '../models/providers.enum';
 
 export const mapDraftKingsPlayers = (
 	draftKingsPlayers: IDraftKingsPlayer[]
@@ -30,3 +31,14 @@ export const mapYahooPlayers = (yahooPlayers: IYahooPlayer[]): IPlayer[] =>
 		status: yahooPlayer.status,
 		team: yahooPlayer.teamAbbr,
 	}));
+
+const providersMap = (players: (IDraftKingsPlayer | IYahooPlayer)[]) =>
+	new Map<Providers, IPlayer[]>([
+		[
+			Providers.DraftKings,
+			mapDraftKingsPlayers(players as IDraftKingsPlayer[]),
+		],
+		[Providers.Yahoo, mapYahooPlayers(players as IYahooPlayer[])],
+	]);
+
+export default providersMap;
