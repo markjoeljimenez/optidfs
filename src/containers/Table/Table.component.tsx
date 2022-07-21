@@ -34,7 +34,7 @@ const Table = () => {
 		contests.selectedContest
 			? {
 					gameType: contests.gameType,
-					id: contests.selectedContest?.id!,
+					id: contests.selectedContest?.contest_id!,
 					provider: providers.provider!,
 			  }
 			: skipToken
@@ -44,9 +44,11 @@ const Table = () => {
 		if (response.data) {
 			const { players } = response.data;
 
-			dispatch(
-				setDefaultPlayers({ players, provider: providers.provider })
-			);
+			console.log(players);
+
+			// dispatch(
+			// 	setDefaultPlayers({ players, provider: providers.provider })
+			// );
 		}
 	}, [response.data]);
 

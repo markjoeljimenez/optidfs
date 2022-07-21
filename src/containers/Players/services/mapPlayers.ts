@@ -6,27 +6,27 @@ export const mapDraftKingsPlayers = (
 	draftKingsPlayers: IDraftKingsPlayer[]
 ): IPlayer[] =>
 	draftKingsPlayers.map((draftKingsPlayer) => ({
-		id: draftKingsPlayer.id,
+		draftPositions: draftKingsPlayer.draft_positions,
 		firstName: draftKingsPlayer.first_name,
-		lastName: draftKingsPlayer.last_name,
 		fppg: draftKingsPlayer.points_per_contest,
+		id: draftKingsPlayer.id,
+		image: draftKingsPlayer.images?.[160] || draftKingsPlayer.images?.[50],
+		lastName: draftKingsPlayer.last_name,
 		position: draftKingsPlayer.position,
 		salary: draftKingsPlayer.salary,
-		team: draftKingsPlayer.team,
 		status: draftKingsPlayer.status,
-		draftPositions: draftKingsPlayer.draft_positions,
-		image: draftKingsPlayer.images?.[160] || draftKingsPlayer.images?.[50],
+		team: draftKingsPlayer.team,
 	}));
 
 export const mapYahooPlayers = (yahooPlayers: IYahooPlayer[]): IPlayer[] =>
 	yahooPlayers.map((yahooPlayer) => ({
-		id: yahooPlayer.playerSalaryId,
 		firstName: yahooPlayer.firstName,
-		lastName: yahooPlayer.lastName,
 		fppg: parseFloat(yahooPlayer.fantasyPointsPerGame.toFixed(2)),
+		id: yahooPlayer.playerSalaryId,
+		image: yahooPlayer.imageUrl,
+		lastName: yahooPlayer.lastName,
 		position: yahooPlayer.eligiblePositions.join('/'),
 		salary: yahooPlayer.salary,
-		team: yahooPlayer.teamAbbr,
 		status: yahooPlayer.status,
-		image: yahooPlayer.imageUrl,
+		team: yahooPlayer.teamAbbr,
 	}));

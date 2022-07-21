@@ -15,8 +15,8 @@ const initialState: IInitialState = {
 };
 
 export const PlayersReducers = createSlice({
-	name: 'players',
 	initialState,
+	name: 'players',
 	reducers: {
 		setDefaultPlayers: (
 			state,
