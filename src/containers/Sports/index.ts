@@ -2,7 +2,7 @@ import { getSportsFromProvider } from './api/getSportsFromProvider';
 import Sports from './components/Sports';
 import sportsHandler from './handlers/sports.handler';
 import { ISport } from './interfaces/ISports';
-import sportsMock from './mocks/sports.mocks';
+import { draftKingsSportsMock, yahooSportsMock } from './mocks/sports.mocks';
 import SportsReducers, {
 	setSelectedSport,
 	sportsState,
@@ -15,7 +15,7 @@ export { getSportsFromProvider };
 export { sportsHandler };
 
 // Mocks
-export { sportsMock };
+export { draftKingsSportsMock, yahooSportsMock };
 
 // Reducers
 export { SportsReducers };

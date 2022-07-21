@@ -1,9 +1,16 @@
 import { rest } from 'msw';
 
-import sportsMock from '../mocks/sports.mocks';
+import { draftKingsSportsMock, yahooSportsMock } from '../mocks/sports.mocks';
 
-const handler = rest.get('http://127.0.0.1:5000', (req, res, ctx) => {
-	return res(ctx.json(sportsMock));
+const { ENDPOINT } = process.env;
+
+const handler = rest.get(`${ENDPOINT!}`, (req, res, ctx) => {
+	const sportsMap = new Map([
+		['draftkings', draftKingsSportsMock],
+		['yahoo', yahooSportsMock],
+	]);
+
+	return res(ctx.json(sportsMap.get(req.url.searchParams.get('provider')!)));
 });
 
 export default handler;

@@ -10,8 +10,8 @@ interface ISportsState {
 const initialState: ISportsState = {};
 
 export const SportsReducers = createSlice({
-	name: 'sports',
 	initialState,
+	name: 'sports',
 	reducers: {
 		setSelectedSport: (state, action: PayloadAction<ISport>) => {
 			state.selectedSport = action.payload;

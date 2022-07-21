@@ -2,10 +2,10 @@ export interface ISport {
 	fullName: string;
 	hasPublicContests: boolean;
 	isEnabled: boolean;
-	regionAbbreviatedSportName: string;
-	regionFullSportName?: string;
-	sortOrder?: number;
-	sportId: number;
+	sportId: number | string;
 	supported: boolean;
 	positions?: string[];
+	regionAbbreviatedSportName?: string;
+	regionFullSportName?: string;
+	sortOrder?: number;
 }

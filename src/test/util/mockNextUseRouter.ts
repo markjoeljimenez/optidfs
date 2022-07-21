@@ -6,15 +6,12 @@ const useRouter = jest.spyOn(require('next/router'), 'useRouter');
  * Mocks the useRouter React hook from Next.js on a test-case by test-case basis
  */
 export function mockNextUseRouter(props: {
-	route: string;
+	asPath: string;
 	pathname: string;
 	query: string;
-	asPath: string;
+	route: string;
 }) {
 	useRouter.mockImplementationOnce(() => ({
-		route: props.route,
-		pathname: props.pathname,
-		query: props.query,
-		asPath: props.asPath,
+		...props,
 	}));
 }

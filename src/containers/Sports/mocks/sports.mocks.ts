@@ -1,28 +1,41 @@
 import { ISport } from '../interfaces/ISports';
 
-const sportsMock: ISport[] = [
+export const draftKingsSportsMock: ISport[] = [
 	{
-		fullName: 'Football',
+		fullName: 'Golf',
 		hasPublicContests: true,
 		isEnabled: true,
-		positions: ['QB', 'RB', 'RB', 'WR', 'WR', 'WR', 'TE', 'FLEX', 'DST'],
-		regionAbbreviatedSportName: 'NFL',
-		regionFullSportName: 'Football',
+		regionAbbreviatedSportName: 'GOLF',
+		regionFullSportName: 'Golf',
 		sortOrder: 1,
-		sportId: 1,
+		sportId: 13,
 		supported: true,
 	},
 	{
-		fullName: 'Basketball',
+		fullName: 'Baseball',
 		hasPublicContests: true,
 		isEnabled: true,
-		positions: ['PG', 'SG', 'SF', 'PF', 'C', 'G', 'F', 'UTIL'],
-		regionAbbreviatedSportName: 'NBA',
-		regionFullSportName: 'Basketball',
+		regionAbbreviatedSportName: 'MLB',
+		regionFullSportName: 'Baseball',
 		sortOrder: 2,
-		sportId: 4,
+		sportId: 2,
 		supported: true,
 	},
 ];
 
-export default sportsMock;
+export const yahooSportsMock: ISport[] = [
+	{
+		fullName: 'golf',
+		hasPublicContests: true,
+		isEnabled: true,
+		sportId: 'golf',
+		supported: true,
+	},
+	{
+		fullName: 'mlb',
+		hasPublicContests: true,
+		isEnabled: true,
+		sportId: 'mlb',
+		supported: true,
+	},
+];

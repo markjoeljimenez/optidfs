@@ -15,7 +15,10 @@ const Sports = () => {
 	});
 
 	function handleSportChange(e: React.ChangeEvent<HTMLSelectElement>) {
-		const sportId = parseInt(e.currentTarget.value);
+		const sportId = isNaN(parseInt(e.currentTarget.value))
+			? e.currentTarget.value
+			: parseInt(e.currentTarget.value);
+
 		const selectedSport = response.data?.find(
 			(sport) => sport.sportId === sportId
 		);
@@ -39,15 +42,14 @@ const Sports = () => {
 							sport.hasPublicContests &&
 							sport.supported
 					)
-					.sort((a, b) =>
-						a.regionAbbreviatedSportName.localeCompare(
-							b.regionAbbreviatedSportName
-						)
-					)
+					.sort((a, b) => a.fullName.localeCompare(b.fullName))
 					.map(
 						(sport) =>
 							({
-								label: sport.regionAbbreviatedSportName,
+								label: (
+									sport.regionAbbreviatedSportName ??
+									sport.fullName
+								).toLocaleUpperCase(),
 								value: sport.sportId,
 							} as IValueLabel)
 					)}
