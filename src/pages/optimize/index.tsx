@@ -12,8 +12,8 @@ const Index = () => {
 
 	useEffect(() => {
 		if (
-			!providers.provider &&
-			!sports.selectedSport &&
+			!providers.provider ||
+			!sports.selectedSport ||
 			!contests.selectedContest
 		) {
 			router.push('/optimize/start/1', undefined, {

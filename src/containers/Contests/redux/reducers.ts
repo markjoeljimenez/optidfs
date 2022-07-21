@@ -4,8 +4,8 @@ import { AppState } from '../../../store';
 import { IContest } from '../interfaces/IContest';
 
 interface IContestState {
-	selectedContest: IContest | null;
 	gameType;
+	selectedContest: IContest | null;
 }
 
 const initialState: IContestState = {
@@ -26,7 +26,7 @@ export const ContestsReducers = createSlice({
 	},
 });
 
-export const { setSelectedContest, setGameType } = ContestsReducers.actions;
+export const { setGameType, setSelectedContest } = ContestsReducers.actions;
 export const contestsState = (state: AppState) => state.contests;
 
 export default ContestsReducers.reducer;

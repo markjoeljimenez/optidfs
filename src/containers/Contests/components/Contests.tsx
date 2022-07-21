@@ -53,14 +53,15 @@ const Dropdown = () => {
 			if (contests.selectedContest) {
 				const foundContest = data?.contests.find(
 					(contest) =>
-						contest.id === contests?.selectedContest!.id &&
+						contest.contest_id ===
+							contests?.selectedContest!.contest_id &&
 						contest.name === contests?.selectedContest!.name
 				);
 
 				if (!foundContest) {
 					toast.error(
 						`No contest found with id: ${
-							contests.selectedContest!.id
+							contests.selectedContest!.contest_id
 						}`
 					);
 

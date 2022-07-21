@@ -1,5 +1,5 @@
 export interface IContest {
-	id: number;
+	contest_id: number;
 	name: string;
 	gameType?: string;
 }

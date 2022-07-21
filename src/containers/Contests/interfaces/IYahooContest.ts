@@ -1,9 +1,3 @@
-export interface FirstPlacePayout {
-	amount: number;
-	currency: string;
-	value: number;
-}
-
 export interface PaidEntryFee {
 	amount: number;
 	currency: string;
@@ -11,6 +5,13 @@ export interface PaidEntryFee {
 }
 
 export interface PaidTotalPrize {
+	amount: number;
+	currency: string;
+	currencyType: string;
+	value: number;
+}
+
+export interface FirstPlacePayout {
 	amount: number;
 	currency: string;
 	value: number;
@@ -33,14 +34,11 @@ export interface IYahooContest {
 	id: number;
 	multipleEntry: boolean;
 	multipleEntryLimit: number;
-	opponentExperience?: any;
-	opponentSkillStatus?: any;
 	paidEntryFee: PaidEntryFee;
 	paidTotalPrize: PaidTotalPrize;
 	perfectLineupPrize: PerfectLineupPrize;
 	pinned: number;
 	promoted: boolean;
-	restriction?: any;
 	rewardPointsEntryFee: number;
 	salaryCap: number;
 	scope: string;
@@ -50,7 +48,10 @@ export interface IYahooContest {
 	startTime: number;
 	state: string;
 	subleague: string;
-	subleagueDisplayName?: any;
+	subleagueDisplayName: string;
 	title: string;
 	type: string;
+	opponentExperience?: any;
+	opponentSkillStatus?: any;
+	restriction?: any;
 }

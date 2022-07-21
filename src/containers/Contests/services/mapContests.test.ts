@@ -8,27 +8,25 @@ describe('mapContests', () => {
 	it('should map DraftKings', () => {
 		// Act
 		const transformedContests = mapDraftKingsContests(
-			draftKingsContestsMock.contests
+			draftKingsContestsMock
 		);
 
 		// Assert
 		expect(transformedContests[0]).toStrictEqual({
-			id: 65923,
-			name: 'NBA $300K Swish [$100K to 1st]',
-			gameType: 'Classic',
+			contest_id: 71728,
+			name: 'PGA TOUR $215 3-Player',
+			// gameType: 'Classic',
 		});
 	});
 
 	it('should map Yahoo', () => {
 		// Act
-		const transformedContests = mapYahooContests(
-			yahooContestsMock.contests
-		);
+		const transformedContests = mapYahooContests(yahooContestsMock);
 
 		// Assert
 		expect(transformedContests[0]).toStrictEqual({
-			id: 10632517,
-			name: 'NBA $10 10-Team Group',
+			contest_id: 11109513,
+			name: 'PGA $20K Thursday Baller [$4K to 1st]',
 		});
 	});
 });

@@ -1,18 +1,15 @@
 import { IDraftKingsContest, IYahooContest } from '@/containers/Contests';
 
 export interface IContestsBody {
-	sportId: number;
-	sport: string;
 	provider: string;
+	sport: string;
+	sportId: number;
 }
 
-export interface IContestsResponse {
-	contests: IDraftKingsContest[] | IYahooContest[];
-	provider: string;
-}
+export type IContestsResponse = IDraftKingsContest[] | IYahooContest[];
 
 export interface IPlayersBody {
-	provider: string;
 	id: number;
+	provider: string;
 	gameType?: string;
 }

@@ -54,8 +54,8 @@ describe('Contests', () => {
 
 		// Assert
 		expect(store.getState().contests.selectedContest).toStrictEqual({
-			id: 10632517,
-			name: 'NBA $10 10-Team Group',
+			contest_id: 11109513,
+			name: 'PGA $20K Thursday Baller [$4K to 1st]',
 		});
 	});
 
@@ -77,7 +77,7 @@ describe('Contests', () => {
 
 		// Assert
 		expect(contestsList.children.length).toBeLessThan(
-			yahooContestsMock.contests.length
+			yahooContestsMock.length
 		);
 	});
 
@@ -88,7 +88,7 @@ describe('Contests', () => {
 				...preloadedState,
 				contests: {
 					selectedContest: {
-						id: 12345,
+						contest_id: 12345,
 						name: 'Invalid contest',
 					},
 					gameType: null,
