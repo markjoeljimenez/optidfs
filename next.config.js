@@ -12,19 +12,19 @@ const config = {
 		GA_TRACKING_ID,
 	},
 	images: {
-		domains: ['www.paypal.com'],
+		domains: ['www.paypal.com', 'dkn.gs', 's.yimg.com'],
 	},
 	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-	swcMinify: true,
 	async redirects() {
 		return [
 			{
-				source: '/',
 				destination: '/optimize',
 				permanent: true,
+				source: '/',
 			},
 		];
 	},
+	swcMinify: true,
 };
 
 module.exports = withMDX(config);

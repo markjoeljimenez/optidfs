@@ -1,3 +1,5 @@
+// import { Status } from 'src/interfaces/IStatus';
+
 import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
 import { IPlayer } from '../models/IPlayer';
 import { IYahooPlayer } from '../models/IYahooPlayer';
@@ -11,11 +13,14 @@ export const mapDraftKingsPlayers = (
 		firstName: draftKingsPlayer.first_name,
 		fppg: draftKingsPlayer.points_per_contest,
 		id: draftKingsPlayer.id,
-		image: draftKingsPlayer.images?.[160] || draftKingsPlayer.images?.[50],
+		image:
+			draftKingsPlayer.images
+				?.one_hundred_and_sixty_pixels_by_one_hundred_and_sixty_pixels_url ||
+			draftKingsPlayer.images?.fifty_pixels_by_fifty_pixels_url,
 		lastName: draftKingsPlayer.last_name,
 		position: draftKingsPlayer.position,
 		salary: draftKingsPlayer.salary,
-		status: draftKingsPlayer.status,
+		status: 'Active', // @TODO: Fix this on the backend first
 		team: draftKingsPlayer.team,
 	}));
 
@@ -32,13 +37,10 @@ export const mapYahooPlayers = (yahooPlayers: IYahooPlayer[]): IPlayer[] =>
 		team: yahooPlayer.teamAbbr,
 	}));
 
-const providersMap = (players: (IDraftKingsPlayer | IYahooPlayer)[]) =>
-	new Map<Providers, IPlayer[]>([
-		[
-			Providers.DraftKings,
-			mapDraftKingsPlayers(players as IDraftKingsPlayer[]),
-		],
-		[Providers.Yahoo, mapYahooPlayers(players as IYahooPlayer[])],
+const providersMap = () =>
+	new Map<Providers, any>([
+		[Providers.DraftKings, mapDraftKingsPlayers],
+		[Providers.Yahoo, mapYahooPlayers],
 	]);
 
 export default providersMap;

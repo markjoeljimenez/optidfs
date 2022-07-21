@@ -1,4 +1,5 @@
 /* eslint-disable react/display-name */
+import Image from 'next/image';
 import { useMemo } from 'react';
 import { Column } from 'react-table';
 
@@ -16,12 +17,18 @@ const KEYS = (gameType?: string) =>
 			Header: () => null,
 			accessor: (accessor) => (
 				<div
-					className="text-center overflow-hidden"
-					style={{ maxHeight: '62px', maxWidth: '62px' }}
+					className="ml-auto mr-auto overflow-hidden"
+					style={{
+						height: '62px',
+						position: 'relative',
+						width: '62px',
+					}}
 				>
-					<img
+					<Image
 						alt={`${accessor.firstName} ${accessor.lastName}`}
-						src={accessor.image}
+						layout="fill"
+						objectFit="cover"
+						src={accessor.image!}
 					/>
 				</div>
 			),
@@ -54,9 +61,9 @@ const KEYS = (gameType?: string) =>
 			Cell: (cell) => (
 				<div className="text-right">
 					{new Intl.NumberFormat('en-US', {
-						style: 'currency',
 						currency: 'USD',
 						minimumFractionDigits: 0,
+						style: 'currency',
 					}).format(cell.value)}
 				</div>
 			),
