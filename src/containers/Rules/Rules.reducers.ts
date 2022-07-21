@@ -10,11 +10,11 @@ import {
 } from './Rules.actions';
 
 interface IRules {
+	NUMBER_OF_GENERATIONS: number;
 	NUMBER_OF_PLAYERS_TO_STACK_FROM_SAME_TEAM?: {
 		key: string;
 		value: number;
 	}[];
-	NUMBER_OF_GENERATIONS: number;
 	NUMBER_OF_SPECIFIC_POSITIONS?: {
 		key: string;
 		value: number;
@@ -31,7 +31,7 @@ const DEFAULT_STATE: IRules = {
 
 const RulesReducer = (
 	state = DEFAULT_STATE,
-	{ type, rule, key, value, active }
+	{ active, key, rule, type, value }
 ) => {
 	switch (type) {
 		case OPEN_MODAL:

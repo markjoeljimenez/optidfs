@@ -4,7 +4,7 @@ const DEFAULT_STATE = {
 	activeTab: 'players',
 };
 
-const TabsReducer = (state = DEFAULT_STATE, { type, activeTab }) => {
+const TabsReducer = (state = DEFAULT_STATE, { activeTab, type }) => {
 	switch (type) {
 		case SET_ACTIVE_TAB:
 			return {

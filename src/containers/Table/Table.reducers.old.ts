@@ -5,9 +5,9 @@ import { TABLE_ACTIONS } from './Table.actions';
 export type View = 'all' | 'optimized';
 
 type ITableState = {
+	loading: boolean;
 	page: number;
 	view: View;
-	loading: boolean;
 };
 
 const DEFAULT_STATE: ITableState = {
@@ -18,7 +18,7 @@ const DEFAULT_STATE: ITableState = {
 
 const TableReducer = (
 	state = DEFAULT_STATE,
-	{ type, loading, view, page }: AnyAction
+	{ loading, page, type, view }: AnyAction
 ): ITableState => {
 	switch (type) {
 		case TABLE_ACTIONS.LOADING_TABLE:

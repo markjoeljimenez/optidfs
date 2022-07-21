@@ -15,12 +15,12 @@ export default function* optimizePlayers() {
 		yield put(loadingTable(true));
 
 		const {
+			contests,
 			players,
+			providers,
 			rules,
 			sports,
-			contests,
 			stacking,
-			providers,
 		}: RootState = yield select();
 
 		if (rules.errors) {

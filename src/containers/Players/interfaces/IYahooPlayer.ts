@@ -1,72 +1,72 @@
 export interface Team {
-	code: string;
 	abbr: string;
+	code: string;
 }
 
 export interface Odds {
 	awayDecimalOdds: number;
-	homeDecimalOdds: number;
-	drawDecimalOdds?: any;
 	awayFractionalOdds: string;
-	homeFractionalOdds: string;
-	drawFractionalOdds?: any;
-	lastUpdate: number;
-	bookName: string;
-	overUnder: number;
-	awaySpread: number;
-	homeSpread: number;
 	awayMoneyLine: number;
-	homeMoneyLine: number;
+	awaySpread: number;
+	bookName: string;
 	drawMoneyLine: number;
+	homeDecimalOdds: number;
+	homeFractionalOdds: string;
+	homeMoneyLine: number;
+	homeSpread: number;
+	lastUpdate: number;
+	overUnder: number;
+	drawDecimalOdds?: any;
+	drawFractionalOdds?: any;
 }
 
 export interface Game {
+	awayTeam: Team;
 	code: string;
-	started: boolean;
-	startTime: number;
-	status: string;
-	statusType: string;
+	homeTeam: Team;
+	odds: Odds;
 	rawStatus: string;
 	stadiumType: string;
-	homeTeam: Team;
-	awayTeam: Team;
+	startTime: number;
+	started: boolean;
+	status: string;
+	statusType: string;
 	forecast?: any;
-	odds: Odds;
 }
 
 export type IYahooPlayerStatus = 'N/A' | 'INJ' | 'O' | 'Q' | 'IR';
 
 export interface IYahooPlayer {
 	code: string;
+	eligiblePositions: string[];
+	fantasyPointsHistory: number[];
+	fantasyPointsPerGame: number;
+	fantasyPointsStdDev: number;
 	firstName: string;
-	lastName: string;
-	sportCode: string;
-	number: string;
-	jerseyNumber: string;
-	status: string;
-	imageUrl: string;
-	largeImageUrl: string;
-	team: Team;
-	teamAbbr: string;
-	playerGameCode: string;
+	fppgHistory: number[];
 	game: Game;
-	salary: number;
-	locked: boolean;
+	imageUrl: string;
+	jerseyNumber: string;
+	largeImageUrl: string;
+	playerGameCode: string;
+	teamAbbr: string;
+	noteFreshness: string;
+	number: string;
 	originalSalary: number;
 	projectedPoints: number;
-	points: number;
 	stats: any[];
-	starting: string;
-	lineupOrder?: any;
+	points: number;
 	primaryPosition: string;
-	eligiblePositions: string[];
-	fantasyPointsPerGame: number;
-	fantasyPointsHistory: number[];
-	fppgHistory: number[];
-	fantasyPointsStdDev: number;
+	lineupOrder?: any;
+	starting: string;
+	sportCode: string;
+	team: Team;
+	lastName: string;
+	status: string;
+	locked: boolean;
 	playerSalaryId: number;
-	noteFreshness: string;
-	liveStatus?: any;
 	extendedStatus?: any;
+	liveStatus?: any;
+	salary: number;
 	golfStatus?: any;
 }

@@ -1,13 +1,13 @@
 export interface IPlayerStats {
 	AST: number;
 	BIRTHDATE: Date;
+	COUNTRY: string;
 	CareerHighs: IStatsHigh[];
 	CareerTotalsAllStarSeason: IStats[];
 	CareerTotalsCollegeSeason: IStats[];
 	CareerTotalsPostSeason: IStats[];
 	CareerTotalsPreseason: IStats[];
 	CareerTotalsRegularSeason: IStats[];
-	COUNTRY: string;
 	DISPLAY_FI_LAST: string;
 	DISPLAY_FIRST_LAST: string;
 	DISPLAY_LAST_COMMA_FIRST: string;
@@ -30,7 +30,6 @@ export interface IPlayerStats {
 	PLAYER_NAME: string;
 	PLAYERCODE: string;
 	POSITION: string;
-	profile_picture: string;
 	PTS: number;
 	REB: number;
 	ROSTERSTATUS: string;
@@ -49,8 +48,9 @@ export interface IPlayerStats {
 	TEAM_CODE: string;
 	TEAM_ID: number;
 	TEAM_NAME: string;
-	TimeFrame: string;
 	TO_YEAR: number;
+	TimeFrame: string;
+	profile_picture: string;
 	WEIGHT: string;
 }
 
@@ -59,9 +59,9 @@ export interface IStatsHigh {
 	GAME_DATE: string;
 	GAME_ID: string;
 	PLAYER_ID: number;
+	STAT: string;
 	STAT_ORDER: number;
 	STAT_VALUE: number;
-	STAT: string;
 	VS_TEAM_ABBREVIATION: string;
 	VS_TEAM_CITY: string;
 	VS_TEAM_ID: number;
@@ -98,7 +98,6 @@ export interface IStats {
 export interface INextGame {
 	GAME_DATE: string;
 	GAME_ID: string;
-	GAME_TIME?: any;
 	LOCATION: string;
 	PLAYER_TEAM_ABBREVIATION: string;
 	PLAYER_TEAM_CITY: string;
@@ -108,14 +107,10 @@ export interface INextGame {
 	VS_TEAM_CITY: string;
 	VS_TEAM_ID: number;
 	VS_TEAM_NICKNAME: string;
+	GAME_TIME?: any;
 }
 
 export interface IPostSeason {
-	GP: string;
-	GS: string;
-	LEAGUE_ID: string;
-	PLAYER_AGE: string;
-	PLAYER_ID: number;
 	AST: number;
 	BLK: number;
 	DREB: number;
@@ -126,6 +121,11 @@ export interface IPostSeason {
 	FG3M: number;
 	FGA: number;
 	FGM: number;
+	GP: string;
+	GS: string;
+	LEAGUE_ID: string;
+	PLAYER_AGE: string;
+	PLAYER_ID: number;
 	FT_PCT: number;
 	FTA: number;
 	FTM: number;
@@ -133,9 +133,9 @@ export interface IPostSeason {
 	OREB: number;
 	PTS: number;
 	REB: number;
-	STL: number;
-	TOV: number;
 	SEASON_ID: string;
+	STL: number;
 	TEAM_ABBREVIATION: string;
 	TEAM_ID: number;
+	TOV: number;
 }

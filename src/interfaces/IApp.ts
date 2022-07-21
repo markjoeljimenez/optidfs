@@ -2,14 +2,14 @@ import { IPlayer } from '@/containers/Players';
 
 export interface IResponse {
 	lineups: ILineup[];
-	success: boolean;
 	message: string | null;
+	success: boolean;
 }
 
 export interface ILineup {
 	players: IPlayer[];
-	totalSalary: number;
 	totalFppg: number;
+	totalSalary: number;
 }
 
 export interface IGroup {

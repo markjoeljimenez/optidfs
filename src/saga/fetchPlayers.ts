@@ -10,9 +10,9 @@ import { RootState } from '../store';
 import { API } from './saga';
 
 type Action = {
+	gameType: string;
 	type: string;
 	value: number | any;
-	gameType: string;
 };
 
 export default function* fetchPlayers(action: Action) {
@@ -21,7 +21,7 @@ export default function* fetchPlayers(action: Action) {
 			throw new Error('Missing draft ID');
 		}
 
-		const { providers, contests }: RootState = yield select();
+		const { contests, providers }: RootState = yield select();
 
 		yield put(loadingTable(true));
 

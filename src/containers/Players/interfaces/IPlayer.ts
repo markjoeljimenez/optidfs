@@ -1,21 +1,21 @@
 export interface IPlayer {
-	id: number;
 	firstName: string;
-	lastName: string;
-	salary: number;
 	fppg: number;
+	id: number;
+	lastName: string;
 	position: string;
-	team: string;
+	salary: number;
 	status: string;
+	team: string;
+
+	// DraftKings attributes
+	draftPositions?: string;
+	// Yahoo attributes
+	fppgHistory?: number[];
+
+	image?: string | null;
 
 	// User entered attributes
 	minExposure?: number;
 	projectedOwnership?: number;
-
-	// Yahoo attributes
-	fppgHistory?: number[];
-
-	// DraftKings attributes
-	draftPositions?: string;
-	image?: string | null;
 }

@@ -25,7 +25,7 @@ export const PlayersReducers = createSlice({
 				provider: string;
 			}>
 		) => {
-			const { provider, players } = action.payload;
+			const { players, provider } = action.payload;
 
 			const transformedPlayers =
 				provider === 'draftkings'
