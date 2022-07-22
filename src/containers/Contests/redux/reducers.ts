@@ -4,24 +4,24 @@ import { AppState } from '../../../store';
 import { IContest } from '../interfaces/IContest';
 
 interface IContestState {
-	gameType;
+	gameType: string | null;
 	selectedContest: IContest | null;
 }
 
 const initialState: IContestState = {
-	selectedContest: null,
 	gameType: null,
+	selectedContest: null,
 };
 
 export const ContestsReducers = createSlice({
-	name: 'contests',
 	initialState,
+	name: 'contests',
 	reducers: {
-		setSelectedContest: (state, action: PayloadAction<IContest>) => {
-			state.selectedContest = action.payload;
-		},
 		setGameType: (state, action: PayloadAction<string>) => {
 			state.gameType = action.payload;
+		},
+		setSelectedContest: (state, action: PayloadAction<IContest | null>) => {
+			state.selectedContest = action.payload;
 		},
 	},
 });

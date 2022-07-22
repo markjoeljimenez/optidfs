@@ -1,18 +1,22 @@
 import router from 'next/router';
-import { useAppSelector } from 'src/hooks';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 import IconButton from '@/components/global/icon-button';
 import Chevron from '@/components/icons/chevron';
 import Contests from '@/containers/Contests';
+import { setHasVisited } from '@/containers/Global';
 
 const Start2 = () => {
 	const { contests } = useAppSelector((state) => state);
+	const dispatch = useAppDispatch();
 
 	function onNext() {
 		if (contests.selectedContest) {
 			router.push('/optimize', undefined, {
 				shallow: true,
 			});
+
+			dispatch(setHasVisited(true));
 		}
 	}
 

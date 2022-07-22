@@ -2,25 +2,20 @@ import router from 'next/router';
 import { useEffect } from 'react';
 
 import Contests from '@/containers/Contests';
+import Table from '@/containers/Table/Table.component';
 
-import Table from '../../containers/Table/Table.component';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 
 const Index = () => {
-	const { contests, providers, sports } = useAppSelector((state) => state);
-	const dispatch = useAppDispatch();
+	const { contests, global, providers, sports } = useAppSelector(
+		(state) => state
+	);
 
 	useEffect(() => {
-		if (
-			!providers.provider ||
-			!sports.selectedSport ||
-			!contests.selectedContest
-		) {
+		if (!global.hasVisited) {
 			router.push('/optimize/start/1', undefined, {
 				shallow: true,
 			});
-
-			return;
 		}
 	}, [contests.selectedContest, providers.provider, sports.selectedSport]);
 

@@ -28,7 +28,6 @@ const Dropdown = () => {
 	const [defaultContests, setDefaultContests] = useState<IContest[]>(
 		data?.contests ?? []
 	);
-	const [selectedItem, setSelectedItem] = useState<IContest>();
 
 	function onStateChange(selection: UseComboboxStateChange<IContest>) {
 		if (!selection?.selectedItem) {
@@ -68,7 +67,7 @@ const Dropdown = () => {
 					return;
 				}
 
-				setSelectedItem(foundContest);
+				dispatch(setSelectedContest(foundContest));
 			}
 		}
 	}, [data]);
@@ -96,11 +95,15 @@ const Dropdown = () => {
 			}
 		},
 		onStateChange,
-		selectedItem,
+		selectedItem: contests.selectedContest,
 	});
 
 	return (
-		<div className="relative" {...getComboboxProps()}>
+		<div
+			{...getComboboxProps()}
+			className="relative"
+			data-testid="downshift"
+		>
 			{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 			<label
 				className="hidden"

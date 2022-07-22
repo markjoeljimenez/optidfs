@@ -1,18 +1,28 @@
 import { ChangeEvent } from 'react';
+import useReset from 'src/hooks/useReset';
+
+import { setSelectedContest } from '@/containers/Contests';
+import { setDefaultPlayers } from '@/containers/Players';
+import { setSelectedSport } from '@/containers/Sports';
 
 import Select from '../../../components/form/select';
 import providersData from '../../../data/providers';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { selectProviders, setProvider } from '..';
+import { setProvider } from '..';
 
 const Providers = () => {
-	const providers = useAppSelector(selectProviders);
+	const { global, providers } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
+	const reset = useReset();
 
 	const handleProviderSelection = (e: ChangeEvent<HTMLSelectElement>) => {
 		const { value } = e.currentTarget;
 
 		dispatch(setProvider(value));
+
+		if (global.hasVisited) {
+			reset([setSelectedContest, setDefaultPlayers, setSelectedSport]);
+		}
 	};
 
 	return (

@@ -1,14 +1,17 @@
-import { selectProviders } from '@/containers/Providers';
+import useReset from 'src/hooks/useReset';
+
+import { setSelectedContest } from '@/containers/Contests';
+import { setDefaultPlayers } from '@/containers/Players';
 
 import { useGetSportsFromProviderQuery } from '../../../api';
 import Select, { IValueLabel } from '../../../components/form/select';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { setSelectedSport, sportsState } from '../redux/reducers';
+import { setSelectedSport } from '../redux/reducers';
 
 const Sports = () => {
-	const providers = useAppSelector(selectProviders);
-	const sports = useAppSelector(sportsState);
+	const { global, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
+	const reset = useReset();
 
 	const response = useGetSportsFromProviderQuery(providers.provider!, {
 		skip: !providers.provider,
@@ -25,6 +28,11 @@ const Sports = () => {
 
 		if (selectedSport) {
 			dispatch(setSelectedSport(selectedSport));
+
+			// Reset contests and players
+			if (global.hasVisited) {
+				reset([setSelectedContest, setDefaultPlayers]);
+			}
 		}
 	}
 

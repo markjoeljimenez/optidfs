@@ -10,6 +10,7 @@ Object {
         aria-haspopup="listbox"
         aria-owns="downshift-0-menu"
         class="relative"
+        data-testid="downshift"
         role="combobox"
       >
         <label
@@ -80,6 +81,7 @@ Object {
       aria-haspopup="listbox"
       aria-owns="downshift-0-menu"
       class="relative"
+      data-testid="downshift"
       role="combobox"
     >
       <label

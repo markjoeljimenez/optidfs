@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import router from 'next/router';
 
 import Providers from '@/containers/Providers';
 import Sports from '@/containers/Sports';
@@ -7,18 +6,12 @@ import Sports from '@/containers/Sports';
 import Nav from '../components/global/nav';
 import { useAppSelector } from '../hooks';
 
-export interface ILayoutProps {
+interface ILayoutProps {
 	children: React.ReactNode;
 }
 
 const Dashboard = ({ children }: ILayoutProps) => {
-	const { contests, providers, sports } = useAppSelector((state) => state);
-
-	const isLoaded =
-		router.pathname === '/optimize' &&
-		providers.provider &&
-		sports.selectedSport &&
-		contests.selectedContest;
+	const { global } = useAppSelector((state) => state);
 
 	return (
 		<div className="md:flex md:min-h-screen bg-gray-100">
@@ -30,7 +23,7 @@ const Dashboard = ({ children }: ILayoutProps) => {
 					data-testid="header"
 				>
 					<div className="mx-auto py-4 px-6 md:p-8 md:flex justify-between items-center">
-						{isLoaded && (
+						{global.hasVisited && (
 							<ul className="flex space-x-4">
 								<li>
 									<Providers />
@@ -47,7 +40,7 @@ const Dashboard = ({ children }: ILayoutProps) => {
 					className={clsx(
 						'flex-1 flex flex-col',
 						'p-8',
-						!isLoaded ? 'items-center justify-center' : ''
+						!global.hasVisited ? 'items-center justify-center' : ''
 					)}
 					data-testid="main-content"
 				>

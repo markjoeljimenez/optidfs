@@ -32,8 +32,8 @@ const Table = () => {
 
 	const response = useGetPlayersQuery(
 		{
-			gameType: contests.gameType,
 			id: contests.selectedContest?.contest_id!,
+			gameType: contests.gameType,
 			provider: providers.provider!,
 		},
 		{
@@ -43,7 +43,7 @@ const Table = () => {
 
 	useEffect(() => {
 		if (response.data) {
-			dispatch(setDefaultPlayers({ players: response.data }));
+			dispatch(setDefaultPlayers(response.data));
 		}
 	}, [response.data]);
 
@@ -118,7 +118,7 @@ const Table = () => {
 		usePagination
 	) as any;
 
-	return !response.isLoading && !response.isFetching ? (
+	return (
 		<table
 			{...getTableProps()}
 			className="w-full table-auto relative border-collapse"
@@ -148,101 +148,126 @@ const Table = () => {
 			</thead>
 
 			<tbody {...getTableBodyProps()}>
-				{page.map((row) => {
-					prepareRow(row);
-
-					const rowProps = row.getRowProps();
-					delete rowProps.role;
-
-					return (
-						<React.Fragment {...rowProps}>
-							<tr className="border-b border-gray-200">
-								{row.cells.map((cell) => {
-									return (
-										<td
-											{...cell.getCellProps()}
-											className="px-8 py-4 whitespace-nowrap"
-										>
-											{cell.render('Cell')}
-										</td>
-									);
-								})}
-							</tr>
-
-							{row.isExpanded ? (
-								<tr>
-									<td
-										className="px-8 py-4 bg-gray-50 border-b border-gray-200"
-										colSpan={visibleColumns.length}
-									>
-										<TableSubRow player={row.original} />
-									</td>
-								</tr>
-							) : null}
-						</React.Fragment>
-					);
-				})}
-			</tbody>
-
-			<tfoot className="sticky bottom-0 bg-white">
-				{table.view === 'all' && visibleColumns.length > 1 && (
+				{response.isLoading || response.isFetching ? (
 					<tr>
-						<td className="p-0" colSpan={visibleColumns.length}>
-							<div className="flex justify-between border-t border-gray-200 px-8 py-4">
-								<div>
-									<button
-										disabled={!canPreviousPage}
-										onClick={() => previousPage()}
-									>
-										<svg
-											className="h-5 w-5"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M15 19l-7-7 7-7"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth="2"
-											/>
-										</svg>
-									</button>
-								</div>
-								<div className="flex-1 text-center">
-									<span>
-										Page {pageIndex + 1} of{' '}
-										{pageOptions.length}
-									</span>
-								</div>
-								<div>
-									<button
-										disabled={!canNextPage}
-										onClick={() => nextPage()}
-									>
-										<svg
-											className="h-5 w-5"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M9 5l7 7-7 7"
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth="2"
-											/>
-										</svg>
-									</button>
-								</div>
-							</div>
+						<td
+							className="px-8 py-4 bg-white text-center"
+							colSpan={visibleColumns.length}
+						>
+							<Loading text="Loading players. This may take a while..." />
 						</td>
 					</tr>
-				)}
+				) : !players.defaultPlayers?.length ? (
+					<tr>
+						<td
+							className="px-8 py-4 bg-white text-center"
+							colSpan={visibleColumns.length}
+						>
+							No players loaded
+						</td>
+					</tr>
+				) : (
+					<>
+						{page.map((row) => {
+							prepareRow(row);
 
-				{/* {players.optimized &&
+							const rowProps = row.getRowProps();
+							delete rowProps.role;
+
+							return (
+								<React.Fragment {...rowProps}>
+									<tr className="border-b border-gray-200">
+										{row.cells.map((cell) => {
+											return (
+												<td
+													{...cell.getCellProps()}
+													className="px-8 py-4 whitespace-nowrap"
+												>
+													{cell.render('Cell')}
+												</td>
+											);
+										})}
+									</tr>
+
+									{row.isExpanded ? (
+										<tr>
+											<td
+												className="px-8 py-4 bg-gray-50 border-b border-gray-200"
+												colSpan={visibleColumns.length}
+											>
+												<TableSubRow
+													player={row.original}
+												/>
+											</td>
+										</tr>
+									) : null}
+								</React.Fragment>
+							);
+						})}
+					</>
+				)}
+			</tbody>
+
+			{players.defaultPlayers?.length && (
+				<tfoot className="sticky bottom-0 bg-white">
+					{table.view === 'all' && visibleColumns.length > 1 && (
+						<tr>
+							<td className="p-0" colSpan={visibleColumns.length}>
+								<div className="flex justify-between border-t border-gray-200 px-8 py-4">
+									<div>
+										<button
+											disabled={!canPreviousPage}
+											onClick={() => previousPage()}
+										>
+											<svg
+												className="h-5 w-5"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M15 19l-7-7 7-7"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+												/>
+											</svg>
+										</button>
+									</div>
+									<div className="flex-1 text-center">
+										<span>
+											Page {pageIndex + 1} of{' '}
+											{pageOptions.length}
+										</span>
+									</div>
+									<div>
+										<button
+											disabled={!canNextPage}
+											onClick={() => nextPage()}
+										>
+											<svg
+												className="h-5 w-5"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+												xmlns="http://www.w3.org/2000/svg"
+											>
+												<path
+													d="M9 5l7 7-7 7"
+													strokeLinecap="round"
+													strokeLinejoin="round"
+													strokeWidth="2"
+												/>
+											</svg>
+										</button>
+									</div>
+								</div>
+							</td>
+						</tr>
+					)}
+
+					{/* {players.optimized &&
 				table.view === 'optimized' &&
 				footerGroups.map((group) => (
 					<tr
@@ -325,10 +350,9 @@ const Table = () => {
 						</td>
 					</tr>
 				)} */}
-			</tfoot>
+				</tfoot>
+			)}
 		</table>
-	) : (
-		<Loading text="Loading players. This may take a while..." />
 	);
 };
 

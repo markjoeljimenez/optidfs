@@ -1,6 +1,6 @@
 import Providers from './components/Providers';
 import ProvidersReducer, {
-	selectProviders,
+	providersState,
 	setProvider,
 } from './redux/Providers.reducers';
 
@@ -11,7 +11,7 @@ export { ProvidersReducer };
 export { setProvider };
 
 // State
-export { selectProviders };
+export { providersState };
 
 // Component
 export default Providers;

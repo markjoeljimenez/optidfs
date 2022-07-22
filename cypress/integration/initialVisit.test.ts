@@ -30,8 +30,8 @@ describe('Index', () => {
 
 	it('should complete step 2 and go to dashboard successfully', () => {
 		// Select contest
-		cy.get('#downshift-1-toggle-button').click();
-		cy.get('li#downshift-1-item-1').click();
+		cy.get('[data-testid="downshift"] button').click();
+		cy.get('[data-testid="downshift"] li:first-child').click();
 
 		// Click next
 		cy.get('button[data-testid="to-next-step"]').click();

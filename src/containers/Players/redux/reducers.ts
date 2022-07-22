@@ -7,7 +7,7 @@ import { IYahooPlayer } from '../models/IYahooPlayer';
 import { mapDraftKingsPlayers, mapYahooPlayers } from '../services/mapPlayers';
 
 interface IInitialState {
-	defaultPlayers: (IDraftKingsPlayer | IYahooPlayer)[];
+	defaultPlayers: (IDraftKingsPlayer | IYahooPlayer)[] | null;
 }
 
 const initialState: IInitialState = {
@@ -20,20 +20,9 @@ export const PlayersReducers = createSlice({
 	reducers: {
 		setDefaultPlayers: (
 			state,
-			action: PayloadAction<{
-				players: (IDraftKingsPlayer | IYahooPlayer)[];
-			}>
+			action: PayloadAction<(IDraftKingsPlayer | IYahooPlayer)[] | null>
 		) => {
-			// const { players } = action.payload;
-
-			// const transformedPlayers =
-			// 	provider === 'draftkings'
-			// 		? mapDraftKingsPlayers(players as IDraftKingsPlayer[])
-			// 		: mapYahooPlayers(players as IYahooPlayer[]);
-
-			console.log(action.payload);
-
-			state.defaultPlayers = action.payload.players;
+			state.defaultPlayers = action.payload;
 		},
 	},
 });

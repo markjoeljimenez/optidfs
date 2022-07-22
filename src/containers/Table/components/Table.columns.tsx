@@ -24,12 +24,14 @@ const KEYS = (gameType?: string) =>
 						width: '62px',
 					}}
 				>
-					<Image
-						alt={`${accessor.firstName} ${accessor.lastName}`}
-						layout="fill"
-						objectFit="cover"
-						src={accessor.image!}
-					/>
+					{accessor.image && (
+						<Image
+							alt={`${accessor.firstName} ${accessor.lastName}`}
+							layout="fill"
+							objectFit="cover"
+							src={accessor.image!}
+						/>
+					)}
 				</div>
 			),
 			disableFilters: true,
