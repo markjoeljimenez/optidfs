@@ -1,7 +1,12 @@
 import userEvent from '@testing-library/user-event';
-import { render, screen, waitFor } from '@/test/render';
-import Sports from './Sports';
 import { RootState } from 'src/store';
+
+import { draftKingsContestsMock } from '@/containers/Contests';
+import { draftKingsPlayersMock } from '@/containers/Players';
+import { render, screen, waitFor } from '@/test/render';
+
+import { draftKingsSportsMock } from '../mocks/sports.mocks';
+import Sports from './Sports';
 
 const preloadedState: Partial<RootState> = {
 	providers: {
@@ -12,10 +17,10 @@ const preloadedState: Partial<RootState> = {
 describe('Sports', () => {
 	it('should match snapshot', () => {
 		// Arrange
-		const sports = render(<Sports />);
+		const view = render(<Sports />);
 
 		// Assert
-		expect(sports).toMatchSnapshot();
+		expect(view).toMatchSnapshot();
 	});
 
 	describe('Draftkings mocks', () => {
@@ -120,5 +125,45 @@ describe('Sports', () => {
 			// Assert
 			expect(store.getState().sports.selectedSport?.sportId).toBe('golf');
 		});
+	});
+
+	it('should reset sports, contests, and players if user has already visited site', async () => {
+		// Arrange
+		const { store } = render(<Sports />, {
+			preloadedState: {
+				...preloadedState,
+				contests: {
+					gameType: null,
+					selectedContest: draftKingsContestsMock[0],
+				},
+				global: {
+					hasVisited: true,
+				},
+				players: {
+					defaultPlayers: draftKingsPlayersMock,
+				},
+				sports: {
+					selectedSport: draftKingsSportsMock[0],
+				},
+			},
+		});
+
+		const sportsSelect = screen.getByTestId(
+			'sports-select'
+		) as HTMLSelectElement;
+
+		await waitFor(() =>
+			expect(sportsSelect.hasAttribute('disabled')).toBe(false)
+		);
+
+		// Act
+		await userEvent.selectOptions(sportsSelect, ['13']);
+
+		// Assert
+		const { contests, players, providers, sports } = store.getState();
+		expect(providers.provider).toBe('draftkings');
+		expect(sports.selectedSport).toStrictEqual(draftKingsSportsMock[0]);
+		expect(contests.selectedContest).toBeNull();
+		expect(players.defaultPlayers).toBeNull();
 	});
 });

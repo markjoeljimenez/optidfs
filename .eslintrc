@@ -1,4 +1,10 @@
 {
+	"plugins": [
+		"simple-import-sort",
+		"sort-destructure-keys",
+		"typescript-sort-keys"
+		// "jest"
+	],
 	"extends": [
 		"next",
 		"prettier",
@@ -6,10 +12,19 @@
 		"eslint-config-next"
 	],
 	"parser": "@typescript-eslint/parser",
-	"plugins": [
-		"simple-import-sort",
-		"sort-destructure-keys",
-		"typescript-sort-keys"
+	"overrides": [
+		{
+			"plugins": ["jest"],
+			"files": [
+				"**/__tests__/**/*.[jt]s?(x)",
+				"**/?(*.)+(spec|test).[jt]s?(x)"
+			],
+			"extends": [
+				"plugin:testing-library/react",
+				"plugin:jest/recommended",
+				"plugin:jest/style"
+			]
+		}
 	],
 	"rules": {
 		"react/jsx-sort-props": [

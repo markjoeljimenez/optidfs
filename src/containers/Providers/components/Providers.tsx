@@ -6,9 +6,9 @@ import { setDefaultPlayers } from '@/containers/Players';
 import { setSelectedSport } from '@/containers/Sports';
 
 import Select from '../../../components/form/select';
-import providersData from '../../../data/providers';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { setProvider } from '..';
+import providersData from '../data/providers';
 
 const Providers = () => {
 	const { global, providers } = useAppSelector((state) => state);
