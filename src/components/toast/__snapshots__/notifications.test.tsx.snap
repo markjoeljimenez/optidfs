@@ -1,12 +1,95 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Toast should display toast error 1`] = `
+exports[`Notification should display notification error 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <div
+        style="position: fixed; right: 1rem; top: 1rem;"
+      >
+        <div
+          class="flex p-4 mb-4 rounded-lg bg-red-100 dark:bg-red-200 text-red-700 dark:text-red-800 animate-enter"
+          data-testid="notification-1"
+          data-toast-type="error"
+          id="1"
+          role="alert"
+        >
+          <div
+            class="flex-shrink-0 w-5 h-5"
+          >
+            <svg
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                data-name="Layer 2"
+              >
+                <g
+                  data-name="alert-circle"
+                >
+                  <rect
+                    height="24"
+                    opacity="0"
+                    width="24"
+                  />
+                  <path
+                    d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"
+                  />
+                  <circle
+                    cx="12"
+                    cy="16"
+                    r="1"
+                  />
+                  <path
+                    d="M12 7a1 1 0 0 0-1 1v5a1 1 0 0 0 2 0V8a1 1 0 0 0-1-1z"
+                  />
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div
+            class="mx-3 text-sm font-medium"
+          >
+            Error!
+          </div>
+          <button
+            aria-label="Close"
+            class="ml-auto -mx-1.5 -my-1.5 rounded-lg p-1.5 bg-red-100 text-red-500 focus:ring-2 focus:ring-red-400 hover:bg-red-200"
+            data-dismiss-target="1"
+            role="button"
+            type="button"
+          >
+            <span
+              class="sr-only"
+            >
+              Close
+            </span>
+            <svg
+              class="w-5 h-5"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      style="position: fixed; right: 1rem; top: 1rem;"
+    >
+      <div
         class="flex p-4 mb-4 rounded-lg bg-red-100 dark:bg-red-200 text-red-700 dark:text-red-800 animate-enter"
+        data-testid="notification-1"
         data-toast-type="error"
         id="1"
         role="alert"
@@ -48,7 +131,7 @@ Object {
         <div
           class="mx-3 text-sm font-medium"
         >
-          Test toast
+          Error!
         </div>
         <button
           aria-label="Close"
@@ -76,79 +159,6 @@ Object {
           </svg>
         </button>
       </div>
-    </div>
-  </body>,
-  "container": <div>
-    <div
-      class="flex p-4 mb-4 rounded-lg bg-red-100 dark:bg-red-200 text-red-700 dark:text-red-800 animate-enter"
-      data-toast-type="error"
-      id="1"
-      role="alert"
-    >
-      <div
-        class="flex-shrink-0 w-5 h-5"
-      >
-        <svg
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g
-            data-name="Layer 2"
-          >
-            <g
-              data-name="alert-circle"
-            >
-              <rect
-                height="24"
-                opacity="0"
-                width="24"
-              />
-              <path
-                d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"
-              />
-              <circle
-                cx="12"
-                cy="16"
-                r="1"
-              />
-              <path
-                d="M12 7a1 1 0 0 0-1 1v5a1 1 0 0 0 2 0V8a1 1 0 0 0-1-1z"
-              />
-            </g>
-          </g>
-        </svg>
-      </div>
-      <div
-        class="mx-3 text-sm font-medium"
-      >
-        Test toast
-      </div>
-      <button
-        aria-label="Close"
-        class="ml-auto -mx-1.5 -my-1.5 rounded-lg p-1.5 bg-red-100 text-red-500 focus:ring-2 focus:ring-red-400 hover:bg-red-200"
-        data-dismiss-target="1"
-        role="button"
-        type="button"
-      >
-        <span
-          class="sr-only"
-        >
-          Close
-        </span>
-        <svg
-          class="w-5 h-5"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            clip-rule="evenodd"
-            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-            fill-rule="evenodd"
-          />
-        </svg>
-      </button>
     </div>
   </div>,
   "debug": [Function],

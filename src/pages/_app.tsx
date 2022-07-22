@@ -7,7 +7,7 @@ import { resolveValue, Toaster } from 'react-hot-toast';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import Toast from '@/components/toast/toast';
+import Notifications from '@/components/toast/notifications';
 
 import Dashboard from '../layouts/dashboard';
 import store, { persistor } from '../store';
@@ -23,7 +23,8 @@ const App = ({ Component, pageProps }: AppProps) => {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<Toaster
+				<Notifications />
+				{/* <Toaster
 					position="top-right"
 					toastOptions={{
 						duration: 5000,
@@ -33,7 +34,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 					}}
 				>
 					{(t) => <Toast {...t}>{resolveValue(t.message, t)}</Toast>}
-				</Toaster>
+				</Toaster> */}
 				<DefaultSeo
 					description="A web app that generates the most optimized lineups for DraftKings."
 					title="Optidfs"
