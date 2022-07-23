@@ -1,13 +1,17 @@
 export enum Status {
 	// Yahoo
 	'N/A' = 'green',
+	COVID = 'red',
+	GTD = 'yellow',
+	IL10 = 'red',
+	IL60 = 'red',
+	IL7 = 'red',
 	INJ = 'red',
 	IR = 'red',
 	O = 'red',
-	GTD = 'yellow',
-	Q = 'yellow',
-	COVID = 'red',
 	PUP = 'red',
+	Q = 'yellow',
+	SUSP = 'red',
 
 	// DraftKings
 	None = 'green',
@@ -27,6 +31,10 @@ export enum StatusTranslation {
 	GTD = 'GTD',
 	COVID = 'COVID-19',
 	PUP = 'Injured (PUP)',
+	IL7 = 'Injured (7 Days)',
+	IL10 = 'Injured (10 Days)',
+	IL60 = 'Injured (60 Days)',
+	SUSP = 'Suspended',
 
 	// DraftKings
 	None = 'Active',
