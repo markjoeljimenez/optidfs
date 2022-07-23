@@ -22,10 +22,8 @@ export const mapDraftKingsContests = (
 		name: contest.name,
 	}));
 
-export const mapYahooContests = (
-	draftKingsContests: IYahooContest[]
-): IContest[] =>
-	draftKingsContests.map((contest) => ({
+export const mapYahooContests = (yahooContests: IYahooContest[]): IContest[] =>
+	yahooContests.map((contest) => ({
 		contest_id: contest.id,
 		name: contest.title,
 	}));

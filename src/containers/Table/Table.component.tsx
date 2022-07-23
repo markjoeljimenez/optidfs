@@ -208,7 +208,7 @@ const Table = () => {
 				)}
 			</tbody>
 
-			{players.defaultPlayers?.length && (
+			{players.defaultPlayers?.length ? (
 				<tfoot className="sticky bottom-0 bg-white">
 					{table.view === 'all' && visibleColumns.length > 1 && (
 						<tr>
@@ -351,6 +351,8 @@ const Table = () => {
 					</tr>
 				)} */}
 				</tfoot>
+			) : (
+				<></>
 			)}
 		</table>
 	);

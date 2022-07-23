@@ -15,15 +15,13 @@ const Dropdown = () => {
 	const { data, isSuccess } = useGetContestsFromSportQuery(
 		{
 			provider: providers.provider,
-			sport: sports.selectedSport?.regionAbbreviatedSportName,
+			sport:
+				sports.selectedSport?.regionAbbreviatedSportName ??
+				sports.selectedSport?.sportId,
 			sportId: sports.selectedSport?.sportId,
 		},
 		{
-			skip:
-				providers.provider === null ||
-				sports.selectedSport?.regionAbbreviatedSportName ===
-					undefined ||
-				sports.selectedSport.sportId === undefined,
+			skip: providers.provider === null || sports.selectedSport === null,
 		}
 	);
 
@@ -81,7 +79,6 @@ const Dropdown = () => {
 		getToggleButtonProps,
 		isOpen,
 	} = useCombobox({
-		initialSelectedItem: contests.selectedContest,
 		itemToString: (item) => (item ? item.name : ''),
 		items: data ?? [],
 		onInputValueChange: ({ inputValue }) => {
@@ -98,6 +95,7 @@ const Dropdown = () => {
 			}
 		},
 		onStateChange,
+		selectedItem: contests.selectedContest,
 	});
 
 	return (
