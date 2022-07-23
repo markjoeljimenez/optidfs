@@ -25,7 +25,7 @@ const getPlayers = (
 		'optidfs'
 	>
 ) =>
-	builder.query<any, IPlayersBody>({
+	builder.query<IPlayer[], IPlayersBody>({
 		query: (body) => {
 			const params = new URLSearchParams(body as any);
 

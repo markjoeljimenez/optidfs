@@ -1,13 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { AppState } from '../../../store';
-import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
 import { IPlayer } from '../models/IPlayer';
-import { IYahooPlayer } from '../models/IYahooPlayer';
-import { mapDraftKingsPlayers, mapYahooPlayers } from '../services/mapPlayers';
 
 interface IInitialState {
-	defaultPlayers: (IDraftKingsPlayer | IYahooPlayer)[] | null;
+	defaultPlayers: IPlayer[] | null;
 }
 
 const initialState: IInitialState = {
@@ -18,10 +15,7 @@ export const PlayersReducers = createSlice({
 	initialState,
 	name: 'players',
 	reducers: {
-		setDefaultPlayers: (
-			state,
-			action: PayloadAction<(IDraftKingsPlayer | IYahooPlayer)[] | null>
-		) => {
+		setDefaultPlayers: (state, action: PayloadAction<IPlayer[] | null>) => {
 			state.defaultPlayers = action.payload;
 		},
 	},
