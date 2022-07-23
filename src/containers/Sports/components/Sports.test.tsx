@@ -1,4 +1,5 @@
 import userEvent from '@testing-library/user-event';
+import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
 import { draftKingsContestsMock } from '@/containers/Contests';
@@ -28,9 +29,7 @@ describe('Sports', () => {
 			// Arrange
 			render(<Sports />);
 
-			const sportsSelect = screen.getByTestId(
-				'sports-select'
-			) as HTMLSelectElement;
+			const sportsSelect = screen.getByTestId('sports-select');
 
 			// Assert
 			expect(sportsSelect.hasAttribute('disabled')).toBe(true);
@@ -42,9 +41,8 @@ describe('Sports', () => {
 				preloadedState,
 			});
 
-			const sportsSelect = screen.getByTestId(
-				'sports-select'
-			) as HTMLSelectElement;
+			const sportsSelect =
+				screen.getByTestId<HTMLSelectElement>('sports-select');
 
 			await waitFor(() =>
 				expect(sportsSelect.hasAttribute('disabled')).toBe(false)
@@ -61,9 +59,7 @@ describe('Sports', () => {
 				preloadedState,
 			});
 
-			const sportsSelect = screen.getByTestId(
-				'sports-select'
-			) as HTMLSelectElement;
+			const sportsSelect = screen.getByTestId('sports-select');
 
 			await waitFor(() =>
 				expect(sportsSelect.hasAttribute('disabled')).toBe(false)
@@ -88,9 +84,8 @@ describe('Sports', () => {
 				},
 			});
 
-			const sportsSelect = screen.getByTestId(
-				'sports-select'
-			) as HTMLSelectElement;
+			const sportsSelect =
+				screen.getByTestId<HTMLSelectElement>('sports-select');
 
 			await waitFor(() =>
 				expect(sportsSelect.hasAttribute('disabled')).toBe(false)
@@ -111,9 +106,7 @@ describe('Sports', () => {
 				},
 			});
 
-			const sportsSelect = screen.getByTestId(
-				'sports-select'
-			) as HTMLSelectElement;
+			const sportsSelect = screen.getByTestId('sports-select');
 
 			await waitFor(() =>
 				expect(sportsSelect.hasAttribute('disabled')).toBe(false)
@@ -148,9 +141,7 @@ describe('Sports', () => {
 			},
 		});
 
-		const sportsSelect = screen.getByTestId(
-			'sports-select'
-		) as HTMLSelectElement;
+		const sportsSelect = screen.getByTestId('sports-select');
 
 		await waitFor(() =>
 			expect(sportsSelect.hasAttribute('disabled')).toBe(false)
@@ -165,5 +156,33 @@ describe('Sports', () => {
 		expect(sports.selectedSport).toStrictEqual(draftKingsSportsMock[0]);
 		expect(contests.selectedContest).toBeNull();
 		expect(players.defaultPlayers).toBeNull();
+	});
+
+	it('should prefetch contests', async () => {
+		// Arrange
+		const { store } = render(<Sports />, { preloadedState });
+
+		const sportsSelect = screen.getByTestId('sports-select');
+
+		await waitFor(() =>
+			expect(sportsSelect.hasAttribute('disabled')).toBe(false)
+		);
+
+		// Act
+		await userEvent.selectOptions(sportsSelect, ['2']);
+
+		// Assert
+		const { providers, sports } = store.getState();
+		const getContestsFromSport =
+			OptidfsApi.endpoints.getContestsFromSport.select({
+				provider: providers.provider,
+				sport: sports.selectedSport?.regionAbbreviatedSportName,
+				sportId: sports.selectedSport?.sportId,
+			});
+
+		await waitFor(() => {
+			expect(getContestsFromSport(store.getState()).isSuccess).toBe(true);
+			expect(getContestsFromSport(store.getState()).data?.length).toBe(3);
+		});
 	});
 });
