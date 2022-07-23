@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-import { draftKingsSportsMock, yahooSportsMock } from '../mocks/sports.mocks';
+import { draftKingsSportsMock, yahooSportsMock } from '../mocks/Sports.mocks';
 
 const { ENDPOINT } = process.env;
 

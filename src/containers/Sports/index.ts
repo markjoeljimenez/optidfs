@@ -1,12 +1,12 @@
 import { getSportsFromProvider } from './api/getSportsFromProvider';
 import Sports from './components/Sports';
-import sportsHandler from './handlers/sports.handler';
+import sportsHandler from './handlers/Sports.handler';
 import { ISport } from './interfaces/ISports';
-import { draftKingsSportsMock, yahooSportsMock } from './mocks/sports.mocks';
+import { draftKingsSportsMock, yahooSportsMock } from './mocks/Sports.mocks';
 import SportsReducers, {
 	setSelectedSport,
 	sportsState,
-} from './redux/reducers';
+} from './redux/Sports.reducers';
 
 // Api
 export { getSportsFromProvider };

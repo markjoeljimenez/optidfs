@@ -6,7 +6,7 @@ import { setDefaultPlayers } from '@/containers/Players';
 
 import { useGetSportsFromProviderQuery, usePrefetch } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { setSelectedSport } from '../redux/reducers';
+import { setSelectedSport } from '../redux/Sports.reducers';
 
 const Sports = () => {
 	const { global, providers, sports } = useAppSelector((state) => state);
