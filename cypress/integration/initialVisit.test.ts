@@ -39,6 +39,26 @@ describe('Index', () => {
 		// Assert
 		expect(cy.url().should('eq', 'http://localhost:3000/optimize'));
 	});
+
+	it('should go back to step 1 if local storage is cleared', () => {
+		// Start from the index page
+		cy.visit('/');
+
+		// Select provider
+		cy.get('select[data-testid=provider-select]').select('draftkings');
+
+		// Select sport
+		cy.get('select[data-testid=sports-select]').select('NBA');
+
+		// Click next
+		cy.get('button[data-testid="to-next-step"]').click();
+
+		// Clear storage and reload
+		cy.clearLocalStorage();
+		cy.reload();
+
+		expect(cy.url().should('eq', 'http://localhost:3000/optimize/start/1'));
+	});
 });
 
 export {};
