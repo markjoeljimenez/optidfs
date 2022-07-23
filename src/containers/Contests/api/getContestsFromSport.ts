@@ -10,10 +10,6 @@ import { IContestsBody, IContestsResponse } from 'src/api/interfaces';
 import { IContest } from '../interfaces/IContest';
 import { mapContests } from '../services/mapContests';
 
-interface IContestTransformedResponse {
-	contests: IContest[];
-}
-
 const getContestsFromSport = (
 	builder: EndpointBuilder<
 		BaseQueryFn<
@@ -28,20 +24,16 @@ const getContestsFromSport = (
 	>
 ) =>
 	builder.query({
-		query: (body) => ({
-			body,
-			method: 'POST',
-			url: 'contests',
-		}),
+		query: (body) => {
+			const params = new URLSearchParams(body as any);
+
+			return `/contests?${params.toString()}`;
+		},
 		transformResponse: (
 			response: IContestsResponse,
 			meta,
 			arg: IContestsBody
-		): IContestTransformedResponse => {
-			return {
-				contests: mapContests(response, arg.provider),
-			};
-		},
+		): IContest[] => mapContests(response, arg.provider),
 	});
 
 export { getContestsFromSport };

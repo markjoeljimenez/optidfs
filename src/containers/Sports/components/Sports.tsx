@@ -1,10 +1,10 @@
 import useReset from 'src/hooks/useReset';
 
+import Select, { IValueLabel } from '@/components/form/select';
 import { setSelectedContest } from '@/containers/Contests';
 import { setDefaultPlayers } from '@/containers/Players';
 
-import { useGetSportsFromProviderQuery } from '../../../api';
-import Select, { IValueLabel } from '../../../components/form/select';
+import { useGetSportsFromProviderQuery, usePrefetch } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { setSelectedSport } from '../redux/reducers';
 
@@ -12,8 +12,9 @@ const Sports = () => {
 	const { global, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const reset = useReset();
+	const prefetchGetContestsFromSport = usePrefetch('getContestsFromSport');
 
-	const response = useGetSportsFromProviderQuery(providers.provider!, {
+	const { data } = useGetSportsFromProviderQuery(providers.provider!, {
 		skip: !providers.provider,
 	});
 
@@ -22,9 +23,7 @@ const Sports = () => {
 			? e.currentTarget.value
 			: parseInt(e.currentTarget.value);
 
-		const selectedSport = response.data?.find(
-			(sport) => sport.sportId === sportId
-		);
+		const selectedSport = data?.find((sport) => sport.sportId === sportId);
 
 		if (selectedSport) {
 			dispatch(setSelectedSport(selectedSport));
@@ -33,6 +32,12 @@ const Sports = () => {
 			if (global.hasVisited) {
 				reset([setSelectedContest, setDefaultPlayers]);
 			}
+
+			prefetchGetContestsFromSport({
+				provider: providers.provider,
+				sport: selectedSport?.regionAbbreviatedSportName,
+				sportId: selectedSport?.sportId,
+			});
 		}
 	}
 
@@ -40,10 +45,10 @@ const Sports = () => {
 		<div className="relative">
 			<Select
 				hideLabel
-				disabled={!response.data}
+				disabled={!data}
 				id="selectSport"
 				label="Select sport"
-				options={(response.data ?? [])
+				options={(data ?? [])
 					.filter(
 						(sport) =>
 							sport.isEnabled &&

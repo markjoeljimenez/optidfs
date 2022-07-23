@@ -1,4 +1,4 @@
-import { DefaultRequestBody,MockedRequest, RestHandler } from 'msw';
+import { DefaultRequestBody, MockedRequest, RestHandler } from 'msw';
 
 import { contestsHandler } from '@/containers/Contests';
 import { playersHandler } from '@/containers/Players';

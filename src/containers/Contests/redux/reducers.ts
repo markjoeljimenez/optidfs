@@ -22,6 +22,10 @@ export const ContestsReducers = createSlice({
 		},
 		setSelectedContest: (state, action: PayloadAction<IContest | null>) => {
 			state.selectedContest = action.payload;
+			// state.selectedContest = {
+			// 	contest_id: 1023139130,
+			// 	name: 'test',
+			// };
 		},
 	},
 });

@@ -29,7 +29,7 @@ const getPlayers = (
 		query: (body) => {
 			const params = new URLSearchParams(body as any);
 
-			return `players?${params.toString()}`;
+			return `/players?${params.toString()}`;
 		},
 		transformResponse: (
 			response: (IDraftKingsPlayer | IYahooPlayer)[],

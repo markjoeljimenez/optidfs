@@ -4,10 +4,12 @@ import { AppState } from 'src/store';
 import { ISport } from '../interfaces/ISports';
 
 interface ISportsState {
-	selectedSport?: ISport;
+	selectedSport: ISport | null;
 }
 
-const initialState: ISportsState = {};
+const initialState: ISportsState = {
+	selectedSport: null,
+};
 
 export const SportsReducers = createSlice({
 	initialState,

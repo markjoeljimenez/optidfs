@@ -20,4 +20,5 @@ export const {
 	useGetContestsFromSportQuery,
 	useGetPlayersQuery,
 	useGetSportsFromProviderQuery,
+	usePrefetch,
 } = OptidfsApi;

@@ -189,7 +189,7 @@ export const draftKingsContestsMock: IDraftKingsContest[] = [
 		is_guaranteed: false,
 		is_head_to_head: false,
 		is_starred: false,
-		name: 'Casual PGA TOUR $10 3-Player',
+		name: 'Casual PGA TOUR $50 3-Player',
 		payout: 27,
 		sport: 'GOLF',
 		starts_at: '2022-07-21T11:50:00+00:00',

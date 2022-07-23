@@ -12,7 +12,7 @@ const Dropdown = () => {
 	const { contests, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
-	const { data } = useGetContestsFromSportQuery(
+	const { data, isSuccess } = useGetContestsFromSportQuery(
 		{
 			provider: providers.provider,
 			sport: sports.selectedSport?.regionAbbreviatedSportName,
@@ -21,13 +21,13 @@ const Dropdown = () => {
 		{
 			skip:
 				providers.provider === null ||
-				sports.selectedSport === undefined,
+				sports.selectedSport?.regionAbbreviatedSportName ===
+					undefined ||
+				sports.selectedSport.sportId === undefined,
 		}
 	);
 
-	const [defaultContests, setDefaultContests] = useState<IContest[]>(
-		data?.contests ?? []
-	);
+	const [searchedContests, setSearchedContests] = useState(data ?? []);
 
 	function onStateChange(selection: UseComboboxStateChange<IContest>) {
 		if (!selection?.selectedItem) {
@@ -47,14 +47,14 @@ const Dropdown = () => {
 
 	useEffect(() => {
 		if (data) {
-			setDefaultContests(data.contests);
+			setSearchedContests(data);
 
 			if (contests.selectedContest) {
-				const foundContest = data?.contests.find(
+				const foundContest = data?.find(
 					(contest) =>
 						contest.contest_id ===
 							contests?.selectedContest!.contest_id &&
-						contest.name === contests?.selectedContest!.name
+						contest.name === contests.selectedContest.name
 				);
 
 				if (!foundContest) {
@@ -81,21 +81,23 @@ const Dropdown = () => {
 		getToggleButtonProps,
 		isOpen,
 	} = useCombobox({
+		initialSelectedItem: contests.selectedContest,
 		itemToString: (item) => (item ? item.name : ''),
-		items: defaultContests,
+		items: data ?? [],
 		onInputValueChange: ({ inputValue }) => {
-			if (data?.contests) {
-				setDefaultContests(
-					data?.contests.filter((contest) =>
-						contest.name
-							.toLocaleLowerCase()
-							.includes(inputValue!.toLocaleLowerCase())
+			if (data) {
+				setSearchedContests(
+					data.filter(
+						(contest) =>
+							contest.name
+								.toLocaleLowerCase()
+								.includes(inputValue!.toLocaleLowerCase()) ||
+							contest.contest_id.toString().includes(inputValue!)
 					)!
 				);
 			}
 		},
 		onStateChange,
-		selectedItem: contests.selectedContest,
 	});
 
 	return (
@@ -148,8 +150,8 @@ const Dropdown = () => {
 				{...getMenuProps()}
 			>
 				{isOpen &&
-					(defaultContests.length ? (
-						defaultContests?.map((item, index) => (
+					(isSuccess ? (
+						searchedContests.map((item, index) => (
 							<li
 								className="p-4 border-b border-gray-300 hover:bg-gray-100 cursor-pointer"
 								{...getItemProps({
@@ -158,7 +160,7 @@ const Dropdown = () => {
 								})}
 								key={index}
 							>
-								{item.gameType} - {item.name}
+								{item.contest_id} - {item.name}
 							</li>
 						))
 					) : (
