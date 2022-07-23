@@ -1,4 +1,4 @@
-import ProviderReducers, { setProvider } from '../Providers.reducers';
+import ProviderReducers, { setProvider } from './Providers.reducers';
 
 describe('Providers reducers', () => {
 	it('should return the initial state', () => {
