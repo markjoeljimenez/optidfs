@@ -15,7 +15,7 @@ import Loading, { LoadingSize } from '@/components/loading/loading';
 import { playersState, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { contestsState } from '../Contests/redux/reducers';
+import { contestsState } from '../Contests/redux/Contests.reducers';
 import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
 import columnKeys from './components/Table.columns';
 import TableSubRow from './components/Table.subRow';

@@ -1,18 +1,18 @@
 import { getContestsFromSport } from './api/getContestsFromSport';
 import Contests from './components/Contests';
-import contestsHandler from './handlers/contests.handler';
+import contestsHandler from './handlers/Contests.handler';
 import { IContest } from './interfaces/IContest';
 import { IDraftKingsContest } from './interfaces/IDraftKingsContest';
 import { IYahooContest } from './interfaces/IYahooContest';
 import {
 	draftKingsContestsMock,
 	yahooContestsMock,
-} from './mocks/contests.mocks';
+} from './mocks/Contests.mocks';
 import ContestsReducers, {
 	contestsState,
 	setGameType,
 	setSelectedContest,
-} from './redux/reducers';
+} from './redux/Contests.reducers';
 import {
 	mapDraftKingsContests,
 	mapYahooContests,

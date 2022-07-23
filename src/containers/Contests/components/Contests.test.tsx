@@ -6,7 +6,7 @@ import Notifications from '@/components/toast/notifications';
 import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
-import { draftKingsContestsMock } from '../mocks/contests.mocks';
+import { draftKingsContestsMock } from '../mocks/Contests.mocks';
 import Contests from './Contests';
 
 const preloadedState: Partial<RootState> = {

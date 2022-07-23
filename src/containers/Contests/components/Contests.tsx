@@ -6,7 +6,7 @@ import { toast } from 'react-hot-toast';
 import { useGetContestsFromSportQuery } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { IContest } from '../interfaces/IContest';
-import { setGameType, setSelectedContest } from '../redux/reducers';
+import { setGameType, setSelectedContest } from '../redux/Contests.reducers';
 
 const Dropdown = () => {
 	const { contests, providers, sports } = useAppSelector((state) => state);

@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-import { draftKingsContestsMock } from '../mocks/contests.mocks';
+import { draftKingsContestsMock } from '../mocks/Contests.mocks';
 
 const { ENDPOINT } = process.env;
 
