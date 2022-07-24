@@ -6,25 +6,23 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import clsx from 'clsx';
-import { useFlags } from 'flagsmith/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 
-import More from '@/components/icons/more';
 import Loading, { LoadingSize } from '@/components/loading/loading';
 import { IPlayer, playersState, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import columnKeys from './components/Table.columns';
+import TableRow from './components/Table.row';
 
 const Table = () => {
-	const { stacking } = useFlags(['stacking']);
 	const { contests, players, providers, table } = useAppSelector(
 		(state) => state
 	);
 	const dispatch = useAppDispatch();
 
-	const { data } = useGetPlayersQuery(
+	const { data, isLoading, isFetching } = useGetPlayersQuery(
 		{
 			// gameType: contests.gameType,
 			id: contests.selectedContest?.contest_id!,
@@ -98,6 +96,25 @@ const Table = () => {
 		},
 	});
 
+	function renderTableBody() {
+		if (isLoading || isFetching) {
+			return (
+				<tr>
+					<td
+						className="p-4 whitespace-nowrap"
+						colSpan={columnKeys.length}
+					>
+						<Loading text="Loading players. This may take a while..." />
+					</td>
+				</tr>
+			);
+		}
+
+		return _table
+			.getRowModel()
+			.rows.map((row) => <TableRow key={row.id} row={row} />);
+	}
+
 	return (
 		<table className="w-full table-auto relative border-collapse bg-white text-left">
 			<thead className="border-b border-t border-gray-200">
@@ -125,47 +142,7 @@ const Table = () => {
 				))}
 			</thead>
 
-			<tbody>
-				{_table.getRowModel().rows.map((row) => (
-					<>
-						<tr key={row.id} className="border-b border-gray-200">
-							{row.getVisibleCells().map((cell) => (
-								<td
-									key={cell.id}
-									className="p-4 whitespace-nowrap"
-								>
-									{flexRender(
-										cell.column.columnDef.cell,
-										cell.getContext()
-									)}
-								</td>
-							))}
-
-							{row.getCanExpand() && stacking.enabled && (
-								<td className="p-4 whitespace-nowrap">
-									<button
-										onClick={() =>
-											row.toggleExpanded(
-												!row.getIsExpanded()
-											)
-										}
-									>
-										<More />
-									</button>
-								</td>
-							)}
-						</tr>
-
-						{row.getIsExpanded() && stacking.enabled && (
-							<tr key={`${row.id}-subrow`}>
-								<td colSpan={columnKeys.length + 1}>
-									Expanded row
-								</td>
-							</tr>
-						)}
-					</>
-				))}
-			</tbody>
+			<tbody>{renderTableBody()}</tbody>
 		</table>
 	);
 };
