@@ -6,6 +6,7 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import clsx from 'clsx';
+import { useFlags } from 'flagsmith/react';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 
@@ -17,6 +18,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import columnKeys from './components/Table.columns';
 
 const Table = () => {
+	const { stacking } = useFlags(['stacking']);
 	const { contests, players, providers, table } = useAppSelector(
 		(state) => state
 	);
@@ -139,7 +141,7 @@ const Table = () => {
 								</td>
 							))}
 
-							{row.getCanExpand() && (
+							{row.getCanExpand() && stacking.enabled && (
 								<td className="p-4 whitespace-nowrap">
 									<button
 										onClick={() =>
@@ -154,7 +156,7 @@ const Table = () => {
 							)}
 						</tr>
 
-						{row.getIsExpanded() && (
+						{row.getIsExpanded() && stacking.enabled && (
 							<tr key={`${row.id}-subrow`}>
 								<td colSpan={columnKeys.length + 1}>
 									Expanded row
