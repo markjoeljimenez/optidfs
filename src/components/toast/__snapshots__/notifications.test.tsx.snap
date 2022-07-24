@@ -6,7 +6,7 @@ Object {
   "baseElement": <body>
     <div>
       <div
-        style="position: fixed; right: 1rem; top: 1rem;"
+        style="position: fixed; right: 1rem; top: 1rem; z-index: 99;"
       >
         <div
           class="flex p-4 mb-4 rounded-lg bg-red-100 dark:bg-red-200 text-red-700 dark:text-red-800 animate-enter"
@@ -85,7 +85,7 @@ Object {
   </body>,
   "container": <div>
     <div
-      style="position: fixed; right: 1rem; top: 1rem;"
+      style="position: fixed; right: 1rem; top: 1rem; z-index: 99;"
     >
       <div
         class="flex p-4 mb-4 rounded-lg bg-red-100 dark:bg-red-200 text-red-700 dark:text-red-800 animate-enter"

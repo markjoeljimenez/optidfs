@@ -20,6 +20,7 @@ const Notifications = () => {
 				position: 'fixed',
 				right: '1rem',
 				top: '1rem',
+				zIndex: 99,
 			}}
 			onMouseEnter={startPause}
 			onMouseLeave={endPause}
