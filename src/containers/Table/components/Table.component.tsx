@@ -6,15 +6,15 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import clsx from 'clsx';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 
-import Loading, { LoadingSize } from '@/components/loading/loading';
-import { IPlayer, playersState, setDefaultPlayers } from '@/containers/Players';
+import Loading from '@/components/loading/loading';
+import { IPlayer, setDefaultPlayers } from '@/containers/Players';
 
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import columnKeys from './components/Table.columns';
-import TableRow from './components/Table.row';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import columnKeys from './Table.columns';
+import TableRow from './Table.row';
 
 const Table = () => {
 	const { contests, players, providers, table } = useAppSelector(
@@ -22,7 +22,7 @@ const Table = () => {
 	);
 	const dispatch = useAppDispatch();
 
-	const { data, isLoading, isFetching } = useGetPlayersQuery(
+	const { data, isFetching, isLoading } = useGetPlayersQuery(
 		{
 			// gameType: contests.gameType,
 			id: contests.selectedContest?.contest_id!,
@@ -105,6 +105,19 @@ const Table = () => {
 						colSpan={columnKeys.length}
 					>
 						<Loading text="Loading players. This may take a while..." />
+					</td>
+				</tr>
+			);
+		}
+
+		if (!data || !data.length) {
+			return (
+				<tr>
+					<td
+						className="p-4 whitespace-nowrap"
+						colSpan={columnKeys.length}
+					>
+						No players available
 					</td>
 				</tr>
 			);

@@ -22,10 +22,10 @@ import { GlobalReducers } from '@/containers/Global';
 import { PlayersReducers } from '@/containers/Players';
 import { ProvidersReducer } from '@/containers/Providers';
 import { SportsReducers } from '@/containers/Sports';
+import { tableReducers } from '@/containers/Table';
 
 import { OptidfsApi } from './api';
 import error from './containers/Error/Error.reducers';
-import table from './containers/Table/Table.reducers';
 
 const rootReducer = combineReducers({
 	contests: ContestsReducers,
@@ -36,7 +36,7 @@ const rootReducer = combineReducers({
 	// rules,
 	sports: SportsReducers,
 	// stacking,
-	table,
+	table: tableReducers,
 	// tabs,
 	[OptidfsApi.reducerPath]: OptidfsApi.reducer,
 });

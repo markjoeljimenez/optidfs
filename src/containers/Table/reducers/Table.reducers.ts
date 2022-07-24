@@ -1,18 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AppState } from '../../store';
-
-export enum View {
-	All = 'all',
-}
+import { AppState } from '../../../store';
+import { View } from '../models/view';
 
 const initialState = {
 	view: View.All,
 };
 
 export const TableReducers = createSlice({
-	name: 'table',
 	initialState,
+	name: 'table',
 	reducers: {
 		setView: (state, action: PayloadAction<View>) => {
 			state.view = action.payload;

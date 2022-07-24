@@ -1,4 +1,4 @@
-import { View } from '../../Table/Table.reducers';
+import { View } from '../../Table/reducers/Table.reducers';
 import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
 import { IYahooPlayer } from '../models/IYahooPlayer';
 

@@ -2,7 +2,7 @@ import router from 'next/router';
 import { useEffect } from 'react';
 
 import Contests from '@/containers/Contests';
-import Table from '@/containers/Table/Table.component';
+import Table from '@/containers/Table/components/Table.component';
 
 import { useAppSelector } from '../../hooks';
 
