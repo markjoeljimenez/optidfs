@@ -1,37 +1,25 @@
-/* eslint-disable react/jsx-key */
-import { skipToken } from '@reduxjs/toolkit/dist/query';
 import {
-	ColumnDef,
 	flexRender,
 	getCoreRowModel,
-	// defaultColumn,
-	// useExpanded,
-	// useFilters,
-	// useGlobalFilter,
-	// usePagination,
+	getExpandedRowModel,
+	getPaginationRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
 import clsx from 'clsx';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 
+import More from '@/components/icons/more';
 import Loading, { LoadingSize } from '@/components/loading/loading';
 import { IPlayer, playersState, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { contestsState } from '../Contests/redux/Contests.reducers';
-import { MultiSelectColumnFilter } from './components/filters/StatusFilter';
 import columnKeys from './components/Table.columns';
-import TableSubRow from './components/Table.subRow';
-import { selectTable } from './Table.reducers';
 
 const Table = () => {
 	const { contests, players, providers, table } = useAppSelector(
 		(state) => state
 	);
-	// const players = useAppSelector(playersState);
-	// const contests = useAppSelector(contestsState);
-	// const table = useAppSelector(selectTable);
 	const dispatch = useAppDispatch();
 
 	const { data } = useGetPlayersQuery(
@@ -68,8 +56,6 @@ const Table = () => {
 	// 	[contests.gameType]
 	// );
 
-	console.log(memoizedData);
-
 	// const defaultColumn = useMemo(
 	// 	() => ({
 	// 		// Let's set up our default Filter UI
@@ -92,22 +78,23 @@ const Table = () => {
 	// 	[]
 	// );
 
-	const _table = useReactTable(
-		{
-			// autoResetExpanded: false,
-			// autoResetPage: false,
-			columns: columnKeys,
-			data: memoizedData,
-			// defaultColumn,
-			// filterTypes,
-			getCoreRowModel: getCoreRowModel(),
-			initialState: { pageSize: 100 } as any,
-		}
-		// useFilters,
-		// useGlobalFilter,
-		// useExpanded,
-		// usePagination
-	);
+	const _table = useReactTable({
+		autoResetExpanded: true,
+		columns: columnKeys,
+		data: memoizedData,
+		// defaultColumn,
+		// filterTypes,
+		enableExpanding: true,
+		getCoreRowModel: getCoreRowModel(),
+		getExpandedRowModel: getExpandedRowModel(),
+		getPaginationRowModel: getPaginationRowModel(),
+		getRowCanExpand: () => true,
+		initialState: {
+			pagination: {
+				pageSize: 50,
+			},
+		},
+	});
 
 	return (
 		<table className="w-full table-auto relative border-collapse bg-white text-left">
@@ -118,7 +105,11 @@ const Table = () => {
 							<th
 								key={header.id}
 								className={clsx(
-									'relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap'
+									'relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap',
+									['status'].includes(header.id) &&
+										'text-center',
+									['salary', 'fppg'].includes(header.id) &&
+										'text-right'
 								)}
 								colSpan={header.colSpan}
 							>
@@ -134,19 +125,43 @@ const Table = () => {
 
 			<tbody>
 				{_table.getRowModel().rows.map((row) => (
-					<tr key={row.id} className="border-b border-gray-200">
-						{row.getVisibleCells().map((cell) => (
-							<td
-								key={cell.id}
-								className="px-8 py-4 whitespace-nowrap"
-							>
-								{flexRender(
-									cell.column.columnDef.cell,
-									cell.getContext()
-								)}
-							</td>
-						))}
-					</tr>
+					<>
+						<tr key={row.id} className="border-b border-gray-200">
+							{row.getVisibleCells().map((cell) => (
+								<td
+									key={cell.id}
+									className="p-4 whitespace-nowrap"
+								>
+									{flexRender(
+										cell.column.columnDef.cell,
+										cell.getContext()
+									)}
+								</td>
+							))}
+
+							{row.getCanExpand() && (
+								<td className="p-4 whitespace-nowrap">
+									<button
+										onClick={() =>
+											row.toggleExpanded(
+												!row.getIsExpanded()
+											)
+										}
+									>
+										<More />
+									</button>
+								</td>
+							)}
+						</tr>
+
+						{row.getIsExpanded() && (
+							<tr key={`${row.id}-subrow`}>
+								<td colSpan={columnKeys.length + 1}>
+									Expanded row
+								</td>
+							</tr>
+						)}
+					</>
 				))}
 			</tbody>
 		</table>
