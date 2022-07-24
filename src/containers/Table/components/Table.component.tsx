@@ -99,27 +99,29 @@ const Table = () => {
 	function renderTableBody() {
 		if (isLoading || isFetching) {
 			return (
-				<tr>
-					<td
+				<div role="row">
+					<div
 						className="p-4 whitespace-nowrap"
-						colSpan={columnKeys.length}
+						role="cell"
+						// colSpan={columnKeys.length}
 					>
 						<Loading text="Loading players. This may take a while..." />
-					</td>
-				</tr>
+					</div>
+				</div>
 			);
 		}
 
 		if (!data || !data.length) {
 			return (
-				<tr>
-					<td
+				<div role="row">
+					<div
 						className="p-4 whitespace-nowrap"
-						colSpan={columnKeys.length}
+						role="cell"
+						// colSpan={columnKeys.length}
 					>
 						No players available
-					</td>
-				</tr>
+					</div>
+				</div>
 			);
 		}
 
@@ -129,12 +131,16 @@ const Table = () => {
 	}
 
 	return (
-		<table className="w-full table-auto relative border-collapse bg-white text-left">
-			<thead className="border-b border-t border-gray-200">
+		<div className="w-full bg-white text-left" role="table">
+			<div className="border-b border-t border-gray-200" role="rowgroup">
 				{_table.getHeaderGroups().map((headerGroup) => (
-					<tr key={headerGroup.id} className="bg-gray-50">
+					<div
+						key={headerGroup.id}
+						className="bg-gray-50 grid grid-cols-table-md"
+						role="row"
+					>
 						{headerGroup.headers.map((header) => (
-							<th
+							<div
 								key={header.id}
 								className={clsx(
 									'relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap',
@@ -143,21 +149,52 @@ const Table = () => {
 									['salary', 'fppg'].includes(header.id) &&
 										'text-right'
 								)}
-								colSpan={header.colSpan}
+								role="columnheader"
 							>
 								{flexRender(
 									header.column.columnDef.header,
 									header.getContext()
 								)}
-							</th>
+							</div>
 						))}
-					</tr>
+					</div>
 				))}
-			</thead>
+			</div>
 
-			<tbody>{renderTableBody()}</tbody>
-		</table>
+			<div role="rowgroup">{renderTableBody()}</div>
+		</div>
 	);
+
+	// return (
+	// 	<table className="w-full table-auto relative border-collapse bg-white text-left">
+	// 		<thead className="border-b border-t border-gray-200">
+	// 			{_table.getHeaderGroups().map((headerGroup) => (
+	// 				<tr key={headerGroup.id} className="bg-gray-50">
+	// 					{headerGroup.headers.map((header) => (
+	// 						<th
+	// 							key={header.id}
+	// 							className={clsx(
+	// 								'relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap',
+	// 								['status'].includes(header.id) &&
+	// 									'text-center',
+	// 								['salary', 'fppg'].includes(header.id) &&
+	// 									'text-right'
+	// 							)}
+	// 							colSpan={header.colSpan}
+	// 						>
+	// 							{flexRender(
+	// 								header.column.columnDef.header,
+	// 								header.getContext()
+	// 							)}
+	// 						</th>
+	// 					))}
+	// 				</tr>
+	// 			))}
+	// 		</thead>
+
+	// 		<tbody>{renderTableBody()}</tbody>
+	// 	</table>
+	// );
 };
 
 export default Table;

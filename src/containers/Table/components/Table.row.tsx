@@ -15,18 +15,26 @@ const TableRow = ({ row }: ITableRow) => {
 
 	return (
 		<>
-			<tr key={row.id} className="border-b border-gray-200">
+			<div
+				key={row.id}
+				className="border-b border-gray-200 grid grid-cols-table-md"
+				role="row"
+			>
 				{row.getVisibleCells().map((cell) => (
-					<td key={cell.id} className="p-4 whitespace-nowrap">
+					<div
+						key={cell.id}
+						className="p-4 whitespace-nowrap"
+						role="cell"
+					>
 						{flexRender(
 							cell.column.columnDef.cell,
 							cell.getContext()
 						)}
-					</td>
+					</div>
 				))}
 
 				{row.getCanExpand() && stacking.enabled && (
-					<td className="p-4 whitespace-nowrap">
+					<div className="p-4 whitespace-nowrap" role="cell">
 						<button
 							onClick={() =>
 								row.toggleExpanded(!row.getIsExpanded())
@@ -34,14 +42,14 @@ const TableRow = ({ row }: ITableRow) => {
 						>
 							<More />
 						</button>
-					</td>
+					</div>
 				)}
-			</tr>
+			</div>
 
 			{row.getIsExpanded() && stacking.enabled && (
-				<tr key={`${row.id}-subrow`}>
-					<td colSpan={columnKeys.length + 1}>Expanded row</td>
-				</tr>
+				<div key={`${row.id}-subrow`} role="row">
+					<div role="cell">Expanded row</div>
+				</div>
 			)}
 		</>
 	);
