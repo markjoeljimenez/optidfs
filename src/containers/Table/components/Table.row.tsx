@@ -1,10 +1,9 @@
 import { flexRender, Row } from '@tanstack/react-table';
+import clsx from 'clsx';
 import { useFlags } from 'flagsmith/react';
 
 import More from '@/components/icons/more';
 import { IPlayer } from '@/containers/Players';
-
-import columnKeys from './Table.columns';
 
 interface ITableRow {
 	row: Row<IPlayer>;
@@ -17,7 +16,12 @@ const TableRow = ({ row }: ITableRow) => {
 		<>
 			<div
 				key={row.id}
-				className="border-b border-gray-200 grid grid-cols-table-md"
+				className={clsx(
+					'border-b border-gray-200 grid items-center',
+					stacking.enabled
+						? 'grid-cols-table-md-stacking-ff'
+						: 'grid-cols-table-md'
+				)}
 				role="row"
 			>
 				{row.getVisibleCells().map((cell) => (

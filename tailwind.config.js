@@ -92,8 +92,10 @@ module.exports = {
 		extend: {
 			gridTemplateColumns: {
 				'table-sm': '5rem 1fr 1fr 3rem',
+				'table-md-stacking-ff':
+					'5rem minmax(5rem, 1.5fr) minmax(8rem, 2fr) minmax(12rem, 3fr) minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) 4rem',
 				'table-md':
-					'5rem minmax(5rem, 1fr) minmax(8rem, 2fr) minmax(12rem, 3fr) minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) 4rem',
+					'5rem minmax(5rem, 1.5fr) minmax(8rem, 2fr) minmax(12rem, 3fr) minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)',
 				'custom-stacking-md': '4rem 4rem 4fr 1fr 3.25rem',
 			},
 			animation: {

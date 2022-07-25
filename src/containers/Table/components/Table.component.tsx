@@ -6,6 +6,7 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import clsx from 'clsx';
+import { useFlags } from 'flagsmith/react';
 import React, { useEffect, useMemo } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 
@@ -13,14 +14,16 @@ import Loading from '@/components/loading/loading';
 import { IPlayer, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import columnKeys from './Table.columns';
+import useColumns from './Table.columns';
 import TableRow from './Table.row';
 
 const Table = () => {
+	const { stacking } = useFlags(['stacking']);
 	const { contests, players, providers, table } = useAppSelector(
 		(state) => state
 	);
 	const dispatch = useAppDispatch();
+	const columns = useColumns();
 
 	const { data, isFetching, isLoading } = useGetPlayersQuery(
 		{
@@ -80,7 +83,7 @@ const Table = () => {
 
 	const _table = useReactTable({
 		autoResetExpanded: true,
-		columns: columnKeys,
+		columns,
 		data: memoizedData,
 		// defaultColumn,
 		// filterTypes,
@@ -100,11 +103,7 @@ const Table = () => {
 		if (isLoading || isFetching) {
 			return (
 				<div role="row">
-					<div
-						className="p-4 whitespace-nowrap"
-						role="cell"
-						// colSpan={columnKeys.length}
-					>
+					<div className="p-4 whitespace-nowrap" role="cell">
 						<Loading text="Loading players. This may take a while..." />
 					</div>
 				</div>
@@ -114,11 +113,7 @@ const Table = () => {
 		if (!data || !data.length) {
 			return (
 				<div role="row">
-					<div
-						className="p-4 whitespace-nowrap"
-						role="cell"
-						// colSpan={columnKeys.length}
-					>
+					<div className="p-4 whitespace-nowrap" role="cell">
 						No players available
 					</div>
 				</div>
@@ -136,7 +131,12 @@ const Table = () => {
 				{_table.getHeaderGroups().map((headerGroup) => (
 					<div
 						key={headerGroup.id}
-						className="bg-gray-50 grid grid-cols-table-md"
+						className={clsx(
+							'bg-gray-50 grid items-center',
+							stacking.enabled
+								? 'grid-cols-table-md-stacking-ff'
+								: 'grid-cols-table-md'
+						)}
 						role="row"
 					>
 						{headerGroup.headers.map((header) => (
