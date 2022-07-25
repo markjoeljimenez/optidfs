@@ -9,21 +9,18 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
-import clsx from 'clsx';
 import { useFlags } from 'flagsmith/react';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 
-import Chevron from '@/components/icons/chevron';
-import { Direction } from '@/components/icons/chevron-triangle';
-import Loading from '@/components/loading/loading';
 import { IPlayer, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import StatusFilter from './filters/Table.filters.status';
-import TableSortSalary from './sort/Table.sort.salary';
-import useColumns from './Table.columns';
-import TableRow from './Table.row';
+import useTableColumns from '../hooks/useTableColumns';
+import TableBody from './base/Table.body';
+import TableFooter from './base/Table.footer';
+import TableHeader from './base/Table.header';
+import TablePreheader from './base/Table.preheader';
 
 const Table = () => {
 	const { stacking } = useFlags(['stacking']);
@@ -31,7 +28,7 @@ const Table = () => {
 		(state) => state
 	);
 	const dispatch = useAppDispatch();
-	const columns = useColumns();
+	const columns = useTableColumns();
 	const [globalFilter, setGlobalFilter] = useState('');
 
 	const { data, isFetching, isLoading, isSuccess } = useGetPlayersQuery(
@@ -68,10 +65,6 @@ const Table = () => {
 	// 	[contests.gameType]
 	// );
 
-	useEffect(() => {
-		console.log(globalFilter);
-	}, [globalFilter]);
-
 	const _table = useReactTable({
 		autoResetExpanded: true,
 		columns,
@@ -95,158 +88,22 @@ const Table = () => {
 		},
 	});
 
-	// TODO: Separate this into own component
-	function renderPreHeader() {
-		return (
-			<div role="rowgroup">
-				<div role="row">
-					<div className="p-4 whitespace-nowrap" role="cell">
-						<input
-							placeholder="Search by player, team, or position"
-							type="text"
-							onChange={(e) =>
-								setGlobalFilter(String(e.currentTarget.value))
-							}
-						/>
-					</div>
-				</div>
-			</div>
-		);
-	}
-
-	// TODO: Separate this into own component
-	function renderTableBody() {
-		if (isLoading || isFetching) {
-			return (
-				<div role="row">
-					<div className="p-4 whitespace-nowrap" role="cell">
-						<Loading text="Loading players. This may take a while..." />
-					</div>
-				</div>
-			);
-		}
-
-		if (!data || !data.length) {
-			return (
-				<div role="row">
-					<div className="p-4 whitespace-nowrap" role="cell">
-						No players available
-					</div>
-				</div>
-			);
-		}
-
-		return _table
-			.getRowModel()
-			.rows.map((row) => <TableRow key={row.id} row={row} />);
-	}
-
-	// TODO: Separate this into own component
-	function renderTableFooter() {
-		if (memoizedData.length && isSuccess && _table.getPageCount() > 0) {
-			return (
-				<div role="rolegroup">
-					<div role="row">
-						<div
-							className="p-4 whitespace-nowrap flex justify-end"
-							role="cell"
-						>
-							<span>
-								Page{' '}
-								<strong>
-									{_table.getState().pagination.pageIndex + 1}{' '}
-									of {_table.getPageCount()}
-								</strong>
-							</span>
-							<span className="ml-4">|</span>
-							<div className="inline-block ml-4">
-								<button
-									className={clsx(
-										'h-5 w-5',
-										!_table.getCanPreviousPage() &&
-											'text-gray-300'
-									)}
-									disabled={!_table.getCanPreviousPage()}
-									onClick={() => _table.previousPage()}
-								>
-									<Chevron direction={Direction.Left} />
-								</button>
-								<button
-									className={clsx(
-										'h-5 w-5',
-										!_table.getCanNextPage() &&
-											'text-gray-300'
-									)}
-									disabled={!_table.getCanNextPage()}
-									onClick={() => _table.nextPage()}
-								>
-									<Chevron direction={Direction.Right} />
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			);
-		}
-
-		return null;
+	function onGlobalSearch(e: ChangeEvent<HTMLInputElement>) {
+		setGlobalFilter(String(e.currentTarget.value));
 	}
 
 	return (
 		<div className="w-full bg-white text-left" role="table">
-			{renderPreHeader()}
+			<TablePreheader onGlobalSearch={onGlobalSearch} />
+			<TableHeader stacking={stacking} table={_table} />
+			<TableBody
+				response={{ isFetching, isLoading, isSuccess }}
+				table={_table}
+			/>
 
-			<div className="border-b border-t border-gray-200" role="rowgroup">
-				{_table.getHeaderGroups().map((headerGroup) => (
-					<div
-						key={headerGroup.id}
-						className={clsx(
-							'bg-gray-50 grid items-center',
-							stacking.enabled
-								? 'grid-cols-table-md-stacking-ff'
-								: 'grid-cols-table-md'
-						)}
-						role="row"
-					>
-						{headerGroup.headers.map((header) => (
-							<div
-								key={header.id}
-								className={clsx(
-									'relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap',
-									['status'].includes(header.id) &&
-										'flex items-center justify-center text-center',
-									['salary', 'fppg'].includes(header.id) &&
-										'flex items-center justify-end text-right'
-								)}
-								role="columnheader"
-							>
-								{flexRender(
-									header.column.columnDef.header,
-									header.getContext()
-								)}
-
-								{header.column.getCanFilter() && (
-									<div className="ml-1">
-										<StatusFilter column={header.column} />
-									</div>
-								)}
-
-								{header.column.getCanSort() && (
-									<div className="ml-1">
-										<TableSortSalary
-											column={header.column}
-										/>
-									</div>
-								)}
-							</div>
-						))}
-					</div>
-				))}
-			</div>
-
-			<div role="rowgroup">{renderTableBody()}</div>
-
-			{renderTableFooter()}
+			{memoizedData.length && isSuccess && _table.getPageCount() > 0 && (
+				<TableFooter table={_table} />
+			)}
 		</div>
 	);
 };

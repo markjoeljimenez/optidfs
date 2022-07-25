@@ -9,7 +9,7 @@ interface IStatusFilter {
 	column: Column<IPlayer, unknown>;
 }
 
-const StatusFilter = ({ column }: IStatusFilter) => {
+const TableStatusFilter = ({ column }: IStatusFilter) => {
 	const options: (keyof typeof StatusTranslation)[] = [
 		...column.getFacetedUniqueValues().keys(),
 	];
@@ -128,4 +128,4 @@ const StatusFilter = ({ column }: IStatusFilter) => {
 	);
 };
 
-export default StatusFilter;
+export default TableStatusFilter;

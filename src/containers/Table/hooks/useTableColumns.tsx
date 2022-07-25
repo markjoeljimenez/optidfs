@@ -6,11 +6,11 @@ import { IPlayer } from '@/containers/Players';
 
 import Pill from '../../../components/global/pill';
 import { Status, StatusTranslation } from '../../../interfaces/IStatus';
-import Toggle from './Table.lockExclude';
+import Toggle from '../components/Table.lockExclude';
 
 const columnHelper = createColumnHelper<IPlayer>();
 
-function useColumns() {
+function useTableColumns() {
 	const { stacking } = useFlags(['stacking']);
 
 	const columns = [
@@ -113,4 +113,4 @@ function useColumns() {
 	return columns;
 }
 
-export default useColumns;
+export default useTableColumns;
