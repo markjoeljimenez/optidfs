@@ -14,6 +14,8 @@ import { useFlags } from 'flagsmith/react';
 import React, { useEffect, useMemo } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 
+import Chevron from '@/components/icons/chevron';
+import { Direction } from '@/components/icons/chevron-triangle';
 import Loading from '@/components/loading/loading';
 import { IPlayer, setDefaultPlayers } from '@/containers/Players';
 
@@ -31,7 +33,7 @@ const Table = () => {
 	const dispatch = useAppDispatch();
 	const columns = useColumns();
 
-	const { data, isFetching, isLoading } = useGetPlayersQuery(
+	const { data, isFetching, isLoading, isSuccess } = useGetPlayersQuery(
 		{
 			// gameType: contests.gameType,
 			id: contests.selectedContest?.contest_id!,
@@ -105,7 +107,7 @@ const Table = () => {
 		getSortedRowModel: getSortedRowModel(),
 		initialState: {
 			pagination: {
-				pageSize: 50,
+				pageSize: 20,
 			},
 		},
 	});
@@ -134,6 +136,56 @@ const Table = () => {
 		return _table
 			.getRowModel()
 			.rows.map((row) => <TableRow key={row.id} row={row} />);
+	}
+
+	function renderTableFooter() {
+		if (memoizedData.length && isSuccess) {
+			return (
+				<div role="rolegroup">
+					<div role="row">
+						<div
+							className="p-4 whitespace-nowrap flex justify-end"
+							role="cell"
+						>
+							<span>
+								Page{' '}
+								<strong>
+									{_table.getState().pagination.pageIndex + 1}{' '}
+									of {_table.getPageCount()}
+								</strong>
+							</span>
+							<span className="ml-4">|</span>
+							<div className="inline-block ml-4">
+								<button
+									className={clsx(
+										'h-5 w-5',
+										!_table.getCanPreviousPage() &&
+											'text-gray-300'
+									)}
+									disabled={!_table.getCanPreviousPage()}
+									onClick={() => _table.previousPage()}
+								>
+									<Chevron direction={Direction.Left} />
+								</button>
+								<button
+									className={clsx(
+										'h-5 w-5',
+										!_table.getCanNextPage() &&
+											'text-gray-300'
+									)}
+									disabled={!_table.getCanNextPage()}
+									onClick={() => _table.nextPage()}
+								>
+									<Chevron direction={Direction.Right} />
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			);
+		}
+
+		return null;
 	}
 
 	return (
@@ -187,6 +239,8 @@ const Table = () => {
 			</div>
 
 			<div role="rowgroup">{renderTableBody()}</div>
+
+			{renderTableFooter()}
 		</div>
 	);
 };

@@ -5,7 +5,7 @@ export enum Direction {
 	Right = 'right',
 }
 
-const directionMap: Map<Direction, number> = new Map([
+export const directionMap: Map<Direction, number> = new Map([
 	[Direction.Up, 0],
 	[Direction.Right, 90],
 	[Direction.Down, 180],
