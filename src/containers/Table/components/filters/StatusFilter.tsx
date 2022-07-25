@@ -1,48 +1,12 @@
 import { Popover, Transition } from '@headlessui/react';
-import { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import { StatusTranslation } from 'src/interfaces/IStatus';
+// import { StatusTranslation } from 'src/interfaces/IStatus';
 
-import { useAppDispatch } from '../../../../hooks';
-import { StatusTranslation } from '../../../../interfaces/IStatus';
-import { filterPlayers } from '../../../Players/redux/Players.actions';
+interface IStatusFilter {
+	options: Map<any, number>;
+}
 
-export function MultiSelectColumnFilter({
-	column: { id, preFilteredRows, setFilter },
-}) {
-	const dispatch = useAppDispatch();
-	const [filterValues, setFilterValues] = useState<string[]>([]);
-
-	// Calculate the options for filtering
-	// using the preFilteredRows
-	const options = useMemo(() => {
-		const options = new Set();
-
-		preFilteredRows.forEach((row) => {
-			options.add(row.values[id]);
-		});
-
-		return [...options.values()];
-	}, [id, preFilteredRows]);
-
-	function onAllClick(e: ChangeEvent<HTMLInputElement>) {
-		setFilterValues([]);
-	}
-
-	function onChange(e: ChangeEvent<HTMLInputElement>) {
-		if (filterValues.find((value) => value === e.currentTarget.value)) {
-			setFilterValues(
-				filterValues.filter((value) => value !== e.currentTarget.value)
-			);
-		} else {
-			setFilterValues([...filterValues, e.currentTarget.value!]);
-		}
-	}
-
-	useEffect(() => {
-		setFilter(filterValues.length ? filterValues : undefined);
-		dispatch(filterPlayers(filterValues.length ? filterValues : 'all'));
-	}, [filterValues]);
-
-	// Render a multi-select box
+const StatusFilter = ({ options }: IStatusFilter) => {
 	return (
 		<Popover
 			// as="div"
@@ -95,18 +59,18 @@ export function MultiSelectColumnFilter({
 											tabIndex={-1}
 										>
 											<input
-												checked={!filterValues.length}
+												// checked={!filterValues.length}
 												className="mr-2 text-sm"
 												id="status-filter-option"
 												name="status-filter-all"
 												type="radio"
 												value="all"
-												onChange={onAllClick}
+												// onChange={onAllClick}
 											/>
 											All
 										</label>
 									</li>
-									{options.map((option, i) => (
+									{[...options.keys()].map((option, i) => (
 										<li key={i}>
 											<label
 												key={`status-filter-${option}`}
@@ -116,7 +80,7 @@ export function MultiSelectColumnFilter({
 												role="menuitem"
 												tabIndex={-1}
 											>
-												<input
+												{/* <input
 													checked={filterValues.some(
 														(value) =>
 															value === option
@@ -127,7 +91,7 @@ export function MultiSelectColumnFilter({
 													type="checkbox"
 													value={option as any}
 													onChange={onChange}
-												/>
+												/> */}
 												{
 													StatusTranslation[
 														option as StatusTranslation
@@ -144,4 +108,6 @@ export function MultiSelectColumnFilter({
 			)}
 		</Popover>
 	);
-}
+};
+
+export default StatusFilter;

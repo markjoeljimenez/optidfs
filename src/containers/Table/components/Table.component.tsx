@@ -2,6 +2,8 @@ import {
 	flexRender,
 	getCoreRowModel,
 	getExpandedRowModel,
+	getFacetedUniqueValues,
+	getFilteredRowModel,
 	getPaginationRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
@@ -14,6 +16,7 @@ import Loading from '@/components/loading/loading';
 import { IPlayer, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
+import StatusFilter from './filters/StatusFilter';
 import useColumns from './Table.columns';
 import TableRow from './Table.row';
 
@@ -81,6 +84,8 @@ const Table = () => {
 	// 	[]
 	// );
 
+	// console.log(filterTypes);
+
 	const _table = useReactTable({
 		autoResetExpanded: true,
 		columns,
@@ -88,8 +93,11 @@ const Table = () => {
 		// defaultColumn,
 		// filterTypes,
 		enableExpanding: true,
+		// enableFilters: true,
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
+		getFacetedUniqueValues: getFacetedUniqueValues(),
+		getFilteredRowModel: getFilteredRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		getRowCanExpand: () => true,
 		initialState: {
@@ -155,6 +163,12 @@ const Table = () => {
 									header.column.columnDef.header,
 									header.getContext()
 								)}
+
+								{header?.id === 'status' && (
+									<StatusFilter
+										options={header.column.getFacetedUniqueValues()}
+									/>
+								)}
 							</div>
 						))}
 					</div>
@@ -164,37 +178,6 @@ const Table = () => {
 			<div role="rowgroup">{renderTableBody()}</div>
 		</div>
 	);
-
-	// return (
-	// 	<table className="w-full table-auto relative border-collapse bg-white text-left">
-	// 		<thead className="border-b border-t border-gray-200">
-	// 			{_table.getHeaderGroups().map((headerGroup) => (
-	// 				<tr key={headerGroup.id} className="bg-gray-50">
-	// 					{headerGroup.headers.map((header) => (
-	// 						<th
-	// 							key={header.id}
-	// 							className={clsx(
-	// 								'relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap',
-	// 								['status'].includes(header.id) &&
-	// 									'text-center',
-	// 								['salary', 'fppg'].includes(header.id) &&
-	// 									'text-right'
-	// 							)}
-	// 							colSpan={header.colSpan}
-	// 						>
-	// 							{flexRender(
-	// 								header.column.columnDef.header,
-	// 								header.getContext()
-	// 							)}
-	// 						</th>
-	// 					))}
-	// 				</tr>
-	// 			))}
-	// 		</thead>
-
-	// 		<tbody>{renderTableBody()}</tbody>
-	// 	</table>
-	// );
 };
 
 export default Table;
