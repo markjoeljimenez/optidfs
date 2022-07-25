@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ChangeEvent, forwardRef } from 'react';
+import { ChangeEvent, CSSProperties, forwardRef } from 'react';
 
 import { IDataAttributes } from '../../interfaces/IDataAttributes';
 import { IError } from '../../interfaces/IError';
@@ -12,6 +12,7 @@ interface IInput {
 	defaultValue?: number;
 	error?: IError;
 	hideLabel?: boolean;
+	icon?: any;
 	label?: string;
 	max?: number;
 	min?: number;
@@ -19,6 +20,7 @@ interface IInput {
 	placeholder?: string;
 	required?: boolean;
 	step?: number;
+	style?: CSSProperties;
 	tippy?: any;
 	value?: any;
 }
@@ -32,21 +34,24 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 			defaultValue,
 			error,
 			hideLabel,
+			icon,
 			id,
 			label,
 			max,
 			min,
 			onChange,
 			placeholder,
+			required,
 			step,
+			style,
 			tippy,
 			type,
 			value,
 		}: IInput,
 		ref
 	) => (
-		<div className={className}>
-			<div className={clsx(tippy && 'pr-8')}>
+		<div>
+			{/* <div className={clsx(tippy && 'pr-8')}>
 				<label
 					className={clsx(
 						'block text-sm font-medium text-gray-700',
@@ -57,27 +62,33 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 					{label}
 					{tippy}
 				</label>
-			</div>
+			</div> */}
 
-			<input
-				ref={ref}
-				required
-				className={clsx(
-					'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md',
-					error?.isError && 'border-red-500',
-					!hideLabel && 'mt-2'
-				)}
-				defaultValue={defaultValue}
-				id={id}
-				max={max}
-				min={min}
-				placeholder={placeholder}
-				step={step}
-				type={type}
-				value={value}
-				onChange={onChange}
-				{...data}
-			/>
+			<div className="flex items-center">
+				{icon && <div className="h-5 w-5 mr-2">{icon}</div>}
+
+				<input
+					ref={ref}
+					className={clsx(
+						'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md',
+						error?.isError && 'border-red-500',
+						!hideLabel && 'mt-2',
+						className
+					)}
+					defaultValue={defaultValue}
+					id={id}
+					max={max}
+					min={min}
+					placeholder={placeholder}
+					required={required}
+					step={step}
+					style={style}
+					type={type}
+					value={value}
+					onChange={onChange}
+					{...data}
+				/>
+			</div>
 
 			{error?.isError && (
 				<div className="mt-2 text-red-500">{error.message}</div>

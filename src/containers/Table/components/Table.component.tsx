@@ -94,7 +94,10 @@ const Table = () => {
 
 	return (
 		<div className="w-full bg-white text-left" role="table">
-			<TablePreheader onGlobalSearch={onGlobalSearch} />
+			<TablePreheader
+				value={globalFilter}
+				onGlobalSearch={onGlobalSearch}
+			/>
 			<TableHeader stacking={stacking} table={_table} />
 			<TableBody
 				response={{ isFetching, isLoading, isSuccess }}
