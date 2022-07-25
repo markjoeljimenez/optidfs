@@ -1,4 +1,4 @@
-import { createColumnHelper, Row } from '@tanstack/react-table';
+import { createColumnHelper } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
 import Image from 'next/image';
 
@@ -35,6 +35,7 @@ function useColumns() {
 				</div>
 			),
 			enableColumnFilter: false,
+			enableSorting: false,
 			header: '',
 		}),
 		columnHelper.accessor('status', {
@@ -46,23 +47,28 @@ function useColumns() {
 				</div>
 			),
 			enableColumnFilter: true,
+			enableSorting: false,
 			filterFn: 'arrIncludesSome',
 		}),
 		columnHelper.accessor('firstName', {
 			cell: (info) => info.getValue(),
 			enableColumnFilter: false,
+			enableSorting: false,
 		}),
 		columnHelper.accessor('lastName', {
 			cell: (info) => info.getValue(),
 			enableColumnFilter: false,
+			enableSorting: false,
 		}),
 		columnHelper.accessor('position', {
 			cell: (info) => info.getValue(),
 			enableColumnFilter: false,
+			enableSorting: false,
 		}),
 		columnHelper.accessor('team', {
 			cell: (info) => info.getValue(),
 			enableColumnFilter: false,
+			enableSorting: false,
 		}),
 		columnHelper.accessor('salary', {
 			cell: (info) => (
@@ -75,10 +81,12 @@ function useColumns() {
 				</div>
 			),
 			enableColumnFilter: false,
+			enableSorting: true,
 		}),
 		columnHelper.accessor('fppg', {
 			cell: (info) => <div className="text-right">{info.getValue()}</div>,
 			enableColumnFilter: false,
+			enableSorting: true,
 		}),
 	];
 
@@ -87,6 +95,7 @@ function useColumns() {
 			columnHelper.accessor('id', {
 				cell: (info) => <Toggle id={info.getValue()} />,
 				enableColumnFilter: false,
+				enableSorting: false,
 				header: '',
 			}) as any
 		);

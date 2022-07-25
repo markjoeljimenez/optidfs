@@ -6,6 +6,7 @@ import {
 	getFacetedUniqueValues,
 	getFilteredRowModel,
 	getPaginationRowModel,
+	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
 import clsx from 'clsx';
@@ -18,6 +19,7 @@ import { IPlayer, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import StatusFilter from './filters/Table.filters.status';
+import TableSortSalary from './sort/Table.sort.salary';
 import useColumns from './Table.columns';
 import TableRow from './Table.row';
 
@@ -93,7 +95,6 @@ const Table = () => {
 		debugHeaders: true,
 		debugTable: true,
 		enableExpanding: true,
-		enableFilters: true,
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
 		getFacetedRowModel: getFacetedRowModel(),
@@ -101,6 +102,7 @@ const Table = () => {
 		getFilteredRowModel: getFilteredRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
 		getRowCanExpand: () => true,
+		getSortedRowModel: getSortedRowModel(),
 		initialState: {
 			pagination: {
 				pageSize: 50,
@@ -156,7 +158,7 @@ const Table = () => {
 									['status'].includes(header.id) &&
 										'flex items-center justify-center text-center',
 									['salary', 'fppg'].includes(header.id) &&
-										'text-right'
+										'flex items-center justify-end text-right'
 								)}
 								role="columnheader"
 							>
@@ -168,6 +170,14 @@ const Table = () => {
 								{header.column.getCanFilter() && (
 									<div className="ml-1">
 										<StatusFilter column={header.column} />
+									</div>
+								)}
+
+								{header.column.getCanSort() && (
+									<div className="ml-1">
+										<TableSortSalary
+											column={header.column}
+										/>
 									</div>
 								)}
 							</div>
