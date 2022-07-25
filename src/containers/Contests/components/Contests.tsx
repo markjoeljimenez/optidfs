@@ -101,7 +101,7 @@ const Dropdown = () => {
 	return (
 		<div
 			{...getComboboxProps()}
-			className="relative"
+			className="relative z-20"
 			data-testid="downshift"
 		>
 			{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}

@@ -9,7 +9,7 @@ Object {
         aria-expanded="false"
         aria-haspopup="listbox"
         aria-owns="downshift-0-menu"
-        class="relative"
+        class="relative z-20"
         data-testid="downshift"
         role="combobox"
       >
@@ -83,7 +83,7 @@ Object {
       aria-expanded="false"
       aria-haspopup="listbox"
       aria-owns="downshift-0-menu"
-      class="relative"
+      class="relative z-20"
       data-testid="downshift"
       role="combobox"
     >

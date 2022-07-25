@@ -110,8 +110,10 @@ const Table = () => {
 				table={_table}
 			/>
 
-			{memoizedData.length && isSuccess && _table.getPageCount() > 0 && (
+			{memoizedData.length && isSuccess && _table.getPageCount() > 0 ? (
 				<TableFooter table={_table} />
+			) : (
+				<></>
 			)}
 		</div>
 	);
