@@ -35,6 +35,7 @@ function useColumns() {
 				</div>
 			),
 			enableColumnFilter: false,
+			enableGlobalFilter: false,
 			enableSorting: false,
 			header: '',
 		}),
@@ -47,27 +48,32 @@ function useColumns() {
 				</div>
 			),
 			enableColumnFilter: true,
+			enableGlobalFilter: false,
 			enableSorting: false,
 			filterFn: 'arrIncludesSome',
 		}),
 		columnHelper.accessor('firstName', {
 			cell: (info) => info.getValue(),
 			enableColumnFilter: false,
+			enableGlobalFilter: true,
 			enableSorting: false,
 		}),
 		columnHelper.accessor('lastName', {
 			cell: (info) => info.getValue(),
 			enableColumnFilter: false,
+			enableGlobalFilter: true,
 			enableSorting: false,
 		}),
 		columnHelper.accessor('position', {
 			cell: (info) => info.getValue(),
 			enableColumnFilter: false,
+			enableGlobalFilter: true,
 			enableSorting: false,
 		}),
 		columnHelper.accessor('team', {
 			cell: (info) => info.getValue(),
 			enableColumnFilter: false,
+			enableGlobalFilter: true,
 			enableSorting: false,
 		}),
 		columnHelper.accessor('salary', {
@@ -81,11 +87,13 @@ function useColumns() {
 				</div>
 			),
 			enableColumnFilter: false,
+			enableGlobalFilter: false,
 			enableSorting: true,
 		}),
 		columnHelper.accessor('fppg', {
 			cell: (info) => <div className="text-right">{info.getValue()}</div>,
 			enableColumnFilter: false,
+			enableGlobalFilter: false,
 			enableSorting: true,
 		}),
 	];
@@ -95,6 +103,7 @@ function useColumns() {
 			columnHelper.accessor('id', {
 				cell: (info) => <Toggle id={info.getValue()} />,
 				enableColumnFilter: false,
+				enableGlobalFilter: false,
 				enableSorting: false,
 				header: '',
 			}) as any

@@ -11,7 +11,7 @@ import {
 } from '@tanstack/react-table';
 import clsx from 'clsx';
 import { useFlags } from 'flagsmith/react';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 
 import Chevron from '@/components/icons/chevron';
@@ -32,6 +32,7 @@ const Table = () => {
 	);
 	const dispatch = useAppDispatch();
 	const columns = useColumns();
+	const [globalFilter, setGlobalFilter] = useState('');
 
 	const { data, isFetching, isLoading, isSuccess } = useGetPlayersQuery(
 		{
@@ -67,36 +68,14 @@ const Table = () => {
 	// 	[contests.gameType]
 	// );
 
-	// const defaultColumn = useMemo(
-	// 	() => ({
-	// 		// Let's set up our default Filter UI
-	// 		Filter: MultiSelectColumnFilter,
-	// 	}),
-	// 	[]
-	// );
-
-	// const filterTypes = useMemo(
-	// 	() => ({
-	// 		multiple: (rows, id, filterValue) => {
-	// 			return rows.filter((row) => {
-	// 				const rowValue = row.values[id];
-	// 				return rowValue !== undefined
-	// 					? filterValue.includes(rowValue)
-	// 					: true;
-	// 			});
-	// 		},
-	// 	}),
-	// 	[]
-	// );
+	useEffect(() => {
+		console.log(globalFilter);
+	}, [globalFilter]);
 
 	const _table = useReactTable({
 		autoResetExpanded: true,
 		columns,
 		data: memoizedData,
-		debugColumns: false,
-		debugHeaders: true,
-		debugTable: true,
-		enableExpanding: true,
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
 		getFacetedRowModel: getFacetedRowModel(),
@@ -105,13 +84,37 @@ const Table = () => {
 		getPaginationRowModel: getPaginationRowModel(),
 		getRowCanExpand: () => true,
 		getSortedRowModel: getSortedRowModel(),
+		globalFilterFn: 'includesString',
 		initialState: {
 			pagination: {
 				pageSize: 20,
 			},
 		},
+		state: {
+			globalFilter,
+		},
 	});
 
+	// TODO: Separate this into own component
+	function renderPreHeader() {
+		return (
+			<div role="rowgroup">
+				<div role="row">
+					<div className="p-4 whitespace-nowrap" role="cell">
+						<input
+							placeholder="Search by player, team, or position"
+							type="text"
+							onChange={(e) =>
+								setGlobalFilter(String(e.currentTarget.value))
+							}
+						/>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	// TODO: Separate this into own component
 	function renderTableBody() {
 		if (isLoading || isFetching) {
 			return (
@@ -138,8 +141,9 @@ const Table = () => {
 			.rows.map((row) => <TableRow key={row.id} row={row} />);
 	}
 
+	// TODO: Separate this into own component
 	function renderTableFooter() {
-		if (memoizedData.length && isSuccess) {
+		if (memoizedData.length && isSuccess && _table.getPageCount() > 0) {
 			return (
 				<div role="rolegroup">
 					<div role="row">
@@ -190,6 +194,8 @@ const Table = () => {
 
 	return (
 		<div className="w-full bg-white text-left" role="table">
+			{renderPreHeader()}
+
 			<div className="border-b border-t border-gray-200" role="rowgroup">
 				{_table.getHeaderGroups().map((headerGroup) => (
 					<div
