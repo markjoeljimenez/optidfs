@@ -1,26 +1,46 @@
 import { Popover, Transition } from '@headlessui/react';
+import { Column } from '@tanstack/react-table';
+import { ChangeEvent } from 'react';
 import { StatusTranslation } from 'src/interfaces/IStatus';
-// import { StatusTranslation } from 'src/interfaces/IStatus';
+
+import { IPlayer } from '@/containers/Players';
 
 interface IStatusFilter {
-	options: Map<any, number>;
+	column: Column<IPlayer, unknown>;
 }
 
-const StatusFilter = ({ options }: IStatusFilter) => {
+const StatusFilter = ({ column }: IStatusFilter) => {
+	const options: (keyof typeof StatusTranslation)[] = [
+		...column.getFacetedUniqueValues().keys(),
+	];
+
+	const filterValue = column.getFilterValue() as string[] | undefined;
+
+	function onChange(e: ChangeEvent<HTMLInputElement>) {
+		const { value } = e.currentTarget;
+
+		column.setFilterValue((old: string[]) => {
+			if (old) {
+				if (old.includes(value)) {
+					return old.filter((v) => v !== value);
+				}
+
+				return [...old, value];
+			}
+
+			return [value];
+		});
+	}
+
+	function onAllChange() {
+		column.setFilterValue([]);
+	}
+
 	return (
-		<Popover
-			// as="div"
-			className="relative inline-block text-left normal-case tracking-normal font-normal"
-		>
+		<Popover className="relative inline-block text-left normal-case tracking-normal font-normal">
 			{({ open }) => (
 				<>
-					<Popover.Button
-					// type="button"
-					// // onClick={() => setShowFilters(!showFilters)}
-					// id="menu-button"
-					// aria-expanded="true"
-					// aria-haspopup="true"
-					>
+					<Popover.Button>
 						<svg
 							className="h-5 w-5"
 							fill="none"
@@ -59,29 +79,31 @@ const StatusFilter = ({ options }: IStatusFilter) => {
 											tabIndex={-1}
 										>
 											<input
-												// checked={!filterValues.length}
+												checked={
+													filterValue === undefined ||
+													filterValue?.length === 0
+												}
 												className="mr-2 text-sm"
 												id="status-filter-option"
 												name="status-filter-all"
 												type="radio"
 												value="all"
-												// onChange={onAllClick}
+												onChange={onAllChange}
 											/>
 											All
 										</label>
 									</li>
-									{[...options.keys()].map((option, i) => (
-										<li key={i}>
+									{options.map((option) => (
+										<li key={option}>
 											<label
-												key={`status-filter-${option}`}
 												className="text-gray-700 block px-4 py-2"
 												htmlFor={`status-filter-${option}`}
-												id={`menu-item-${i++}`}
+												id={`menu-item-${option}`}
 												role="menuitem"
 												tabIndex={-1}
 											>
-												{/* <input
-													checked={filterValues.some(
+												<input
+													checked={filterValue?.some(
 														(value) =>
 															value === option
 													)}
@@ -89,14 +111,10 @@ const StatusFilter = ({ options }: IStatusFilter) => {
 													id={`status-filter-${option}`}
 													name={`status-filter-${option}`}
 													type="checkbox"
-													value={option as any}
+													value={option}
 													onChange={onChange}
-												/> */}
-												{
-													StatusTranslation[
-														option as StatusTranslation
-													]
-												}
+												/>
+												{StatusTranslation[option]}
 											</label>
 										</li>
 									))}

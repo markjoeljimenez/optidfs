@@ -2,6 +2,7 @@ import {
 	flexRender,
 	getCoreRowModel,
 	getExpandedRowModel,
+	getFacetedRowModel,
 	getFacetedUniqueValues,
 	getFilteredRowModel,
 	getPaginationRowModel,
@@ -16,7 +17,7 @@ import Loading from '@/components/loading/loading';
 import { IPlayer, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import StatusFilter from './filters/StatusFilter';
+import StatusFilter from './filters/Table.filters.status';
 import useColumns from './Table.columns';
 import TableRow from './Table.row';
 
@@ -84,18 +85,18 @@ const Table = () => {
 	// 	[]
 	// );
 
-	// console.log(filterTypes);
-
 	const _table = useReactTable({
 		autoResetExpanded: true,
 		columns,
 		data: memoizedData,
-		// defaultColumn,
-		// filterTypes,
+		debugColumns: false,
+		debugHeaders: true,
+		debugTable: true,
 		enableExpanding: true,
-		// enableFilters: true,
+		enableFilters: true,
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
+		getFacetedRowModel: getFacetedRowModel(),
 		getFacetedUniqueValues: getFacetedUniqueValues(),
 		getFilteredRowModel: getFilteredRowModel(),
 		getPaginationRowModel: getPaginationRowModel(),
@@ -164,10 +165,8 @@ const Table = () => {
 									header.getContext()
 								)}
 
-								{header?.id === 'status' && (
-									<StatusFilter
-										options={header.column.getFacetedUniqueValues()}
-									/>
+								{header.column.getCanFilter() && (
+									<StatusFilter column={header.column} />
 								)}
 							</div>
 						))}

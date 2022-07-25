@@ -1,4 +1,4 @@
-import { createColumnHelper } from '@tanstack/react-table';
+import { createColumnHelper, Row } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
 import Image from 'next/image';
 
@@ -34,6 +34,7 @@ function useColumns() {
 					)}
 				</div>
 			),
+			enableColumnFilter: false,
 			header: '',
 		}),
 		columnHelper.accessor('status', {
@@ -44,18 +45,32 @@ function useColumns() {
 					</Pill>
 				</div>
 			),
+			enableColumnFilter: true,
+			filterFn: 'arrIncludesSome',
+			// filterFn: (
+			// 	row: Row<IPlayer>,
+			// 	columnId: string,
+			// 	filterValue: any
+			// ) => {
+			// 	console.log(row, columnId, filterValue);
+			// 	return true;
+			// },
 		}),
 		columnHelper.accessor('firstName', {
 			cell: (info) => info.getValue(),
+			enableColumnFilter: false,
 		}),
 		columnHelper.accessor('lastName', {
 			cell: (info) => info.getValue(),
+			enableColumnFilter: false,
 		}),
 		columnHelper.accessor('position', {
 			cell: (info) => info.getValue(),
+			enableColumnFilter: false,
 		}),
 		columnHelper.accessor('team', {
 			cell: (info) => info.getValue(),
+			enableColumnFilter: false,
 		}),
 		columnHelper.accessor('salary', {
 			cell: (info) => (
@@ -67,9 +82,11 @@ function useColumns() {
 					}).format(info.getValue())}
 				</div>
 			),
+			enableColumnFilter: false,
 		}),
 		columnHelper.accessor('fppg', {
 			cell: (info) => <div className="text-right">{info.getValue()}</div>,
+			enableColumnFilter: false,
 		}),
 	];
 
@@ -77,6 +94,7 @@ function useColumns() {
 		columns.push(
 			columnHelper.accessor('id', {
 				cell: (info) => <Toggle id={info.getValue()} />,
+				enableColumnFilter: false,
 				header: '',
 			}) as any
 		);
