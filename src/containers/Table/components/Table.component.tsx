@@ -154,7 +154,7 @@ const Table = () => {
 								className={clsx(
 									'relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap',
 									['status'].includes(header.id) &&
-										'text-center',
+										'flex items-center justify-center text-center',
 									['salary', 'fppg'].includes(header.id) &&
 										'text-right'
 								)}
@@ -166,7 +166,9 @@ const Table = () => {
 								)}
 
 								{header.column.getCanFilter() && (
-									<StatusFilter column={header.column} />
+									<div className="ml-1">
+										<StatusFilter column={header.column} />
+									</div>
 								)}
 							</div>
 						))}

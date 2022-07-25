@@ -47,14 +47,6 @@ function useColumns() {
 			),
 			enableColumnFilter: true,
 			filterFn: 'arrIncludesSome',
-			// filterFn: (
-			// 	row: Row<IPlayer>,
-			// 	columnId: string,
-			// 	filterValue: any
-			// ) => {
-			// 	console.log(row, columnId, filterValue);
-			// 	return true;
-			// },
 		}),
 		columnHelper.accessor('firstName', {
 			cell: (info) => info.getValue(),
