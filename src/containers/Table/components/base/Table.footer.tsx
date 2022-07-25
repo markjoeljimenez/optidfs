@@ -10,7 +10,7 @@ interface ITableFooter {
 }
 
 const TableFooter = ({ table }: ITableFooter) => (
-	<div role="rolegroup">
+	<div className="sticky bottom-0 bg-white border-t-[1px]" role="rolegroup">
 		<div role="row">
 			<div className="p-4 whitespace-nowrap flex justify-end" role="cell">
 				<span>
@@ -45,6 +45,9 @@ const TableFooter = ({ table }: ITableFooter) => (
 				</div>
 			</div>
 		</div>
+
+		{/* Gap at bottom of screen */}
+		<div className="bg-gray-100 h-[2rem]" />
 	</div>
 );
 

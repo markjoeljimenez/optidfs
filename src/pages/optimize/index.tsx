@@ -21,7 +21,7 @@ const Index = () => {
 
 	return (
 		<div className="flex-1">
-			<div className="space-y-3">
+			<div>
 				<Contests />
 				<Table />
 			</div>

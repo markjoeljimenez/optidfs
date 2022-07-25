@@ -93,12 +93,18 @@ const Table = () => {
 	}
 
 	return (
-		<div className="w-full bg-white text-left" role="table">
-			<TablePreheader
-				value={globalFilter}
-				onGlobalSearch={onGlobalSearch}
-			/>
-			<TableHeader stacking={stacking} table={_table} />
+		<div className="w-full bg-white text-left relative" role="table">
+			<div className="sticky top-0 z-10">
+				{/* Gap at top of screen */}
+				<div className="bg-gray-100 h-[2rem]" />
+
+				<TablePreheader
+					value={globalFilter}
+					onGlobalSearch={onGlobalSearch}
+				/>
+				<TableHeader stacking={stacking} table={_table} />
+			</div>
+
 			<TableBody
 				response={{ isFetching, isLoading, isSuccess }}
 				table={_table}

@@ -9,7 +9,7 @@ interface ITablePreheader {
 }
 
 const TablePreheader = ({ onGlobalSearch, value }: ITablePreheader) => (
-	<div role="rowgroup">
+	<div className="bg-white" role="rowgroup">
 		<div role="row">
 			<div
 				className="p-4 whitespace-nowrap flex justify-between"
