@@ -22,6 +22,7 @@ const TableRow = ({ row }: ITableRow) => {
 						? 'grid-cols-table-md-stacking-ff'
 						: 'grid-cols-table-md'
 				)}
+				data-testid="table-row"
 				role="row"
 			>
 				{row.getVisibleCells().map((cell) => (

@@ -1,0 +1,1827 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table should match snapshot 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="w-full bg-white text-left relative"
+        role="table"
+      >
+        <div
+          class="sticky top-0 z-10"
+        >
+          <div
+            class="bg-gray-100 h-[2rem]"
+          />
+          <div
+            class="bg-white"
+            role="rowgroup"
+          >
+            <div
+              role="row"
+            >
+              <div
+                class="p-4 whitespace-nowrap flex justify-between"
+                role="cell"
+              >
+                <div />
+                <div>
+                  <div
+                    class="flex items-center"
+                  >
+                    <div
+                      class="h-5 w-5 mr-2"
+                    >
+                      <svg
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g
+                          data-name="Layer 2"
+                        >
+                          <path
+                            d="m20.71 19.29-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z"
+                            data-name="search"
+                          />
+                        </g>
+                      </svg>
+                    </div>
+                    <input
+                      class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md mt-2 border-0 rounded-none p-0 min-w-[15rem] mt-0"
+                      id="table-search"
+                      placeholder="Search by player, team, or position"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="border-b border-t border-gray-200"
+            role="rowgroup"
+          >
+            <div
+              class="bg-gray-50 grid items-center grid-cols-table-md-stacking-ff"
+              role="row"
+            >
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                role="columnheader"
+              />
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap flex items-center justify-center text-center"
+                role="columnheader"
+              >
+                status
+                <div
+                  class="ml-1"
+                >
+                  <div
+                    class="relative inline-block text-left normal-case tracking-normal font-normal"
+                  >
+                    <button
+                      aria-expanded="false"
+                      data-testid="table-filter"
+                      id="headlessui-popover-button-:r0:"
+                      type="button"
+                    >
+                      <svg
+                        class="h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                role="columnheader"
+              >
+                firstName
+              </div>
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                role="columnheader"
+              >
+                lastName
+              </div>
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                role="columnheader"
+              >
+                position
+              </div>
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                role="columnheader"
+              >
+                team
+              </div>
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap flex items-center justify-end text-right"
+                role="columnheader"
+              >
+                salary
+                <div
+                  class="ml-1"
+                >
+                  <button
+                    class=""
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      fill="currentColor"
+                      style="transform: rotate(180deg);"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        data-name="Layer 2"
+                      >
+                        <path
+                          d="M16.21 16H7.79a1.76 1.76 0 0 1-1.59-1 2.1 2.1 0 0 1 .26-2.21l4.21-5.1a1.76 1.76 0 0 1 2.66 0l4.21 5.1A2.1 2.1 0 0 1 17.8 15a1.76 1.76 0 0 1-1.59 1zM8 14h7.9L12 9.18z"
+                          data-name="arrow-up"
+                        />
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap flex items-center justify-end text-right"
+                role="columnheader"
+              >
+                fppg
+                <div
+                  class="ml-1"
+                >
+                  <button
+                    class=""
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      fill="currentColor"
+                      style="transform: rotate(180deg);"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        data-name="Layer 2"
+                      >
+                        <path
+                          d="M16.21 16H7.79a1.76 1.76 0 0 1-1.59-1 2.1 2.1 0 0 1 .26-2.21l4.21-5.1a1.76 1.76 0 0 1 2.66 0l4.21 5.1A2.1 2.1 0 0 1 17.8 15a1.76 1.76 0 0 1-1.59 1zM8 14h7.9L12 9.18z"
+                          data-name="arrow-up"
+                        />
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+                role="columnheader"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          role="rowgroup"
+        >
+          <div
+            class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
+            data-testid="table-row"
+            role="row"
+          >
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="ml-auto mr-auto overflow-hidden rounded-full"
+                style="height: 40px; position: relative; width: 40px;"
+              >
+                <span
+                  style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+                >
+                  <img
+                    alt="Evan Evan"
+                    data-nimg="fill"
+                    decoding="async"
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                    style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                  />
+                  <noscript />
+                </span>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-center"
+              >
+                <span
+                  class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full text-green-100 bg-green-600"
+                >
+                  Active
+                </span>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              Evan
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              Longoria
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              3B
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              SF
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-right"
+              >
+                $13
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-right"
+              >
+                6.11
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="toggle flex items-center text-xs"
+              >
+                <label
+                  class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-l-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0"
+                  for="lock-3567649"
+                >
+                  <input
+                    data-type="locked"
+                    id="lock-3567649"
+                    name="lockOrExclude-3567649"
+                    type="radio"
+                    value="3567649"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Lock
+                  </span>
+                  <svg
+                    class="fill-current"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <g
+                        data-name="lock"
+                      >
+                        <rect
+                          height="24"
+                          opacity="0"
+                          width="24"
+                        />
+                        <path
+                          d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"
+                        />
+                        <path
+                          d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </label>
+                <label
+                  class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-r-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer"
+                  for="exclude-3567649"
+                >
+                  <input
+                    data-type="excluded"
+                    id="exclude-3567649"
+                    name="lockOrExclude-3567649"
+                    type="radio"
+                    value="3567649"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Exclude
+                  </span>
+                  <svg
+                    class="fill-current"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <g
+                        data-name="slash"
+                      >
+                        <rect
+                          height="24"
+                          opacity="0"
+                          width="24"
+                        />
+                        <path
+                          d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm8 10a7.92 7.92 0 0 1-1.69 4.9L7.1 5.69A7.92 7.92 0 0 1 12 4a8 8 0 0 1 8 8zM4 12a7.92 7.92 0 0 1 1.69-4.9L16.9 18.31A7.92 7.92 0 0 1 12 20a8 8 0 0 1-8-8z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </label>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <button>
+                <svg
+                  class="h-5 w-5 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
+            data-testid="table-row"
+            role="row"
+          >
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="ml-auto mr-auto overflow-hidden rounded-full"
+                style="height: 40px; position: relative; width: 40px;"
+              >
+                <span
+                  style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+                >
+                  <img
+                    alt="Brandon Brandon"
+                    data-nimg="fill"
+                    decoding="async"
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                    style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                  />
+                  <noscript />
+                </span>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-center"
+              >
+                <span
+                  class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full text-green-100 bg-green-600"
+                >
+                  Active
+                </span>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              Brandon
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              Belt
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              1B
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              SF
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-right"
+              >
+                $11
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-right"
+              >
+                6.68
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="toggle flex items-center text-xs"
+              >
+                <label
+                  class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-l-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0"
+                  for="lock-3567650"
+                >
+                  <input
+                    data-type="locked"
+                    id="lock-3567650"
+                    name="lockOrExclude-3567650"
+                    type="radio"
+                    value="3567650"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Lock
+                  </span>
+                  <svg
+                    class="fill-current"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <g
+                        data-name="lock"
+                      >
+                        <rect
+                          height="24"
+                          opacity="0"
+                          width="24"
+                        />
+                        <path
+                          d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"
+                        />
+                        <path
+                          d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </label>
+                <label
+                  class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-r-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer"
+                  for="exclude-3567650"
+                >
+                  <input
+                    data-type="excluded"
+                    id="exclude-3567650"
+                    name="lockOrExclude-3567650"
+                    type="radio"
+                    value="3567650"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Exclude
+                  </span>
+                  <svg
+                    class="fill-current"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <g
+                        data-name="slash"
+                      >
+                        <rect
+                          height="24"
+                          opacity="0"
+                          width="24"
+                        />
+                        <path
+                          d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm8 10a7.92 7.92 0 0 1-1.69 4.9L7.1 5.69A7.92 7.92 0 0 1 12 4a8 8 0 0 1 8 8zM4 12a7.92 7.92 0 0 1 1.69-4.9L16.9 18.31A7.92 7.92 0 0 1 12 20a8 8 0 0 1-8-8z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </label>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <button>
+                <svg
+                  class="h-5 w-5 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div
+            class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
+            data-testid="table-row"
+            role="row"
+          >
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="ml-auto mr-auto overflow-hidden rounded-full"
+                style="height: 40px; position: relative; width: 40px;"
+              >
+                <span
+                  style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+                >
+                  <img
+                    alt="Alex Alex"
+                    data-nimg="fill"
+                    decoding="async"
+                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                    style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                  />
+                  <noscript />
+                </span>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-center"
+              >
+                <span
+                  class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full text-yellow-100 bg-yellow-600"
+                >
+                  DTD
+                </span>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              Alex
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              Cobb
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              P
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              SF
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-right"
+              >
+                $28
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="text-right"
+              >
+                14.6
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <div
+                class="toggle flex items-center text-xs"
+              >
+                <label
+                  class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-l-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0"
+                  for="lock-3567651"
+                >
+                  <input
+                    data-type="locked"
+                    id="lock-3567651"
+                    name="lockOrExclude-3567651"
+                    type="radio"
+                    value="3567651"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Lock
+                  </span>
+                  <svg
+                    class="fill-current"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <g
+                        data-name="lock"
+                      >
+                        <rect
+                          height="24"
+                          opacity="0"
+                          width="24"
+                        />
+                        <path
+                          d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"
+                        />
+                        <path
+                          d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </label>
+                <label
+                  class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-r-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer"
+                  for="exclude-3567651"
+                >
+                  <input
+                    data-type="excluded"
+                    id="exclude-3567651"
+                    name="lockOrExclude-3567651"
+                    type="radio"
+                    value="3567651"
+                  />
+                  <span
+                    class="sr-only"
+                  >
+                    Exclude
+                  </span>
+                  <svg
+                    class="fill-current"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    width="14"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <g
+                        data-name="slash"
+                      >
+                        <rect
+                          height="24"
+                          opacity="0"
+                          width="24"
+                        />
+                        <path
+                          d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm8 10a7.92 7.92 0 0 1-1.69 4.9L7.1 5.69A7.92 7.92 0 0 1 12 4a8 8 0 0 1 8 8zM4 12a7.92 7.92 0 0 1 1.69-4.9L16.9 18.31A7.92 7.92 0 0 1 12 20a8 8 0 0 1-8-8z"
+                        />
+                      </g>
+                    </g>
+                  </svg>
+                </label>
+              </div>
+            </div>
+            <div
+              class="p-4 whitespace-nowrap"
+              role="cell"
+            >
+              <button>
+                <svg
+                  class="h-5 w-5 text-gray-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="sticky bottom-0 bg-white border-t-[1px]"
+          role="rolegroup"
+        >
+          <div
+            role="row"
+          >
+            <div
+              class="p-4 whitespace-nowrap flex justify-end"
+              role="cell"
+            >
+              <span>
+                Page
+                 
+                <strong>
+                  1
+                   of
+                   
+                  1
+                </strong>
+              </span>
+              <span
+                class="ml-4"
+              >
+                |
+              </span>
+              <div
+                class="inline-block ml-4"
+              >
+                <button
+                  class="h-5 w-5 text-gray-300"
+                  disabled=""
+                >
+                  <svg
+                    fill="currentColor"
+                    style="transform: rotate(270deg);"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <path
+                        d="M16 14.5a1 1 0 0 1-.71-.29L12 10.9l-3.3 3.18a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.42l4-3.86a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.42 1 1 0 0 1-.69.28z"
+                        data-name="chevron-up"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  class="h-5 w-5 text-gray-300"
+                  disabled=""
+                >
+                  <svg
+                    fill="currentColor"
+                    style="transform: rotate(90deg);"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <path
+                        d="M16 14.5a1 1 0 0 1-.71-.29L12 10.9l-3.3 3.18a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.42l4-3.86a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.42 1 1 0 0 1-.69.28z"
+                        data-name="chevron-up"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-gray-100 h-[2rem]"
+          />
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      class="w-full bg-white text-left relative"
+      role="table"
+    >
+      <div
+        class="sticky top-0 z-10"
+      >
+        <div
+          class="bg-gray-100 h-[2rem]"
+        />
+        <div
+          class="bg-white"
+          role="rowgroup"
+        >
+          <div
+            role="row"
+          >
+            <div
+              class="p-4 whitespace-nowrap flex justify-between"
+              role="cell"
+            >
+              <div />
+              <div>
+                <div
+                  class="flex items-center"
+                >
+                  <div
+                    class="h-5 w-5 mr-2"
+                  >
+                    <svg
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        data-name="Layer 2"
+                      >
+                        <path
+                          d="m20.71 19.29-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42zM5 11a6 6 0 1 1 6 6 6 6 0 0 1-6-6z"
+                          data-name="search"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                  <input
+                    class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md mt-2 border-0 rounded-none p-0 min-w-[15rem] mt-0"
+                    id="table-search"
+                    placeholder="Search by player, team, or position"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-b border-t border-gray-200"
+          role="rowgroup"
+        >
+          <div
+            class="bg-gray-50 grid items-center grid-cols-table-md-stacking-ff"
+            role="row"
+          >
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              role="columnheader"
+            />
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap flex items-center justify-center text-center"
+              role="columnheader"
+            >
+              status
+              <div
+                class="ml-1"
+              >
+                <div
+                  class="relative inline-block text-left normal-case tracking-normal font-normal"
+                >
+                  <button
+                    aria-expanded="false"
+                    data-testid="table-filter"
+                    id="headlessui-popover-button-:r0:"
+                    type="button"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              role="columnheader"
+            >
+              firstName
+            </div>
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              role="columnheader"
+            >
+              lastName
+            </div>
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              role="columnheader"
+            >
+              position
+            </div>
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              role="columnheader"
+            >
+              team
+            </div>
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap flex items-center justify-end text-right"
+              role="columnheader"
+            >
+              salary
+              <div
+                class="ml-1"
+              >
+                <button
+                  class=""
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="currentColor"
+                    style="transform: rotate(180deg);"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <path
+                        d="M16.21 16H7.79a1.76 1.76 0 0 1-1.59-1 2.1 2.1 0 0 1 .26-2.21l4.21-5.1a1.76 1.76 0 0 1 2.66 0l4.21 5.1A2.1 2.1 0 0 1 17.8 15a1.76 1.76 0 0 1-1.59 1zM8 14h7.9L12 9.18z"
+                        data-name="arrow-up"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap flex items-center justify-end text-right"
+              role="columnheader"
+            >
+              fppg
+              <div
+                class="ml-1"
+              >
+                <button
+                  class=""
+                >
+                  <svg
+                    class="h-5 w-5"
+                    fill="currentColor"
+                    style="transform: rotate(180deg);"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      data-name="Layer 2"
+                    >
+                      <path
+                        d="M16.21 16H7.79a1.76 1.76 0 0 1-1.59-1 2.1 2.1 0 0 1 .26-2.21l4.21-5.1a1.76 1.76 0 0 1 2.66 0l4.21 5.1A2.1 2.1 0 0 1 17.8 15a1.76 1.76 0 0 1-1.59 1zM8 14h7.9L12 9.18z"
+                        data-name="arrow-up"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div
+              class="relative p-4 text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              role="columnheader"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        role="rowgroup"
+      >
+        <div
+          class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
+          data-testid="table-row"
+          role="row"
+        >
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="ml-auto mr-auto overflow-hidden rounded-full"
+              style="height: 40px; position: relative; width: 40px;"
+            >
+              <span
+                style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+              >
+                <img
+                  alt="Evan Evan"
+                  data-nimg="fill"
+                  decoding="async"
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                />
+                <noscript />
+              </span>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-center"
+            >
+              <span
+                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full text-green-100 bg-green-600"
+              >
+                Active
+              </span>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            Evan
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            Longoria
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            3B
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            SF
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-right"
+            >
+              $13
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-right"
+            >
+              6.11
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="toggle flex items-center text-xs"
+            >
+              <label
+                class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-l-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0"
+                for="lock-3567649"
+              >
+                <input
+                  data-type="locked"
+                  id="lock-3567649"
+                  name="lockOrExclude-3567649"
+                  type="radio"
+                  value="3567649"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Lock
+                </span>
+                <svg
+                  class="fill-current"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <g
+                      data-name="lock"
+                    >
+                      <rect
+                        height="24"
+                        opacity="0"
+                        width="24"
+                      />
+                      <path
+                        d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"
+                      />
+                      <path
+                        d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </label>
+              <label
+                class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-r-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer"
+                for="exclude-3567649"
+              >
+                <input
+                  data-type="excluded"
+                  id="exclude-3567649"
+                  name="lockOrExclude-3567649"
+                  type="radio"
+                  value="3567649"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Exclude
+                </span>
+                <svg
+                  class="fill-current"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <g
+                      data-name="slash"
+                    >
+                      <rect
+                        height="24"
+                        opacity="0"
+                        width="24"
+                      />
+                      <path
+                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm8 10a7.92 7.92 0 0 1-1.69 4.9L7.1 5.69A7.92 7.92 0 0 1 12 4a8 8 0 0 1 8 8zM4 12a7.92 7.92 0 0 1 1.69-4.9L16.9 18.31A7.92 7.92 0 0 1 12 20a8 8 0 0 1-8-8z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </label>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <button>
+              <svg
+                class="h-5 w-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div
+          class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
+          data-testid="table-row"
+          role="row"
+        >
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="ml-auto mr-auto overflow-hidden rounded-full"
+              style="height: 40px; position: relative; width: 40px;"
+            >
+              <span
+                style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+              >
+                <img
+                  alt="Brandon Brandon"
+                  data-nimg="fill"
+                  decoding="async"
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                />
+                <noscript />
+              </span>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-center"
+            >
+              <span
+                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full text-green-100 bg-green-600"
+              >
+                Active
+              </span>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            Brandon
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            Belt
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            1B
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            SF
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-right"
+            >
+              $11
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-right"
+            >
+              6.68
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="toggle flex items-center text-xs"
+            >
+              <label
+                class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-l-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0"
+                for="lock-3567650"
+              >
+                <input
+                  data-type="locked"
+                  id="lock-3567650"
+                  name="lockOrExclude-3567650"
+                  type="radio"
+                  value="3567650"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Lock
+                </span>
+                <svg
+                  class="fill-current"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <g
+                      data-name="lock"
+                    >
+                      <rect
+                        height="24"
+                        opacity="0"
+                        width="24"
+                      />
+                      <path
+                        d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"
+                      />
+                      <path
+                        d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </label>
+              <label
+                class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-r-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer"
+                for="exclude-3567650"
+              >
+                <input
+                  data-type="excluded"
+                  id="exclude-3567650"
+                  name="lockOrExclude-3567650"
+                  type="radio"
+                  value="3567650"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Exclude
+                </span>
+                <svg
+                  class="fill-current"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <g
+                      data-name="slash"
+                    >
+                      <rect
+                        height="24"
+                        opacity="0"
+                        width="24"
+                      />
+                      <path
+                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm8 10a7.92 7.92 0 0 1-1.69 4.9L7.1 5.69A7.92 7.92 0 0 1 12 4a8 8 0 0 1 8 8zM4 12a7.92 7.92 0 0 1 1.69-4.9L16.9 18.31A7.92 7.92 0 0 1 12 20a8 8 0 0 1-8-8z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </label>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <button>
+              <svg
+                class="h-5 w-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div
+          class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
+          data-testid="table-row"
+          role="row"
+        >
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="ml-auto mr-auto overflow-hidden rounded-full"
+              style="height: 40px; position: relative; width: 40px;"
+            >
+              <span
+                style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+              >
+                <img
+                  alt="Alex Alex"
+                  data-nimg="fill"
+                  decoding="async"
+                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                  style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: cover;"
+                />
+                <noscript />
+              </span>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-center"
+            >
+              <span
+                class="inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none rounded-full text-yellow-100 bg-yellow-600"
+              >
+                DTD
+              </span>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            Alex
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            Cobb
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            P
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            SF
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-right"
+            >
+              $28
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="text-right"
+            >
+              14.6
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <div
+              class="toggle flex items-center text-xs"
+            >
+              <label
+                class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-l-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0"
+                for="lock-3567651"
+              >
+                <input
+                  data-type="locked"
+                  id="lock-3567651"
+                  name="lockOrExclude-3567651"
+                  type="radio"
+                  value="3567651"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Lock
+                </span>
+                <svg
+                  class="fill-current"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <g
+                      data-name="lock"
+                    >
+                      <rect
+                        height="24"
+                        opacity="0"
+                        width="24"
+                      />
+                      <path
+                        d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z"
+                      />
+                      <path
+                        d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </label>
+              <label
+                class="bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-r-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer"
+                for="exclude-3567651"
+              >
+                <input
+                  data-type="excluded"
+                  id="exclude-3567651"
+                  name="lockOrExclude-3567651"
+                  type="radio"
+                  value="3567651"
+                />
+                <span
+                  class="sr-only"
+                >
+                  Exclude
+                </span>
+                <svg
+                  class="fill-current"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <g
+                      data-name="slash"
+                    >
+                      <rect
+                        height="24"
+                        opacity="0"
+                        width="24"
+                      />
+                      <path
+                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm8 10a7.92 7.92 0 0 1-1.69 4.9L7.1 5.69A7.92 7.92 0 0 1 12 4a8 8 0 0 1 8 8zM4 12a7.92 7.92 0 0 1 1.69-4.9L16.9 18.31A7.92 7.92 0 0 1 12 20a8 8 0 0 1-8-8z"
+                      />
+                    </g>
+                  </g>
+                </svg>
+              </label>
+            </div>
+          </div>
+          <div
+            class="p-4 whitespace-nowrap"
+            role="cell"
+          >
+            <button>
+              <svg
+                class="h-5 w-5 text-gray-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="sticky bottom-0 bg-white border-t-[1px]"
+        role="rolegroup"
+      >
+        <div
+          role="row"
+        >
+          <div
+            class="p-4 whitespace-nowrap flex justify-end"
+            role="cell"
+          >
+            <span>
+              Page
+               
+              <strong>
+                1
+                 of
+                 
+                1
+              </strong>
+            </span>
+            <span
+              class="ml-4"
+            >
+              |
+            </span>
+            <div
+              class="inline-block ml-4"
+            >
+              <button
+                class="h-5 w-5 text-gray-300"
+                disabled=""
+              >
+                <svg
+                  fill="currentColor"
+                  style="transform: rotate(270deg);"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <path
+                      d="M16 14.5a1 1 0 0 1-.71-.29L12 10.9l-3.3 3.18a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.42l4-3.86a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.42 1 1 0 0 1-.69.28z"
+                      data-name="chevron-up"
+                    />
+                  </g>
+                </svg>
+              </button>
+              <button
+                class="h-5 w-5 text-gray-300"
+                disabled=""
+              >
+                <svg
+                  fill="currentColor"
+                  style="transform: rotate(90deg);"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g
+                    data-name="Layer 2"
+                  >
+                    <path
+                      d="M16 14.5a1 1 0 0 1-.71-.29L12 10.9l-3.3 3.18a1 1 0 0 1-1.41 0 1 1 0 0 1 0-1.42l4-3.86a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1 0 1.42 1 1 0 0 1-.69.28z"
+                      data-name="chevron-up"
+                    />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bg-gray-100 h-[2rem]"
+        />
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "store": Object {
+    "@@observable": [Function],
+    "dispatch": [Function],
+    "getState": [Function],
+    "replaceReducer": [Function],
+    "subscribe": [Function],
+  },
+  "unmount": [Function],
+}
+`;

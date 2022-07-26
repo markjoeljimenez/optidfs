@@ -11,15 +11,15 @@ describe('mapPlayers', () => {
 
 		// Assert
 		expect(transformedPlayers[0]).toStrictEqual({
-			id: 3567649,
 			firstName: 'Evan',
-			lastName: 'Longoria',
 			fppg: 6.11,
+			id: 3567649,
+			image: 'https://s.yimg.com/bt/api/res/1.2/cKW.Ppnn9bm2fP9RlfKviQ--/YXBwaWQ9ZGFpbHlmYW50YXN5O3E9ODU7Y2M9ODY0MDA7dz0xMjA7aD0xMjA-/https://s.yimg.com/xe/i/us/sp/v/mlb_cutout/players_l/05092022/7914.png',
+			lastName: 'Longoria',
 			position: '3B',
 			salary: 13,
-			team: 'SF',
 			status: 'N/A',
-			image: 'https://s.yimg.com/bt/api/res/1.2/cKW.Ppnn9bm2fP9RlfKviQ--/YXBwaWQ9ZGFpbHlmYW50YXN5O3E9ODU7Y2M9ODY0MDA7dz0xMjA7aD0xMjA-/https://s.yimg.com/xe/i/us/sp/v/mlb_cutout/players_l/05092022/7914.png',
+			team: 'SF',
 		});
 	});
 
@@ -29,16 +29,16 @@ describe('mapPlayers', () => {
 
 		// Assert
 		expect(transformedPlayers[0]).toStrictEqual({
-			id: 23397617,
+			draftPositions: 'RB/FLEX',
 			firstName: 'Alvin',
-			lastName: 'Kamara',
 			fppg: 22.09,
+			id: 23397617,
+			image: 'https://dkn.gs/sports/images/nfl/players/160/18573.png',
+			lastName: 'Kamara',
 			position: 'RB',
 			salary: 8500,
+			status: 'None',
 			team: 'NO',
-			status: 'Active',
-			draftPositions: 'RB/FLEX',
-			image: 'https://dkn.gs/sports/images/nfl/players/160/18573.png',
 		});
 	});
 });

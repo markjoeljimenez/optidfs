@@ -1,5 +1,3 @@
-// import { Status } from 'src/interfaces/IStatus';
-
 import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
 import { IPlayer } from '../models/IPlayer';
 import { IYahooPlayer } from '../models/IYahooPlayer';
@@ -20,7 +18,7 @@ export const mapDraftKingsPlayers = (
 		lastName: draftKingsPlayer.last_name,
 		position: draftKingsPlayer.position,
 		salary: draftKingsPlayer.salary,
-		status: 'Active', // @TODO: Fix this on the backend first
+		status: 'None', // @TODO: Fix this on the backend first
 		team: draftKingsPlayer.team,
 	}));
 
@@ -37,10 +35,9 @@ export const mapYahooPlayers = (yahooPlayers: IYahooPlayer[]): IPlayer[] =>
 		team: yahooPlayer.teamAbbr,
 	}));
 
-const providersMap = () =>
-	new Map<Providers, any>([
-		[Providers.DraftKings, mapDraftKingsPlayers],
-		[Providers.Yahoo, mapYahooPlayers],
-	]);
+const providersMap = new Map<Providers, (p: any) => IPlayer[]>([
+	[Providers.DraftKings, mapDraftKingsPlayers],
+	[Providers.Yahoo, mapYahooPlayers],
+]);
 
 export default providersMap;

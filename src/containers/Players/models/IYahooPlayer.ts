@@ -1,6 +1,14 @@
-export interface Team {
+import { Status } from 'src/interfaces/IStatus';
+
+export interface BaseTeam {
 	abbr: string;
 	code: string;
+}
+
+export interface Team extends BaseTeam {
+	location: string;
+	name: string;
+	teamName: string;
 }
 
 export interface Odds {
@@ -21,9 +29,10 @@ export interface Odds {
 }
 
 export interface Game {
-	awayTeam: Team;
+	awayTeam: BaseTeam;
 	code: string;
-	homeTeam: Team;
+	gameId: string;
+	homeTeam: BaseTeam;
 	odds: Odds;
 	rawStatus: string;
 	stadiumType: string;
@@ -48,25 +57,25 @@ export interface IYahooPlayer {
 	imageUrl: string;
 	jerseyNumber: string;
 	largeImageUrl: string;
-	playerGameCode: string;
-	teamAbbr: string;
+	lastName: string;
+	locked: boolean;
 	noteFreshness: string;
 	number: string;
 	originalSalary: number;
-	projectedPoints: number;
-	stats: any[];
+	playerGameCode: string;
+	playerSalaryId: number;
 	points: number;
 	primaryPosition: string;
-	lineupOrder?: any;
-	starting: string;
-	sportCode: string;
-	team: Team;
-	lastName: string;
-	status: string;
-	locked: boolean;
-	playerSalaryId: number;
-	extendedStatus?: any;
-	liveStatus?: any;
+	projectedPoints: number;
 	salary: number;
+	sportCode: string;
+	starting: string;
+	stats: any[];
+	status: keyof typeof Status;
+	team: Team;
+	teamAbbr: string;
+	extendedStatus?: any;
 	golfStatus?: any;
+	lineupOrder?: any;
+	liveStatus?: any;
 }

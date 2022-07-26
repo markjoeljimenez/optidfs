@@ -1,5 +1,8 @@
+import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
+import { IYahooPlayer } from '../models/IYahooPlayer';
+
 /* eslint-disable sort-keys */
-export const yahooPlayersMock = [
+export const yahooPlayersMock: IYahooPlayer[] = [
 	{
 		code: 'mlb.p.7914',
 		firstName: 'Evan',
@@ -185,7 +188,7 @@ export const yahooPlayersMock = [
 		sportCode: 'mlb',
 		number: '38',
 		jerseyNumber: '38',
-		status: 'N/A',
+		status: 'DTD',
 		imageUrl:
 			'https://s.yimg.com/bt/api/res/1.2/iMF.XF20OLdLfjavwqI4RQ--/YXBwaWQ9ZGFpbHlmYW50YXN5O3E9ODU7Y2M9ODY0MDA7dz0xMjA7aD0xMjA-/https://s.yimg.com/xe/i/us/sp/v/mlb_cutout/players_l/05092022/8918.png',
 		largeImageUrl:
@@ -269,7 +272,7 @@ export const yahooPlayersMock = [
 	},
 ];
 
-export const draftKingsPlayersMock = [
+export const draftKingsPlayersMock: IDraftKingsPlayer[] = [
 	{
 		id: 23397617,
 		first_name: 'Alvin',

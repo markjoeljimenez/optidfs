@@ -35,7 +35,7 @@ const getPlayers = (
 			response: (IDraftKingsPlayer | IYahooPlayer)[],
 			meta,
 			arg: IPlayersBody
-		): IPlayer[] => providersMap().get(arg.provider)!(response),
+		): IPlayer[] => providersMap.get(arg.provider)!(response),
 	});
 
 export { getPlayers };

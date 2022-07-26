@@ -1,6 +1,6 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Column } from '@tanstack/react-table';
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { StatusTranslation } from 'src/interfaces/IStatus';
 
 import { IPlayer } from '@/containers/Players';
@@ -13,13 +13,14 @@ const TableStatusFilter = ({ column }: IStatusFilter) => {
 	const options: (keyof typeof StatusTranslation)[] = [
 		...column.getFacetedUniqueValues().keys(),
 	];
-
-	const filterValue = column.getFilterValue() as string[] | undefined;
+	const [value, setValue] = useState<string[]>(
+		(column.getFilterValue() as string[]) ?? []
+	);
 
 	function onChange(e: ChangeEvent<HTMLInputElement>) {
 		const { value } = e.currentTarget;
 
-		column.setFilterValue((old: string[]) => {
+		setValue((old: string[]) => {
 			if (old) {
 				if (old.includes(value)) {
 					return old.filter((v) => v !== value);
@@ -33,14 +34,18 @@ const TableStatusFilter = ({ column }: IStatusFilter) => {
 	}
 
 	function onAllChange() {
-		column.setFilterValue([]);
+		setValue([]);
 	}
+
+	useEffect(() => {
+		column.setFilterValue(value);
+	}, [value]);
 
 	return (
 		<Popover className="relative inline-block text-left normal-case tracking-normal font-normal">
 			{({ open }) => (
 				<>
-					<Popover.Button>
+					<Popover.Button data-testid="table-filter">
 						<svg
 							className="h-5 w-5"
 							fill="none"
@@ -80,14 +85,13 @@ const TableStatusFilter = ({ column }: IStatusFilter) => {
 										>
 											<input
 												checked={
-													filterValue === undefined ||
-													filterValue?.length === 0
+													value === undefined ||
+													value.length === 0
 												}
 												className="mr-2 text-sm"
 												id="status-filter-option"
 												name="status-filter-all"
 												type="radio"
-												value="all"
 												onChange={onAllChange}
 											/>
 											All
@@ -103,15 +107,14 @@ const TableStatusFilter = ({ column }: IStatusFilter) => {
 												tabIndex={-1}
 											>
 												<input
-													checked={filterValue?.some(
-														(value) =>
-															value === option
+													checked={value.some(
+														(v) => v === option
 													)}
 													className="mr-2 text-sm"
 													id={`status-filter-${option}`}
 													name={`status-filter-${option}`}
 													type="checkbox"
-													value={option}
+													value={option ?? ''}
 													onChange={onChange}
 												/>
 												{StatusTranslation[option]}
