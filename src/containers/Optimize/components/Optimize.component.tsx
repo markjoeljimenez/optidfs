@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { useGetOptimizedLineupsMutation } from 'src/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
@@ -14,7 +15,7 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 	const { players, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
-	const [getOptimizedLineups, { data }] = useGetOptimizedLineupsMutation();
+	const [getOptimizedLineups, response] = useGetOptimizedLineupsMutation();
 
 	function handleClick() {
 		getOptimizedLineups({
@@ -26,11 +27,15 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 	}
 
 	useEffect(() => {
-		if (data) {
-			dispatch(setOptimizedLineups(data));
+		if (response.data && response.isSuccess) {
+			dispatch(setOptimizedLineups(response.data));
 			dispatch(setView(0));
+
+			toast.success(
+				`Generated ${response.data.length} lineups successfully`
+			);
 		}
-	}, [data]);
+	}, [response]);
 
 	return (
 		<button
