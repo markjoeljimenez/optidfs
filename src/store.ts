@@ -19,24 +19,26 @@ import storage from 'redux-persist/lib/storage';
 
 import { ContestsReducers } from '@/containers/Contests';
 import { GlobalReducers } from '@/containers/Global';
+import { OptimizeReducers } from '@/containers/Optimize';
 import { PlayersReducers } from '@/containers/Players';
 import { ProvidersReducer } from '@/containers/Providers';
 import { SportsReducers } from '@/containers/Sports';
-import { tableReducers } from '@/containers/Table';
+import { TableReducers } from '@/containers/Table';
 
 import { OptidfsApi } from './api';
-import error from './containers/Error/Error.reducers';
+// import error from './containers/Error/Error.reducers';
 
 const rootReducer = combineReducers({
 	contests: ContestsReducers,
-	error,
+	// error,
 	global: GlobalReducers,
+	optimize: OptimizeReducers,
 	players: PlayersReducers,
 	providers: ProvidersReducer,
 	// rules,
 	sports: SportsReducers,
 	// stacking,
-	table: tableReducers,
+	table: TableReducers,
 	// tabs,
 	[OptidfsApi.reducerPath]: OptidfsApi.reducer,
 });

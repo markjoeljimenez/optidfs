@@ -2,7 +2,8 @@ import router from 'next/router';
 import { useEffect } from 'react';
 
 import Contests from '@/containers/Contests';
-import Table from '@/containers/Table/components/Table.component';
+import Optimize from '@/containers/Optimize';
+import Table from '@/containers/Table';
 
 import { useAppSelector } from '../../hooks';
 
@@ -22,7 +23,10 @@ const Index = () => {
 	return (
 		<div className="flex-1">
 			<div>
-				<Contests />
+				<div className="flex space-x-4 justify-between">
+					<Contests />
+					<Optimize />
+				</div>
 				<Table />
 			</div>
 		</div>

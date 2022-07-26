@@ -4208,10 +4208,11 @@ Object {
           </div>
         </div>
         <div
-          class="sticky bottom-0 bg-white border-t-[1px]"
+          class="sticky bottom-0 bg-white"
           role="rolegroup"
         >
           <div
+            class=" border-t-[1px]"
             role="row"
           >
             <div
@@ -8491,10 +8492,11 @@ Object {
         </div>
       </div>
       <div
-        class="sticky bottom-0 bg-white border-t-[1px]"
+        class="sticky bottom-0 bg-white"
         role="rolegroup"
       >
         <div
+          class=" border-t-[1px]"
           role="row"
         >
           <div

@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { getContestsFromSport } from '@/containers/Contests';
+import { getOptimizedLineups } from '@/containers/Optimize';
 import { getPlayers } from '@/containers/Players';
 import { getSportsFromProvider } from '@/containers/Sports';
 
@@ -10,6 +11,7 @@ export const OptidfsApi = createApi({
 	baseQuery: fetchBaseQuery({ baseUrl: API }),
 	endpoints: (builder) => ({
 		getContestsFromSport: getContestsFromSport(builder),
+		getOptimizedLineups: getOptimizedLineups(builder),
 		getPlayers: getPlayers(builder),
 		getSportsFromProvider: getSportsFromProvider(builder),
 	}),
@@ -18,6 +20,7 @@ export const OptidfsApi = createApi({
 
 export const {
 	useGetContestsFromSportQuery,
+	useGetOptimizedLineupsMutation,
 	useGetPlayersQuery,
 	useGetSportsFromProviderQuery,
 	usePrefetch,

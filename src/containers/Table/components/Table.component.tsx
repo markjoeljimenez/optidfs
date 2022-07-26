@@ -19,19 +19,21 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 import useTableColumns from '../hooks/useTableColumns';
 import TableBody from './base/Table.body';
 import TableFooter from './base/Table.footer';
+import TableFooterOptimize from './base/Table.footer.optimize';
+import TableFooterPagination from './base/Table.footer.pagination';
 import TableHeader from './base/Table.header';
 import TablePreheader from './base/Table.preheader';
 
 const Table = () => {
 	const { stacking } = useFlags(['stacking']);
-	const { contests, players, providers, table } = useAppSelector(
+	const { contests, optimize, players, providers, table } = useAppSelector(
 		(state) => state
 	);
 	const dispatch = useAppDispatch();
 	const columns = useTableColumns();
 	const [globalFilter, setGlobalFilter] = useState('');
 
-	const { data, isFetching, isLoading, isSuccess } = useGetPlayersQuery(
+	const playersResponse = useGetPlayersQuery(
 		{
 			// gameType: contests.gameType,
 			id: contests.selectedContest?.contest_id!,
@@ -43,27 +45,22 @@ const Table = () => {
 	);
 
 	useEffect(() => {
-		if (data) {
-			dispatch(setDefaultPlayers(data));
+		if (playersResponse.data) {
+			dispatch(setDefaultPlayers(playersResponse.data));
 		}
-	}, [data]);
+	}, [playersResponse.data]);
 
 	const memoizedData = useMemo<IPlayer[]>(() => {
-		// if (table.view === 'optimized' && players.optimized) {
-		// 	return players.optimized;
-		// }
+		if (optimize.optimizedLineups?.length) {
+			return optimize.optimizedLineups![0].players;
+		}
 
 		if (table.view === 'all' && players?.defaultPlayers) {
 			return players.defaultPlayers;
 		}
 
 		return [];
-	}, [players.defaultPlayers, table.view]);
-
-	// const columns = useMemo<ColumnDef<IPlayer>[]>(
-	// 	() => columnKeys,
-	// 	[contests.gameType]
-	// );
+	}, [players.defaultPlayers, table.view, optimize.optimizedLineups]);
 
 	const _table = useReactTable({
 		autoResetExpanded: true,
@@ -105,16 +102,17 @@ const Table = () => {
 				<TableHeader stacking={stacking} table={_table} />
 			</div>
 
-			<TableBody
-				response={{ isFetching, isLoading, isSuccess }}
-				table={_table}
-			/>
+			<TableBody response={playersResponse} table={_table} />
 
-			{memoizedData.length && isSuccess && _table.getPageCount() > 0 ? (
-				<TableFooter table={_table} />
-			) : (
-				<></>
-			)}
+			<TableFooter>
+				{optimize.currentOptimizedLineup && <TableFooterOptimize />}
+
+				{playersResponse.isSuccess &&
+					players.defaultPlayers!.length >
+						_table.getState().pagination.pageSize && (
+						<TableFooterPagination table={_table} />
+					)}
+			</TableFooter>
 		</div>
 	);
 };

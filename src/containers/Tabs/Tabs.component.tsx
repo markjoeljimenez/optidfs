@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import Optimize from '../Optimize/Optimize.component';
+import Optimize from '../Optimize/components/Optimize.component';
 import { setActiveTab } from './Tabs.actions';
 
 const TABS = [
