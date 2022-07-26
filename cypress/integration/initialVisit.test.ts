@@ -3,7 +3,7 @@ describe('Index', () => {
 		cy.intercept('/?provider=draftkings', { fixture: 'sports.json' }).as(
 			'matchedUrl'
 		);
-		cy.intercept('/contests?provider=draftkings&sport=NBA&sportId=1', {
+		cy.intercept('/contests?provider=draftkings&sport=NBA&sportId=4', {
 			fixture: 'contests.draftkings.json',
 		}).as('matchedUrl');
 		cy.intercept('/players?id=65923&provider=draftkings&gameType=Classic', {
@@ -31,9 +31,7 @@ describe('Index', () => {
 	it('should complete step 2 and go to dashboard successfully', () => {
 		// Select contest
 		cy.get('[data-testid="downshift"] button').click();
-		cy.wait(500);
 		cy.get('[data-testid="downshift"] li:first-child').click();
-
 		cy.get('button[data-testid="to-next-step"]').click();
 
 		// Assert

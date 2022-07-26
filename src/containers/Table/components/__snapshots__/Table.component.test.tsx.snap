@@ -203,16 +203,15 @@ Object {
           </div>
         </div>
         <div
+          data-testid="table-body"
           role="rowgroup"
         >
           <div
             class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
-            data-testid="table-row"
             role="row"
           >
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-image"
               role="cell"
             >
               <div
@@ -235,7 +234,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-status"
               role="cell"
             >
               <div
@@ -250,35 +248,30 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-firstName"
               role="cell"
             >
               Evan
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-lastName"
               role="cell"
             >
               Longoria
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-position"
               role="cell"
             >
               3B
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-team"
               role="cell"
             >
               SF
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-salary"
               role="cell"
             >
               <div
@@ -289,7 +282,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-fppg"
               role="cell"
             >
               <div
@@ -300,7 +292,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-id"
               role="cell"
             >
               <div
@@ -417,12 +408,10 @@ Object {
           </div>
           <div
             class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
-            data-testid="table-row"
             role="row"
           >
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-image"
               role="cell"
             >
               <div
@@ -445,7 +434,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-status"
               role="cell"
             >
               <div
@@ -460,35 +448,30 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-firstName"
               role="cell"
             >
               Brandon
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-lastName"
               role="cell"
             >
               Belt
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-position"
               role="cell"
             >
               1B
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-team"
               role="cell"
             >
               SF
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-salary"
               role="cell"
             >
               <div
@@ -499,7 +482,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-fppg"
               role="cell"
             >
               <div
@@ -510,7 +492,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-id"
               role="cell"
             >
               <div
@@ -627,12 +608,10 @@ Object {
           </div>
           <div
             class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
-            data-testid="table-row"
             role="row"
           >
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-image"
               role="cell"
             >
               <div
@@ -655,7 +634,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-status"
               role="cell"
             >
               <div
@@ -670,35 +648,30 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-firstName"
               role="cell"
             >
               Alex
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-lastName"
               role="cell"
             >
               Cobb
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-position"
               role="cell"
             >
               P
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-team"
               role="cell"
             >
               SF
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-salary"
               role="cell"
             >
               <div
@@ -709,7 +682,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-fppg"
               role="cell"
             >
               <div
@@ -720,7 +692,6 @@ Object {
             </div>
             <div
               class="p-4 whitespace-nowrap"
-              data-testid="table-cell-id"
               role="cell"
             >
               <div
@@ -1114,16 +1085,15 @@ Object {
         </div>
       </div>
       <div
+        data-testid="table-body"
         role="rowgroup"
       >
         <div
           class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
-          data-testid="table-row"
           role="row"
         >
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-image"
             role="cell"
           >
             <div
@@ -1146,7 +1116,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-status"
             role="cell"
           >
             <div
@@ -1161,35 +1130,30 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-firstName"
             role="cell"
           >
             Evan
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-lastName"
             role="cell"
           >
             Longoria
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-position"
             role="cell"
           >
             3B
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-team"
             role="cell"
           >
             SF
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-salary"
             role="cell"
           >
             <div
@@ -1200,7 +1164,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-fppg"
             role="cell"
           >
             <div
@@ -1211,7 +1174,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-id"
             role="cell"
           >
             <div
@@ -1328,12 +1290,10 @@ Object {
         </div>
         <div
           class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
-          data-testid="table-row"
           role="row"
         >
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-image"
             role="cell"
           >
             <div
@@ -1356,7 +1316,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-status"
             role="cell"
           >
             <div
@@ -1371,35 +1330,30 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-firstName"
             role="cell"
           >
             Brandon
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-lastName"
             role="cell"
           >
             Belt
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-position"
             role="cell"
           >
             1B
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-team"
             role="cell"
           >
             SF
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-salary"
             role="cell"
           >
             <div
@@ -1410,7 +1364,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-fppg"
             role="cell"
           >
             <div
@@ -1421,7 +1374,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-id"
             role="cell"
           >
             <div
@@ -1538,12 +1490,10 @@ Object {
         </div>
         <div
           class="border-b border-gray-200 grid items-center grid-cols-table-md-stacking-ff"
-          data-testid="table-row"
           role="row"
         >
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-image"
             role="cell"
           >
             <div
@@ -1566,7 +1516,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-status"
             role="cell"
           >
             <div
@@ -1581,35 +1530,30 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-firstName"
             role="cell"
           >
             Alex
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-lastName"
             role="cell"
           >
             Cobb
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-position"
             role="cell"
           >
             P
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-team"
             role="cell"
           >
             SF
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-salary"
             role="cell"
           >
             <div
@@ -1620,7 +1564,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-fppg"
             role="cell"
           >
             <div
@@ -1631,7 +1574,6 @@ Object {
           </div>
           <div
             class="p-4 whitespace-nowrap"
-            data-testid="table-cell-id"
             role="cell"
           >
             <div

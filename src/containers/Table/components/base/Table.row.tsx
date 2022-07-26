@@ -22,14 +22,12 @@ const TableRow = ({ row }: ITableRow) => {
 						? 'grid-cols-table-md-stacking-ff'
 						: 'grid-cols-table-md'
 				)}
-				data-testid="table-row"
 				role="row"
 			>
 				{row.getVisibleCells().map((cell) => (
 					<div
 						key={cell.id}
 						className="p-4 whitespace-nowrap"
-						data-testid={`table-cell-${cell.column.id}`}
 						role="cell"
 					>
 						{flexRender(

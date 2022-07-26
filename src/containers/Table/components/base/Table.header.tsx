@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { IPlayer } from '@/containers/Players';
 
 import TableStatusFilter from '../filters/Table.filters.status';
-import TableSortSalary from '../sort/Table.sort.salary';
+import TableSortSalary from '../sort/Table.sort.headers';
 
 interface ITableHeader {
 	stacking: {

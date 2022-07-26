@@ -70,8 +70,8 @@ describe('Table', () => {
 		await userEvent.click(options[2]);
 
 		// Assert
-		const rows = screen.getAllByTestId('table-row');
-		expect(rows.length).toBe(1);
+		const tableBody = screen.getByTestId('table-body');
+		expect(tableBody.children.length).toBe(1);
 	});
 
 	it('should sort salary', async () => {
@@ -87,14 +87,16 @@ describe('Table', () => {
 		await userEvent.click(sortButton);
 
 		// Assert
-		const salaryCells = screen.getAllByTestId('table-cell-salary');
-		const firstNameCells = screen.getAllByTestId('table-cell-firstName');
-		const lastNameCells = screen.getAllByTestId('table-cell-lastName');
+		const tableBody = screen.getByTestId('table-body');
+		const firstRow = tableBody.children[0];
+		const firstName = firstRow.children[2].textContent;
+		const lastName = firstRow.children[3].textContent;
+		const salary = firstRow.children[6].textContent;
 
-		const name = `${firstNameCells[0].textContent} ${lastNameCells[0].textContent}`;
+		const name = `${firstName} ${lastName}`;
 
 		expect(name).toBe('Alex Cobb');
-		expect(salaryCells[0].textContent).toBe('$28');
+		expect(salary).toBe('$28');
 	});
 
 	it('should sort fppg', async () => {
@@ -110,14 +112,16 @@ describe('Table', () => {
 		await userEvent.click(sortButton);
 
 		// Assert
-		const fppgCells = screen.getAllByTestId('table-cell-fppg');
-		const firstNameCells = screen.getAllByTestId('table-cell-firstName');
-		const lastNameCells = screen.getAllByTestId('table-cell-lastName');
+		const tableBody = screen.getByTestId('table-body');
+		const firstRow = tableBody.children[0];
+		const firstName = firstRow.children[2].textContent;
+		const lastName = firstRow.children[3].textContent;
+		const fppg = firstRow.children[7].textContent;
 
-		const name = `${firstNameCells[0].textContent} ${lastNameCells[0].textContent}`;
+		const name = `${firstName} ${lastName}`;
 
 		expect(name).toBe('Brandon Belt');
-		expect(fppgCells[0].textContent).toBe('99');
+		expect(fppg).toBe('99');
 	});
 
 	it('should search successfully', async () => {
@@ -134,7 +138,7 @@ describe('Table', () => {
 		});
 
 		// Assert
-		const rows = screen.getAllByTestId('table-row');
-		expect(rows.length).toBe(1);
+		const tableBody = screen.getByTestId('table-body');
+		expect(tableBody.children.length).toBe(1);
 	});
 });

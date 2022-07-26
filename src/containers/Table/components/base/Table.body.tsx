@@ -41,7 +41,11 @@ const TableBody = ({ response, table }: ITableBody) => {
 			.rows.map((row) => <TableRow key={row.id} row={row} />);
 	}
 
-	return <div role="rowgroup">{renderTableBody()}</div>;
+	return (
+		<div data-testid="table-body" role="rowgroup">
+			{renderTableBody()}
+		</div>
+	);
 };
 
 export default TableBody;
