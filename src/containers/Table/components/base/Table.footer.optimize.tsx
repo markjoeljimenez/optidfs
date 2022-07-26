@@ -2,14 +2,8 @@ import clsx from 'clsx';
 import { useFlags } from 'flagsmith/react';
 import { useAppSelector } from 'src/hooks';
 
-import { optimizedState } from '@/containers/Optimize';
-
-// interface ITableFooterOptimize {
-// 	optimizedLineup: IOptimizedLineup;
-// }
-
 const TableFooterOptimize = () => {
-	const { currentOptimizedLineup } = useAppSelector(optimizedState);
+	const { optimize, table } = useAppSelector((state) => state);
 	const { stacking } = useFlags(['stacking']);
 
 	return (
@@ -31,10 +25,14 @@ const TableFooterOptimize = () => {
 			<div className="p-4 whitespace-nowrap" role="cell"></div>
 			<div className="p-4 whitespace-nowrap" role="cell"></div>
 			<div className="p-4 whitespace-nowrap text-right" role="cell">
-				<strong>{currentOptimizedLineup!.salary}</strong>
+				<strong>
+					{optimize.optimizedLineups![table.view as number].salary}
+				</strong>
 			</div>
 			<div className="p-4 whitespace-nowrap text-right" role="cell">
-				<strong>{currentOptimizedLineup!.fppg}</strong>
+				<strong>
+					{optimize.optimizedLineups![table.view as number].fppg}
+				</strong>
 			</div>
 		</div>
 	);

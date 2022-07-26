@@ -3,15 +3,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppState } from '../../../store';
 import { View } from '../models/view';
 
-const initialState = {
-	view: View.All,
+interface ITableInitialState {
+	view: string | number;
+}
+
+const initialState: ITableInitialState = {
+	view: '',
 };
 
 export const TableReducers = createSlice({
 	initialState,
 	name: 'table',
 	reducers: {
-		setView: (state, action: PayloadAction<View>) => {
+		setView: (state, action: PayloadAction<string | number>) => {
 			state.view = action.payload;
 		},
 	},

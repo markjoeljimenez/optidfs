@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { useGetOptimizedLineupsMutation } from 'src/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
-import {
-	setCurrentOptimizedLineup,
-	setOptimizedLineups,
-} from '../redux/Optimize.reducers';
+import { setView } from '@/containers/Table/reducers/Table.reducers';
+
+import { setOptimizedLineups } from '../redux/Optimize.reducers';
 
 interface IOptimizeProps {
 	disabled?: boolean;
@@ -29,7 +28,7 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 	useEffect(() => {
 		if (data) {
 			dispatch(setOptimizedLineups(data));
-			dispatch(setCurrentOptimizedLineup(data[0]));
+			dispatch(setView(0));
 		}
 	}, [data]);
 

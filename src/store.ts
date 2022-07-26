@@ -45,7 +45,7 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(
 	{
-		blacklist: [OptidfsApi.reducerPath],
+		blacklist: [OptidfsApi.reducerPath, 'table', 'optimize'],
 		key: 'root',
 		storage,
 		version: 1,

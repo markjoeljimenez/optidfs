@@ -26,7 +26,16 @@ Object {
                 class="p-4 whitespace-nowrap flex justify-between"
                 role="cell"
               >
-                <div />
+                <select
+                  id="table-view-select"
+                  name="table-view-select"
+                >
+                  <option
+                    value=""
+                  >
+                    All
+                  </option>
+                </select>
                 <div>
                   <div
                     class="flex items-center"
@@ -4310,7 +4319,16 @@ Object {
               class="p-4 whitespace-nowrap flex justify-between"
               role="cell"
             >
-              <div />
+              <select
+                id="table-view-select"
+                name="table-view-select"
+              >
+                <option
+                  value=""
+                >
+                  All
+                </option>
+              </select>
               <div>
                 <div
                   class="flex items-center"

@@ -51,11 +51,15 @@ const Table = () => {
 	}, [playersResponse.data]);
 
 	const memoizedData = useMemo<IPlayer[]>(() => {
-		if (optimize.optimizedLineups?.length) {
-			return optimize.optimizedLineups![0].players;
+		if (
+			typeof table.view === 'number' &&
+			optimize.optimizedLineups?.length
+		) {
+			console.log(optimize, table.view);
+			return optimize.optimizedLineups![table.view].players;
 		}
 
-		if (table.view === 'all' && players?.defaultPlayers) {
+		if (!table.view && players?.defaultPlayers) {
 			return players.defaultPlayers;
 		}
 
@@ -105,9 +109,13 @@ const Table = () => {
 			<TableBody response={playersResponse} table={_table} />
 
 			<TableFooter>
-				{optimize.currentOptimizedLineup && <TableFooterOptimize />}
+				{optimize.optimizedLineups &&
+					optimize.optimizedLineups?.length > 1 &&
+					table.view !== '' &&
+					typeof table.view === 'number' && <TableFooterOptimize />}
 
-				{playersResponse.isSuccess &&
+				{table.view === '' &&
+					playersResponse.isSuccess &&
 					players.defaultPlayers!.length >
 						_table.getState().pagination.pageSize && (
 						<TableFooterPagination table={_table} />
