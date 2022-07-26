@@ -1,12 +1,12 @@
-import clsx from 'clsx';
-import { useState } from 'react';
+// import clsx from 'clsx';
+// import { useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import {
-	clearToggle,
-	excludePlayer,
-	lockPlayer,
-} from '../../Players/redux/Players.actions';
+// import {
+// 	clearToggle,
+// 	excludePlayer,
+// 	lockPlayer,
+// } from '../../Players/redux/Players.actions';
 
 export enum ELockOrExclude {
 	Locked = 'locked',
@@ -21,28 +21,28 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 	const players = useAppSelector((state) => state.players);
 	const dispatch = useAppDispatch();
 
-	const locked = players?.locked?.some((_player) => _player.id === id);
-	const excluded = players?.excluded?.some((_player) => _player.id === id);
+	// const locked = players?.locked?.some((_player) => _player.id === id);
+	// const excluded = players?.excluded?.some((_player) => _player.id === id);
 
-	function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
-		if (locked) {
-			dispatch(clearToggle(e));
-		} else {
-			dispatch(lockPlayer(e));
-		}
-	}
+	// function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
+	// 	if (locked) {
+	// 		dispatch(clearToggle(e));
+	// 	} else {
+	// 		dispatch(lockPlayer(e));
+	// 	}
+	// }
 
-	function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
-		if (excluded) {
-			dispatch(clearToggle(e));
-		} else {
-			dispatch(excludePlayer(e));
-		}
-	}
+	// function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
+	// 	if (excluded) {
+	// 		dispatch(clearToggle(e));
+	// 	} else {
+	// 		dispatch(excludePlayer(e));
+	// 	}
+	// }
 
 	return (
 		<div className="toggle flex items-center text-xs">
-			<label
+			{/* <label
 				className={clsx(
 					'bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-l-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0',
 					locked
@@ -110,7 +110,7 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 						</g>
 					</g>
 				</svg>
-			</label>
+			</label> */}
 			{/* {locked || excluded ? (
 				<button
 					type="button"

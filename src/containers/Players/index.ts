@@ -8,7 +8,7 @@ import { Providers } from './models/providers.enum';
 import PlayersReducers, {
 	playersState,
 	setDefaultPlayers,
-} from './redux/reducers';
+} from './redux/Players.reducers';
 import { mapDraftKingsPlayers, mapYahooPlayers } from './services/mapPlayers';
 
 // Api
