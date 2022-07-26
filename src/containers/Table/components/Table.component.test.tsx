@@ -64,10 +64,10 @@ describe('Table', () => {
 
 		// Get filter menu items
 		const options = screen.getAllByRole('menuitem');
-		expect(options.length).toBe(3);
+		expect(options.length).toBe(4);
 
 		// Click DTD option
-		await userEvent.click(options[2]);
+		await userEvent.click(options[3]);
 
 		// Assert
 		const tableBody = screen.getByTestId('table-body');
@@ -95,8 +95,8 @@ describe('Table', () => {
 
 		const name = `${firstName} ${lastName}`;
 
-		expect(name).toBe('Alex Cobb');
-		expect(salary).toBe('$28');
+		expect(name).toBe('Carlos Rodón');
+		expect(salary).toBe('$48');
 	});
 
 	it('should sort fppg', async () => {
@@ -120,8 +120,8 @@ describe('Table', () => {
 
 		const name = `${firstName} ${lastName}`;
 
-		expect(name).toBe('Brandon Belt');
-		expect(fppg).toBe('99');
+		expect(name).toBe('Carlos Rodón');
+		expect(fppg).toBe('23.82');
 	});
 
 	it('should search successfully', async () => {
@@ -140,5 +140,44 @@ describe('Table', () => {
 		// Assert
 		const tableBody = screen.getByTestId('table-body');
 		expect(tableBody.children.length).toBe(1);
+	});
+
+	describe('pagination', () => {
+		it('should render pagination footer', async () => {
+			// Arrange
+			const view = render(app, { preloadedState });
+			await waitFor(() =>
+				expect(getPlayers(view.store.getState()).isSuccess).toBe(true)
+			);
+
+			const toPreviousPageButton = screen.getByTestId(
+				'pagination-previous-page'
+			);
+			const toNextPageButton = screen.getByTestId('pagination-next-page');
+
+			// Assert
+			expect(toPreviousPageButton).toBeInTheDocument();
+			expect(toNextPageButton).toBeInTheDocument();
+			expect(toPreviousPageButton.hasAttribute('disabled')).toBe(true);
+		});
+
+		it('should go to next page', async () => {
+			// Arrange
+			const view = render(app, { preloadedState });
+			await waitFor(() =>
+				expect(getPlayers(view.store.getState()).isSuccess).toBe(true)
+			);
+
+			// Act
+			const toNextPageButton = screen.getByTestId('pagination-next-page');
+			await userEvent.click(toNextPageButton);
+
+			// Assert
+			const tableBody = screen.getByTestId('table-body');
+
+			expect(tableBody.children.length).toBe(5);
+			expect(screen.getByText('2 of 2')).toBeInTheDocument();
+			expect(toNextPageButton.hasAttribute('disabled')).toBe(true);
+		});
 	});
 });

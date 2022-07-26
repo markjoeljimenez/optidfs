@@ -12,13 +12,13 @@ describe('mapPlayers', () => {
 		// Assert
 		expect(transformedPlayers[0]).toStrictEqual({
 			firstName: 'Evan',
-			fppg: 6.11,
-			id: 3567649,
+			fppg: 6.17,
+			id: 3593063,
 			image: 'https://s.yimg.com/bt/api/res/1.2/cKW.Ppnn9bm2fP9RlfKviQ--/YXBwaWQ9ZGFpbHlmYW50YXN5O3E9ODU7Y2M9ODY0MDA7dz0xMjA7aD0xMjA-/https://s.yimg.com/xe/i/us/sp/v/mlb_cutout/players_l/05092022/7914.png',
 			lastName: 'Longoria',
 			position: '3B',
-			salary: 13,
-			status: 'N/A',
+			salary: 7,
+			status: 'IL10',
 			team: 'SF',
 		});
 	});

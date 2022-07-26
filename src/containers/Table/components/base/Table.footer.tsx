@@ -27,6 +27,7 @@ const TableFooter = ({ table }: ITableFooter) => (
 							'h-5 w-5',
 							!table.getCanPreviousPage() && 'text-gray-300'
 						)}
+						data-testid="pagination-previous-page"
 						disabled={!table.getCanPreviousPage()}
 						onClick={() => table.previousPage()}
 					>
@@ -37,6 +38,7 @@ const TableFooter = ({ table }: ITableFooter) => (
 							'h-5 w-5',
 							!table.getCanNextPage() && 'text-gray-300'
 						)}
+						data-testid="pagination-next-page"
 						disabled={!table.getCanNextPage()}
 						onClick={() => table.nextPage()}
 					>
