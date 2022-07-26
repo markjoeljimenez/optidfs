@@ -73,4 +73,68 @@ describe('Table', () => {
 		const rows = screen.getAllByTestId('table-row');
 		expect(rows.length).toBe(1);
 	});
+
+	it('should sort salary', async () => {
+		// Arrange
+		const view = render(app, { preloadedState });
+		await waitFor(() =>
+			expect(getPlayers(view.store.getState()).isSuccess).toBe(true)
+		);
+
+		// Act
+		// Click sort button
+		const sortButton = screen.getByTestId('table-sort-salary');
+		await userEvent.click(sortButton);
+
+		// Assert
+		const salaryCells = screen.getAllByTestId('table-cell-salary');
+		const firstNameCells = screen.getAllByTestId('table-cell-firstName');
+		const lastNameCells = screen.getAllByTestId('table-cell-lastName');
+
+		const name = `${firstNameCells[0].textContent} ${lastNameCells[0].textContent}`;
+
+		expect(name).toBe('Alex Cobb');
+		expect(salaryCells[0].textContent).toBe('$28');
+	});
+
+	it('should sort fppg', async () => {
+		// Arrange
+		const view = render(app, { preloadedState });
+		await waitFor(() =>
+			expect(getPlayers(view.store.getState()).isSuccess).toBe(true)
+		);
+
+		// Act
+		// Click sort button
+		const sortButton = screen.getByTestId('table-sort-fppg');
+		await userEvent.click(sortButton);
+
+		// Assert
+		const fppgCells = screen.getAllByTestId('table-cell-fppg');
+		const firstNameCells = screen.getAllByTestId('table-cell-firstName');
+		const lastNameCells = screen.getAllByTestId('table-cell-lastName');
+
+		const name = `${firstNameCells[0].textContent} ${lastNameCells[0].textContent}`;
+
+		expect(name).toBe('Brandon Belt');
+		expect(fppgCells[0].textContent).toBe('99');
+	});
+
+	it('should search successfully', async () => {
+		// Arrange
+		const view = render(app, { preloadedState });
+		await waitFor(() =>
+			expect(getPlayers(view.store.getState()).isSuccess).toBe(true)
+		);
+
+		// Act
+		const searchInput = screen.getByTestId('table-search');
+		await userEvent.type(searchInput, 'Brandon', {
+			delay: 10,
+		});
+
+		// Assert
+		const rows = screen.getAllByTestId('table-row');
+		expect(rows.length).toBe(1);
+	});
 });

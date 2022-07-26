@@ -169,7 +169,7 @@ export const yahooPlayersMock: IYahooPlayer[] = [
 		lineupOrder: null,
 		primaryPosition: '1B',
 		eligiblePositions: ['1B'],
-		fantasyPointsPerGame: 6.678846153846152,
+		fantasyPointsPerGame: 99,
 		fantasyPointsHistory: [
 			20.6, 2.6, 2.6, 18.7, 10.4, 12.3, 16.1, 2.6, 0, 0,
 		],

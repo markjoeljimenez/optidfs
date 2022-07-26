@@ -21,6 +21,7 @@ interface IInput {
 	required?: boolean;
 	step?: number;
 	style?: CSSProperties;
+	testid?: string;
 	tippy?: any;
 	value?: any;
 }
@@ -44,6 +45,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 			required,
 			step,
 			style,
+			testid,
 			tippy,
 			type,
 			value,
@@ -75,6 +77,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 						!hideLabel && 'mt-2',
 						className
 					)}
+					data-testid={testid}
 					defaultValue={defaultValue}
 					id={id}
 					max={max}

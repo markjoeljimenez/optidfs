@@ -25,6 +25,7 @@ const TableSortSalary = ({ column }: ITableSortSalary) => {
 	return (
 		<button
 			className={clsx(column.getIsSorted() ? 'text-black' : '')}
+			data-testid={`table-sort-${column.id}`}
 			onClick={column.getToggleSortingHandler()}
 		>
 			<ChevronTriangle direction={getDirection()} />

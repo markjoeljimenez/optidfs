@@ -29,6 +29,7 @@ const TableRow = ({ row }: ITableRow) => {
 					<div
 						key={cell.id}
 						className="p-4 whitespace-nowrap"
+						data-testid={`table-cell-${cell.column.id}`}
 						role="cell"
 					>
 						{flexRender(

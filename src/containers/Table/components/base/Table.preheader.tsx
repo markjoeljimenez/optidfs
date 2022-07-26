@@ -21,6 +21,7 @@ const TablePreheader = ({ onGlobalSearch, value }: ITablePreheader) => (
 					icon={<Search />}
 					id="table-search"
 					placeholder="Search by player, team, or position"
+					testid="table-search"
 					type="text"
 					value={value ?? ''}
 					onChange={onGlobalSearch}
