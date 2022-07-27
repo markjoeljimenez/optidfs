@@ -17,6 +17,7 @@ import { IPlayer, setDefaultPlayers } from '@/containers/Players';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import useTableColumns from '../hooks/useTableColumns';
+import { setFilters } from '../reducers/Table.reducers';
 import TableBody from './base/Table.body';
 import TableFooter from './base/Table.footer';
 import TableFooterOptimize from './base/Table.footer.optimize';
@@ -91,6 +92,14 @@ const Table = () => {
 	function onGlobalSearch(e: ChangeEvent<HTMLInputElement>) {
 		setGlobalFilter(String(e.currentTarget.value));
 	}
+
+	useEffect(() => {
+		const { columnFilters } = _table.getState();
+
+		if (columnFilters.length) {
+			dispatch(setFilters(columnFilters));
+		}
+	}, [_table.getState()]);
 
 	return (
 		<div className="w-full bg-white text-left relative" role="table">
