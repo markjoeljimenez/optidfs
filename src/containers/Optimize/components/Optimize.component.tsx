@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { useGetOptimizedLineupsMutation } from 'src/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
+import Loading from '@/components/loading/loading';
 import { setView } from '@/containers/Table/reducers/Table.reducers';
 
 import { setOptimizedLineups } from '../redux/Optimize.reducers';
@@ -39,12 +40,13 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 
 	return (
 		<button
-			className="px-4 py-3 bg-indigo-700 text-white rounded shadow font-black hover:bg-indigo-800"
+			className="px-4 py-3 bg-indigo-700 text-white rounded shadow font-black hover:bg-indigo-800 flex"
 			data-testid="optimize"
-			disabled={disabled}
+			disabled={disabled || response.isLoading}
 			type="button"
 			onClick={handleClick}
 		>
+			{response.isLoading && <Loading />}
 			Optimize
 		</button>
 	);

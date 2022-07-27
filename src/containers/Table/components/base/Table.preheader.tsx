@@ -14,7 +14,7 @@ const TablePreheader = ({ onGlobalSearch, value }: ITablePreheader) => (
 	<div className="bg-white" role="rowgroup">
 		<div role="row">
 			<div
-				className="p-4 whitespace-nowrap flex justify-between"
+				className="p-4 whitespace-nowrap flex justify-between items-center"
 				role="cell"
 			>
 				<TableView />

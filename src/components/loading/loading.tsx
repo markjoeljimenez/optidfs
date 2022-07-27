@@ -3,11 +3,13 @@ import clsx from 'clsx';
 export enum LoadingSize {
 	Default = 'default',
 	Large = 'large',
+	Small = 'small',
 }
 
 export const sizeMap = new Map<LoadingSize, string>([
 	[LoadingSize.Default, 'h-6 w-6'],
 	[LoadingSize.Large, 'h-14 w-14'],
+	[LoadingSize.Default, 'h-4 w-4'],
 ]);
 
 interface ILoading {

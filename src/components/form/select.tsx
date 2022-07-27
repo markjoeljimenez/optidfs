@@ -17,22 +17,21 @@ export interface IValueLabel {
 
 interface ISelect {
 	id: string;
+	label: string;
+	onChange(e: ChangeEvent<HTMLSelectElement>): void;
 	options: string[] | IValueLabel[];
+	value: string;
 	children?: ReactNode;
 	className?: string;
 	defaultValue?: string;
 	disabled?: boolean;
 	error?: IError;
 	hideLabel?: boolean;
-	label?: string;
-	onChange?(e: ChangeEvent<HTMLSelectElement>): void;
 	placeholder?: string;
 	position?: 'prepend' | 'append';
 	required?: boolean;
 	testId?: string;
 	tippy?: any;
-
-	value?: string;
 }
 
 // eslint-disable-next-line react/display-name
@@ -58,7 +57,12 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 					{props.tippy}
 				</div>
 
-				<div className={clsx('flex', !props.hideLabel && 'mt-2')}>
+				<div
+					className={clsx(
+						'flex',
+						!props.hideLabel && props.label && 'mt-2'
+					)}
+				>
 					{props.position === 'prepend' && children}
 
 					<select
@@ -84,15 +88,17 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 						}
 						onChange={props.onChange}
 					>
-						<option disabled value="">
-							{props.placeholder}
-						</option>
+						{props.placeholder && (
+							<option disabled value="">
+								{props.placeholder}
+							</option>
+						)}
 
 						{props.options?.map((item, i) => (
 							<option
 								key={`${item.label}`}
 								data-testid={`${item.label}`.toLocaleLowerCase()}
-								value={item.value || item}
+								value={item.value ?? item}
 							>
 								{item.label}
 							</option>

@@ -23,19 +23,34 @@ Object {
               role="row"
             >
               <div
-                class="p-4 whitespace-nowrap flex justify-between"
+                class="p-4 whitespace-nowrap flex justify-between items-center"
                 role="cell"
               >
-                <select
-                  id="table-view-select"
-                  name="table-view-select"
-                >
-                  <option
-                    value=""
+                <div>
+                  <div
+                    class=""
                   >
-                    All
-                  </option>
-                </select>
+                    <label
+                      class="block text-sm font-medium text-gray-700"
+                      for="table-view-select"
+                    />
+                  </div>
+                  <div
+                    class="flex"
+                  >
+                    <select
+                      class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer"
+                      id="table-view-select"
+                    >
+                      <option
+                        data-testid="all"
+                        value=""
+                      >
+                        All
+                      </option>
+                    </select>
+                  </div>
+                </div>
                 <div>
                   <div
                     class="flex items-center"
@@ -2596,19 +2611,34 @@ Object {
             role="row"
           >
             <div
-              class="p-4 whitespace-nowrap flex justify-between"
+              class="p-4 whitespace-nowrap flex justify-between items-center"
               role="cell"
             >
-              <select
-                id="table-view-select"
-                name="table-view-select"
-              >
-                <option
-                  value=""
+              <div>
+                <div
+                  class=""
                 >
-                  All
-                </option>
-              </select>
+                  <label
+                    class="block text-sm font-medium text-gray-700"
+                    for="table-view-select"
+                  />
+                </div>
+                <div
+                  class="flex"
+                >
+                  <select
+                    class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer"
+                    id="table-view-select"
+                  >
+                    <option
+                      data-testid="all"
+                      value=""
+                    >
+                      All
+                    </option>
+                  </select>
+                </div>
+              </div>
               <div>
                 <div
                   class="flex items-center"

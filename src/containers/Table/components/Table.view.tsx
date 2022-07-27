@@ -1,6 +1,8 @@
 import { ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
+import Select, { IValueLabel } from '@/components/form/select';
+
 import { setView } from '../reducers/Table.reducers';
 
 const TableView = () => {
@@ -10,26 +12,28 @@ const TableView = () => {
 	function handleChange(e: ChangeEvent<HTMLSelectElement>) {
 		const { value } = e.currentTarget;
 
-		console.log(value);
-
 		dispatch(setView(value !== '' ? parseInt(value) : value));
 	}
 
-	return (
-		<select
-			id="table-view-select"
-			name="table-view-select"
-			value={table.view}
-			onChange={handleChange}
-		>
-			<option value="">All</option>
+	const options =
+		optimize.optimizedLineups?.map<IValueLabel>((_lineup, i) => ({
+			label: `Lineup ${i + 1}`,
+			value: i,
+		})) ?? [];
 
-			{optimize.optimizedLineups?.map((lineup, i) => (
-				<option key={i} value={i}>
-					Lineup {i + 1}
-				</option>
-			))}
-		</select>
+	return (
+		<Select
+			id="table-view-select"
+			options={[
+				{
+					label: 'All',
+					value: '',
+				},
+				...options,
+			]}
+			value={table.view!.toString()}
+			onChange={handleChange}
+		/>
 	);
 };
 

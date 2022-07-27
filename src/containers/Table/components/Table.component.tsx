@@ -55,7 +55,6 @@ const Table = () => {
 			typeof table.view === 'number' &&
 			optimize.optimizedLineups?.length
 		) {
-			console.log(optimize, table.view);
 			return optimize.optimizedLineups![table.view].players;
 		}
 
@@ -116,7 +115,8 @@ const Table = () => {
 
 				{table.view === '' &&
 					playersResponse.isSuccess &&
-					players.defaultPlayers!.length >
+					players.defaultPlayers &&
+					players.defaultPlayers?.length >
 						_table.getState().pagination.pageSize && (
 						<TableFooterPagination table={_table} />
 					)}
