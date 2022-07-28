@@ -7,19 +7,24 @@ import TableStatusFilter from '../filters/Table.filters.status';
 import TableSortSalary from '../sort/Table.sort.headers';
 
 interface ITableHeader {
+	scrollbarWidth: number;
 	stacking: {
 		enabled: boolean;
 	};
 	table: Table<IPlayer>;
 }
 
-const TableHeader = ({ stacking, table }: ITableHeader) => (
-	<div className="border-b border-t border-gray-200" role="rowgroup">
+const TableHeader = ({ scrollbarWidth, stacking, table }: ITableHeader) => (
+	<div
+		className="border-b border-t border-gray-200 bg-gray-50"
+		role="rowgroup"
+		style={{ paddingRight: `${scrollbarWidth}px` }}
+	>
 		{table.getHeaderGroups().map((headerGroup) => (
 			<div
 				key={headerGroup.id}
 				className={clsx(
-					'bg-gray-50 grid items-center',
+					'grid items-center',
 					stacking.enabled
 						? 'grid-cols-table-md-stacking-ff'
 						: 'grid-cols-table-md'

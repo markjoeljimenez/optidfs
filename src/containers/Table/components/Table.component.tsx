@@ -9,7 +9,13 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
-import React, { ChangeEvent, useEffect, useReducer, useState } from 'react';
+import React, {
+	ChangeEvent,
+	useEffect,
+	useReducer,
+	useRef,
+	useState,
+} from 'react';
 import { useGetOptimizedLineupsMutation, useGetPlayersQuery } from 'src/api';
 
 import { setFilteredPlayers } from '@/containers/Players/redux/Players.reducers';
@@ -28,9 +34,11 @@ const Table = () => {
 	const { contests, providers, table } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const columns = useTableColumns();
-	const rerender = useReducer(() => ({}), {})[1];
 
 	const [globalFilter, setGlobalFilter] = useState('');
+	const tableRef = useRef<HTMLDivElement>(null);
+	const tableBodyRef = useRef<HTMLDivElement>(null);
+	const [scrollbarWidth, setScrollbarWidth] = useState(0);
 
 	const playersResponse = useGetPlayersQuery(
 		{
@@ -91,22 +99,42 @@ const Table = () => {
 	// 	}
 	// }, [optimizeResponse.data]);
 
-	return (
-		<div className="w-full bg-white text-left relative" role="table">
-			<div className="sticky top-0 z-10">
-				{/* Gap at top of screen */}
-				<div className="bg-gray-100 h-[2rem] mt-[1px]" />
+	useEffect(() => {
+		setScrollbarWidth(
+			tableRef.current && tableBodyRef.current
+				? tableRef.current.offsetWidth -
+						tableBodyRef.current.clientWidth
+				: 0
+		);
+	}, []);
 
-				<TablePreheader
-					value={globalFilter}
-					onGlobalSearch={onGlobalSearch}
+	return (
+		<div
+			ref={tableRef}
+			className="w-full bg-white text-left relative h-full flex flex-col"
+			id="table"
+			role="table"
+		>
+			<TablePreheader
+				scrollbarWidth={scrollbarWidth}
+				value={globalFilter}
+				onGlobalSearch={onGlobalSearch}
+			/>
+			<TableHeader
+				scrollbarWidth={scrollbarWidth}
+				stacking={stacking}
+				table={_table}
+			/>
+
+			<div className="max-h-full overflow-y-scroll">
+				<TableBody
+					ref={tableBodyRef}
+					response={playersResponse}
+					table={_table}
 				/>
-				<TableHeader stacking={stacking} table={_table} />
 			</div>
 
-			<TableBody response={playersResponse} table={_table} />
-
-			<TableFooter>
+			<TableFooter scrollbarWidth={scrollbarWidth}>
 				{optimizeResponse.data &&
 					optimizeResponse.data?.length > 1 &&
 					table.view !== '' &&

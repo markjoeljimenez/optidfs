@@ -1,16 +1,15 @@
-import { Table } from '@tanstack/react-table';
-import clsx from 'clsx';
-
 interface ITableFooter {
 	children: React.ReactNode;
+	scrollbarWidth: number;
 }
 
-const TableFooter = ({ children }: ITableFooter) => (
-	<div className="sticky bottom-0 bg-white" role="rolegroup">
+const TableFooter = ({ children, scrollbarWidth }: ITableFooter) => (
+	<div
+		className="bg-white"
+		role="rolegroup"
+		style={{ paddingRight: `${scrollbarWidth}px` }}
+	>
 		{children}
-
-		{/* Gap at bottom of screen */}
-		<div className="bg-gray-100 h-[2rem]" />
 	</div>
 );
 

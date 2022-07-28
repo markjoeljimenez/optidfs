@@ -7,11 +7,22 @@ import TableView from '../Table.view';
 
 interface ITablePreheader {
 	onGlobalSearch: (e: ChangeEvent<HTMLInputElement>) => void;
+	scrollbarWidth: number;
 	value?: string;
 }
 
-const TablePreheader = ({ onGlobalSearch, value }: ITablePreheader) => (
-	<div className="bg-white" role="rowgroup">
+const TablePreheader = ({
+	onGlobalSearch,
+	scrollbarWidth,
+	value,
+}: ITablePreheader) => (
+	<div
+		className="bg-white"
+		role="rowgroup"
+		style={{
+			paddingRight: `${scrollbarWidth}px`,
+		}}
+	>
 		<div role="row">
 			<div
 				className="p-4 whitespace-nowrap flex justify-between items-center"

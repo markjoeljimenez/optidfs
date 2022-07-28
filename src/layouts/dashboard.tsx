@@ -14,10 +14,10 @@ const Dashboard = ({ children }: ILayoutProps) => {
 	const { global } = useAppSelector((state) => state);
 
 	return (
-		<div className="md:flex md:min-h-screen bg-gray-100">
+		<div className="md:flex md:h-screen bg-gray-100">
 			<Nav />
 
-			<div className="md:flex md:flex-col w-full">
+			<div className="md:flex md:flex-col w-full h-screen">
 				<header className="border-b border-gray-200 bg-white">
 					<div className="mx-auto py-4 px-6 md:p-8 md:flex justify-between items-center">
 						{global.hasVisited && (
@@ -35,7 +35,7 @@ const Dashboard = ({ children }: ILayoutProps) => {
 
 				<main
 					className={clsx(
-						'flex-1 flex flex-col',
+						'h-full overflow-y-hidden',
 						'p-8',
 						!global.hasVisited ? 'items-center justify-center' : ''
 					)}

@@ -9,7 +9,7 @@ const TableFooterOptimize = () => {
 	return (
 		<div
 			className={clsx(
-				'border-b border-gray-200 grid items-center',
+				'border-t border-gray-200 grid items-center',
 				stacking.enabled
 					? 'grid-cols-table-md-stacking-ff'
 					: 'grid-cols-table-md'
