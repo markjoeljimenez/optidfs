@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useGetOptimizedLineupsMutation, useGetPlayersQuery } from 'src/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
-import { Status } from 'src/interfaces/IStatus';
 
+import Button from '@/components/form/button';
 import Loading from '@/components/loading/loading';
 import { setView } from '@/containers/Table/reducers/Table.reducers';
 
@@ -31,7 +31,8 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 	function handleClick() {
 		getOptimizedLineups({
 			// draftGroupId: contests.selectedContest?.contest_id!,
-			players: players.filteredPlayers ?? defaultPlayers!,
+			// players: players.filteredPlayers ?? defaultPlayers!, TODO: Shouldn't filter based on table view
+			players: defaultPlayers!,
 			provider: providers.provider!,
 			sport: sports.selectedSport!,
 		});
@@ -55,16 +56,14 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 	}, [response]);
 
 	return (
-		<button
-			className="px-4 py-3 bg-indigo-700 text-white rounded shadow font-black hover:bg-indigo-800 flex"
-			data-testid="optimize"
+		<Button
 			disabled={disabled || response.isLoading}
-			type="button"
+			testId="optimize"
 			onClick={handleClick}
 		>
 			{response.isLoading && <Loading />}
 			Optimize
-		</button>
+		</Button>
 	);
 };
 

@@ -1,3 +1,4 @@
+import { IconSettings } from '@tabler/icons';
 import router from 'next/router';
 import { useEffect } from 'react';
 
@@ -25,7 +26,14 @@ const Index = () => {
 			<div>
 				<div className="flex space-x-4 justify-between">
 					<Contests />
-					<Optimize />
+
+					<div className="flex space-x-3">
+						<Optimize />
+
+						{/* <button className="px-4 py-3 border-gray-100 border bg-white text-gray-600 rounded shadow font-black hover:bg-gray-200">
+							<IconSettings />
+						</button> */}
+					</div>
 				</div>
 				<Table />
 			</div>
