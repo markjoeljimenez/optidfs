@@ -7,7 +7,7 @@ import { IYahooPlayer } from './models/IYahooPlayer';
 import { Providers } from './models/providers.enum';
 import PlayersReducers, {
 	playersState,
-	setDefaultPlayers,
+	setFilteredPlayers,
 } from './redux/Players.reducers';
 import { mapDraftKingsPlayers, mapYahooPlayers } from './services/mapPlayers';
 
@@ -24,7 +24,7 @@ export { playersHandler };
 export { PlayersReducers };
 
 // Actions
-export { setDefaultPlayers };
+export { setFilteredPlayers };
 
 // State
 export { playersState };

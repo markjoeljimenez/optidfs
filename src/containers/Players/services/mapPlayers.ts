@@ -3,10 +3,15 @@ import { IPlayer } from '../models/IPlayer';
 import { IYahooPlayer } from '../models/IYahooPlayer';
 import { Providers } from '../models/providers.enum';
 
-export const mapDraftKingsPlayers = (
+const providersMap = new Map<Providers, (p: any) => IPlayer[]>([
+	[Providers.DraftKings, mapDraftKingsPlayers],
+	[Providers.Yahoo, mapYahooPlayers],
+]);
+
+export function mapDraftKingsPlayers(
 	draftKingsPlayers: IDraftKingsPlayer[]
-): IPlayer[] =>
-	draftKingsPlayers.map((draftKingsPlayer) => ({
+): IPlayer[] {
+	return draftKingsPlayers.map((draftKingsPlayer) => ({
 		draftPositions: draftKingsPlayer.draft_positions,
 		firstName: draftKingsPlayer.first_name,
 		fppg: draftKingsPlayer.points_per_contest,
@@ -21,9 +26,10 @@ export const mapDraftKingsPlayers = (
 		status: 'None', // @TODO: Fix this on the backend first
 		team: draftKingsPlayer.team,
 	}));
+}
 
-export const mapYahooPlayers = (yahooPlayers: IYahooPlayer[]): IPlayer[] =>
-	yahooPlayers.map((yahooPlayer) => ({
+export function mapYahooPlayers(yahooPlayers: IYahooPlayer[]): IPlayer[] {
+	return yahooPlayers.map((yahooPlayer) => ({
 		firstName: yahooPlayer.firstName,
 		fppg: parseFloat(yahooPlayer.fantasyPointsPerGame.toFixed(2)),
 		id: yahooPlayer.playerSalaryId,
@@ -34,10 +40,6 @@ export const mapYahooPlayers = (yahooPlayers: IYahooPlayer[]): IPlayer[] =>
 		status: yahooPlayer.status,
 		team: yahooPlayer.teamAbbr,
 	}));
-
-const providersMap = new Map<Providers, (p: any) => IPlayer[]>([
-	[Providers.DraftKings, mapDraftKingsPlayers],
-	[Providers.Yahoo, mapYahooPlayers],
-]);
+}
 
 export default providersMap;

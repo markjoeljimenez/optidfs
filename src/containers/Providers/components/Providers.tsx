@@ -2,7 +2,6 @@ import { ChangeEvent } from 'react';
 import useReset from 'src/hooks/useReset';
 
 import { setSelectedContest } from '@/containers/Contests';
-import { setDefaultPlayers } from '@/containers/Players';
 import { setSelectedSport } from '@/containers/Sports';
 
 import Select from '../../../components/form/select';
@@ -21,7 +20,7 @@ const Providers = () => {
 		dispatch(setProvider(value));
 
 		if (global.hasVisited) {
-			reset([setSelectedContest, setDefaultPlayers, setSelectedSport]);
+			reset([setSelectedContest, setSelectedSport]);
 		}
 	};
 

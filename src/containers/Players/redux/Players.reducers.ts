@@ -1,27 +1,32 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Row } from '@tanstack/react-table';
 
 import { AppState } from '../../../store';
 import { IPlayer } from '../models/IPlayer';
 
 interface IInitialState {
-	defaultPlayers: IPlayer[] | null;
+	filteredPlayers: IPlayer[] | null;
 }
 
 const initialState: IInitialState = {
-	defaultPlayers: [],
+	filteredPlayers: null,
 };
 
 export const PlayersReducers = createSlice({
 	initialState,
 	name: 'players',
 	reducers: {
-		setDefaultPlayers: (state, action: PayloadAction<IPlayer[] | null>) => {
-			state.defaultPlayers = action.payload;
+		setFilteredPlayers: (
+			state,
+			action: PayloadAction<Row<IPlayer>[] | null>
+		) => {
+			state.filteredPlayers =
+				action.payload?.map((row) => row.original) ?? null;
 		},
 	},
 });
 
-export const { setDefaultPlayers } = PlayersReducers.actions;
+export const { setFilteredPlayers } = PlayersReducers.actions;
 export const playersState = (state: AppState) => state.players;
 
 export default PlayersReducers.reducer;

@@ -2,7 +2,6 @@ import useReset from 'src/hooks/useReset';
 
 import Select, { IValueLabel } from '@/components/form/select';
 import { setSelectedContest } from '@/containers/Contests';
-import { setDefaultPlayers } from '@/containers/Players';
 
 import { useGetSportsFromProviderQuery, usePrefetch } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -30,7 +29,7 @@ const Sports = () => {
 
 			// Reset contests and players
 			if (global.hasVisited) {
-				reset([setSelectedContest, setDefaultPlayers]);
+				reset([setSelectedContest]);
 			}
 
 			prefetchGetContestsFromSport({

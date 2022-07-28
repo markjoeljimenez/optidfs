@@ -1,5 +1,4 @@
 import {
-	flexRender,
 	getCoreRowModel,
 	getExpandedRowModel,
 	getFacetedRowModel,
@@ -10,14 +9,13 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { useGetPlayersQuery } from 'src/api';
+import React, { ChangeEvent, useEffect, useReducer, useState } from 'react';
+import { useGetOptimizedLineupsMutation, useGetPlayersQuery } from 'src/api';
 
-import { IPlayer, setDefaultPlayers } from '@/containers/Players';
+import { setFilteredPlayers } from '@/containers/Players/redux/Players.reducers';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import useTableColumns from '../hooks/useTableColumns';
-import { setFilters } from '../reducers/Table.reducers';
 import TableBody from './base/Table.body';
 import TableFooter from './base/Table.footer';
 import TableFooterOptimize from './base/Table.footer.optimize';
@@ -27,11 +25,11 @@ import TablePreheader from './base/Table.preheader';
 
 const Table = () => {
 	const { stacking } = useFlags(['stacking']);
-	const { contests, optimize, players, providers, table } = useAppSelector(
-		(state) => state
-	);
+	const { contests, providers, table } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const columns = useTableColumns();
+	const rerender = useReducer(() => ({}), {})[1];
+
 	const [globalFilter, setGlobalFilter] = useState('');
 
 	const playersResponse = useGetPlayersQuery(
@@ -44,32 +42,20 @@ const Table = () => {
 			skip: !contests.selectedContest || !providers.provider,
 		}
 	);
-
-	useEffect(() => {
-		if (playersResponse.data) {
-			dispatch(setDefaultPlayers(playersResponse.data));
-		}
-	}, [playersResponse.data]);
-
-	const memoizedData = useMemo<IPlayer[]>(() => {
-		if (
-			typeof table.view === 'number' &&
-			optimize.optimizedLineups?.length
-		) {
-			return optimize.optimizedLineups![table.view].players;
-		}
-
-		if (!table.view && players?.defaultPlayers) {
-			return players.defaultPlayers;
-		}
-
-		return [];
-	}, [players.defaultPlayers, table.view, optimize.optimizedLineups]);
+	const [_getOptimizedLineups, optimizeResponse] =
+		useGetOptimizedLineupsMutation({
+			fixedCacheKey: 'optimize',
+		});
 
 	const _table = useReactTable({
 		autoResetExpanded: true,
 		columns,
-		data: memoizedData,
+		data:
+			optimizeResponse.data &&
+			optimizeResponse.data?.length &&
+			typeof table.view === 'number'
+				? optimizeResponse.data[table.view].players
+				: playersResponse.data ?? [],
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
 		getFacetedRowModel: getFacetedRowModel(),
@@ -94,12 +80,16 @@ const Table = () => {
 	}
 
 	useEffect(() => {
-		const { columnFilters } = _table.getState();
-
-		if (columnFilters.length) {
-			dispatch(setFilters(columnFilters));
+		if (_table.getState().columnFilters.length) {
+			dispatch(setFilteredPlayers(_table.getFilteredRowModel().rows));
 		}
-	}, [_table.getState()]);
+	}, [_table.getState().columnFilters]);
+
+	// useEffect(() => {
+	// 	if (optimizeResponse.data?.length) {
+	// 		rerender();
+	// 	}
+	// }, [optimizeResponse.data]);
 
 	return (
 		<div className="w-full bg-white text-left relative" role="table">
@@ -117,15 +107,15 @@ const Table = () => {
 			<TableBody response={playersResponse} table={_table} />
 
 			<TableFooter>
-				{optimize.optimizedLineups &&
-					optimize.optimizedLineups?.length > 1 &&
+				{optimizeResponse.data &&
+					optimizeResponse.data?.length > 1 &&
 					table.view !== '' &&
 					typeof table.view === 'number' && <TableFooterOptimize />}
 
 				{table.view === '' &&
 					playersResponse.isSuccess &&
-					players.defaultPlayers &&
-					players.defaultPlayers?.length >
+					playersResponse.data &&
+					playersResponse.data?.length >
 						_table.getState().pagination.pageSize && (
 						<TableFooterPagination table={_table} />
 					)}
