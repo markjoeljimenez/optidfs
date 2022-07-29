@@ -126,7 +126,7 @@ const Table = () => {
 				table={_table}
 			/>
 
-			<div className="max-h-full overflow-y-scroll">
+			<div className="max-h-full overflow-y-auto">
 				<TableBody
 					ref={tableBodyRef}
 					response={playersResponse}
