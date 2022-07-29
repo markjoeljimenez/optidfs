@@ -9,18 +9,10 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
-import React, {
-	ChangeEvent,
-	useEffect,
-	useReducer,
-	useRef,
-	useState,
-} from 'react';
+import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useGetOptimizedLineupsMutation, useGetPlayersQuery } from 'src/api';
 
-import { setFilteredPlayers } from '@/containers/Players/redux/Players.reducers';
-
-import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useAppSelector } from '../../../hooks';
 import useTableColumns from '../hooks/useTableColumns';
 import TableBody from './base/Table.body';
 import TableFooter from './base/Table.footer';
@@ -32,7 +24,6 @@ import TablePreheader from './base/Table.preheader';
 const Table = () => {
 	const { stacking } = useFlags(['stacking']);
 	const { contests, providers, table } = useAppSelector((state) => state);
-	const dispatch = useAppDispatch();
 	const columns = useTableColumns();
 
 	const [globalFilter, setGlobalFilter] = useState('');
@@ -63,7 +54,7 @@ const Table = () => {
 			optimizeResponse.data?.length &&
 			typeof table.view === 'number'
 				? optimizeResponse.data[table.view].players
-				: playersResponse.data ?? [],
+				: playersResponse.data?.players ?? [],
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
 		getFacetedRowModel: getFacetedRowModel(),
@@ -86,18 +77,6 @@ const Table = () => {
 	function onGlobalSearch(e: ChangeEvent<HTMLInputElement>) {
 		setGlobalFilter(String(e.currentTarget.value));
 	}
-
-	useEffect(() => {
-		if (_table.getState().columnFilters.length) {
-			dispatch(setFilteredPlayers(_table.getFilteredRowModel().rows));
-		}
-	}, [_table.getState().columnFilters]);
-
-	// useEffect(() => {
-	// 	if (optimizeResponse.data?.length) {
-	// 		rerender();
-	// 	}
-	// }, [optimizeResponse.data]);
 
 	useEffect(() => {
 		setScrollbarWidth(
@@ -143,7 +122,7 @@ const Table = () => {
 				{table.view === '' &&
 					playersResponse.isSuccess &&
 					playersResponse.data &&
-					playersResponse.data?.length >
+					playersResponse.data?.players.length >
 						_table.getState().pagination.pageSize && (
 						<TableFooterPagination table={_table} />
 					)}

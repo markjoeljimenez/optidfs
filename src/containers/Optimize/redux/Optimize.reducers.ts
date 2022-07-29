@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Status } from 'src/interfaces/IStatus';
 
 import { AppState } from '../../../store';
 import IOptimizedLineup from '../models/IOptimizedLineup';
@@ -13,6 +14,7 @@ const initialState: IOptimizeState = {
 	optimizedLineups: [],
 	settings: {
 		numberOfLineups: 1,
+		statusFilters: [],
 	},
 };
 
@@ -29,10 +31,16 @@ export const OptimizeReducers = createSlice({
 		) => {
 			state.optimizedLineups = action.payload;
 		},
+		setStatusFilters: (
+			state,
+			action: PayloadAction<(keyof typeof Status)[]>
+		) => {
+			state.settings.statusFilters = action.payload;
+		},
 	},
 });
 
-export const { setNumberOfGenerations, setOptimizedLineups } =
+export const { setNumberOfGenerations, setOptimizedLineups, setStatusFilters } =
 	OptimizeReducers.actions;
 export const optimizedState = (state: AppState) => state.optimize;
 

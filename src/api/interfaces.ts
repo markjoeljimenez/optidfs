@@ -8,9 +8,3 @@ export interface IContestsBody {
 }
 
 export type IContestsResponse = IDraftKingsContest[] | IYahooContest[];
-
-export interface IPlayersBody {
-	id: number;
-	provider: Providers;
-	gameType?: string;
-}

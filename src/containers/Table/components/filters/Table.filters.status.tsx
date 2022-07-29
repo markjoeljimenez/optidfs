@@ -1,7 +1,8 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Column } from '@tanstack/react-table';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { StatusTranslation } from 'src/interfaces/IStatus';
+import { useAppDispatch } from 'src/hooks';
+import { Status, StatusTranslation } from 'src/interfaces/IStatus';
 
 import { IPlayer } from '@/containers/Players';
 
@@ -10,7 +11,9 @@ interface IStatusFilter {
 }
 
 const TableStatusFilter = ({ column }: IStatusFilter) => {
-	const options: (keyof typeof StatusTranslation)[] = [
+	const dispatch = useAppDispatch();
+
+	const options: (keyof typeof Status)[] = [
 		...column.getFacetedUniqueValues().keys(),
 	];
 	const [value, setValue] = useState<string[]>(

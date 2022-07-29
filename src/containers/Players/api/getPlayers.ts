@@ -5,12 +5,24 @@ import {
 	FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/dist/query';
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-import { IPlayersBody } from 'src/api/interfaces';
+import { Status } from 'src/interfaces/IStatus';
 
 import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
 import { IPlayer } from '../models/IPlayer';
 import { IYahooPlayer } from '../models/IYahooPlayer';
+import { Providers } from '../models/providers.enum';
 import providersMap from '../services/mapPlayers';
+
+interface IGetPlayersResponse {
+	players: IPlayer[];
+	statusFilters: (keyof typeof Status)[];
+}
+
+export interface IGetPlayersBody {
+	id: number;
+	provider: Providers;
+	gameType?: string;
+}
 
 const getPlayers = (
 	builder: EndpointBuilder<
@@ -25,17 +37,20 @@ const getPlayers = (
 		'optidfs'
 	>
 ) =>
-	builder.query<IPlayer[], IPlayersBody>({
+	builder.query<IGetPlayersResponse, IGetPlayersBody>({
 		query: (body) => {
 			const params = new URLSearchParams(body as any);
 
 			return `/players?${params.toString()}`;
 		},
 		transformResponse: (
-			response: (IDraftKingsPlayer | IYahooPlayer)[],
+			response: IGetPlayersResponse,
 			meta,
-			arg: IPlayersBody
-		): IPlayer[] => providersMap.get(arg.provider)!(response),
+			arg: IGetPlayersBody
+		) => ({
+			...response,
+			players: providersMap.get(arg.provider)!(response.players),
+		}),
 	});
 
 export { getPlayers };

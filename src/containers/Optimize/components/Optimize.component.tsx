@@ -32,7 +32,7 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 		getOptimizedLineups({
 			// draftGroupId: contests.selectedContest?.contest_id!,
 			// players: players.filteredPlayers ?? defaultPlayers!, TODO: Shouldn't filter based on table view
-			players: defaultPlayers!,
+			players: defaultPlayers!.players,
 			provider: providers.provider!,
 			settings: optimize.settings!,
 			sport: sports.selectedSport!,
