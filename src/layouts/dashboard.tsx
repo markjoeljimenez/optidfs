@@ -35,8 +35,7 @@ const Dashboard = ({ children }: ILayoutProps) => {
 
 				<main
 					className={clsx(
-						'h-full overflow-y-hidden',
-						'p-8',
+						'h-full overflow-y-hidden flex',
 						!global.hasVisited ? 'items-center justify-center' : ''
 					)}
 				>

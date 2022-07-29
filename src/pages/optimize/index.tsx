@@ -1,7 +1,7 @@
-import { IconSettings } from '@tabler/icons';
 import router from 'next/router';
 import { useEffect } from 'react';
 
+import RightNavigation from '@/components/global/right-navigation';
 import Contests from '@/containers/Contests';
 import Optimize from '@/containers/Optimize';
 import Table from '@/containers/Table';
@@ -22,18 +22,21 @@ const Index = () => {
 	}, [contests.selectedContest, providers.provider, sports.selectedSport]);
 
 	return (
-		<div className="h-full flex flex-col">
-			<div className="flex space-x-4 justify-between">
-				<Contests />
+		<div className="relative flex flex-1">
+			<div className="h-full flex flex-col p-8 flex-1">
+				<div className="flex space-x-4 justify-between">
+					<Contests />
 
-				<div className="flex space-x-3">
-					<Optimize />
+					<div className="flex space-x-3">
+						<Optimize />
+					</div>
+				</div>
+
+				<div className="max-h-full overflow-y-hidden mt-6">
+					<Table />
 				</div>
 			</div>
-
-			<div className="max-h-full overflow-y-hidden mt-6">
-				<Table />
-			</div>
+			<RightNavigation />
 		</div>
 	);
 };
