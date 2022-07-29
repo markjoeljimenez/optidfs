@@ -53,7 +53,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 		ref
 	) => (
 		<div>
-			{/* <div className={clsx(tippy && 'pr-8')}>
+			<div className={clsx(tippy && 'pr-8')}>
 				<label
 					className={clsx(
 						'block text-sm font-medium text-gray-700',
@@ -64,7 +64,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 					{label}
 					{tippy}
 				</label>
-			</div> */}
+			</div>
 
 			<div className="flex items-center">
 				{icon && <div className="h-5 w-5 mr-2">{icon}</div>}

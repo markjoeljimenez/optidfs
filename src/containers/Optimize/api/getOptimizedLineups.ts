@@ -10,6 +10,7 @@ import { IPlayer, Providers } from '@/containers/Players';
 import { ISport } from '@/containers/Sports';
 
 import IOptimizedLineup from '../models/IOptimizedLineup';
+import IOptimizeSettings from '../models/IOptimizeSettings';
 
 const getOptimizedLineups = (
 	builder: EndpointBuilder<
@@ -29,6 +30,7 @@ const getOptimizedLineups = (
 		{
 			players: IPlayer[];
 			provider: Providers;
+			settings: IOptimizeSettings;
 			sport: ISport;
 		}
 	>({

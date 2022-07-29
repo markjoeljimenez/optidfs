@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import { useFlags } from 'flagsmith/react';
 import React, { MouseEvent, useState } from 'react';
 
+import OptimizeSettings from '@/containers/Optimize/components/settings/Optimize.settings';
+
 const RightNavigation = () => {
 	const [open, setOpen] = useState<string | null>(null);
 	const rightNavigationButtonMap = useRightNavigationButtonsMap();
@@ -62,7 +64,7 @@ function useRightNavigationButtonsMap() {
 		[
 			'settings',
 			{
-				content: <>test</>,
+				content: <OptimizeSettings />,
 				icon: <IconSettings />,
 			},
 		],

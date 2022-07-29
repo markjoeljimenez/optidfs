@@ -14,7 +14,7 @@ interface IOptimizeProps {
 }
 
 const Optimize = ({ disabled }: IOptimizeProps) => {
-	const { contests, players, providers, sports, table } = useAppSelector(
+	const { contests, optimize, providers, sports } = useAppSelector(
 		(state) => state
 	);
 	const dispatch = useAppDispatch();
@@ -34,6 +34,7 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 			// players: players.filteredPlayers ?? defaultPlayers!, TODO: Shouldn't filter based on table view
 			players: defaultPlayers!,
 			provider: providers.provider!,
+			settings: optimize.settings!,
 			sport: sports.selectedSport!,
 		});
 	}
