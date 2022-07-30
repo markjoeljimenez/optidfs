@@ -1,7 +1,6 @@
 import userEvent from '@testing-library/user-event';
 
 import { draftKingsContestsMock } from '@/containers/Contests';
-import { draftKingsPlayersMock } from '@/containers/Players';
 import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen } from '@/test/render';
 
@@ -21,9 +20,8 @@ describe('Providers', () => {
 		render(<Providers />);
 
 		// Act
-		const providerSelect = screen.getByTestId(
-			'provider-select'
-		) as HTMLSelectElement;
+		const providerSelect =
+			screen.getByTestId<HTMLSelectElement>('provider-select');
 
 		// Assert
 		expect(providerSelect.options[1].value).toBe('draftkings');
@@ -35,9 +33,8 @@ describe('Providers', () => {
 		const { store } = render(<Providers />);
 
 		// Act
-		const providerSelect = screen.getByTestId(
-			'provider-select'
-		) as HTMLSelectElement;
+		const providerSelect =
+			screen.getByTestId<HTMLSelectElement>('provider-select');
 
 		await userEvent.selectOptions(providerSelect, ['draftkings']);
 
@@ -56,9 +53,6 @@ describe('Providers', () => {
 				global: {
 					hasVisited: true,
 				},
-				players: {
-					defaultPlayers: draftKingsPlayersMock,
-				},
 				sports: {
 					selectedSport: draftKingsSportsMock[0],
 				},
@@ -66,17 +60,15 @@ describe('Providers', () => {
 		});
 
 		// Act
-		const providerSelect = screen.getByTestId(
-			'provider-select'
-		) as HTMLSelectElement;
+		const providerSelect =
+			screen.getByTestId<HTMLSelectElement>('provider-select');
 
 		await userEvent.selectOptions(providerSelect, ['yahoo']);
 
 		// Assert
-		const { contests, players, providers, sports } = store.getState();
+		const { contests, providers, sports } = store.getState();
 		expect(providers.provider).toBe('yahoo');
 		expect(contests.selectedContest).toBeNull();
-		expect(players.defaultPlayers).toBeNull();
 		expect(sports.selectedSport).toBeNull();
 	});
 });

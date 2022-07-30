@@ -3,7 +3,6 @@ import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
 import { draftKingsContestsMock } from '@/containers/Contests';
-import { draftKingsPlayersMock } from '@/containers/Players';
 import { render, screen, waitFor } from '@/test/render';
 
 import { draftKingsSportsMock } from '../mocks/Sports.mocks';
@@ -132,9 +131,6 @@ describe('Sports', () => {
 				global: {
 					hasVisited: true,
 				},
-				players: {
-					defaultPlayers: draftKingsPlayersMock,
-				},
 				sports: {
 					selectedSport: draftKingsSportsMock[0],
 				},
@@ -151,11 +147,10 @@ describe('Sports', () => {
 		await userEvent.selectOptions(sportsSelect, ['13']);
 
 		// Assert
-		const { contests, players, providers, sports } = store.getState();
+		const { contests, providers, sports } = store.getState();
 		expect(providers.provider).toBe('draftkings');
 		expect(sports.selectedSport).toStrictEqual(draftKingsSportsMock[0]);
 		expect(contests.selectedContest).toBeNull();
-		expect(players.defaultPlayers).toBeNull();
 	});
 
 	it('should prefetch contests', async () => {
