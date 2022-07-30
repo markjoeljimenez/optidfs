@@ -1,4 +1,4 @@
-import { Status } from 'src/interfaces/IStatus';
+import { TStatus } from 'src/interfaces/Status';
 
 export interface BaseTeam {
 	abbr: string;
@@ -71,7 +71,7 @@ export interface IYahooPlayer {
 	sportCode: string;
 	starting: string;
 	stats: any[];
-	status: keyof typeof Status;
+	status: TStatus;
 	team: Team;
 	teamAbbr: string;
 	extendedStatus?: any;

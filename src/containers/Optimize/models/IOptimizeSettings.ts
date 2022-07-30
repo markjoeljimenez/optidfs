@@ -1,6 +1,6 @@
-import { Status } from 'src/interfaces/IStatus';
+import { TStatus } from 'src/interfaces/Status';
 
 export default interface IOptimizeSettings {
 	numberOfLineups: number;
-	statusFilters: (keyof typeof Status)[];
+	statusFilters: TStatus[];
 }

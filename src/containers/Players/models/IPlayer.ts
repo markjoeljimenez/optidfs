@@ -1,4 +1,4 @@
-import { Status } from 'src/interfaces/IStatus';
+import { TStatus } from 'src/interfaces/Status';
 
 export interface IPlayer {
 	firstName: string;
@@ -7,7 +7,7 @@ export interface IPlayer {
 	lastName: string;
 	position: string;
 	salary: number;
-	status: keyof typeof Status;
+	status: TStatus;
 	team: string;
 
 	// DraftKings attributes

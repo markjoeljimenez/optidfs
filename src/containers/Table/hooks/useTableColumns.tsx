@@ -1,11 +1,11 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
 import Image from 'next/image';
+import { StatusMap } from 'src/interfaces/Status';
 
 import { IPlayer } from '@/containers/Players';
 
 import Pill from '../../../components/global/pill';
-import { Status, StatusTranslation } from '../../../interfaces/IStatus';
 import Toggle from '../components/Table.lockExclude';
 
 const columnHelper = createColumnHelper<IPlayer>();
@@ -40,13 +40,15 @@ function useTableColumns() {
 			header: '',
 		}),
 		columnHelper.accessor('status', {
-			cell: (info) => (
-				<div className="text-center">
-					<Pill status={Status[info.getValue()]}>
-						{StatusTranslation[info.getValue()]}
-					</Pill>
-				</div>
-			),
+			cell: (info) => {
+				const { color, translation } = StatusMap.get(info.getValue())!;
+
+				return (
+					<div className="text-center">
+						<Pill status={color}>{translation}</Pill>
+					</div>
+				);
+			},
 			enableColumnFilter: true,
 			enableGlobalFilter: false,
 			enableSorting: false,

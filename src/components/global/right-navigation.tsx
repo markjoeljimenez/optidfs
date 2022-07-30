@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useFlags } from 'flagsmith/react';
 import React, { MouseEvent, useState } from 'react';
 
-import OptimizeSettings from '@/containers/Optimize/components/settings/Optimize.settings';
+import OptimizeSettings from '@/containers/Optimize/settings/Optimize.settings';
 
 const RightNavigation = () => {
 	const [open, setOpen] = useState<string | null>(null);
@@ -44,7 +44,7 @@ const RightNavigation = () => {
 				className="border-l-[1px] border-gray-200 min-w-[20rem]"
 				hidden={open === null}
 			>
-				<div className="py-8 px-4">
+				<div className="p-8">
 					<div>{rightNavigationButtonMap.get(open!)?.content}</div>
 				</div>
 			</div>
