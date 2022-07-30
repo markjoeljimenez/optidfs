@@ -3,6 +3,7 @@ import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
 import Notifications from '@/components/toast/notifications';
+import { EProviders } from '@/containers/Players';
 import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
@@ -11,7 +12,7 @@ import Contests from './Contests';
 
 const preloadedState: Partial<RootState> = {
 	providers: {
-		provider: 'draftkings',
+		provider: EProviders.DraftKings,
 	},
 	sports: {
 		selectedSport: draftKingsSportsMock[0],
@@ -28,7 +29,7 @@ const app = (
 describe('Contests', () => {
 	const getContestsFromSport =
 		OptidfsApi.endpoints.getContestsFromSport.select({
-			provider: 'draftkings',
+			provider: EProviders.DraftKings,
 			sport: draftKingsSportsMock[0].regionAbbreviatedSportName,
 			sportId: draftKingsSportsMock[0].sportId,
 		});

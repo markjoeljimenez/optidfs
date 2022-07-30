@@ -3,14 +3,15 @@ import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
 import { draftKingsContestsMock } from '@/containers/Contests';
+import { EProviders } from '@/containers/Players';
 import { render, screen, waitFor } from '@/test/render';
 
-import { draftKingsSportsMock } from '../mocks/Sports.mocks';
+import { draftKingsSportsMock } from '../mocks/sports.mocks';
 import Sports from './Sports';
 
 const preloadedState: Partial<RootState> = {
 	providers: {
-		provider: 'draftkings',
+		provider: EProviders.DraftKings,
 	},
 };
 
@@ -78,7 +79,7 @@ describe('Sports', () => {
 			render(<Sports />, {
 				preloadedState: {
 					providers: {
-						provider: 'yahoo',
+						provider: EProviders.Yahoo,
 					},
 				},
 			});
@@ -100,7 +101,7 @@ describe('Sports', () => {
 			const { store } = render(<Sports />, {
 				preloadedState: {
 					providers: {
-						provider: 'yahoo',
+						provider: EProviders.Yahoo,
 					},
 				},
 			});
