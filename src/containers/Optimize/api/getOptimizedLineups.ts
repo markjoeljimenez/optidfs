@@ -6,7 +6,7 @@ import {
 } from '@reduxjs/toolkit/dist/query';
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
 
-import { IPlayer, Providers } from '@/containers/Players';
+import { EProviders, IPlayer } from '@/containers/Players';
 import { ISport } from '@/containers/Sports';
 
 import IOptimizedLineup from '../models/IOptimizedLineup';
@@ -29,7 +29,7 @@ const getOptimizedLineups = (
 		IOptimizedLineup[],
 		{
 			players: IPlayer[];
-			provider: Providers;
+			provider: EProviders;
 			settings: IOptimizeSettings;
 			sport: ISport;
 		}

@@ -8,7 +8,7 @@ import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions
 import { TStatus } from 'src/interfaces/Status';
 
 import { IPlayer } from '../models/IPlayer';
-import { Providers } from '../models/providers.enum';
+import { EProviders } from '../models/providers.enum';
 import providersMap from '../services/mapPlayers';
 
 interface IGetPlayersResponse {
@@ -18,7 +18,7 @@ interface IGetPlayersResponse {
 
 export interface IGetPlayersBody {
 	id: number;
-	provider: Providers;
+	provider: EProviders;
 	gameType?: string;
 }
 

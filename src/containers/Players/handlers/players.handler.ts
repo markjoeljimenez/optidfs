@@ -1,7 +1,6 @@
 import { rest } from 'msw';
 
 import { yahooPlayersMock } from '../mocks/players.mocks';
-import { IYahooPlayer } from '../models/IYahooPlayer';
 
 const { ENDPOINT } = process.env;
 

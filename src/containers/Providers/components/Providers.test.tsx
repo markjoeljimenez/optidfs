@@ -1,6 +1,7 @@
 import userEvent from '@testing-library/user-event';
 
 import { draftKingsContestsMock } from '@/containers/Contests';
+import { EProviders } from '@/containers/Players';
 import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen } from '@/test/render';
 
@@ -24,8 +25,8 @@ describe('Providers', () => {
 			screen.getByTestId<HTMLSelectElement>('provider-select');
 
 		// Assert
-		expect(providerSelect.options[1].value).toBe('draftkings');
-		expect(providerSelect.options[2].value).toBe('yahoo');
+		expect(providerSelect.options[1].value).toBe(EProviders.DraftKings);
+		expect(providerSelect.options[2].value).toBe(EProviders.Yahoo);
 	});
 
 	it('should set store provider on change', async () => {
@@ -36,10 +37,10 @@ describe('Providers', () => {
 		const providerSelect =
 			screen.getByTestId<HTMLSelectElement>('provider-select');
 
-		await userEvent.selectOptions(providerSelect, ['draftkings']);
+		await userEvent.selectOptions(providerSelect, [EProviders.DraftKings]);
 
 		// Assert
-		expect(store.getState().providers.provider).toBe('draftkings');
+		expect(store.getState().providers.provider).toBe(EProviders.DraftKings);
 	});
 
 	it('should reset sports, contests, and players if user has already visited site', async () => {
@@ -63,11 +64,11 @@ describe('Providers', () => {
 		const providerSelect =
 			screen.getByTestId<HTMLSelectElement>('provider-select');
 
-		await userEvent.selectOptions(providerSelect, ['yahoo']);
+		await userEvent.selectOptions(providerSelect, [EProviders.Yahoo]);
 
 		// Assert
 		const { contests, providers, sports } = store.getState();
-		expect(providers.provider).toBe('yahoo');
+		expect(providers.provider).toBe(EProviders.Yahoo);
 		expect(contests.selectedContest).toBeNull();
 		expect(sports.selectedSport).toBeNull();
 	});

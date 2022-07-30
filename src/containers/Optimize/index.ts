@@ -1,10 +1,7 @@
 import { getOptimizedLineups } from './api/getOptimizedLineups';
 import Optimize from './components/Optimize.component';
 import IOptimizedLineup from './models/IOptimizedLineup';
-import OptimizeReducers, {
-	optimizedState,
-	setCurrentOptimizedLineup,
-} from './redux/Optimize.reducers';
+import OptimizeReducers, { optimizedState } from './redux/Optimize.reducers';
 
 // Api
 export { getOptimizedLineups };
@@ -13,7 +10,6 @@ export { getOptimizedLineups };
 export { optimizedState };
 
 // Actions
-export { setCurrentOptimizedLineup };
 
 // Reducers
 export { OptimizeReducers };

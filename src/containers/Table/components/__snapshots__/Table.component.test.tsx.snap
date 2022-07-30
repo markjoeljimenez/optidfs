@@ -27,9 +27,11 @@ Object {
                   class=""
                 >
                   <label
-                    class="block text-sm font-medium text-gray-700"
+                    class="block text-sm font-medium text-gray-700 sr-only"
                     for="table-view-select"
-                  />
+                  >
+                    Select lineup
+                  </label>
                 </div>
                 <div
                   class="flex"
@@ -2622,9 +2624,11 @@ Object {
                 class=""
               >
                 <label
-                  class="block text-sm font-medium text-gray-700"
+                  class="block text-sm font-medium text-gray-700 sr-only"
                   for="table-view-select"
-                />
+                >
+                  Select lineup
+                </label>
               </div>
               <div
                 class="flex"

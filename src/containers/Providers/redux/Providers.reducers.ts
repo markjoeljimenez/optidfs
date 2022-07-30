@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Providers } from '@/containers/Players';
+import {
+	EProviders,
+	TProviders,
+} from '@/containers/Players/models/providers.enum';
 
 import { AppState } from '../../../store';
 
 interface IProviderState {
-	provider: Providers | null;
+	provider: EProviders | null;
 }
 
 export const initialState: IProviderState = {
@@ -16,7 +19,7 @@ const ProviderReducers = createSlice({
 	initialState,
 	name: 'providers',
 	reducers: {
-		setProvider: (state, action: PayloadAction<Providers>) => {
+		setProvider: (state, action: PayloadAction<EProviders | null>) => {
 			state.provider = action.payload;
 		},
 	},

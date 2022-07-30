@@ -23,7 +23,9 @@ const TableView = () => {
 
 	return (
 		<Select
+			hideLabel
 			id="table-view-select"
+			label="Select lineup"
 			options={[
 				{
 					label: 'All',

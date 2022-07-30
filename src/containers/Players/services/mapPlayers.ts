@@ -1,11 +1,11 @@
 import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
 import { IPlayer } from '../models/IPlayer';
 import { IYahooPlayer } from '../models/IYahooPlayer';
-import { Providers } from '../models/providers.enum';
+import { EProviders } from '../models/providers.enum';
 
-const providersMap = new Map<Providers, (p: any) => IPlayer[]>([
-	[Providers.DraftKings, mapDraftKingsPlayers],
-	[Providers.Yahoo, mapYahooPlayers],
+const providersMap = new Map<EProviders, (p: any) => IPlayer[]>([
+	[EProviders.DraftKings, mapDraftKingsPlayers],
+	[EProviders.Yahoo, mapYahooPlayers],
 ]);
 
 export function mapDraftKingsPlayers(

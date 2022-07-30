@@ -43,8 +43,6 @@ export interface Game {
 	forecast?: any;
 }
 
-export type IYahooPlayerStatus = 'N/A' | 'INJ' | 'O' | 'Q' | 'IR';
-
 export interface IYahooPlayer {
 	code: string;
 	eligiblePositions: string[];

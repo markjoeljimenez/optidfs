@@ -1,10 +1,11 @@
 import { ChangeEvent } from 'react';
 import useReset from 'src/hooks/useReset';
 
+import Select from '@/components/form/select';
 import { setSelectedContest } from '@/containers/Contests';
+import { EProviders } from '@/containers/Players';
 import { setSelectedSport } from '@/containers/Sports';
 
-import Select from '../../../components/form/select';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { setProvider } from '..';
 import providersData from '../data/providers';
@@ -15,7 +16,7 @@ const Providers = () => {
 	const reset = useReset();
 
 	const handleProviderSelection = (e: ChangeEvent<HTMLSelectElement>) => {
-		const { value } = e.currentTarget;
+		const value = e.currentTarget.value as EProviders;
 
 		dispatch(setProvider(value));
 
