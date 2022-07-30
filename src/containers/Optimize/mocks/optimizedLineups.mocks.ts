@@ -1,5 +1,5 @@
 /* eslint-disable sort-keys */
-export const optimizedYahoolineups = [
+export const optimizedYahooLineups = [
 	{
 		players: [
 			{
