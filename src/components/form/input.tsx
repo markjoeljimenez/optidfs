@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { ChangeEvent, CSSProperties, forwardRef } from 'react';
+import { ChangeEvent, CSSProperties, forwardRef, KeyboardEvent } from 'react';
 
 import { IDataAttributes } from '../../interfaces/IDataAttributes';
 import { IError } from '../../interfaces/IError';
@@ -17,6 +17,7 @@ interface IInput {
 	max?: number;
 	min?: number;
 	onChange?(e: ChangeEvent<HTMLInputElement>): void;
+	onKeyDown?(e: KeyboardEvent<HTMLInputElement>): void;
 	placeholder?: string;
 	required?: boolean;
 	step?: number;
@@ -41,6 +42,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 			max,
 			min,
 			onChange,
+			onKeyDown,
 			placeholder,
 			required,
 			step,
@@ -89,6 +91,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 					type={type}
 					value={value}
 					onChange={onChange}
+					onKeyDown={onKeyDown}
 					{...data}
 				/>
 			</div>

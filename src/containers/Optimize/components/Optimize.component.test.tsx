@@ -8,7 +8,6 @@ import { EProviders } from '@/containers/Players';
 import { yahooSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
-import { optimizedYahooLineups } from '../mocks/optimizedLineups.mocks';
 import Optimize from './Optimize.component';
 
 const preloadedState: Partial<RootState> = {
@@ -48,7 +47,7 @@ describe('Optimize', () => {
 	const getOptimizedLineups =
 		OptidfsApi.endpoints.getOptimizedLineups.select('optimize');
 
-	it('should match snapshot successfully', async () => {
+	it('should match snapshot', async () => {
 		// Arrange
 		const view = render(app, { preloadedState });
 		await waitFor(() =>
@@ -61,9 +60,9 @@ describe('Optimize', () => {
 
 	it('should get optimized lineups successfully', async () => {
 		// Arrange
-		const view = render(app, { preloadedState });
+		const { store } = render(app, { preloadedState });
 		await waitFor(() =>
-			expect(getPlayers(view.store.getState()).isSuccess).toBe(true)
+			expect(getPlayers(store.getState()).isSuccess).toBe(true)
 		);
 
 		// Act
@@ -71,22 +70,39 @@ describe('Optimize', () => {
 		await userEvent.click(optimizeButton);
 
 		await waitFor(() =>
-			expect(getOptimizedLineups(view.store.getState()).isSuccess).toBe(
-				true
-			)
+			expect(getOptimizedLineups(store.getState()).isSuccess).toBe(true)
 		);
 
-		const getOptimizedLineupsState = getOptimizedLineups(
-			view.store.getState()
-		);
+		const getOptimizedLineupsState = getOptimizedLineups(store.getState());
 
 		// Assert
-		getOptimizedLineupsState.data?.forEach((lineup, i) => {
-			expect(lineup.players).toStrictEqual(
-				optimizedYahooLineups[i].players
-			);
-			expect(lineup.salary).toBe(optimizedYahooLineups[i].salary);
-			expect(lineup.fppg).toBe(optimizedYahooLineups[i].fppg);
-		});
+		expect(getOptimizedLineupsState.data?.length).toBe(1);
+	});
+
+	it('should get number of generated lineups if set', async () => {
+		// Arrange
+		const { store } = render(app, { preloadedState });
+		await waitFor(() =>
+			expect(getPlayers(store.getState()).isSuccess).toBe(true)
+		);
+
+		// Act
+		const settingsButtons = screen.getAllByRole('button');
+		await userEvent.click(settingsButtons[1]);
+
+		const numberOfGenerationsInput = screen.getByRole('spinbutton');
+		await userEvent.type(numberOfGenerationsInput, '0');
+
+		const optimizeButton = screen.getByTestId('optimize');
+		await userEvent.click(optimizeButton);
+
+		await waitFor(() =>
+			expect(getOptimizedLineups(store.getState()).isSuccess).toBe(true)
+		);
+
+		const getOptimizedLineupsState = getOptimizedLineups(store.getState());
+
+		// Assert
+		expect(getOptimizedLineupsState.data?.length).toBe(10);
 	});
 });
