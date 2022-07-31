@@ -25,7 +25,6 @@ Object {
             <select
               class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer"
               data-testid="sports-select"
-              disabled=""
               id="selectSport"
             >
               <option
@@ -33,6 +32,18 @@ Object {
                 value=""
               >
                 Select sport
+              </option>
+              <option
+                data-testid="mlb"
+                value="2"
+              >
+                MLB
+              </option>
+              <option
+                data-testid="golf"
+                value="13"
+              >
+                GOLF
               </option>
             </select>
           </div>
@@ -61,7 +72,6 @@ Object {
           <select
             class="focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded cursor-pointer"
             data-testid="sports-select"
-            disabled=""
             id="selectSport"
           >
             <option
@@ -69,6 +79,18 @@ Object {
               value=""
             >
               Select sport
+            </option>
+            <option
+              data-testid="mlb"
+              value="2"
+            >
+              MLB
+            </option>
+            <option
+              data-testid="golf"
+              value="13"
+            >
+              GOLF
             </option>
           </select>
         </div>

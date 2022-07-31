@@ -15,10 +15,26 @@ const preloadedState: Partial<RootState> = {
 	},
 };
 
+const app = (
+	<>
+		<Sports />
+	</>
+);
+
 describe('Sports', () => {
-	it('should match snapshot', () => {
+	const getSportsFromProvider =
+		OptidfsApi.endpoints.getSportsFromProvider.select(
+			EProviders.DraftKings
+		);
+
+	it('should match snapshot', async () => {
 		// Arrange
-		const view = render(<Sports />);
+		const view = render(app, { preloadedState });
+		await waitFor(() =>
+			expect(getSportsFromProvider(view.store.getState()).isSuccess).toBe(
+				true
+			)
+		);
 
 		// Assert
 		expect(view).toMatchSnapshot();
@@ -27,7 +43,13 @@ describe('Sports', () => {
 	describe('Draftkings mocks', () => {
 		it('should remain disabled if no provider is selected', async () => {
 			// Arrange
-			render(<Sports />);
+			render(app, {
+				preloadedState: {
+					providers: {
+						provider: null,
+					},
+				},
+			});
 
 			const sportsSelect = screen.getByTestId('sports-select');
 
@@ -37,9 +59,12 @@ describe('Sports', () => {
 
 		it('should render sports options if provider is selected', async () => {
 			// Arrange
-			render(<Sports />, {
-				preloadedState,
-			});
+			const { store } = render(app, { preloadedState });
+			await waitFor(() =>
+				expect(getSportsFromProvider(store.getState()).isSuccess).toBe(
+					true
+				)
+			);
 
 			const sportsSelect =
 				screen.getByTestId<HTMLSelectElement>('sports-select');
@@ -55,9 +80,12 @@ describe('Sports', () => {
 
 		it('should set selectedSport on change', async () => {
 			// Arrange
-			const { store } = render(<Sports />, {
-				preloadedState,
-			});
+			const { store } = render(app, { preloadedState });
+			await waitFor(() =>
+				expect(getSportsFromProvider(store.getState()).isSuccess).toBe(
+					true
+				)
+			);
 
 			const sportsSelect = screen.getByTestId('sports-select');
 
@@ -74,15 +102,23 @@ describe('Sports', () => {
 	});
 
 	describe('Yahoo mocks', () => {
+		const getSportsFromProvider =
+			OptidfsApi.endpoints.getSportsFromProvider.select(EProviders.Yahoo);
+
 		it('should render sports options if provider is selected', async () => {
 			// Arrange
-			render(<Sports />, {
+			const { store } = render(app, {
 				preloadedState: {
 					providers: {
 						provider: EProviders.Yahoo,
 					},
 				},
 			});
+			await waitFor(() =>
+				expect(getSportsFromProvider(store.getState()).isSuccess).toBe(
+					true
+				)
+			);
 
 			const sportsSelect =
 				screen.getByTestId<HTMLSelectElement>('sports-select');
@@ -98,13 +134,18 @@ describe('Sports', () => {
 
 		it('should set selectedSport on change', async () => {
 			// Arrange
-			const { store } = render(<Sports />, {
+			const { store } = render(app, {
 				preloadedState: {
 					providers: {
 						provider: EProviders.Yahoo,
 					},
 				},
 			});
+			await waitFor(() =>
+				expect(getSportsFromProvider(store.getState()).isSuccess).toBe(
+					true
+				)
+			);
 
 			const sportsSelect = screen.getByTestId('sports-select');
 
@@ -120,7 +161,7 @@ describe('Sports', () => {
 		});
 	});
 
-	it('should reset sports, contests, and players if user has already visited site', async () => {
+	it('should reset sports and contests if user has already visited site', async () => {
 		// Arrange
 		const { store } = render(<Sports />, {
 			preloadedState: {
@@ -137,6 +178,9 @@ describe('Sports', () => {
 				},
 			},
 		});
+		await waitFor(() =>
+			expect(getSportsFromProvider(store.getState()).isSuccess).toBe(true)
+		);
 
 		const sportsSelect = screen.getByTestId('sports-select');
 
@@ -149,7 +193,7 @@ describe('Sports', () => {
 
 		// Assert
 		const { contests, providers, sports } = store.getState();
-		expect(providers.provider).toBe('draftkings');
+		expect(providers.provider).toBe(EProviders.DraftKings);
 		expect(sports.selectedSport).toStrictEqual(draftKingsSportsMock[0]);
 		expect(contests.selectedContest).toBeNull();
 	});
@@ -157,6 +201,9 @@ describe('Sports', () => {
 	it('should prefetch contests', async () => {
 		// Arrange
 		const { store } = render(<Sports />, { preloadedState });
+		await waitFor(() =>
+			expect(getSportsFromProvider(store.getState()).isSuccess).toBe(true)
+		);
 
 		const sportsSelect = screen.getByTestId('sports-select');
 

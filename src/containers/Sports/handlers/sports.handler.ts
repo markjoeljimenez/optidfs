@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-import { EProviders, TProviders } from '@/containers/Players';
+import { EProviders } from '@/containers/Players';
 
 import { draftKingsSportsMock, yahooSportsMock } from '../mocks/sports.mocks';
 
@@ -14,9 +14,7 @@ const handler = rest.get(`${ENDPOINT!}`, (req, res, ctx) => {
 
 	return res(
 		ctx.json(
-			sportsMap.get(
-				EProviders[req.url.searchParams.get('provider')! as TProviders]
-			)
+			sportsMap.get(req.url.searchParams.get('provider')! as EProviders)
 		)
 	);
 });
