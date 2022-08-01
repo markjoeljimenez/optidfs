@@ -5,16 +5,16 @@ import {
 	FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/dist/query';
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-import { TStatus } from 'src/interfaces/Status';
 
 import { EProviders } from '@/containers/Providers';
 
 import { IPlayer } from '../models/IPlayer';
+import { TPlayerStatus } from '../models/IPlayerStatus';
 import providersMap from '../services/mapPlayers';
 
 interface IGetPlayersResponse {
 	players: IPlayer[];
-	statusFilters: TStatus[];
+	statusFilters: TPlayerStatus[];
 }
 
 export interface IGetPlayersBody {

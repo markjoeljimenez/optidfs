@@ -1,19 +1,17 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Column } from '@tanstack/react-table';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useAppDispatch } from 'src/hooks';
-import { StatusMap, TStatus } from 'src/interfaces/Status';
 
-import { IPlayer } from '@/containers/Players';
+import { IPlayer, PlayerStatusMap, TPlayerStatus } from '@/containers/Players';
 
 interface IStatusFilter {
 	column: Column<IPlayer, unknown>;
 }
 
 const TableStatusFilter = ({ column }: IStatusFilter) => {
-	const dispatch = useAppDispatch();
-
-	const options: TStatus[] = [...column.getFacetedUniqueValues().keys()];
+	const options: TPlayerStatus[] = [
+		...column.getFacetedUniqueValues().keys(),
+	];
 	const [value, setValue] = useState<string[]>(
 		(column.getFilterValue() as string[]) ?? []
 	);
@@ -119,7 +117,7 @@ const TableStatusFilter = ({ column }: IStatusFilter) => {
 													onChange={onChange}
 												/>
 												{
-													StatusMap.get(option)
+													PlayerStatusMap.get(option)
 														?.translation
 												}
 											</label>

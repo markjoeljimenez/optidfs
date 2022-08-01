@@ -1,7 +1,8 @@
 import { ChangeEvent } from 'react';
 import { useGetPlayersQuery } from 'src/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
-import { StatusMap, TStatus } from 'src/interfaces/Status';
+
+import { PlayerStatusMap, TPlayerStatus } from '@/containers/Players';
 
 import { setStatusFilters } from '../../redux/Optimize.reducers';
 
@@ -21,7 +22,7 @@ const OptimizeStatusFilters = () => {
 
 	function handleStatusFilterChange(e: ChangeEvent<HTMLInputElement>) {
 		const statusFilters = [...optimize.settings.statusFilters];
-		const value = e.currentTarget.value as TStatus;
+		const value = e.currentTarget.value as TPlayerStatus;
 
 		if (statusFilters.includes(value)) {
 			const filter = optimize.settings.statusFilters.indexOf(value);
@@ -78,7 +79,7 @@ const OptimizeStatusFilters = () => {
 								onChange={handleStatusFilterChange}
 							/>
 							<span className="ml-3 text-sm">
-								{StatusMap.get(status)?.translation}
+								{PlayerStatusMap.get(status)?.translation}
 							</span>
 						</label>
 					</li>

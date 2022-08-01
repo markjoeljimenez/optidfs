@@ -1,9 +1,8 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
 import Image from 'next/image';
-import { StatusMap } from 'src/interfaces/Status';
 
-import { IPlayer } from '@/containers/Players';
+import { IPlayer, PlayerStatusMap } from '@/containers/Players';
 
 import Pill from '../../../components/global/pill';
 import Toggle from '../components/Table.lockExclude';
@@ -41,7 +40,7 @@ function useTableColumns() {
 		}),
 		columnHelper.accessor('status', {
 			cell: (info) => {
-				const status = StatusMap.get(info.getValue());
+				const status = PlayerStatusMap.get(info.getValue());
 
 				if (status) {
 					return (

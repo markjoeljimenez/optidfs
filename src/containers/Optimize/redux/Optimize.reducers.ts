@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TStatus } from 'src/interfaces/Status';
+
+import { TPlayerStatus } from '@/containers/Players/';
 
 import { AppState } from '../../../store';
 import IOptimizedLineup from '../models/IOptimizedLineup';
@@ -31,7 +32,7 @@ export const OptimizeReducers = createSlice({
 		) => {
 			state.optimizedLineups = action.payload;
 		},
-		setStatusFilters: (state, action: PayloadAction<TStatus[]>) => {
+		setStatusFilters: (state, action: PayloadAction<TPlayerStatus[]>) => {
 			state.settings.statusFilters = action.payload;
 		},
 	},

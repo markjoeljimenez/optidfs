@@ -1,4 +1,4 @@
-import { TStatus } from 'src/interfaces/Status';
+import { TPlayerStatus } from '@/containers/Players/models/IPlayerStatus';
 
 export interface BaseTeam {
 	abbr: string;
@@ -69,7 +69,7 @@ export interface IYahooPlayer {
 	sportCode: string;
 	starting: string;
 	stats: any[];
-	status: TStatus;
+	status: TPlayerStatus;
 	team: Team;
 	teamAbbr: string;
 	extendedStatus?: any;

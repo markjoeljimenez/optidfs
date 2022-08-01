@@ -1,4 +1,4 @@
-import { TStatus } from 'src/interfaces/Status';
+import { TPlayerStatus } from './IPlayerStatus';
 
 export interface Images {
 	fifty_pixels_by_fifty_pixels_url: string;
@@ -14,6 +14,6 @@ export interface IDraftKingsPlayer {
 	points_per_contest: number;
 	position: string;
 	salary: number;
-	status: TStatus;
+	status: TPlayerStatus;
 	team: string;
 }

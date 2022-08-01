@@ -1,24 +1,9 @@
-export type TYahooStatus =
-	| 'N/A'
-	| 'COVID'
-	| 'GTD'
-	| 'IL10'
-	| 'IL60'
-	| 'IL7'
-	| 'INJ'
-	| 'IR'
-	| 'O'
-	| 'PUP'
-	| 'Q'
-	| 'SUSP';
-export type TDraftkingsStatus = 'None' | 'IL' | 'OUT' | 'DTD' | 'D' | 'C19';
-export type TStatus = TYahooStatus | TDraftkingsStatus;
-export type TStatusColor = 'green' | 'yellow' | 'red';
+import { TPlayerStatus, TPlayerStatusColor } from '../models/IPlayerStatus';
 
-export const StatusMap = new Map<
-	TStatus,
+export const PlayerStatusMap = new Map<
+	TPlayerStatus,
 	{
-		color: TStatusColor;
+		color: TPlayerStatusColor;
 		translation: string;
 	}
 >([

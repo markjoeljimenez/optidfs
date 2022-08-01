@@ -1,4 +1,4 @@
-import { TStatus } from 'src/interfaces/Status';
+import { TPlayerStatus } from './IPlayerStatus';
 
 export interface IPlayer {
 	firstName: string;
@@ -7,7 +7,7 @@ export interface IPlayer {
 	lastName: string;
 	position: string;
 	salary: number;
-	status: TStatus;
+	status: TPlayerStatus;
 	team: string;
 
 	// DraftKings attributes
