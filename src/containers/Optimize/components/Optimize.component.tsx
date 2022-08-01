@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useGetOptimizedLineupsMutation, useGetPlayersQuery } from 'src/api';
+import { useGetOptimizedLineupsMutation } from 'src/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 import Button from '@/components/form/button';
 import Loading from '@/components/loading/loading';
+import { useGetPlayersQueryResponse } from '@/containers/Players';
 import { setView } from '@/containers/Table/reducers/Table.reducers';
 
 import { setOptimizedLineups } from '../redux/Optimize.reducers';
@@ -22,11 +23,7 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 		fixedCacheKey: 'optimize',
 	});
 
-	const { data: defaultPlayers } = useGetPlayersQuery({
-		// gameType: contests.gameType,
-		id: contests.selectedContest?.contest_id!,
-		provider: providers.provider!,
-	});
+	const { data: defaultPlayers } = useGetPlayersQueryResponse();
 
 	function handleClick() {
 		getOptimizedLineups({

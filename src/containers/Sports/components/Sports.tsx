@@ -27,7 +27,7 @@ const Sports = () => {
 		if (selectedSport) {
 			dispatch(setSelectedSport(selectedSport));
 
-			// Reset contests and players
+			// Reset contests
 			if (global.hasVisited) {
 				reset([setSelectedContest]);
 			}

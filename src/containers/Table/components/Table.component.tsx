@@ -10,7 +10,9 @@ import {
 } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useGetOptimizedLineupsMutation, useGetPlayersQuery } from 'src/api';
+import { useGetOptimizedLineupsMutation } from 'src/api';
+
+import useGetPlayersQueryResponse from '@/containers/Players/hooks/useGetPlayersQueryResponse';
 
 import { useAppSelector } from '../../../hooks';
 import useTableColumns from '../hooks/useTableColumns';
@@ -23,7 +25,7 @@ import TablePreheader from './base/Table.preheader';
 
 const Table = () => {
 	const { stacking } = useFlags(['stacking']);
-	const { contests, providers, table } = useAppSelector((state) => state);
+	const { table } = useAppSelector((state) => state);
 	const columns = useTableColumns();
 
 	const [globalFilter, setGlobalFilter] = useState('');
@@ -31,16 +33,7 @@ const Table = () => {
 	const tableBodyRef = useRef<HTMLDivElement>(null);
 	const [scrollbarWidth, setScrollbarWidth] = useState(0);
 
-	const playersResponse = useGetPlayersQuery(
-		{
-			// gameType: contests.gameType,
-			id: contests.selectedContest?.contest_id!,
-			provider: providers.provider!,
-		},
-		{
-			skip: !contests.selectedContest || !providers.provider,
-		}
-	);
+	const playersResponse = useGetPlayersQueryResponse();
 	const [_getOptimizedLineups, optimizeResponse] =
 		useGetOptimizedLineupsMutation({
 			fixedCacheKey: 'optimize',
@@ -108,7 +101,9 @@ const Table = () => {
 			<div className="max-h-full overflow-y-auto">
 				<TableBody
 					ref={tableBodyRef}
-					response={playersResponse}
+					isFetching={playersResponse.isFetching}
+					isLoading={playersResponse.isLoading}
+					players={playersResponse.data?.players}
 					table={_table}
 				/>
 			</div>

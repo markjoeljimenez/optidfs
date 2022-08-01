@@ -1,24 +1,18 @@
 import { ChangeEvent } from 'react';
-import { useGetPlayersQuery } from 'src/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
-import { PlayerStatusMap, TPlayerStatus } from '@/containers/Players';
+import {
+	PlayerStatusMap,
+	TPlayerStatus,
+	useGetPlayersQueryResponse,
+} from '@/containers/Players';
 
 import { setStatusFilters } from '../../redux/Optimize.reducers';
 
 const OptimizeStatusFilters = () => {
-	const { contests, optimize, providers } = useAppSelector((state) => state);
+	const { optimize } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
-	const playersResponse = useGetPlayersQuery(
-		{
-			// gameType: contests.gameType,
-			id: contests.selectedContest?.contest_id!,
-			provider: providers.provider!,
-		},
-		{
-			skip: !contests.selectedContest || !providers.provider,
-		}
-	);
+	const playersResponse = useGetPlayersQueryResponse();
 
 	function handleStatusFilterChange(e: ChangeEvent<HTMLInputElement>) {
 		const statusFilters = [...optimize.settings.statusFilters];

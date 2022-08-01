@@ -7,19 +7,17 @@ import { IPlayer } from '@/containers/Players';
 import TableRow from './Table.row';
 
 interface ITableBody {
-	response: {
-		isFetching: boolean;
-		isLoading: boolean;
-		isSuccess: boolean;
-	};
+	isFetching: boolean;
+	isLoading: boolean;
+	players: IPlayer[] | undefined;
 	table: Table<IPlayer>;
 }
 
 // eslint-disable-next-line react/display-name
 const TableBody = forwardRef<HTMLDivElement, ITableBody>(
-	({ response, table }, ref) => {
+	({ isFetching, isLoading, players, table }, ref) => {
 		function renderTableBody() {
-			if (response.isLoading || response.isFetching) {
+			if (isLoading || isFetching) {
 				return (
 					<div role="row">
 						<div className="p-4 whitespace-nowrap" role="cell">
@@ -29,15 +27,15 @@ const TableBody = forwardRef<HTMLDivElement, ITableBody>(
 				);
 			}
 
-			// if (!data || !data.length) {
-			//     return (
-			//         <div role="row">
-			//             <div className="p-4 whitespace-nowrap" role="cell">
-			//                 No players available
-			//             </div>
-			//         </div>
-			//     );
-			// }
+			if (!players?.length) {
+				return (
+					<div role="row">
+						<div className="p-4 whitespace-nowrap" role="cell">
+							No players available
+						</div>
+					</div>
+				);
+			}
 
 			return table
 				.getRowModel()

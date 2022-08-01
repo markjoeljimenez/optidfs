@@ -36,17 +36,13 @@ const getPlayers = (
 		'optidfs'
 	>
 ) =>
-	builder.query({
+	builder.query<IGetPlayersResponse, IGetPlayersBody>({
 		query: (body) => {
 			const params = new URLSearchParams(body as any);
 
 			return `/players?${params.toString()}`;
 		},
-		transformResponse: (
-			response: IGetPlayersResponse,
-			meta,
-			arg: IGetPlayersBody
-		) => {
+		transformResponse: (response: IGetPlayersResponse, meta, arg) => {
 			const providersMap = new Map<EProviders, (p: any) => IPlayer[]>([
 				[EProviders.DraftKings, mapDraftKingsPlayers],
 				[EProviders.Yahoo, mapYahooPlayers],
