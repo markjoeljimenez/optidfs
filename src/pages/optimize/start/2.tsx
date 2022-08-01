@@ -32,8 +32,8 @@ const Start2 = () => {
 	}
 
 	return (
-		<>
-			<div className="text-center">
+		<div className="space-y-4">
+			<div className="text-center space-y-2">
 				<h1 className="text-3xl">Select a contest*</h1>
 				<p>
 					*Due to limitations with certain DFS providers, selecting a
@@ -54,7 +54,7 @@ const Start2 = () => {
 					<Chevron />
 				</IconButton>
 			</div>
-		</>
+		</div>
 	);
 };
 
