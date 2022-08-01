@@ -45,7 +45,7 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(
 	{
-		blacklist: ['optimize'],
+		blacklist: ['table', 'optimize'],
 		key: 'root',
 		storage,
 		version: 1,
