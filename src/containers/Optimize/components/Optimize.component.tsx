@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useGetOptimizedLineupsMutation } from 'src/api';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 import Button from '@/components/form/button';
@@ -8,6 +7,7 @@ import Loading from '@/components/loading/loading';
 import { useGetPlayersQueryResponse } from '@/containers/Players';
 import { setView } from '@/containers/Table/reducers/Table.reducers';
 
+import useGetOptimizedLineupsMutationResponse from '../hooks/useGetOptimizedLineupsMutationResponse';
 import { setOptimizedLineups } from '../redux/Optimize.reducers';
 
 interface IOptimizeProps {
@@ -15,15 +15,11 @@ interface IOptimizeProps {
 }
 
 const Optimize = ({ disabled }: IOptimizeProps) => {
-	const { contests, optimize, providers, sports } = useAppSelector(
-		(state) => state
-	);
+	const { optimize, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
-	const [getOptimizedLineups, response] = useGetOptimizedLineupsMutation({
-		fixedCacheKey: 'optimize',
-	});
-
 	const { data: defaultPlayers } = useGetPlayersQueryResponse();
+	const [getOptimizedLineups, response] =
+		useGetOptimizedLineupsMutationResponse();
 
 	function handleClick() {
 		getOptimizedLineups({

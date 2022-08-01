@@ -10,8 +10,8 @@ import {
 } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useGetOptimizedLineupsMutation } from 'src/api';
 
+import { useGetOptimizedLineupsMutationResponse } from '@/containers/Optimize';
 import useGetPlayersQueryResponse from '@/containers/Players/hooks/useGetPlayersQueryResponse';
 
 import { useAppSelector } from '../../../hooks';
@@ -27,17 +27,14 @@ const Table = () => {
 	const { stacking } = useFlags(['stacking']);
 	const { table } = useAppSelector((state) => state);
 	const columns = useTableColumns();
+	const playersResponse = useGetPlayersQueryResponse();
+	const [_getOptimizedLineups, optimizeResponse] =
+		useGetOptimizedLineupsMutationResponse();
 
 	const [globalFilter, setGlobalFilter] = useState('');
 	const tableRef = useRef<HTMLDivElement>(null);
 	const tableBodyRef = useRef<HTMLDivElement>(null);
 	const [scrollbarWidth, setScrollbarWidth] = useState(0);
-
-	const playersResponse = useGetPlayersQueryResponse();
-	const [_getOptimizedLineups, optimizeResponse] =
-		useGetOptimizedLineupsMutation({
-			fixedCacheKey: 'optimize',
-		});
 
 	const _table = useReactTable({
 		autoResetExpanded: true,
