@@ -105,4 +105,36 @@ describe('Optimize', () => {
 		// Assert
 		expect(getOptimizedLineupsState.data?.length).toBe(10);
 	});
+
+	it('should filter players if set', async () => {
+		// Arrange
+		const { store } = render(app, { preloadedState });
+		await waitFor(() =>
+			expect(getPlayers(store.getState()).isSuccess).toBe(true)
+		);
+
+		// Act
+		const settingsButtons = screen.getAllByRole('button');
+		await userEvent.click(settingsButtons[1]);
+
+		const filterCheckboxes = screen.getAllByRole('checkbox');
+		await userEvent.click(filterCheckboxes[1]); // Check Active
+		await userEvent.click(filterCheckboxes[2]); // Check IL10
+
+		const optimizeButton = screen.getByTestId('optimize');
+		await userEvent.click(optimizeButton);
+
+		await waitFor(() =>
+			expect(getOptimizedLineups(store.getState()).isSuccess).toBe(true)
+		);
+
+		const getOptimizedLineupsState = getOptimizedLineups(store.getState());
+
+		// Assert
+		expect(
+			getOptimizedLineupsState.data![0].players.every(
+				(player) => player.status === 'N/A' || player.status === 'IL10'
+			)
+		).toBe(true);
+	});
 });

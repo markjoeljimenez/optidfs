@@ -1,16 +1,20 @@
 import { rest } from 'msw';
 
-import { optimizedYahooLineups } from '../mocks/optimizedLineups.mocks';
+import {
+	filteredOptimizedYahooLineups,
+	optimizedYahooLineups,
+} from '../mocks/optimizedLineups.mocks';
+import IOptimizeSettings from '../models/IOptimizeSettings';
 
 const { ENDPOINT } = process.env;
 
 const handler = rest.post(`${ENDPOINT}/optimize`, async (req, res, ctx) => {
-	const body = await req.json();
+	const { settings }: { settings: IOptimizeSettings } = await req.json();
 
-	if (parseInt(body.settings.numberOfLineups) > 1) {
+	if (settings.numberOfLineups > 1) {
 		const transformedOptimizedYahooLineups = optimizedYahooLineups;
 
-		for (let i = 0; i <= parseInt(body.settings.numberOfLineups) - 2; i++) {
+		for (let i = 0; i <= settings.numberOfLineups - 2; i++) {
 			transformedOptimizedYahooLineups.push({
 				...transformedOptimizedYahooLineups[i],
 				fppg: transformedOptimizedYahooLineups[i].fppg + 100,
@@ -19,6 +23,10 @@ const handler = rest.post(`${ENDPOINT}/optimize`, async (req, res, ctx) => {
 		}
 
 		return res(ctx.json(transformedOptimizedYahooLineups));
+	}
+
+	if (settings.statusFilters.length) {
+		return res(ctx.json(filteredOptimizedYahooLineups));
 	}
 
 	return res(ctx.json(optimizedYahooLineups));
