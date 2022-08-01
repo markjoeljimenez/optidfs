@@ -5,10 +5,17 @@ import {
 	FetchBaseQueryMeta,
 } from '@reduxjs/toolkit/dist/query';
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-import { IContestsBody, IContestsResponse } from 'src/api/interfaces';
 
 import { IContest } from '../interfaces/IContest';
+import { IDraftKingsContest } from '../interfaces/IDraftKingsContest';
+import { IYahooContest } from '../interfaces/IYahooContest';
 import { mapContests } from '../services/mapContests';
+
+interface IContestsBody {
+	provider: string;
+	sport: string;
+	sportId: number;
+}
 
 const getContestsFromSport = (
 	builder: EndpointBuilder<
@@ -30,7 +37,7 @@ const getContestsFromSport = (
 			return `/contests?${params.toString()}`;
 		},
 		transformResponse: (
-			response: IContestsResponse,
+			response: IDraftKingsContest[] | IYahooContest[],
 			meta,
 			arg: IContestsBody
 		): IContest[] => mapContests(response, arg.provider),

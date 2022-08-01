@@ -1,4 +1,5 @@
-import { EProviders, IPlayer } from '@/containers/Players';
+import { IPlayer } from '@/containers/Players';
+import { EProviders } from '@/containers/Providers';
 import { ISport } from '@/containers/Sports';
 
 import IOptimizeSettings from './IOptimizeSettings';

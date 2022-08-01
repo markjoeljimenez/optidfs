@@ -1,16 +1,11 @@
 import clsx from 'clsx';
 import { ChangeEvent, CSSProperties, forwardRef, KeyboardEvent } from 'react';
 
-import { IDataAttributes } from '../../interfaces/IDataAttributes';
-import { IError } from '../../interfaces/IError';
-
 interface IInput {
 	id: string;
 	type: string;
 	className?: string;
-	data?: IDataAttributes;
 	defaultValue?: number;
-	error?: IError;
 	hideLabel?: boolean;
 	icon?: any;
 	label?: string;
@@ -32,9 +27,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 	(
 		{
 			className,
-			data,
 			defaultValue,
-			error,
 			hideLabel,
 			icon,
 			id,
@@ -75,7 +68,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 					ref={ref}
 					className={clsx(
 						'focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md',
-						error?.isError && 'border-red-500',
+						// error?.isError && 'border-red-500',
 						!hideLabel && 'mt-2',
 						className
 					)}
@@ -92,13 +85,13 @@ const Input = forwardRef<HTMLInputElement, IInput>(
 					value={value}
 					onChange={onChange}
 					onKeyDown={onKeyDown}
-					{...data}
+					// {...data}
 				/>
 			</div>
 
-			{error?.isError && (
+			{/* {error?.isError && (
 				<div className="mt-2 text-red-500">{error.message}</div>
-			)}
+			)} */}
 		</div>
 	)
 );

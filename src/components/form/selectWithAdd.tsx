@@ -1,6 +1,6 @@
-import { forwardRef,MouseEvent } from 'react';
+import { forwardRef, MouseEvent } from 'react';
 
-import { IError } from '../../interfaces/IError';
+// import { IError } from '../../interfaces/IError';
 import Badge, { BadgeColor } from '../global/badge';
 import Select from './select';
 
@@ -11,7 +11,7 @@ interface ISelectWithAdd {
 		props?: any;
 	};
 	onAdd(e: MouseEvent<HTMLButtonElement>): void;
-	error?: IError;
+	// error?: IError;
 	select?: {
 		id: string;
 		items: string[];
@@ -22,20 +22,23 @@ interface ISelectWithAdd {
 
 // eslint-disable-next-line react/display-name
 const SelectWithAdd = forwardRef<HTMLSelectElement, ISelectWithAdd>(
-	({ error, list, onAdd, select }: ISelectWithAdd, ref) => (
+	({ list, onAdd, select }: ISelectWithAdd, ref) => (
 		<div>
 			<div>
 				{select && (
 					<div>
 						<Select
 							ref={ref}
-							error={{
-								...error,
-								message: undefined,
-							}}
+							// error={{
+							// 	...error,
+							// 	message: undefined,
+							// }}
 							id={select.id}
 							label={select.label}
-							options={select.items}
+							options={select.items.map((item) => ({
+								label: item,
+								value: item,
+							}))}
 							placeholder={select.placeholder}
 							position="append"
 						>
@@ -67,9 +70,9 @@ const SelectWithAdd = forwardRef<HTMLSelectElement, ISelectWithAdd>(
 				)}
 			</div>
 
-			{error?.isError && (
+			{/* {error?.isError && (
 				<div className="mt-2 text-red-500">{error.message}</div>
-			)}
+			)} */}
 		</div>
 	)
 );

@@ -1,7 +1,5 @@
 import clsx from 'clsx';
 
-import { IDataAttributes } from '../../interfaces/IDataAttributes';
-
 export enum BadgeColor {
 	Yellow = 'bg-yellow-300',
 }
@@ -9,13 +7,12 @@ export enum BadgeColor {
 interface IBadge {
 	color: BadgeColor;
 	text: string;
-	data?: IDataAttributes;
 	onClick?(e: React.MouseEvent<HTMLButtonElement>): void;
 
 	value?: string | number;
 }
 
-const Badge = ({ color, data, onClick, text, value }: IBadge) => (
+const Badge = ({ color, onClick, text, value }: IBadge) => (
 	<button
 		className={clsx(
 			'relative px-3 py-2 rounded-full text-xs uppercase',
@@ -25,7 +22,7 @@ const Badge = ({ color, data, onClick, text, value }: IBadge) => (
 		type="button"
 		value={value}
 		onClick={onClick}
-		{...data}
+		// {...data}
 	>
 		{text}
 

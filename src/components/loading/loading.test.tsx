@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { render, screen } from '@/test/render';
+
 import Loading, { LoadingSize, sizeMap, testId } from './loading';
 
 describe('loading', () => {

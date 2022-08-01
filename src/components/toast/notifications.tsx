@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { ReactNode } from 'react';
 import toast, { useToaster } from 'react-hot-toast';
 
 import notificationTypes from './notifications.types';
@@ -45,7 +46,7 @@ const Notifications = () => {
 						>
 							<div className="flex-shrink-0 w-5 h-5">{icon}</div>
 							<div className="mx-3 text-sm font-medium">
-								{message}
+								{message! as ReactNode}
 							</div>
 							{type === 'error' && (
 								<button

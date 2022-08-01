@@ -7,7 +7,7 @@ import { IYahooContest } from './interfaces/IYahooContest';
 import {
 	draftKingsContestsMock,
 	yahooContestsMock,
-} from './mocks/Contests.mocks';
+} from './mocks/contests.mocks';
 import ContestsReducers, {
 	contestsState,
 	setGameType,

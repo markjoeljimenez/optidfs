@@ -34,13 +34,11 @@ Object {
                 Select sport
               </option>
               <option
-                data-testid="mlb"
                 value="2"
               >
                 MLB
               </option>
               <option
-                data-testid="golf"
                 value="13"
               >
                 GOLF
@@ -81,13 +79,11 @@ Object {
               Select sport
             </option>
             <option
-              data-testid="mlb"
               value="2"
             >
               MLB
             </option>
             <option
-              data-testid="golf"
               value="13"
             >
               GOLF

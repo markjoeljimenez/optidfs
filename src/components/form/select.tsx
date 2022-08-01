@@ -1,14 +1,5 @@
 import clsx from 'clsx';
-import {
-	ChangeEvent,
-	forwardRef,
-	MouseEvent,
-	ReactNode,
-	useEffect,
-	useState,
-} from 'react';
-
-import { IError } from '../../interfaces/IError';
+import { ChangeEvent, forwardRef, ReactNode } from 'react';
 
 export interface IValueLabel {
 	label: string;
@@ -18,20 +9,19 @@ export interface IValueLabel {
 interface ISelect {
 	id: string;
 	label: string;
-	onChange(e: ChangeEvent<HTMLSelectElement>): void;
-	options: string[] | IValueLabel[];
-	value: string;
+	options: IValueLabel[];
 	children?: ReactNode;
 	className?: string;
 	defaultValue?: string;
 	disabled?: boolean;
-	error?: IError;
 	hideLabel?: boolean;
+	onChange?(e: ChangeEvent<HTMLSelectElement>): void;
 	placeholder?: string;
 	position?: 'prepend' | 'append';
 	required?: boolean;
 	testId?: string;
 	tippy?: any;
+	value?: string;
 }
 
 // eslint-disable-next-line react/display-name
@@ -41,7 +31,7 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 			<div className={props.className}>
 				<div
 					className={clsx(
-						props.error && 'text-red-700',
+						// props.error && 'text-red-700',
 						props.tippy && 'pr-8'
 					)}
 				>
@@ -72,8 +62,8 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 							props.position === 'append' &&
 								'rounded-tr-none rounded-br-none',
 							props.position === 'prepend' &&
-								'rounded-tl-none rounded-bl-none',
-							props.error?.isError && 'border-red-700'
+								'rounded-tl-none rounded-bl-none'
+							// props.error?.isError && 'border-red-700'
 						)}
 						data-testid={props.testId}
 						defaultValue={
@@ -94,10 +84,10 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 							</option>
 						)}
 
-						{props.options?.map((item, i) => (
+						{props.options?.map((item) => (
 							<option
 								key={`${item.label}`}
-								data-testid={`${item.label}`.toLocaleLowerCase()}
+								// data-testid={`${item.label}`.toLocaleLowerCase()}
 								value={item.value ?? item}
 							>
 								{item.label}
@@ -108,11 +98,11 @@ const Select = forwardRef<HTMLSelectElement, ISelect>(
 					{props.position === 'append' && children}
 				</div>
 
-				{props.error?.isError && (
+				{/* {props.error?.isError && (
 					<div className="mt-2 text-red-500">
 						{props.error.message}
 					</div>
-				)}
+				)} */}
 			</div>
 		);
 	}

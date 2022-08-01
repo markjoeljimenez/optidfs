@@ -17,7 +17,7 @@ interface IGetPlayersResponse {
 	statusFilters: TPlayerStatus[];
 }
 
-export interface IGetPlayersBody {
+interface IGetPlayersBody {
 	id: number;
 	provider: EProviders;
 	gameType?: string;
@@ -36,7 +36,7 @@ const getPlayers = (
 		'optidfs'
 	>
 ) =>
-	builder.query<IGetPlayersResponse, IGetPlayersBody>({
+	builder.query({
 		query: (body) => {
 			const params = new URLSearchParams(body as any);
 

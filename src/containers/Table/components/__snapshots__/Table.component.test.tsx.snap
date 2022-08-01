@@ -41,7 +41,6 @@ Object {
                     id="table-view-select"
                   >
                     <option
-                      data-testid="all"
                       value=""
                     >
                       All
@@ -2638,7 +2637,6 @@ Object {
                   id="table-view-select"
                 >
                   <option
-                    data-testid="all"
                     value=""
                   >
                     All
