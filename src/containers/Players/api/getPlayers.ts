@@ -10,7 +10,7 @@ import { EProviders } from '@/containers/Providers';
 
 import { IPlayer } from '../models/IPlayer';
 import { TPlayerStatus } from '../models/IPlayerStatus';
-import providersMap from '../services/mapPlayers';
+import { mapDraftKingsPlayers, mapYahooPlayers } from '../services/mapPlayers';
 
 interface IGetPlayersResponse {
 	players: IPlayer[];
@@ -46,10 +46,17 @@ const getPlayers = (
 			response: IGetPlayersResponse,
 			meta,
 			arg: IGetPlayersBody
-		) => ({
-			...response,
-			players: providersMap.get(arg.provider)!(response.players),
-		}),
+		) => {
+			const providersMap = new Map<EProviders, (p: any) => IPlayer[]>([
+				[EProviders.DraftKings, mapDraftKingsPlayers],
+				[EProviders.Yahoo, mapYahooPlayers],
+			]);
+
+			return {
+				...response,
+				players: providersMap.get(arg.provider)!(response.players),
+			};
+		},
 	});
 
 export { getPlayers };

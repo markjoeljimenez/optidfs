@@ -1,13 +1,6 @@
-import { EProviders } from '@/containers/Providers';
-
 import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
 import { IPlayer } from '../models/IPlayer';
 import { IYahooPlayer } from '../models/IYahooPlayer';
-
-const providersMap = new Map<EProviders, (p: any) => IPlayer[]>([
-	[EProviders.DraftKings, mapDraftKingsPlayers],
-	[EProviders.Yahoo, mapYahooPlayers],
-]);
 
 export function mapDraftKingsPlayers(
 	draftKingsPlayers: IDraftKingsPlayer[]
@@ -42,5 +35,3 @@ export function mapYahooPlayers(yahooPlayers: IYahooPlayer[]): IPlayer[] {
 		team: yahooPlayer.teamAbbr,
 	}));
 }
-
-export default providersMap;
