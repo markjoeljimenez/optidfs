@@ -41,13 +41,19 @@ function useTableColumns() {
 		}),
 		columnHelper.accessor('status', {
 			cell: (info) => {
-				const { color, translation } = StatusMap.get(info.getValue())!;
+				const status = StatusMap.get(info.getValue());
 
-				return (
-					<div className="text-center">
-						<Pill status={color}>{translation}</Pill>
-					</div>
-				);
+				if (status) {
+					return (
+						<div className="text-center">
+							<Pill status={status.color}>
+								{status.translation}
+							</Pill>
+						</div>
+					);
+				}
+
+				return <></>;
 			},
 			enableColumnFilter: true,
 			enableGlobalFilter: false,

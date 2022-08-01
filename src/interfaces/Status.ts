@@ -11,7 +11,7 @@ export type TYahooStatus =
 	| 'PUP'
 	| 'Q'
 	| 'SUSP';
-export type TDraftkingsStatus = 'None' | 'OUT' | 'DTD' | 'D' | 'C19';
+export type TDraftkingsStatus = 'None' | 'IL' | 'OUT' | 'DTD' | 'D' | 'C19';
 export type TStatus = TYahooStatus | TDraftkingsStatus;
 export type TStatusColor = 'green' | 'yellow' | 'red';
 
@@ -142,6 +142,13 @@ export const StatusMap = new Map<
 		{
 			color: 'red',
 			translation: 'COVID-19',
+		},
+	],
+	[
+		'IL',
+		{
+			color: 'red',
+			translation: '60 Day IL',
 		},
 	],
 ]);

@@ -1,3 +1,5 @@
+import { TStatus } from 'src/interfaces/Status';
+
 export interface Images {
 	fifty_pixels_by_fifty_pixels_url: string;
 	one_hundred_and_sixty_pixels_by_one_hundred_and_sixty_pixels_url: string;
@@ -12,5 +14,6 @@ export interface IDraftKingsPlayer {
 	points_per_contest: number;
 	position: string;
 	salary: number;
+	status: TStatus;
 	team: string;
 }

@@ -23,7 +23,7 @@ export function mapDraftKingsPlayers(
 		lastName: draftKingsPlayer.last_name,
 		position: draftKingsPlayer.position,
 		salary: draftKingsPlayer.salary,
-		status: 'None', // @TODO: Fix this on the backend first
+		status: draftKingsPlayer.status,
 		team: draftKingsPlayer.team,
 	}));
 }

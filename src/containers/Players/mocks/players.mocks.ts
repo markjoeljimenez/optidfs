@@ -2214,6 +2214,7 @@ export const draftKingsPlayersMock: IDraftKingsPlayer[] = [
 		position: 'RB',
 		team: 'NO',
 		salary: 8500,
+		status: 'None',
 		points_per_contest: 22.09,
 		draft_positions: 'RB/FLEX',
 		images: {
@@ -2230,6 +2231,7 @@ export const draftKingsPlayersMock: IDraftKingsPlayer[] = [
 		position: 'QB',
 		team: 'BAL',
 		salary: 8100,
+		status: 'None',
 		points_per_contest: 24.11,
 		draft_positions: 'QB',
 		images: {
@@ -2246,6 +2248,7 @@ export const draftKingsPlayersMock: IDraftKingsPlayer[] = [
 		position: 'RB',
 		team: 'MIN',
 		salary: 7800,
+		status: 'None',
 		points_per_contest: 21.51,
 		draft_positions: 'RB/FLEX',
 		images: {
