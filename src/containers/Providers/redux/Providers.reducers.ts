@@ -1,11 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {
-	EProviders,
-	TProviders,
-} from '@/containers/Players/models/providers.enum';
-
 import { AppState } from '../../../store';
+import { EProviders } from '../models/EProviders';
 
 interface IProviderState {
 	provider: EProviders | null;

@@ -1,6 +1,6 @@
 import { rest } from 'msw';
 
-import { EProviders } from '@/containers/Players';
+import { EProviders } from '@/containers/Providers';
 
 import { draftKingsSportsMock, yahooSportsMock } from '../mocks/sports.mocks';
 

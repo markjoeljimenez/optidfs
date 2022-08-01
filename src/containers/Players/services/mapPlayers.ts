@@ -1,7 +1,8 @@
+import { EProviders } from '@/containers/Providers';
+
 import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
 import { IPlayer } from '../models/IPlayer';
 import { IYahooPlayer } from '../models/IYahooPlayer';
-import { EProviders } from '../models/providers.enum';
 
 const providersMap = new Map<EProviders, (p: any) => IPlayer[]>([
 	[EProviders.DraftKings, mapDraftKingsPlayers],

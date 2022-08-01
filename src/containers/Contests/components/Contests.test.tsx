@@ -3,7 +3,7 @@ import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
 import Notifications from '@/components/toast/notifications';
-import { EProviders } from '@/containers/Players';
+import { EProviders } from '@/containers/Providers';
 import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 

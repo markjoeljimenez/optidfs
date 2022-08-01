@@ -4,7 +4,6 @@ import { draftKingsPlayersMock, yahooPlayersMock } from './mocks/players.mocks';
 import { IDraftKingsPlayer } from './models/IDraftKingsPlayer';
 import { IPlayer } from './models/IPlayer';
 import { IYahooPlayer } from './models/IYahooPlayer';
-import { EProviders, TProviders } from './models/providers.enum';
 import PlayersReducers, {
 	playersState,
 	setFilteredPlayers,
@@ -33,5 +32,4 @@ export { playersState };
 export { mapDraftKingsPlayers, mapYahooPlayers };
 
 // Models
-export { EProviders };
-export type { IDraftKingsPlayer, IPlayer, IYahooPlayer, TProviders };
+export type { IDraftKingsPlayer, IPlayer, IYahooPlayer };

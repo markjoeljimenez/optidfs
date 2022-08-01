@@ -1,8 +1,5 @@
-import {
-	EProviders,
-	mapYahooPlayers,
-	yahooPlayersMock,
-} from '@/containers/Players';
+import { mapYahooPlayers, yahooPlayersMock } from '@/containers/Players';
+import { EProviders } from '@/containers/Providers';
 import { yahooSportsMock } from '@/containers/Sports';
 
 import { IGetOptimizedLineupsPostBody } from '../models/IGetOptimizedLineupsPostBody';

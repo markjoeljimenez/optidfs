@@ -6,7 +6,8 @@ import {
 } from '@reduxjs/toolkit/dist/query';
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
 
-import { EProviders, IPlayer } from '@/containers/Players';
+import { IPlayer } from '@/containers/Players';
+import { EProviders } from '@/containers/Providers';
 import { ISport } from '@/containers/Sports';
 
 import IOptimizedLineup from '../models/IOptimizedLineup';

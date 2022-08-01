@@ -4,7 +4,7 @@ import { RootState } from 'src/store';
 
 import RightNavigation from '@/components/global/right-navigation';
 import { mapContests, yahooContestsMock } from '@/containers/Contests';
-import { EProviders } from '@/containers/Players';
+import { EProviders } from '@/containers/Providers';
 import { yahooSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 

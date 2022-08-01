@@ -3,11 +3,10 @@ import useReset from 'src/hooks/useReset';
 
 import Select from '@/components/form/select';
 import { setSelectedContest } from '@/containers/Contests';
-import { EProviders } from '@/containers/Players';
 import { setSelectedSport } from '@/containers/Sports';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { setProvider } from '..';
+import { EProviders, setProvider } from '..';
 import providersData from '../data/providers';
 
 const Providers = () => {

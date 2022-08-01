@@ -7,8 +7,9 @@ import {
 import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
 import { TStatus } from 'src/interfaces/Status';
 
+import { EProviders } from '@/containers/Providers';
+
 import { IPlayer } from '../models/IPlayer';
-import { EProviders } from '../models/providers.enum';
 import providersMap from '../services/mapPlayers';
 
 interface IGetPlayersResponse {

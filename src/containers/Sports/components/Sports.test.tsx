@@ -3,7 +3,7 @@ import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
 import { draftKingsContestsMock } from '@/containers/Contests';
-import { EProviders } from '@/containers/Players';
+import { EProviders } from '@/containers/Providers';
 import { render, screen, waitFor } from '@/test/render';
 
 import { draftKingsSportsMock } from '../mocks/sports.mocks';

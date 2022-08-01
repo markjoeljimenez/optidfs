@@ -1,5 +1,6 @@
 import Providers from './components/Providers';
 import providers from './data/providers';
+import { EProviders } from './models/EProviders';
 import ProvidersReducer, {
 	providersState,
 	setProvider,
@@ -13,6 +14,9 @@ export { ProvidersReducer };
 
 // Actions
 export { setProvider };
+
+// Models
+export { EProviders };
 
 // State
 export { providersState };

@@ -2,9 +2,8 @@ import userEvent from '@testing-library/user-event';
 import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
-import { yahooContestsMock } from '@/containers/Contests';
-import { mapContests } from '@/containers/Contests/services/mapContests';
-import { EProviders } from '@/containers/Players';
+import { mapContests, yahooContestsMock } from '@/containers/Contests';
+import { EProviders } from '@/containers/Providers';
 import { yahooSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 

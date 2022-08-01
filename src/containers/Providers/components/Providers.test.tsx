@@ -1,10 +1,10 @@
 import userEvent from '@testing-library/user-event';
 
 import { draftKingsContestsMock } from '@/containers/Contests';
-import { EProviders } from '@/containers/Players';
 import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen } from '@/test/render';
 
+import { EProviders } from '../models/EProviders';
 import Providers from './Providers';
 
 describe('Providers', () => {
