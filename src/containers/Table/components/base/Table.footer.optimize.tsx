@@ -26,7 +26,13 @@ const TableFooterOptimize = () => {
 			<div className="p-4 whitespace-nowrap" role="cell"></div>
 			<div className="p-4 whitespace-nowrap text-right" role="cell">
 				<strong>
-					{optimize.optimizedLineups![table.view as number].salary}
+					{new Intl.NumberFormat('en-US', {
+						currency: 'USD',
+						minimumFractionDigits: 0,
+						style: 'currency',
+					}).format(
+						optimize.optimizedLineups![table.view as number].salary
+					)}
 				</strong>
 			</div>
 			<div className="p-4 whitespace-nowrap text-right" role="cell">

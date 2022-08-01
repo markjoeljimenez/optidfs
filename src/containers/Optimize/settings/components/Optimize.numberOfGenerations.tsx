@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 import Input from '@/components/form/input';
@@ -13,10 +13,6 @@ const OptimizeNumberOfGenerations = () => {
 		dispatch(setNumberOfGenerations(parseInt(e.currentTarget.value)));
 	}
 
-	// function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
-	// 	dispatch(setNumberOfGenerations(parseInt(e.currentTarget.value)));
-	// }
-
 	return (
 		<Input
 			defaultValue={optimize.settings.numberOfLineups}
@@ -25,7 +21,6 @@ const OptimizeNumberOfGenerations = () => {
 			min={1}
 			type="number"
 			onChange={handleNumberOfLineupsChange}
-			// onKeyDown={handleKeyDown}
 		/>
 	);
 };
