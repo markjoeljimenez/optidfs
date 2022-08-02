@@ -26,7 +26,7 @@ export function mapYahooPlayers(yahooPlayers: IYahooPlayer[]): IPlayer[] {
 	return yahooPlayers.map((yahooPlayer) => ({
 		firstName: yahooPlayer.firstName,
 		fppg: parseFloat(yahooPlayer.fantasyPointsPerGame.toFixed(2)),
-		id: yahooPlayer.code,
+		id: yahooPlayer.playerGameCode,
 		image: yahooPlayer.imageUrl,
 		lastName: yahooPlayer.lastName,
 		position: yahooPlayer.eligiblePositions.join('/'),
