@@ -3,7 +3,11 @@ import useReset from 'src/hooks/useReset';
 import Select, { IValueLabel } from '@/components/form/select';
 import { setSelectedContest } from '@/containers/Contests';
 
-import { useGetSportsFromProviderQuery, usePrefetch } from '../../../api';
+import {
+	OptidfsApi,
+	useGetSportsFromProviderQuery,
+	usePrefetch,
+} from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { setSelectedSport } from '../redux/Sports.reducers';
 
@@ -30,6 +34,9 @@ const Sports = () => {
 			// Reset contests
 			if (global.hasVisited) {
 				reset([setSelectedContest]);
+
+				// Reset queried data
+				dispatch(OptidfsApi.util.resetApiState());
 			}
 
 			prefetchGetContestsFromSport({

@@ -59,7 +59,7 @@ const OptimizeStatusFilters = () => {
 					</label>
 				</li>
 
-				{playersResponse.data?.statusFilters.map((status) => (
+				{playersResponse.currentData?.statusFilters.map((status) => (
 					<li key={`status-${status}`}>
 						<label htmlFor={`status-${status}`}>
 							<input

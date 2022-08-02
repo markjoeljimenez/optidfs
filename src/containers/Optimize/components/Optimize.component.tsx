@@ -8,7 +8,6 @@ import { useGetPlayersQueryResponse } from '@/containers/Players';
 import { setView } from '@/containers/Table/reducers/Table.reducers';
 
 import useGetOptimizedLineupsMutationResponse from '../hooks/useGetOptimizedLineupsMutationResponse';
-import { setOptimizedLineups } from '../redux/Optimize.reducers';
 
 interface IOptimizeProps {
 	disabled?: boolean;
@@ -33,7 +32,6 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 
 	useEffect(() => {
 		if (response.data && response.isSuccess) {
-			dispatch(setOptimizedLineups(response.data));
 			dispatch(setView(0));
 
 			toast.success(

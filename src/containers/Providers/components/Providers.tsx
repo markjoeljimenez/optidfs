@@ -1,4 +1,5 @@
 import { ChangeEvent } from 'react';
+import { OptidfsApi } from 'src/api';
 import useReset from 'src/hooks/useReset';
 
 import Select from '@/components/form/select';
@@ -21,6 +22,8 @@ const Providers = () => {
 
 		if (global.hasVisited) {
 			reset([setSelectedContest, setSelectedSport]);
+
+			dispatch(OptidfsApi.util.resetApiState());
 		}
 	};
 

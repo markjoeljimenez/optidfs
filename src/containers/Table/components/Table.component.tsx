@@ -9,7 +9,13 @@ import {
 	useReactTable,
 } from '@tanstack/react-table';
 import { useFlags } from 'flagsmith/react';
-import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
+import React, {
+	ChangeEvent,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 
 import { useGetOptimizedLineupsMutationResponse } from '@/containers/Optimize';
 import useGetPlayersQueryResponse from '@/containers/Players/hooks/useGetPlayersQueryResponse';
@@ -36,15 +42,22 @@ const Table = () => {
 	const tableBodyRef = useRef<HTMLDivElement>(null);
 	const [scrollbarWidth, setScrollbarWidth] = useState(0);
 
+	const data = useMemo(() => {
+		if (optimizeResponse.data && table.view !== '') {
+			return optimizeResponse.data[table.view as number].players;
+		}
+
+		if (playersResponse.currentData) {
+			return playersResponse.currentData.players;
+		}
+
+		return [];
+	}, [optimizeResponse.data, table.view, playersResponse]);
+
 	const _table = useReactTable({
 		autoResetExpanded: true,
 		columns,
-		data:
-			optimizeResponse.data &&
-			optimizeResponse.data?.length &&
-			typeof table.view === 'number'
-				? optimizeResponse.data[table.view].players
-				: playersResponse.data?.players ?? [],
+		data,
 		getCoreRowModel: getCoreRowModel(),
 		getExpandedRowModel: getExpandedRowModel(),
 		getFacetedRowModel: getFacetedRowModel(),
@@ -100,21 +113,19 @@ const Table = () => {
 					ref={tableBodyRef}
 					isFetching={playersResponse.isFetching}
 					isLoading={playersResponse.isLoading}
-					players={playersResponse.data?.players}
+					players={playersResponse.currentData?.players}
 					table={_table}
 				/>
 			</div>
 
 			<TableFooter scrollbarWidth={scrollbarWidth}>
-				{optimizeResponse.data &&
-					optimizeResponse.data?.length > 1 &&
-					table.view !== '' &&
-					typeof table.view === 'number' && <TableFooterOptimize />}
+				{optimizeResponse.data && table.view !== '' && (
+					<TableFooterOptimize />
+				)}
 
 				{table.view === '' &&
 					playersResponse.isSuccess &&
-					playersResponse.data &&
-					playersResponse.data?.players.length >
+					playersResponse.currentData!.players.length >
 						_table.getState().pagination.pageSize && (
 						<TableFooterPagination table={_table} />
 					)}

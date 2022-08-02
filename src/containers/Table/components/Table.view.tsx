@@ -2,12 +2,15 @@ import { ChangeEvent } from 'react';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 import Select, { IValueLabel } from '@/components/form/select';
+import { useGetOptimizedLineupsMutationResponse } from '@/containers/Optimize';
 
 import { setView } from '../reducers/Table.reducers';
 
 const TableView = () => {
-	const { optimize, table } = useAppSelector((state) => state);
+	const { table } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
+	const [_getOptimizedLineups, optimizeResponse] =
+		useGetOptimizedLineupsMutationResponse();
 
 	function handleChange(e: ChangeEvent<HTMLSelectElement>) {
 		const { value } = e.currentTarget;
@@ -16,7 +19,7 @@ const TableView = () => {
 	}
 
 	const options =
-		optimize.optimizedLineups?.map<IValueLabel>((_lineup, i) => ({
+		optimizeResponse.data?.map<IValueLabel>((_lineup, i) => ({
 			label: `Lineup ${i + 1}`,
 			value: i,
 		})) ?? [];
