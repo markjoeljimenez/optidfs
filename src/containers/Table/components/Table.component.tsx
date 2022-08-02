@@ -88,7 +88,7 @@ const Table = () => {
 						tableBodyRef.current.clientWidth
 				: 0
 		);
-	}, []);
+	}, [optimizeResponse.data, table.view, playersResponse]);
 
 	return (
 		<div
@@ -125,7 +125,8 @@ const Table = () => {
 
 				{table.view === '' &&
 					playersResponse.isSuccess &&
-					playersResponse.currentData!.players.length >
+					playersResponse.currentData &&
+					playersResponse.currentData.players.length >
 						_table.getState().pagination.pageSize && (
 						<TableFooterPagination table={_table} />
 					)}
