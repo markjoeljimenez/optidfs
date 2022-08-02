@@ -10,7 +10,7 @@ import { IPlayer } from '@/containers/Players';
 import { EProviders } from '@/containers/Providers';
 import { ISport } from '@/containers/Sports';
 
-import IOptimizedLineup from '../models/IOptimizedLineup';
+import IGetOptimizedLineupsResponse from '../models/IGetOptimizedLineupsResponse';
 import IOptimizeSettings from '../models/IOptimizeSettings';
 
 const getOptimizedLineups = (
@@ -27,7 +27,7 @@ const getOptimizedLineups = (
 	>
 ) =>
 	builder.mutation<
-		IOptimizedLineup[],
+		IGetOptimizedLineupsResponse,
 		{
 			players: IPlayer[];
 			provider: EProviders;

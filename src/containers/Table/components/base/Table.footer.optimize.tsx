@@ -35,13 +35,14 @@ const TableFooterOptimize = () => {
 						minimumFractionDigits: 0,
 						style: 'currency',
 					}).format(
-						optimizeResponse.data![table.view as number].salary
+						optimizeResponse.data!.lineups[table.view as number]
+							.salary
 					)}
 				</strong>
 			</div>
 			<div className="p-4 whitespace-nowrap text-right" role="cell">
 				<strong>
-					{optimizeResponse.data![table.view as number].fppg}
+					{optimizeResponse.data!.lineups[table.view as number].fppg}
 				</strong>
 			</div>
 		</div>

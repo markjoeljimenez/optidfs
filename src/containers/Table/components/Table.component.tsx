@@ -44,7 +44,7 @@ const Table = () => {
 
 	const data = useMemo(() => {
 		if (optimizeResponse.data && table.view !== '') {
-			return optimizeResponse.data[table.view as number].players;
+			return optimizeResponse.data?.lineups[table.view as number].players;
 		}
 
 		if (playersResponse.currentData) {

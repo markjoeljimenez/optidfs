@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 
 import RightNavigation from '@/components/global/right-navigation';
 import Contests from '@/containers/Contests';
+import Export from '@/containers/Export';
 import Optimize from '@/containers/Optimize';
 import Table from '@/containers/Table';
 
@@ -28,6 +29,7 @@ const Index = () => {
 					<Contests />
 
 					<div className="flex space-x-3">
+						<Export />
 						<Optimize />
 					</div>
 				</div>

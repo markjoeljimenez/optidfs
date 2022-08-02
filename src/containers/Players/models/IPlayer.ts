@@ -3,7 +3,7 @@ import { TPlayerStatus } from './IPlayerStatus';
 export interface IPlayer {
 	firstName: string;
 	fppg: number;
-	id: number;
+	id: number | string;
 	lastName: string;
 	position: string;
 	salary: number;

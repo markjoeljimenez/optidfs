@@ -19,7 +19,7 @@ const TableView = () => {
 	}
 
 	const options =
-		optimizeResponse.data?.map<IValueLabel>((_lineup, i) => ({
+		optimizeResponse.data?.lineups.map<IValueLabel>((_lineup, i) => ({
 			label: `Lineup ${i + 1}`,
 			value: i,
 		})) ?? [];
