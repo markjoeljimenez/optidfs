@@ -80,21 +80,20 @@ const Dropdown = () => {
 		isOpen,
 	} = useCombobox({
 		itemToString: (item) => (item ? item.name : ''),
-		items: data ?? [],
-		// TODO: Fix searching
-		// onInputValueChange: ({ inputValue }) => {
-		// 	if (data) {
-		// 		setSearchedContests(
-		// 			data.filter(
-		// 				(contest) =>
-		// 					contest.name
-		// 						.toLocaleLowerCase()
-		// 						.includes(inputValue!.toLocaleLowerCase()) ||
-		// 					contest.contest_id.toString().includes(inputValue!)
-		// 			)!
-		// 		);
-		// 	}
-		// },
+		items: searchedContests,
+		onInputValueChange: ({ inputValue }) => {
+			if (data) {
+				setSearchedContests(
+					data.filter(
+						(contest) =>
+							contest.name
+								.toLocaleLowerCase()
+								.includes(inputValue!.toLocaleLowerCase()) ||
+							contest.contest_id.toString().includes(inputValue!)
+					)!
+				);
+			}
+		},
 		onStateChange,
 		selectedItem: contests.selectedContest,
 	});
@@ -150,7 +149,7 @@ const Dropdown = () => {
 			>
 				{isOpen &&
 					(isSuccess ? (
-						data.map((item, index) => (
+						searchedContests.map((item, index) => (
 							<li
 								className="p-4 border-b border-gray-300 hover:bg-gray-100 cursor-pointer"
 								{...getItemProps({
