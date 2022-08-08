@@ -31,18 +31,18 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 	}
 
 	useEffect(() => {
-		if (response.data && response.isSuccess) {
-			dispatch(setView(0));
-
-			toast.success(
-				`Generated ${response.data.length} lineups successfully`
-			);
+		if (response.error) {
+			toast.error('There was an error while optimizing your lineups');
 
 			return;
 		}
 
-		if (response.error) {
-			toast.error('There was an error while optimizing your lineups');
+		if (response.data && response.isSuccess) {
+			dispatch(setView(0));
+
+			toast.success(
+				`Generated ${response.data.lineups.length} lineups successfully`
+			);
 		}
 	}, [response]);
 
