@@ -1,5 +1,5 @@
 import { getContestsFromSport } from './api/getContestsFromSport';
-import Contests from './components/Contests';
+import Contests from './components/Contests.component';
 import contestsHandler from './handlers/contests.handler';
 import { IContest } from './interfaces/IContest';
 import { IDraftKingsContest } from './interfaces/IDraftKingsContest';

@@ -7,8 +7,8 @@ import { EProviders } from '@/containers/Providers';
 import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
-import { draftKingsContestsMock } from '../mocks/Contests.mocks';
-import Contests from './Contests';
+import { draftKingsContestsMock } from '../mocks/contests.mocks';
+import Contests from './Contests.component';
 
 const preloadedState: Partial<RootState> = {
 	providers: {
