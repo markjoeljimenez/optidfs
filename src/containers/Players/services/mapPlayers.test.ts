@@ -1,8 +1,8 @@
 import {
 	draftKingsPlayersMock,
 	yahooPlayersMock,
-} from '../mocks/players.mocks';
-import { mapDraftKingsPlayers, mapYahooPlayers } from '../services/mapPlayers';
+} from './../mocks/players.mocks';
+import { mapDraftKingsPlayers, mapYahooPlayers } from './mapPlayers';
 
 describe('mapPlayers', () => {
 	it('should map Yahoo players', () => {

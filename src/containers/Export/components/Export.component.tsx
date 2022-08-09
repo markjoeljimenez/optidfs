@@ -22,10 +22,12 @@ const Export = () => {
 	const [_getOptimizedLineupsMutation, optimizeResponse] =
 		useGetOptimizedLineupsMutationResponse();
 
-	const data = exportMap.get(providers.provider!)!(
-		optimizeResponse.data,
-		contests.selectedContest!
-	);
+	const data = providers.provider
+		? exportMap.get(providers.provider)!(
+				optimizeResponse.data,
+				contests.selectedContest!
+		  )
+		: undefined;
 
 	function handleExportClick() {
 		if (providers.provider === EProviders.Yahoo) {
