@@ -37,7 +37,7 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 			return;
 		}
 
-		if (response.data && response.isSuccess) {
+		if (response.data?.lineups && response.isSuccess) {
 			dispatch(setView(0));
 
 			toast.success(

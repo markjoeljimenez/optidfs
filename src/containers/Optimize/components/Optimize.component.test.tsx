@@ -76,7 +76,7 @@ describe('Optimize', () => {
 		const getOptimizedLineupsState = getOptimizedLineups(store.getState());
 
 		// Assert
-		expect(getOptimizedLineupsState.data?.length).toBe(1);
+		expect(getOptimizedLineupsState.data?.lineups.length).toBe(1);
 	});
 
 	it('should get number of generated lineups if set', async () => {
@@ -103,7 +103,7 @@ describe('Optimize', () => {
 		const getOptimizedLineupsState = getOptimizedLineups(store.getState());
 
 		// Assert
-		expect(getOptimizedLineupsState.data?.length).toBe(10);
+		expect(getOptimizedLineupsState.data?.lineups.length).toBe(10);
 	});
 
 	it('should filter players if set', async () => {
@@ -132,7 +132,7 @@ describe('Optimize', () => {
 
 		// Assert
 		expect(
-			getOptimizedLineupsState.data![0].players.every(
+			getOptimizedLineupsState.data!.lineups[0].players.every(
 				(player) => player.status === 'N/A' || player.status === 'IL10'
 			)
 		).toBe(true);
