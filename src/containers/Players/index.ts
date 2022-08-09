@@ -7,10 +7,6 @@ import { IDraftKingsPlayer } from './models/IDraftKingsPlayer';
 import { IPlayer } from './models/IPlayer';
 import { TPlayerStatus, TPlayerStatusColor } from './models/IPlayerStatus';
 import { IYahooPlayer } from './models/IYahooPlayer';
-import PlayersReducers, {
-	playersState,
-	setFilteredPlayers,
-} from './redux/Players.reducers';
 import { mapDraftKingsPlayers, mapYahooPlayers } from './services/mapPlayers';
 
 // Data
@@ -24,15 +20,6 @@ export { draftKingsPlayersMock, yahooPlayersMock };
 
 // Handler
 export { playersHandler };
-
-// Reducers
-export { PlayersReducers };
-
-// Actions
-export { setFilteredPlayers };
-
-// State
-export { playersState };
 
 // Services
 export { mapDraftKingsPlayers, mapYahooPlayers };

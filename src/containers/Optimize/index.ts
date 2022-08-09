@@ -4,7 +4,10 @@ import optimizeHandler from './handlers/optimize.handler';
 import useGetOptimizedLineupsMutationResponse from './hooks/useGetOptimizedLineupsMutationResponse';
 import IGetOptimizedLineupsResponse from './models/IGetOptimizedLineupsResponse';
 import IOptimizedLineup from './models/IOptimizedLineup';
-import OptimizeReducers, { optimizedState } from './redux/Optimize.reducers';
+import OptimizeReducers, {
+	optimizedState,
+	setLockedPlayers,
+} from './redux/Optimize.reducers';
 
 // Api
 export { getOptimizedLineups };
@@ -23,6 +26,9 @@ export type { IGetOptimizedLineupsResponse, IOptimizedLineup };
 
 // Hooks
 export { useGetOptimizedLineupsMutationResponse };
+
+// Actions
+export { setLockedPlayers };
 
 // Components
 export default Optimize;

@@ -8,13 +8,10 @@ import TableSortSalary from '../sort/Table.sort.headers';
 
 interface ITableHeader {
 	scrollbarWidth: number;
-	stacking: {
-		enabled: boolean;
-	};
 	table: Table<IPlayer>;
 }
 
-const TableHeader = ({ scrollbarWidth, stacking, table }: ITableHeader) => (
+const TableHeader = ({ scrollbarWidth, table }: ITableHeader) => (
 	<div
 		className="border-b border-t border-gray-200 bg-gray-50"
 		role="rowgroup"
@@ -25,12 +22,11 @@ const TableHeader = ({ scrollbarWidth, stacking, table }: ITableHeader) => (
 				key={headerGroup.id}
 				className={clsx(
 					'grid items-center',
-					stacking.enabled
-						? 'grid-cols-table-md-stacking-ff'
-						: 'grid-cols-table-md'
+					'grid-cols-table-md-stacking-ff'
 				)}
 				role="row"
 			>
+				<div></div>
 				{headerGroup.headers.map((header) => (
 					<div
 						key={header.id}

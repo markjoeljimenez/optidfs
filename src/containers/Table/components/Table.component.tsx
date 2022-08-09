@@ -8,7 +8,6 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from '@tanstack/react-table';
-import { useFlags } from 'flagsmith/react';
 import React, {
 	ChangeEvent,
 	useEffect,
@@ -30,7 +29,6 @@ import TableHeader from './base/Table.header';
 import TablePreheader from './base/Table.preheader';
 
 const Table = () => {
-	const { stacking } = useFlags(['stacking']);
 	const { table } = useAppSelector((state) => state);
 	const columns = useTableColumns();
 	const playersResponse = useGetPlayersQueryResponse();
@@ -102,11 +100,7 @@ const Table = () => {
 				value={globalFilter}
 				onGlobalSearch={onGlobalSearch}
 			/>
-			<TableHeader
-				scrollbarWidth={scrollbarWidth}
-				stacking={stacking}
-				table={_table}
-			/>
+			<TableHeader scrollbarWidth={scrollbarWidth} table={_table} />
 
 			<div className="max-h-full overflow-y-auto">
 				<TableBody

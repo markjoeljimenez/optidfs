@@ -1,5 +1,8 @@
-// import clsx from 'clsx';
 // import { useState } from 'react';
+import { IconLock } from '@tabler/icons';
+import clsx from 'clsx';
+
+import { setLockedPlayers } from '@/containers/Optimize';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 // import {
@@ -14,23 +17,31 @@ export enum ELockOrExclude {
 }
 
 interface ILockOrExclude {
-	id: number;
+	id: string | number;
 }
 
 const LockOrExclude = ({ id }: ILockOrExclude) => {
-	const players = useAppSelector((state) => state.players);
+	const { optimize } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
-	// const locked = players?.locked?.some((_player) => _player.id === id);
+	const locked = optimize.settings?.lockedPlayers?.some((_id) => _id === id);
 	// const excluded = players?.excluded?.some((_player) => _player.id === id);
 
-	// function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
-	// 	if (locked) {
-	// 		dispatch(clearToggle(e));
-	// 	} else {
-	// 		dispatch(lockPlayer(e));
-	// 	}
-	// }
+	function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
+		if (!locked) {
+			dispatch(
+				setLockedPlayers([...optimize.settings.lockedPlayers, id])
+			);
+
+			return;
+		}
+
+		dispatch(
+			setLockedPlayers(
+				optimize.settings.lockedPlayers!.filter((_id) => _id !== id)
+			)
+		);
+	}
 
 	// function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
 	// 	if (excluded) {
@@ -41,18 +52,19 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 	// }
 
 	return (
-		<div className="toggle flex items-center text-xs">
-			{/* <label
+		<div className="flex items-center text-xs justify-center">
+			<label
 				className={clsx(
-					'bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-l-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0',
+					'relative hover:bg-blue-900 hover:text-white border border-gray-300 hover:border-blue-900 rounded-l px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0',
 					locked
-						? 'text-white border-blue-900 bg-blue-900 hover:text-white'
-						: ''
+						? 'border-blue-900 bg-blue-900 text-white'
+						: 'bg-gray-50 hover:bg-blue-900 hover:text-white'
 				)}
 				htmlFor={`lock-${id}`}
 			>
 				<input
 					checked={locked}
+					className="invisible h-0 w-0 absolute"
 					data-type={ELockOrExclude.Locked}
 					id={`lock-${id}`}
 					name={`lockOrExclude-${id}`}
@@ -61,39 +73,26 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 					onClick={handleLockPlayer}
 				/>
 				<span className="sr-only">Lock</span>
-				<svg
-					className="fill-current"
-					height="14"
-					viewBox="0 0 24 24"
-					width="14"
-					xmlns="http://www.w3.org/2000/svg"
-				>
-					<g data-name="Layer 2">
-						<g data-name="lock">
-							<rect height="24" opacity="0" width="24" />
-							<path d="M17 8h-1V6.11a4 4 0 1 0-8 0V8H7a3 3 0 0 0-3 3v8a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-8a3 3 0 0 0-3-3zm-7-1.89A2.06 2.06 0 0 1 12 4a2.06 2.06 0 0 1 2 2.11V8h-4zM18 19a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1z" />
-							<path d="M12 12a3 3 0 1 0 3 3 3 3 0 0 0-3-3zm0 4a1 1 0 1 1 1-1 1 1 0 0 1-1 1z" />
-						</g>
-					</g>
-				</svg>
+				<IconLock height={14} width={14} />
 			</label>
 			<label
 				className={clsx(
-					'bg-gray-100 hover:bg-blue-900 hover:text-white border border-gray-400 hover:border-blue-900 rounded-r-full px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer',
-					excluded
-						? 'text-white border-blue-900 bg-blue-900 hover:text-white'
-						: ''
+					'bg-gray-50 hover:bg-blue-900 hover:text-white border border-gray-300 hover:border-blue-900 rounded-r px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer'
+					// excluded
+					// 	? 'text-white border-blue-900 bg-blue-900 hover:text-white'
+					// 	: ''
 				)}
 				htmlFor={`exclude-${id}`}
 			>
 				<input
-					checked={excluded}
+					// checked={excluded}
+					className="invisible h-0 w-0 absolute"
 					data-type={ELockOrExclude.Excluded}
 					id={`exclude-${id}`}
 					name={`lockOrExclude-${id}`}
 					type="radio"
 					value={id}
-					onClick={handleExcludePlayer}
+					// onClick={handleExcludePlayer}
 				/>
 				<span className="sr-only">Exclude</span>
 				<svg
@@ -110,19 +109,7 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 						</g>
 					</g>
 				</svg>
-			</label> */}
-			{/* {locked || excluded ? (
-				<button
-					type="button"
-					className="ml-4 text-xs uppercase font-bold text-red-700 hover:underline"
-					onClick={handleClearSelection}
-					value={id}
-				>
-					Clear
-				</button>
-			) : (
-				<></>
-			)} */}
+			</label>
 		</div>
 	);
 };

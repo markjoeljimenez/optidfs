@@ -6,7 +6,6 @@ import { useGetOptimizedLineupsMutationResponse } from '@/containers/Optimize';
 
 const TableFooterOptimize = () => {
 	const { table } = useAppSelector((state) => state);
-	const { stacking } = useFlags(['stacking']);
 	const [_getOptimizedLineups, optimizeResponse] =
 		useGetOptimizedLineupsMutationResponse();
 
@@ -14,9 +13,7 @@ const TableFooterOptimize = () => {
 		<div
 			className={clsx(
 				'border-t border-gray-200 grid items-center',
-				stacking.enabled
-					? 'grid-cols-table-md-stacking-ff'
-					: 'grid-cols-table-md'
+				'grid-cols-table-md-stacking-ff'
 			)}
 			role="row"
 		>

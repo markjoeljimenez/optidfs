@@ -1,5 +1,4 @@
 import { createColumnHelper } from '@tanstack/react-table';
-import { useFlags } from 'flagsmith/react';
 import Image from 'next/image';
 
 import { IPlayer, PlayerStatusMap } from '@/containers/Players';
@@ -10,9 +9,14 @@ import Toggle from '../components/Table.lockExclude';
 const columnHelper = createColumnHelper<IPlayer>();
 
 function useTableColumns() {
-	const { stacking } = useFlags(['stacking']);
-
 	const columns = [
+		columnHelper.accessor('id', {
+			cell: (info) => <Toggle id={info.getValue()} />,
+			enableColumnFilter: false,
+			enableGlobalFilter: false,
+			enableSorting: false,
+			header: '',
+		}),
 		columnHelper.accessor('image', {
 			cell: (info) => (
 				<div
@@ -104,18 +108,6 @@ function useTableColumns() {
 			enableSorting: true,
 		}),
 	];
-
-	if (stacking.enabled) {
-		columns.push(
-			columnHelper.accessor('id', {
-				cell: (info) => <Toggle id={info.getValue()} />,
-				enableColumnFilter: false,
-				enableGlobalFilter: false,
-				enableSorting: false,
-				header: '',
-			}) as any
-		);
-	}
 
 	return columns;
 }

@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { TPlayerStatus } from '@/containers/Players/';
+import { IPlayer, TPlayerStatus } from '@/containers/Players/';
 
 import { AppState } from '../../../store';
-import IOptimizedLineup from '../models/IOptimizedLineup';
 import IOptimizeSettings from '../models/IOptimizeSettings';
 
 interface IOptimizeState {
@@ -12,6 +11,7 @@ interface IOptimizeState {
 
 const initialState: IOptimizeState = {
 	settings: {
+		lockedPlayers: [],
 		numberOfLineups: 1,
 		statusFilters: [],
 	},
@@ -21,6 +21,9 @@ export const OptimizeReducers = createSlice({
 	initialState,
 	name: 'optimize',
 	reducers: {
+		setLockedPlayers: (state, action: PayloadAction<IPlayer['id'][]>) => {
+			state.settings.lockedPlayers = action.payload;
+		},
 		setNumberOfGenerations: (state, action: PayloadAction<number>) => {
 			state.settings.numberOfLineups = action.payload;
 		},
@@ -30,7 +33,7 @@ export const OptimizeReducers = createSlice({
 	},
 });
 
-export const { setNumberOfGenerations, setStatusFilters } =
+export const { setLockedPlayers, setNumberOfGenerations, setStatusFilters } =
 	OptimizeReducers.actions;
 export const optimizedState = (state: AppState) => state.optimize;
 
