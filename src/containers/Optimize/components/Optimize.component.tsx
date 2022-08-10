@@ -32,7 +32,7 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 
 	useEffect(() => {
 		if (response.error) {
-			toast.error('There was an error while optimizing your lineups');
+			toast.error(response.error?.data.detail);
 
 			return;
 		}
