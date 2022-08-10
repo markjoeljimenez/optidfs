@@ -93,8 +93,8 @@ module.exports = {
 			gridTemplateColumns: {
 				'table-sm': '5rem 1fr 1fr 3rem',
 				'table-md-stacking-ff':
-					// more lock-exclude avatar status first last position team salary
-					'4rem 6rem .75fr 1.25fr 2fr minmax(5rem, 2.5fr) minmax(3rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)',
+					// lock-exclude avatar status first last position team salary fppg more
+					'1fr 0.75fr 1.5fr 3fr 1fr 1fr 1fr 1fr 1fr 0.5fr',
 				'table-md':
 					'5rem minmax(5rem, 1.5fr) minmax(8rem, 2fr) minmax(12rem, 3fr) minmax(5rem, 1fr) minmax(3rem, 1fr) minmax(4rem, 1fr) minmax(4rem, 1fr)',
 				'custom-stacking-md': '4rem 4rem 4fr 1fr 3.25rem',

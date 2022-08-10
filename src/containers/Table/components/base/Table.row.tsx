@@ -24,6 +24,23 @@ const TableRow = ({ row }: ITableRow) => {
 				)}
 				role="row"
 			>
+				{row.getVisibleCells().map((cell) => (
+					<div
+						key={cell.id}
+						className="p-4 whitespace-nowrap"
+						role="cell"
+					>
+						{flexRender(
+							cell.column.columnDef.cell,
+							cell.getContext()
+						)}
+					</div>
+				))}
+
+				<div className="p-4 whitespace-nowrap" role="cell">
+					{showAdditionalControls && <Toggle id={row.original.id} />}
+				</div>
+
 				{row.getCanExpand() && (
 					<div className="p-4 whitespace-nowrap" role="cell">
 						{showAdditionalControls && (
@@ -41,25 +58,6 @@ const TableRow = ({ row }: ITableRow) => {
 						)}
 					</div>
 				)}
-
-				<div className="p-4 whitespace-nowrap" role="cell">
-					{showAdditionalControls && (
-						<Toggle id={row.getValue('id')} />
-					)}
-				</div>
-
-				{row.getVisibleCells().map((cell) => (
-					<div
-						key={cell.id}
-						className="p-4 whitespace-nowrap"
-						role="cell"
-					>
-						{flexRender(
-							cell.column.columnDef.cell,
-							cell.getContext()
-						)}
-					</div>
-				))}
 			</div>
 
 			{row.getIsExpanded() && (

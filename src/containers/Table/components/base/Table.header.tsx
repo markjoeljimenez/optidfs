@@ -26,7 +26,6 @@ const TableHeader = ({ scrollbarWidth, table }: ITableHeader) => (
 				)}
 				role="row"
 			>
-				<div></div>
 				{headerGroup.headers.map((header) => (
 					<div
 						key={header.id}
