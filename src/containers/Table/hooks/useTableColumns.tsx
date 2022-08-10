@@ -1,22 +1,13 @@
 import { createColumnHelper } from '@tanstack/react-table';
 import Image from 'next/image';
 
+import Pill from '@/components/global/pill';
 import { IPlayer, PlayerStatusMap } from '@/containers/Players';
-
-import Pill from '../../../components/global/pill';
-import Toggle from '../components/Table.lockExclude';
 
 const columnHelper = createColumnHelper<IPlayer>();
 
 function useTableColumns() {
 	const columns = [
-		columnHelper.accessor('id', {
-			cell: (info) => <Toggle id={info.getValue()} />,
-			enableColumnFilter: false,
-			enableGlobalFilter: false,
-			enableSorting: false,
-			header: '',
-		}),
 		columnHelper.accessor('image', {
 			cell: (info) => (
 				<div

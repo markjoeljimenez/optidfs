@@ -2,13 +2,18 @@ import { IconChevronDown, IconChevronRight } from '@tabler/icons';
 import { flexRender, Row } from '@tanstack/react-table';
 import clsx from 'clsx';
 
-import { IPlayer } from '@/containers/Players';
+import { IPlayer, PlayerStatusMap } from '@/containers/Players';
+
+import Toggle from '../Table.lockExclude';
 
 interface ITableRow {
 	row: Row<IPlayer>;
 }
 
 const TableRow = ({ row }: ITableRow) => {
+	const showAdditionalControls =
+		PlayerStatusMap.get(row.getValue('status'))?.color !== 'red';
+
 	return (
 		<>
 			<div
@@ -21,19 +26,27 @@ const TableRow = ({ row }: ITableRow) => {
 			>
 				{row.getCanExpand() && (
 					<div className="p-4 whitespace-nowrap" role="cell">
-						<button
-							onClick={() =>
-								row.toggleExpanded(!row.getIsExpanded())
-							}
-						>
-							{row.getIsExpanded() ? (
-								<IconChevronDown />
-							) : (
-								<IconChevronRight />
-							)}
-						</button>
+						{showAdditionalControls && (
+							<button
+								onClick={() =>
+									row.toggleExpanded(!row.getIsExpanded())
+								}
+							>
+								{row.getIsExpanded() ? (
+									<IconChevronDown />
+								) : (
+									<IconChevronRight />
+								)}
+							</button>
+						)}
 					</div>
 				)}
+
+				<div className="p-4 whitespace-nowrap" role="cell">
+					{showAdditionalControls && (
+						<Toggle id={row.getValue('id')} />
+					)}
+				</div>
 
 				{row.getVisibleCells().map((cell) => (
 					<div
