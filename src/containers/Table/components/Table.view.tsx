@@ -6,7 +6,7 @@ import { useGetOptimizedLineupsMutationResponse } from '@/containers/Optimize';
 
 import { setView } from '../reducers/Table.reducers';
 
-const TableView = () => {
+export const TableView = () => {
 	const { table } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const [_getOptimizedLineups, optimizeResponse] =
@@ -41,5 +41,3 @@ const TableView = () => {
 		/>
 	);
 };
-
-export default TableView;

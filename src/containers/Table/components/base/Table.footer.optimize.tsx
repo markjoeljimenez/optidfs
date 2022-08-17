@@ -1,10 +1,9 @@
 import clsx from 'clsx';
-import { useFlags } from 'flagsmith/react';
 import { useAppSelector } from 'src/hooks';
 
 import { useGetOptimizedLineupsMutationResponse } from '@/containers/Optimize';
 
-const TableFooterOptimize = () => {
+export const TableFooterOptimize = () => {
 	const { table } = useAppSelector((state) => state);
 	const [_getOptimizedLineups, optimizeResponse] =
 		useGetOptimizedLineupsMutationResponse();
@@ -45,5 +44,3 @@ const TableFooterOptimize = () => {
 		</div>
 	);
 };
-
-export default TableFooterOptimize;

@@ -1,12 +1,3 @@
-import Table from './components/Table.component';
-import { View } from './models/view';
-import TableReducers from './reducers/Table.reducers';
-
-// Reducers
-export { TableReducers };
-
-// Models
-export { View as tableView };
-
-// Components
-export default Table;
+export * from './components/Table.component';
+export * from './models/view';
+export * from './reducers/Table.reducers';

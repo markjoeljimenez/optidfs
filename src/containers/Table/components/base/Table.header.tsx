@@ -4,14 +4,14 @@ import clsx from 'clsx';
 import { IPlayer } from '@/containers/Players';
 
 import TableStatusFilter from '../filters/Table.filters.status';
-import TableSortSalary from '../sort/Table.sort.headers';
+import { TableSort } from '../sort/Table.sort.headers';
 
 interface ITableHeader {
 	scrollbarWidth: number;
 	table: Table<IPlayer>;
 }
 
-const TableHeader = ({ scrollbarWidth, table }: ITableHeader) => (
+export const TableHeader = ({ scrollbarWidth, table }: ITableHeader) => (
 	<div
 		className="border-b border-t border-gray-200 bg-gray-50"
 		role="rowgroup"
@@ -51,7 +51,7 @@ const TableHeader = ({ scrollbarWidth, table }: ITableHeader) => (
 
 						{header.column.getCanSort() && (
 							<div className="ml-1">
-								<TableSortSalary column={header.column} />
+								<TableSort column={header.column} />
 							</div>
 						)}
 					</div>
@@ -60,5 +60,3 @@ const TableHeader = ({ scrollbarWidth, table }: ITableHeader) => (
 		))}
 	</div>
 );
-
-export default TableHeader;

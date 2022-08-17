@@ -20,7 +20,7 @@ interface ILockOrExclude {
 	id: string | number;
 }
 
-const LockOrExclude = ({ id }: ILockOrExclude) => {
+export const TableToggle = ({ id }: ILockOrExclude) => {
 	const { optimize } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
@@ -113,5 +113,3 @@ const LockOrExclude = ({ id }: ILockOrExclude) => {
 		</div>
 	);
 };
-
-export default LockOrExclude;

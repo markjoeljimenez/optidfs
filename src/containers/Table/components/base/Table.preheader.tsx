@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 import Input from '@/components/form/input';
 import Search from '@/components/icons/search';
 
-import TableView from '../Table.view';
+import { TableView } from '../Table.view';
 
 interface ITablePreheader {
 	onGlobalSearch: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -11,7 +11,7 @@ interface ITablePreheader {
 	value?: string;
 }
 
-const TablePreheader = ({
+export const TablePreheader = ({
 	onGlobalSearch,
 	scrollbarWidth,
 	value,
@@ -43,5 +43,3 @@ const TablePreheader = ({
 		</div>
 	</div>
 );
-
-export default TablePreheader;

@@ -20,15 +20,15 @@ import { useGetOptimizedLineupsMutationResponse } from '@/containers/Optimize';
 import useGetPlayersQueryResponse from '@/containers/Players/hooks/useGetPlayersQueryResponse';
 
 import { useAppSelector } from '../../../hooks';
-import useTableColumns from '../hooks/useTableColumns';
-import TableBody from './base/Table.body';
-import TableFooter from './base/Table.footer';
-import TableFooterOptimize from './base/Table.footer.optimize';
-import TableFooterPagination from './base/Table.footer.pagination';
-import TableHeader from './base/Table.header';
-import TablePreheader from './base/Table.preheader';
+import { useTableColumns } from '../hooks/useTableColumns';
+import { TableBody } from './base/Table.body';
+import { TableFooter } from './base/Table.footer';
+import { TableFooterOptimize } from './base/Table.footer.optimize';
+import { TableFooterPagination } from './base/Table.footer.pagination';
+import { TableHeader } from './base/Table.header';
+import { TablePreheader } from './base/Table.preheader';
 
-const Table = () => {
+export const Table = () => {
 	const { table } = useAppSelector((state) => state);
 	const columns = useTableColumns();
 	const playersResponse = useGetPlayersQueryResponse();
@@ -128,5 +128,3 @@ const Table = () => {
 		</div>
 	);
 };
-
-export default Table;

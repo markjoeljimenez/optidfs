@@ -3,7 +3,7 @@ interface ITableFooter {
 	scrollbarWidth: number;
 }
 
-const TableFooter = ({ children, scrollbarWidth }: ITableFooter) => (
+export const TableFooter = ({ children, scrollbarWidth }: ITableFooter) => (
 	<div
 		className="bg-white"
 		role="rolegroup"
@@ -12,5 +12,3 @@ const TableFooter = ({ children, scrollbarWidth }: ITableFooter) => (
 		{children}
 	</div>
 );
-
-export default TableFooter;

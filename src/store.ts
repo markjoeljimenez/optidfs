@@ -36,7 +36,7 @@ const rootReducer = combineReducers({
 	// rules,
 	sports: SportsReducers,
 	// stacking,
-	table: TableReducers,
+	table: TableReducers.reducer,
 	// tabs,
 	[OptidfsApi.reducerPath]: OptidfsApi.reducer,
 });
