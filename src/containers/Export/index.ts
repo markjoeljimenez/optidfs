@@ -1,3 +1,2 @@
-import Export from './components/Export.component';
-
-export default Export;
+export * from './components';
+export * from './services';
