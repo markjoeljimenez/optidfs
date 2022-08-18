@@ -31,7 +31,7 @@ const rootReducer = combineReducers({
 	contests: ContestsReducers.reducer,
 	// error,
 	global: GlobalReducers,
-	optimize: OptimizeReducers,
+	optimize: OptimizeReducers.reducer,
 	providers: ProvidersReducer,
 	// rules,
 	sports: SportsReducers,

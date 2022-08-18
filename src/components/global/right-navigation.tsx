@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useFlags } from 'flagsmith/react';
 import React, { MouseEvent, useState } from 'react';
 
-import OptimizeSettings from '@/containers/Optimize/settings/Optimize.settings';
+import { OptimizeSettings } from '@/containers/Optimize';
 
 const RightNavigation = () => {
 	const [open, setOpen] = useState<string | null>(null);

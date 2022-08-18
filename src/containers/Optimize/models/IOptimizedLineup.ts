@@ -1,6 +1,6 @@
 import { IPlayer } from '@/containers/Players';
 
-export default interface IOptimizedLineup {
+export interface IOptimizedLineup {
 	fppg: number;
 	players: IPlayer[];
 	salary: number;

@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks';
 // 	lockPlayer,
 // } from '../../Players/redux/Players.actions';
 
-export enum ELockOrExclude {
+export enum ETableToggle {
 	Locked = 'locked',
 	Excluded = 'excluded',
 }
@@ -65,7 +65,7 @@ export const TableToggle = ({ id }: ILockOrExclude) => {
 				<input
 					checked={locked}
 					className="invisible h-0 w-0 absolute"
-					data-type={ELockOrExclude.Locked}
+					data-type={ETableToggle.Locked}
 					id={`lock-${id}`}
 					name={`lockOrExclude-${id}`}
 					type="radio"
@@ -87,7 +87,7 @@ export const TableToggle = ({ id }: ILockOrExclude) => {
 				<input
 					// checked={excluded}
 					className="invisible h-0 w-0 absolute"
-					data-type={ELockOrExclude.Excluded}
+					data-type={ETableToggle.Excluded}
 					id={`exclude-${id}`}
 					name={`lockOrExclude-${id}`}
 					type="radio"

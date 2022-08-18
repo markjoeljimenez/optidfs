@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IPlayer, TPlayerStatus } from '@/containers/Players/';
 
 import { AppState } from '../../../store';
-import IOptimizeSettings from '../models/IOptimizeSettings';
+import { IOptimizeSettings } from '../models';
 
 interface IOptimizeState {
 	settings: IOptimizeSettings;
@@ -36,5 +36,3 @@ export const OptimizeReducers = createSlice({
 export const { setLockedPlayers, setNumberOfGenerations, setStatusFilters } =
 	OptimizeReducers.actions;
 export const optimizedState = (state: AppState) => state.optimize;
-
-export default OptimizeReducers.reducer;

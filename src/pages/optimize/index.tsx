@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import RightNavigation from '@/components/global/right-navigation';
 import { Contests } from '@/containers/Contests';
 import { Export } from '@/containers/Export';
-import Optimize from '@/containers/Optimize';
+import { Optimize } from '@/containers/Optimize';
 import { Table } from '@/containers/Table';
 
 import { useAppSelector } from '../../hooks';

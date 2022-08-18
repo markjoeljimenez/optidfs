@@ -5,15 +5,15 @@ import { useAppDispatch, useAppSelector } from 'src/hooks';
 import Button from '@/components/form/button';
 import Loading from '@/components/loading/loading';
 import { useGetPlayersQueryResponse } from '@/containers/Players';
-import { setView } from '@/containers/Table/reducers/Table.reducers';
+import { setView } from '@/containers/Table/';
 
-import useGetOptimizedLineupsMutationResponse from '../hooks/useGetOptimizedLineupsMutationResponse';
+import { useGetOptimizedLineupsMutationResponse } from '../hooks';
 
 interface IOptimizeProps {
 	disabled?: boolean;
 }
 
-const Optimize = ({ disabled }: IOptimizeProps) => {
+export const Optimize = ({ disabled }: IOptimizeProps) => {
 	const { optimize, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const { data: defaultPlayers } = useGetPlayersQueryResponse();
@@ -57,5 +57,3 @@ const Optimize = ({ disabled }: IOptimizeProps) => {
 		</Button>
 	);
 };
-
-export default Optimize;
