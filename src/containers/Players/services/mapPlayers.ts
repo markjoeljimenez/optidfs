@@ -1,6 +1,4 @@
-import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
-import { IPlayer } from '../models/IPlayer';
-import { IYahooPlayer } from '../models/IYahooPlayer';
+import { IDraftKingsPlayer, IPlayer, IYahooPlayer } from '../models';
 
 export function mapDraftKingsPlayers(
 	draftKingsPlayers: IDraftKingsPlayer[]

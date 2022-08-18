@@ -1,5 +1,4 @@
-import { IDraftKingsPlayer } from '../models/IDraftKingsPlayer';
-import { IYahooPlayer } from '../models/IYahooPlayer';
+import { IDraftKingsPlayer, IYahooPlayer } from '../models';
 
 /* eslint-disable sort-keys */
 export const yahooPlayersMock: IYahooPlayer[] = [

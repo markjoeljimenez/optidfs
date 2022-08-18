@@ -17,7 +17,7 @@ import React, {
 } from 'react';
 
 import { useGetOptimizedLineupsMutationResponse } from '@/containers/Optimize';
-import useGetPlayersQueryResponse from '@/containers/Players/hooks/useGetPlayersQueryResponse';
+import { useGetPlayersQueryResponse } from '@/containers/Players';
 
 import { useAppSelector } from '../../../hooks';
 import { useTableColumns } from '../hooks/useTableColumns';

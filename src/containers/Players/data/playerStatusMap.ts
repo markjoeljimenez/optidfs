@@ -1,4 +1,4 @@
-import { TPlayerStatus, TPlayerStatusColor } from '../models/IPlayerStatus';
+import { TPlayerStatus, TPlayerStatusColor } from '../models';
 
 export const PlayerStatusMap = new Map<
 	TPlayerStatus,
