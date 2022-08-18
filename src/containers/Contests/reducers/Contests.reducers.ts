@@ -28,5 +28,3 @@ export const ContestsReducers = createSlice({
 
 export const { setGameType, setSelectedContest } = ContestsReducers.actions;
 export const contestsState = (state: AppState) => state.contests;
-
-export default ContestsReducers.reducer;

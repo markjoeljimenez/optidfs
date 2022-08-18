@@ -28,7 +28,7 @@ import { OptidfsApi } from './api';
 // import error from './containers/Error/Error.reducers';
 
 const rootReducer = combineReducers({
-	contests: ContestsReducers,
+	contests: ContestsReducers.reducer,
 	// error,
 	global: GlobalReducers,
 	optimize: OptimizeReducers,

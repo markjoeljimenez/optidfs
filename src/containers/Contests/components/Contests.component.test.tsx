@@ -8,7 +8,7 @@ import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
 import { draftKingsContestsMock } from '../mocks/contests.mocks';
-import Contests from './Contests.component';
+import { Contests } from './Contests.component';
 
 const preloadedState: Partial<RootState> = {
 	providers: {

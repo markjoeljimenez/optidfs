@@ -6,9 +6,9 @@ import { toast } from 'react-hot-toast';
 import { useGetContestsFromSportQuery } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { IContest } from '../interfaces/IContest';
-import { setGameType, setSelectedContest } from '../redux/Contests.reducers';
+import { setGameType, setSelectedContest } from '../reducers/Contests.reducers';
 
-const Dropdown = () => {
+export const Contests = () => {
 	const { contests, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
@@ -170,5 +170,3 @@ const Dropdown = () => {
 		</div>
 	);
 };
-
-export default Dropdown;

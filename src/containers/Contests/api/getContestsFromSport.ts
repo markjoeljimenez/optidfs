@@ -17,7 +17,7 @@ interface IContestsBody {
 	sportId: number;
 }
 
-const getContestsFromSport = (
+export const getContestsFromSport = (
 	builder: EndpointBuilder<
 		BaseQueryFn<
 			string | FetchArgs,
@@ -42,5 +42,3 @@ const getContestsFromSport = (
 			arg: IContestsBody
 		): IContest[] => mapContests(response, arg.provider),
 	});
-
-export { getContestsFromSport };

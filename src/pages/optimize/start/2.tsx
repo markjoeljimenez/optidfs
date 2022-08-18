@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 import IconButton from '@/components/global/icon-button';
 import Chevron from '@/components/icons/chevron';
-import Contests from '@/containers/Contests';
+import { Contests } from '@/containers/Contests';
 import { setHasVisited } from '@/containers/Global';
 
 const Start2 = () => {

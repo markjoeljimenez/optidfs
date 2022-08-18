@@ -2,7 +2,7 @@ import router from 'next/router';
 import { useEffect } from 'react';
 
 import RightNavigation from '@/components/global/right-navigation';
-import Contests from '@/containers/Contests';
+import { Contests } from '@/containers/Contests';
 import Export from '@/containers/Export';
 import Optimize from '@/containers/Optimize';
 import { Table } from '@/containers/Table';
