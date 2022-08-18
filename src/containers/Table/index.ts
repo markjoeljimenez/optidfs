@@ -1,3 +1,3 @@
-export * from './components/Table.component';
-export * from './models/view';
-export * from './reducers/Table.reducers';
+export * from './components';
+export * from './models';
+export * from './reducers';
