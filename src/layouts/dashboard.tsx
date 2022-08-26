@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 
 import { Providers } from '@/containers/Providers';
-import Sports from '@/containers/Sports';
+import { Sports } from '@/containers/Sports';
 
 import Nav from '../components/global/nav';
 import { useAppSelector } from '../hooks';

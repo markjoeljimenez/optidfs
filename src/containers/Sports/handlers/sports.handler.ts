@@ -6,7 +6,7 @@ import { draftKingsSportsMock, yahooSportsMock } from '../mocks/sports.mocks';
 
 const { ENDPOINT } = process.env;
 
-const handler = rest.get(`${ENDPOINT!}`, (req, res, ctx) => {
+export const sportsHandler = rest.get(`${ENDPOINT!}`, (req, res, ctx) => {
 	const sportsMap = new Map([
 		[EProviders.DraftKings, draftKingsSportsMock],
 		[EProviders.Yahoo, yahooSportsMock],
@@ -18,5 +18,3 @@ const handler = rest.get(`${ENDPOINT!}`, (req, res, ctx) => {
 		)
 	);
 });
-
-export default handler;

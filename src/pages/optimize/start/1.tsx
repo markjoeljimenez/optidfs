@@ -4,7 +4,7 @@ import { useAppSelector } from 'src/hooks';
 import IconButton from '@/components/global/icon-button';
 import Chevron from '@/components/icons/chevron';
 import { Providers } from '@/containers/Providers';
-import Sports from '@/containers/Sports';
+import { Sports } from '@/containers/Sports';
 
 const Start = () => {
 	const state = useAppSelector((state) => state);

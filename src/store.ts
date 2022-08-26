@@ -34,7 +34,7 @@ const rootReducer = combineReducers({
 	optimize: OptimizeReducers.reducer,
 	providers: ProviderReducers.reducer,
 	// rules,
-	sports: SportsReducers,
+	sports: SportsReducers.reducer,
 	// stacking,
 	table: TableReducers.reducer,
 	// tabs,
