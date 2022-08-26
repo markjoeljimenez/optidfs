@@ -7,10 +7,9 @@ import { setSelectedContest } from '@/containers/Contests';
 import { setSelectedSport } from '@/containers/Sports';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { EProviders, setProvider } from '..';
-import providersData from '../data/providers';
+import { EProviders, providersData, setProvider } from '..';
 
-const Providers = () => {
+export const Providers = () => {
 	const { global, providers } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const reset = useReset();
@@ -43,5 +42,3 @@ const Providers = () => {
 		/>
 	);
 };
-
-export default Providers;

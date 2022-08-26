@@ -20,7 +20,7 @@ import storage from 'redux-persist/lib/storage';
 import { ContestsReducers } from '@/containers/Contests';
 import { GlobalReducers } from '@/containers/Global';
 import { OptimizeReducers } from '@/containers/Optimize';
-import { ProvidersReducer } from '@/containers/Providers';
+import { ProviderReducers } from '@/containers/Providers';
 import { SportsReducers } from '@/containers/Sports';
 import { TableReducers } from '@/containers/Table';
 
@@ -32,7 +32,7 @@ const rootReducer = combineReducers({
 	// error,
 	global: GlobalReducers,
 	optimize: OptimizeReducers.reducer,
-	providers: ProvidersReducer,
+	providers: ProviderReducers.reducer,
 	// rules,
 	sports: SportsReducers,
 	// stacking,

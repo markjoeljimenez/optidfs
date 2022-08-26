@@ -1,4 +1,4 @@
-const providers = [
+export const providersData = [
 	{
 		hasPublicContests: true,
 		id: 'draftkings',
@@ -14,5 +14,3 @@ const providers = [
 		supported: true,
 	},
 ];
-
-export default providers;
