@@ -1,7 +1,6 @@
-import { IPlayer } from '@/containers/Players';
-import { TPlayerStatus } from '@/containers/Players/models/IPlayerStatus';
+import { IPlayer, TPlayerStatus } from '@/containers/Players';
 
-export default interface IOptimizeSettings {
+export interface IOptimizeSettings {
 	lockedPlayers: IPlayer['id'][];
 	numberOfLineups: number;
 	statusFilters: TPlayerStatus[];

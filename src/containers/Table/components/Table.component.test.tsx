@@ -7,7 +7,7 @@ import { EProviders } from '@/containers/Providers';
 import { yahooSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
-import Table from './Table.component';
+import { Table } from './Table.component';
 
 const preloadedState: Partial<RootState> = {
 	contests: {

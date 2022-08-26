@@ -8,7 +8,7 @@ import { EProviders } from '@/containers/Providers';
 import { yahooSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
-import Optimize from './Optimize.component';
+import { Optimize } from './Optimize.component';
 
 const preloadedState: Partial<RootState> = {
 	contests: {

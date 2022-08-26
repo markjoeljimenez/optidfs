@@ -8,9 +8,8 @@ import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions
 
 import { EProviders } from '@/containers/Providers';
 
-import { IPlayer } from '../models/IPlayer';
-import { TPlayerStatus } from '../models/IPlayerStatus';
-import { mapDraftKingsPlayers, mapYahooPlayers } from '../services/mapPlayers';
+import { IPlayer, TPlayerStatus } from '../models';
+import { mapDraftKingsPlayers, mapYahooPlayers } from '../services';
 
 interface IGetPlayersResponse {
 	players: IPlayer[];
@@ -23,7 +22,7 @@ interface IGetPlayersBody {
 	gameType?: string;
 }
 
-const getPlayers = (
+export const getPlayers = (
 	builder: EndpointBuilder<
 		BaseQueryFn<
 			string | FetchArgs,
@@ -54,5 +53,3 @@ const getPlayers = (
 			};
 		},
 	});
-
-export { getPlayers };

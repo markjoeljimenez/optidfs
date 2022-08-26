@@ -9,9 +9,9 @@ import {
 	usePrefetch,
 } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-import { setSelectedSport } from '../redux/Sports.reducers';
+import { setSelectedSport } from '../reducers/Sports.reducers';
 
-const Sports = () => {
+export const Sports = () => {
 	const { global, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 	const reset = useReset();
@@ -80,5 +80,3 @@ const Sports = () => {
 		</div>
 	);
 };
-
-export default Sports;

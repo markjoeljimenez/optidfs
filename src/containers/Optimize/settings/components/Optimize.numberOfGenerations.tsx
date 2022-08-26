@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from 'src/hooks';
 
 import Input from '@/components/form/input';
 
-import { setNumberOfGenerations } from '../../redux/Optimize.reducers';
+import { setNumberOfGenerations } from '../../reducers/Optimize.reducers';
 
 const OptimizeNumberOfGenerations = () => {
 	const { optimize } = useAppSelector((state) => state);

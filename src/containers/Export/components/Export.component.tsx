@@ -17,7 +17,7 @@ const exportMap = new Map([
 	[EProviders.Yahoo, mapPlayersToYahooCSV],
 ]);
 
-const Export = () => {
+export const Export = () => {
 	const { contests, providers } = useAppSelector((state) => state);
 	const [_getOptimizedLineupsMutation, optimizeResponse] =
 		useGetOptimizedLineupsMutationResponse();
@@ -51,5 +51,3 @@ const Export = () => {
 
 	return <></>;
 };
-
-export default Export;

@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import Loading from '@/components/loading/loading';
 import { IPlayer } from '@/containers/Players';
 
-import TableRow from './Table.row';
+import { TableRow } from './Table.row';
 
 interface ITableBody {
 	isFetching: boolean;
@@ -14,7 +14,7 @@ interface ITableBody {
 }
 
 // eslint-disable-next-line react/display-name
-const TableBody = forwardRef<HTMLDivElement, ITableBody>(
+export const TableBody = forwardRef<HTMLDivElement, ITableBody>(
 	({ isFetching, isLoading, players, table }, ref) => {
 		function renderTableBody() {
 			if (isLoading || isFetching) {
@@ -54,5 +54,3 @@ const TableBody = forwardRef<HTMLDivElement, ITableBody>(
 		);
 	}
 );
-
-export default TableBody;

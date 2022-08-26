@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ColumnFiltersState } from '@tanstack/react-table';
 
 import { AppState } from '../../../store';
 
@@ -23,5 +22,3 @@ export const TableReducers = createSlice({
 
 export const { setView } = TableReducers.actions;
 export const selectTable = (state: AppState) => state.table;
-
-export default TableReducers.reducer;

@@ -23,5 +23,3 @@ export const SportsReducers = createSlice({
 
 export const { setSelectedSport } = SportsReducers.actions;
 export const sportsState = (state: AppState) => state.sports;
-
-export default SportsReducers.reducer;

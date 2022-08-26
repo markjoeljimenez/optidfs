@@ -7,7 +7,7 @@ import {
 	useGetPlayersQueryResponse,
 } from '@/containers/Players';
 
-import { setStatusFilters } from '../../redux/Optimize.reducers';
+import { setStatusFilters } from '../../reducers';
 
 const OptimizeStatusFilters = () => {
 	const { optimize } = useAppSelector((state) => state);
@@ -15,7 +15,7 @@ const OptimizeStatusFilters = () => {
 	const playersResponse = useGetPlayersQueryResponse();
 
 	function handleStatusFilterChange(e: ChangeEvent<HTMLInputElement>) {
-		const statusFilters = [...optimize.settings.statusFilters];
+		const statusFilters = [...optimize.settings?.statusFilters];
 		const value = e.currentTarget.value as TPlayerStatus;
 
 		if (statusFilters.includes(value)) {

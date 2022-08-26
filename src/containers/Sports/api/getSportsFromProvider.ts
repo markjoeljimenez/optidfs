@@ -8,7 +8,7 @@ import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions
 
 import { ISport } from '../interfaces/ISports';
 
-const getSportsFromProvider = (
+export const getSportsFromProvider = (
 	builder: EndpointBuilder<
 		BaseQueryFn<
 			string | FetchArgs,
@@ -24,5 +24,3 @@ const getSportsFromProvider = (
 	builder.query<ISport[], string>({
 		query: (provider: string) => `?provider=${provider}`,
 	});
-
-export { getSportsFromProvider };

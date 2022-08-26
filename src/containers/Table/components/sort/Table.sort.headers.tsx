@@ -6,10 +6,11 @@ import ChevronTriangle, {
 } from '@/components/icons/chevron-triangle';
 import { IPlayer } from '@/containers/Players';
 
-interface ITableSortSalary {
+interface ITableSort {
 	column: Column<IPlayer, unknown>;
 }
-const TableSortSalary = ({ column }: ITableSortSalary) => {
+
+export const TableSort = ({ column }: ITableSort) => {
 	function getDirection() {
 		if (column.getIsSorted()) {
 			if (column.getIsSorted() === 'desc') {
@@ -32,5 +33,3 @@ const TableSortSalary = ({ column }: ITableSortSalary) => {
 		</button>
 	);
 };
-
-export default TableSortSalary;

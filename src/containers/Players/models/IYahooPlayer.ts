@@ -1,4 +1,4 @@
-import { TPlayerStatus } from '@/containers/Players/models/IPlayerStatus';
+import { TPlayerStatus } from '@/containers/Players';
 
 export interface BaseTeam {
 	abbr: string;

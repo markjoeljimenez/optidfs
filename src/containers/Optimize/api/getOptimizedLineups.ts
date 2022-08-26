@@ -10,10 +10,9 @@ import { IPlayer } from '@/containers/Players';
 import { EProviders } from '@/containers/Providers';
 import { ISport } from '@/containers/Sports';
 
-import IGetOptimizedLineupsResponse from '../models/IGetOptimizedLineupsResponse';
-import IOptimizeSettings from '../models/IOptimizeSettings';
+import { IGetOptimizedLineupsResponse, IOptimizeSettings } from '../models';
 
-const getOptimizedLineups = (
+export const getOptimizedLineups = (
 	builder: EndpointBuilder<
 		BaseQueryFn<
 			string | FetchArgs,
@@ -43,5 +42,3 @@ const getOptimizedLineups = (
 			};
 		},
 	});
-
-export { getOptimizedLineups };

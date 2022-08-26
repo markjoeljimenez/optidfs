@@ -1,6 +1,6 @@
-import IOptimizedLineup from './IOptimizedLineup';
+import { IOptimizedLineup } from './IOptimizedLineup';
 
-export default interface IGetOptimizedLineupsResponse {
+export interface IGetOptimizedLineupsResponse {
 	lineups: IOptimizedLineup[];
 	positions: string[];
 }

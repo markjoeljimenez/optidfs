@@ -5,7 +5,7 @@ import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen } from '@/test/render';
 
 import { EProviders } from '../models/EProviders';
-import Providers from './Providers';
+import { Providers } from './Providers.component';
 
 describe('Providers', () => {
 	it('should match snapshot', () => {

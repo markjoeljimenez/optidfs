@@ -1,7 +1,7 @@
 import { useGetPlayersQuery } from 'src/api';
 import { useAppSelector } from 'src/hooks';
 
-export default function useGetPlayersQueryResponse() {
+export function useGetPlayersQueryResponse() {
 	const { contests, providers, sports } = useAppSelector((state) => state);
 
 	return useGetPlayersQuery(

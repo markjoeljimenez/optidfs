@@ -4,13 +4,13 @@ import clsx from 'clsx';
 
 import { IPlayer, PlayerStatusMap } from '@/containers/Players';
 
-import Toggle from '../Table.lockExclude';
+import { TableToggle } from '../Table.toggle';
 
 interface ITableRow {
 	row: Row<IPlayer>;
 }
 
-const TableRow = ({ row }: ITableRow) => {
+export const TableRow = ({ row }: ITableRow) => {
 	const showAdditionalControls =
 		PlayerStatusMap.get(row.getValue('status'))?.color !== 'red';
 
@@ -38,7 +38,9 @@ const TableRow = ({ row }: ITableRow) => {
 				))}
 
 				<div className="p-4 whitespace-nowrap" role="cell">
-					{showAdditionalControls && <Toggle id={row.original.id} />}
+					{showAdditionalControls && (
+						<TableToggle id={row.original.id} />
+					)}
 				</div>
 
 				{row.getCanExpand() && (
@@ -68,5 +70,3 @@ const TableRow = ({ row }: ITableRow) => {
 		</>
 	);
 };
-
-export default TableRow;

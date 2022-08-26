@@ -1,4 +1,4 @@
-import { IGetOptimizedLineupsResponse } from '..';
+import { IGetOptimizedLineupsResponse } from '../models';
 
 const positions = ['P'];
 

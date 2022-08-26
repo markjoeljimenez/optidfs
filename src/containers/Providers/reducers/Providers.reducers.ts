@@ -11,7 +11,7 @@ export const initialState: IProviderState = {
 	provider: null,
 };
 
-const ProviderReducers = createSlice({
+export const ProviderReducers = createSlice({
 	initialState,
 	name: 'providers',
 	reducers: {
@@ -23,5 +23,3 @@ const ProviderReducers = createSlice({
 
 export const { setProvider } = ProviderReducers.actions;
 export const providersState = (state: AppState) => state.providers;
-
-export default ProviderReducers.reducer;

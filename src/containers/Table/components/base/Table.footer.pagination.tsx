@@ -8,7 +8,8 @@ import { IPlayer } from '@/containers/Players';
 interface ITablePagination {
 	table: Table<IPlayer>;
 }
-const TableFooterPagination = ({ table }: ITablePagination) => (
+
+export const TableFooterPagination = ({ table }: ITablePagination) => (
 	<div className=" border-t-[1px]" role="row">
 		<div className="p-4 whitespace-nowrap flex justify-end" role="cell">
 			<span>
@@ -46,5 +47,3 @@ const TableFooterPagination = ({ table }: ITablePagination) => (
 		</div>
 	</div>
 );
-
-export default TableFooterPagination;

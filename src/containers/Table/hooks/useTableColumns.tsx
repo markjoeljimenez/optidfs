@@ -6,7 +6,7 @@ import { IPlayer, PlayerStatusMap } from '@/containers/Players';
 
 const columnHelper = createColumnHelper<IPlayer>();
 
-function useTableColumns() {
+export function useTableColumns() {
 	const columns = [
 		columnHelper.accessor('image', {
 			cell: (info) => (
@@ -102,5 +102,3 @@ function useTableColumns() {
 
 	return columns;
 }
-
-export default useTableColumns;
