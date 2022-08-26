@@ -1,15 +1,9 @@
-// import { useState } from 'react';
 import { IconLock } from '@tabler/icons';
 import clsx from 'clsx';
 
-import { setLockedPlayers } from '@/containers/Optimize';
+import { setExcludedPlayers, setLockedPlayers } from '@/containers/Optimize';
 
 import { useAppDispatch, useAppSelector } from '../../../hooks';
-// import {
-// 	clearToggle,
-// 	excludePlayer,
-// 	lockPlayer,
-// } from '../../Players/redux/Players.actions';
 
 export enum ETableToggle {
 	Locked = 'locked',
@@ -25,9 +19,21 @@ export const TableToggle = ({ id }: ILockOrExclude) => {
 	const dispatch = useAppDispatch();
 
 	const locked = optimize.settings?.lockedPlayers?.some((_id) => _id === id);
-	// const excluded = players?.excluded?.some((_player) => _player.id === id);
+	const excluded = optimize.settings.excludedPlayers?.some(
+		(_id) => _id === id
+	);
 
 	function handleLockPlayer(e: React.MouseEvent<HTMLInputElement>) {
+		if (excluded) {
+			dispatch(
+				setExcludedPlayers(
+					optimize.settings.excludedPlayers!.filter(
+						(_id) => _id !== id
+					)
+				)
+			);
+		}
+
 		if (!locked) {
 			dispatch(
 				setLockedPlayers([...optimize.settings.lockedPlayers, id])
@@ -43,13 +49,29 @@ export const TableToggle = ({ id }: ILockOrExclude) => {
 		);
 	}
 
-	// function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
-	// 	if (excluded) {
-	// 		dispatch(clearToggle(e));
-	// 	} else {
-	// 		dispatch(excludePlayer(e));
-	// 	}
-	// }
+	function handleExcludePlayer(e: React.MouseEvent<HTMLInputElement>) {
+		if (locked) {
+			dispatch(
+				setLockedPlayers(
+					optimize.settings.lockedPlayers!.filter((_id) => _id !== id)
+				)
+			);
+		}
+
+		if (!excluded) {
+			dispatch(
+				setExcludedPlayers([...optimize.settings.excludedPlayers, id])
+			);
+
+			return;
+		}
+
+		dispatch(
+			setExcludedPlayers(
+				optimize.settings.excludedPlayers!.filter((_id) => _id !== id)
+			)
+		);
+	}
 
 	return (
 		<div className="flex items-center text-xs justify-center">
@@ -67,7 +89,7 @@ export const TableToggle = ({ id }: ILockOrExclude) => {
 					className="invisible h-0 w-0 absolute"
 					data-type={ETableToggle.Locked}
 					id={`lock-${id}`}
-					name={`lockOrExclude-${id}`}
+					name={`lock-${id}`}
 					type="radio"
 					value={id}
 					onClick={handleLockPlayer}
@@ -77,22 +99,22 @@ export const TableToggle = ({ id }: ILockOrExclude) => {
 			</label>
 			<label
 				className={clsx(
-					'bg-gray-50 hover:bg-blue-900 hover:text-white border border-gray-300 hover:border-blue-900 rounded-r px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer'
-					// excluded
-					// 	? 'text-white border-blue-900 bg-blue-900 hover:text-white'
-					// 	: ''
+					'relative hover:bg-blue-900 hover:text-white border border-gray-300 hover:border-blue-900 rounded-r px-2 py-1 mx-0 outline-none focus:shadow-outline cursor-pointer border-r-0',
+					excluded
+						? 'border-blue-900 bg-blue-900 text-white'
+						: 'bg-gray-50 hover:bg-blue-900 hover:text-white'
 				)}
 				htmlFor={`exclude-${id}`}
 			>
 				<input
-					// checked={excluded}
+					checked={excluded}
 					className="invisible h-0 w-0 absolute"
 					data-type={ETableToggle.Excluded}
 					id={`exclude-${id}`}
-					name={`lockOrExclude-${id}`}
+					name={`exclude-${id}`}
 					type="radio"
 					value={id}
-					// onClick={handleExcludePlayer}
+					onClick={handleExcludePlayer}
 				/>
 				<span className="sr-only">Exclude</span>
 				<svg

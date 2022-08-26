@@ -11,6 +11,7 @@ interface IOptimizeState {
 
 const initialState: IOptimizeState = {
 	settings: {
+		excludedPlayers: [],
 		lockedPlayers: [],
 		numberOfLineups: 1,
 		statusFilters: [],
@@ -21,6 +22,9 @@ export const OptimizeReducers = createSlice({
 	initialState,
 	name: 'optimize',
 	reducers: {
+		setExcludedPlayers: (state, action: PayloadAction<IPlayer['id'][]>) => {
+			state.settings.excludedPlayers = action.payload;
+		},
 		setLockedPlayers: (state, action: PayloadAction<IPlayer['id'][]>) => {
 			state.settings.lockedPlayers = action.payload;
 		},
@@ -33,6 +37,10 @@ export const OptimizeReducers = createSlice({
 	},
 });
 
-export const { setLockedPlayers, setNumberOfGenerations, setStatusFilters } =
-	OptimizeReducers.actions;
+export const {
+	setExcludedPlayers,
+	setLockedPlayers,
+	setNumberOfGenerations,
+	setStatusFilters,
+} = OptimizeReducers.actions;
 export const optimizedState = (state: AppState) => state.optimize;

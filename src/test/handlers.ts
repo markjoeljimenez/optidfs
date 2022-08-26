@@ -5,11 +5,9 @@ import { optimizeHandler } from '@/containers/Optimize';
 import { playersHandler } from '@/containers/Players';
 import { sportsHandler } from '@/containers/Sports';
 
-const handlers: RestHandler<MockedRequest<DefaultBodyType>>[] = [
+export const handlers: RestHandler<MockedRequest<DefaultBodyType>>[] = [
 	sportsHandler,
 	contestsHandler,
 	playersHandler,
 	optimizeHandler,
 ];
-
-export { handlers };
