@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'src/hooks';
 import Button from '@/components/form/button';
 import Loading from '@/components/loading/loading';
 import { useGetPlayersQueryResponse } from '@/containers/Players';
-import { setView } from '@/containers/Table/';
+import { setView } from '@/containers/Table';
 
 import { useGetOptimizedLineupsMutationResponse } from '../hooks';
 
@@ -31,12 +31,6 @@ export const Optimize = ({ disabled }: IOptimizeProps) => {
 	}
 
 	useEffect(() => {
-		if (response.error) {
-			toast.error(response.error?.data.detail);
-
-			return;
-		}
-
 		if (response.data?.lineups && response.isSuccess) {
 			dispatch(setView(0));
 

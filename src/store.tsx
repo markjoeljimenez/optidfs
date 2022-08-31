@@ -2,9 +2,13 @@ import {
 	Action,
 	combineReducers,
 	configureStore,
+	isRejectedWithValue,
+	Middleware,
+	MiddlewareAPI,
 	PreloadedState,
 	ThunkAction,
 } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 import {
 	FLUSH,
 	PAUSE,
@@ -51,6 +55,16 @@ const persistedReducer = persistReducer(
 	rootReducer
 );
 
+const rtkQueryErrorLogger: Middleware =
+	(api: MiddlewareAPI) => (next) => (action) => {
+		// RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
+		if (isRejectedWithValue(action)) {
+			toast.error(action.payload.data.detail);
+		}
+
+		return next(action);
+	};
+
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
 	return configureStore({
 		middleware: (getDefaultMiddleware) =>
@@ -66,7 +80,9 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
 						REGISTER,
 					],
 				},
-			}).concat(OptidfsApi.middleware),
+			})
+				.concat(OptidfsApi.middleware)
+				.concat(rtkQueryErrorLogger),
 		preloadedState,
 		reducer: persistedReducer,
 	});
