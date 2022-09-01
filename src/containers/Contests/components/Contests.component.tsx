@@ -3,13 +3,18 @@ import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
+import { GetOptimizedLineupsExtendedApi } from '@/containers/Optimize';
+import { setView } from '@/containers/Table';
+
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { useGetContestsFromSportQuery } from '../api';
 import { IContest } from '../interfaces/IContest';
 import { setGameType, setSelectedContest } from '../reducers/Contests.reducers';
 
 export const Contests = () => {
-	const { contests, providers, sports } = useAppSelector((state) => state);
+	const { contests, global, providers, sports } = useAppSelector(
+		(state) => state
+	);
 	const dispatch = useAppDispatch();
 
 	const { data, isSuccess } = useGetContestsFromSportQuery(
@@ -39,6 +44,12 @@ export const Contests = () => {
 
 			if (selectedItem.gameType) {
 				dispatch(setGameType(selectedItem.gameType));
+			}
+
+			if (global.hasVisited) {
+				// Reset optimized lineups and switch over to players view
+				dispatch(GetOptimizedLineupsExtendedApi.util.resetApiState());
+				dispatch(setView(''));
 			}
 		}
 	}
