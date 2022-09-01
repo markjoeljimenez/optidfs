@@ -1,15 +1,7 @@
-import {
-	BaseQueryFn,
-	FetchArgs,
-	FetchBaseQueryError,
-	FetchBaseQueryMeta,
-} from '@reduxjs/toolkit/dist/query';
-import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
+import { OptidfsApi } from 'src/api';
 
-import { IContest } from '../interfaces/IContest';
-import { IDraftKingsContest } from '../interfaces/IDraftKingsContest';
-import { IYahooContest } from '../interfaces/IYahooContest';
-import { mapContests } from '../services/mapContests';
+import { IContest, IDraftKingsContest, IYahooContest } from '../interfaces';
+import { mapContests } from '../services';
 
 interface IContestsBody {
 	provider: string;
@@ -17,28 +9,23 @@ interface IContestsBody {
 	sportId: number;
 }
 
-export const getContestsFromSport = (
-	builder: EndpointBuilder<
-		BaseQueryFn<
-			string | FetchArgs,
-			unknown,
-			FetchBaseQueryError,
-			{},
-			FetchBaseQueryMeta
-		>,
-		never,
-		'optidfs'
-	>
-) =>
-	builder.query({
-		query: (body) => {
-			const params = new URLSearchParams(body as any);
+export const GetContestsFromSportExtendedApi = OptidfsApi.injectEndpoints({
+	endpoints: (build) => ({
+		getContestsFromSport: build.query({
+			query: (body) => {
+				const params = new URLSearchParams(body as any);
 
-			return `/contests?${params.toString()}`;
-		},
-		transformResponse: (
-			response: IDraftKingsContest[] | IYahooContest[],
-			meta,
-			arg: IContestsBody
-		): IContest[] => mapContests(response, arg.provider),
-	});
+				return `/contests?${params.toString()}`;
+			},
+			transformResponse: (
+				response: IDraftKingsContest[] | IYahooContest[],
+				meta,
+				arg: IContestsBody
+			): IContest[] => mapContests(response, arg.provider),
+		}),
+	}),
+	overrideExisting: false,
+});
+
+export const { useGetContestsFromSportQuery, usePrefetch } =
+	GetContestsFromSportExtendedApi;

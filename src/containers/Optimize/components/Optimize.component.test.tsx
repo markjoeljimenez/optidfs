@@ -1,13 +1,14 @@
 import userEvent from '@testing-library/user-event';
-import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
 import RightNavigation from '@/components/global/right-navigation';
 import { mapContests, yahooContestsMock } from '@/containers/Contests';
+import { GetPlayersExtendedApi, IPlayer } from '@/containers/Players';
 import { EProviders } from '@/containers/Providers';
 import { yahooSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
+import { GetOptimizedLineupsExtendedApi } from '../api';
 import { Optimize } from './Optimize.component';
 
 const preloadedState: Partial<RootState> = {
@@ -40,12 +41,14 @@ jest.mock('flagsmith/react', () => ({
 }));
 
 describe('Optimize', () => {
-	const getPlayers = OptidfsApi.endpoints.getPlayers.select({
+	const getPlayers = GetPlayersExtendedApi.endpoints.getPlayers.select({
 		id: preloadedState.contests?.selectedContest?.contest_id!,
 		provider: EProviders.Yahoo,
 	});
 	const getOptimizedLineups =
-		OptidfsApi.endpoints.getOptimizedLineups.select('optimize');
+		GetOptimizedLineupsExtendedApi.endpoints.getOptimizedLineups.select(
+			'optimize'
+		);
 
 	it('should match snapshot', async () => {
 		// Arrange
@@ -133,7 +136,8 @@ describe('Optimize', () => {
 		// Assert
 		expect(
 			getOptimizedLineupsState.data!.lineups[0].players.every(
-				(player) => player.status === 'N/A' || player.status === 'IL10'
+				(player: IPlayer) =>
+					player.status === 'N/A' || player.status === 'IL10'
 			)
 		).toBe(true);
 	});

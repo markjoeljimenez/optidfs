@@ -1,11 +1,3 @@
-import {
-	BaseQueryFn,
-	FetchArgs,
-	FetchBaseQueryError,
-	FetchBaseQueryMeta,
-} from '@reduxjs/toolkit/dist/query';
-import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
-
 import { EProviders } from '@/containers/Providers';
 
 import { IPlayer, TPlayerStatus } from '../models';
@@ -16,40 +8,32 @@ interface IGetPlayersResponse {
 	statusFilters: TPlayerStatus[];
 }
 
-interface IGetPlayersBody {
-	id: number;
-	provider: EProviders;
-	gameType?: string;
-}
+import { OptidfsApi } from 'src/api';
 
-export const getPlayers = (
-	builder: EndpointBuilder<
-		BaseQueryFn<
-			string | FetchArgs,
-			unknown,
-			FetchBaseQueryError,
-			{},
-			FetchBaseQueryMeta
-		>,
-		never,
-		'optidfs'
-	>
-) =>
-	builder.query<IGetPlayersResponse, IGetPlayersBody>({
-		query: (body) => {
-			const params = new URLSearchParams(body as any);
+export const GetPlayersExtendedApi = OptidfsApi.injectEndpoints({
+	endpoints: (build) => ({
+		getPlayers: build.query({
+			query: (body) => {
+				const params = new URLSearchParams(body as any);
 
-			return `/players?${params.toString()}`;
-		},
-		transformResponse: (response: IGetPlayersResponse, meta, arg) => {
-			const providersMap = new Map<EProviders, (p: any) => IPlayer[]>([
-				[EProviders.DraftKings, mapDraftKingsPlayers],
-				[EProviders.Yahoo, mapYahooPlayers],
-			]);
+				return `/players?${params.toString()}`;
+			},
+			transformResponse: (response: IGetPlayersResponse, meta, arg) => {
+				const providersMap = new Map<EProviders, (p: any) => IPlayer[]>(
+					[
+						[EProviders.DraftKings, mapDraftKingsPlayers],
+						[EProviders.Yahoo, mapYahooPlayers],
+					]
+				);
 
-			return {
-				...response,
-				players: providersMap.get(arg.provider)!(response.players),
-			};
-		},
-	});
+				return {
+					...response,
+					players: providersMap.get(arg.provider)!(response.players),
+				};
+			},
+		}),
+	}),
+	overrideExisting: false,
+});
+
+export const { useGetPlayersQuery } = GetPlayersExtendedApi;

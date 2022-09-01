@@ -1,4 +1,4 @@
-import { useGetOptimizedLineupsMutation } from 'src/api';
+import { useGetOptimizedLineupsMutation } from '../api';
 
 export function useGetOptimizedLineupsMutationResponse() {
 	return useGetOptimizedLineupsMutation({

@@ -1,5 +1,6 @@
-import { useGetPlayersQuery } from 'src/api';
 import { useAppSelector } from 'src/hooks';
+
+import { useGetPlayersQuery } from '../api';
 
 export function useGetPlayersQueryResponse() {
 	const { contests, providers, sports } = useAppSelector((state) => state);

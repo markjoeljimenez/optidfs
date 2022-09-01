@@ -1,11 +1,14 @@
 import userEvent from '@testing-library/user-event';
-import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
-import { draftKingsContestsMock } from '@/containers/Contests';
+import {
+	draftKingsContestsMock,
+	GetContestsFromSportExtendedApi,
+} from '@/containers/Contests';
 import { EProviders } from '@/containers/Providers';
 import { render, screen, waitFor } from '@/test/render';
 
+import { GetSportsFromProviderExtendedApi } from '../api';
 import { draftKingsSportsMock } from '../mocks/sports.mocks';
 import { Sports } from './Sports.component';
 
@@ -23,7 +26,7 @@ const app = (
 
 describe('Sports', () => {
 	const getSportsFromProvider =
-		OptidfsApi.endpoints.getSportsFromProvider.select(
+		GetSportsFromProviderExtendedApi.endpoints.getSportsFromProvider.select(
 			EProviders.DraftKings
 		);
 
@@ -103,7 +106,9 @@ describe('Sports', () => {
 
 	describe('Yahoo mocks', () => {
 		const getSportsFromProvider =
-			OptidfsApi.endpoints.getSportsFromProvider.select(EProviders.Yahoo);
+			GetSportsFromProviderExtendedApi.endpoints.getSportsFromProvider.select(
+				EProviders.Yahoo
+			);
 
 		it('should render sports options if provider is selected', async () => {
 			// Arrange
@@ -217,11 +222,13 @@ describe('Sports', () => {
 		// Assert
 		const { providers, sports } = store.getState();
 		const getContestsFromSport =
-			OptidfsApi.endpoints.getContestsFromSport.select({
-				provider: providers.provider,
-				sport: sports.selectedSport?.regionAbbreviatedSportName,
-				sportId: sports.selectedSport?.sportId,
-			});
+			GetContestsFromSportExtendedApi.endpoints.getContestsFromSport.select(
+				{
+					provider: providers.provider,
+					sport: sports.selectedSport?.regionAbbreviatedSportName,
+					sportId: sports.selectedSport?.sportId,
+				}
+			);
 
 		await waitFor(() => {
 			expect(getContestsFromSport(store.getState()).isSuccess).toBe(true);

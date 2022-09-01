@@ -1,26 +1,15 @@
-import {
-	BaseQueryFn,
-	FetchArgs,
-	FetchBaseQueryError,
-	FetchBaseQueryMeta,
-} from '@reduxjs/toolkit/dist/query';
-import { EndpointBuilder } from '@reduxjs/toolkit/dist/query/endpointDefinitions';
+import { OptidfsApi } from 'src/api';
 
-import { ISport } from '../interfaces/ISports';
+import { ISport } from '../interfaces';
 
-export const getSportsFromProvider = (
-	builder: EndpointBuilder<
-		BaseQueryFn<
-			string | FetchArgs,
-			unknown,
-			FetchBaseQueryError,
-			{},
-			FetchBaseQueryMeta
-		>,
-		never,
-		'optidfs'
-	>
-) =>
-	builder.query<ISport[], string>({
-		query: (provider: string) => `?provider=${provider}`,
-	});
+export const GetSportsFromProviderExtendedApi = OptidfsApi.injectEndpoints({
+	endpoints: (build) => ({
+		getSportsFromProvider: build.query<ISport[], string>({
+			query: (provider: string) => `?provider=${provider}`,
+		}),
+	}),
+	overrideExisting: false,
+});
+
+export const { useGetSportsFromProviderQuery, usePrefetch } =
+	GetSportsFromProviderExtendedApi;

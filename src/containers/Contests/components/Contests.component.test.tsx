@@ -1,5 +1,4 @@
 import userEvent from '@testing-library/user-event';
-import { OptidfsApi } from 'src/api';
 import { RootState } from 'src/store';
 
 import Notifications from '@/components/toast/notifications';
@@ -7,6 +6,7 @@ import { EProviders } from '@/containers/Providers';
 import { draftKingsSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
+import { GetContestsFromSportExtendedApi } from '../api';
 import { draftKingsContestsMock } from '../mocks/contests.mocks';
 import { Contests } from './Contests.component';
 
@@ -28,7 +28,7 @@ const app = (
 
 describe('Contests', () => {
 	const getContestsFromSport =
-		OptidfsApi.endpoints.getContestsFromSport.select({
+		GetContestsFromSportExtendedApi.endpoints.getContestsFromSport.select({
 			provider: EProviders.DraftKings,
 			sport: draftKingsSportsMock[0].regionAbbreviatedSportName,
 			sportId: draftKingsSportsMock[0].sportId,

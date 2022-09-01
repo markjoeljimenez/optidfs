@@ -3,8 +3,8 @@ import { useCombobox, UseComboboxStateChange } from 'downshift';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-import { useGetContestsFromSportQuery } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useGetContestsFromSportQuery } from '../api';
 import { IContest } from '../interfaces/IContest';
 import { setGameType, setSelectedContest } from '../reducers/Contests.reducers';
 

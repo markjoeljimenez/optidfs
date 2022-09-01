@@ -1,14 +1,11 @@
 import useReset from 'src/hooks/useReset';
 
 import Select, { IValueLabel } from '@/components/form/select';
-import { setSelectedContest } from '@/containers/Contests';
+import { setSelectedContest, usePrefetch } from '@/containers/Contests';
 
-import {
-	OptidfsApi,
-	useGetSportsFromProviderQuery,
-	usePrefetch,
-} from '../../../api';
+import { OptidfsApi } from '../../../api';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { useGetSportsFromProviderQuery } from '../api';
 import { setSelectedSport } from '../reducers/Sports.reducers';
 
 export const Sports = () => {
