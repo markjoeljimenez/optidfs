@@ -9,6 +9,7 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const customJestConfig = {
 	collectCoverage: true,
+	coveragePathIgnorePatterns: ['.mocks.ts'],
 	coverageReporters: ['html'],
 	// Add more setup options before each test is run
 	// setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],

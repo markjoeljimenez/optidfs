@@ -1,7 +1,4 @@
-import {
-	draftKingsContestsMock,
-	yahooContestsMock,
-} from '../mocks/Contests.mocks';
+import { draftKingsContestsMock, yahooContestsMock } from '../mocks';
 import { mapDraftKingsContests, mapYahooContests } from './mapContests';
 
 describe('mapContests', () => {
