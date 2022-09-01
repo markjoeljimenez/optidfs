@@ -58,7 +58,7 @@ const persistedReducer = persistReducer(
 const rtkQueryErrorLogger: Middleware =
 	(api: MiddlewareAPI) => (next) => (action) => {
 		// RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these matchers!
-		if (isRejectedWithValue(action)) {
+		if (isRejectedWithValue(action) && action.payload?.data?.detail) {
 			toast.error(action.payload.data.detail);
 		}
 
