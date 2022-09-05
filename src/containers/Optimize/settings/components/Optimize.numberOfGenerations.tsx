@@ -19,6 +19,7 @@ const OptimizeNumberOfGenerations = () => {
 			id="number-of-generations"
 			label="Number of generations"
 			min={1}
+			testid="number-of-generations"
 			type="number"
 			onChange={handleNumberOfLineupsChange}
 		/>

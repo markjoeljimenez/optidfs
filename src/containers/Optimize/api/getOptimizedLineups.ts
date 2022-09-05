@@ -1,12 +1,15 @@
 import { OptidfsApi } from 'src/api';
 
-import { IGetOptimizedLineupsResponse } from '../models';
+import {
+	IGetOptimizedLineupsPostBody,
+	IGetOptimizedLineupsResponse,
+} from '../models';
 
 export const GetOptimizedLineupsExtendedApi = OptidfsApi.injectEndpoints({
 	endpoints: (build) => ({
 		getOptimizedLineups: build.mutation<
 			IGetOptimizedLineupsResponse,
-			string
+			IGetOptimizedLineupsPostBody
 		>({
 			query: (body) => {
 				return {

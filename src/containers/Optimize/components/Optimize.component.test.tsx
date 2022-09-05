@@ -9,6 +9,7 @@ import { yahooSportsMock } from '@/containers/Sports';
 import { render, screen, waitFor } from '@/test/render';
 
 import { GetOptimizedLineupsExtendedApi } from '../api';
+import { GetOptimizedLineupsPostBodyMock } from '../mocks';
 import { Optimize } from './Optimize.component';
 
 const preloadedState: Partial<RootState> = {
@@ -16,6 +17,7 @@ const preloadedState: Partial<RootState> = {
 		gameType: null,
 		selectedContest: mapContests(yahooContestsMock, 'yahoo')[0],
 	},
+	optimize: GetOptimizedLineupsPostBodyMock,
 	providers: {
 		provider: EProviders.Yahoo,
 	},
@@ -93,8 +95,10 @@ describe('Optimize', () => {
 		const settingsButtons = screen.getAllByRole('button');
 		await userEvent.click(settingsButtons[1]);
 
-		const numberOfGenerationsInput = screen.getByRole('spinbutton');
-		await userEvent.type(numberOfGenerationsInput, '0');
+		const numberOfGenerationsInput = screen.getByTestId(
+			'number-of-generations'
+		);
+		await userEvent.type(numberOfGenerationsInput, '{Backspace}{5}');
 
 		const optimizeButton = screen.getByTestId('optimize');
 		await userEvent.click(optimizeButton);
@@ -106,7 +110,7 @@ describe('Optimize', () => {
 		const getOptimizedLineupsState = getOptimizedLineups(store.getState());
 
 		// Assert
-		expect(getOptimizedLineupsState.data?.lineups.length).toBe(10);
+		expect(getOptimizedLineupsState.data?.lineups.length).toBe(5);
 	});
 
 	it('should filter players if set', async () => {

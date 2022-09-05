@@ -28,6 +28,10 @@ export const OptimizeReducers = createSlice({
 		setLockedPlayers: (state, action: PayloadAction<IPlayer['id'][]>) => {
 			state.settings.lockedPlayers = action.payload;
 		},
+		setMaximumExposure: (state, action: PayloadAction<number>) => {
+			state.settings.maximumExposure =
+				action.payload === 0 ? undefined : action.payload;
+		},
 		setNumberOfGenerations: (state, action: PayloadAction<number>) => {
 			state.settings.numberOfLineups = action.payload;
 		},
@@ -40,6 +44,7 @@ export const OptimizeReducers = createSlice({
 export const {
 	setExcludedPlayers,
 	setLockedPlayers,
+	setMaximumExposure,
 	setNumberOfGenerations,
 	setStatusFilters,
 } = OptimizeReducers.actions;

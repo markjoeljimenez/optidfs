@@ -5,4 +5,5 @@ export interface IOptimizeSettings {
 	lockedPlayers: IPlayer['id'][];
 	numberOfLineups: number;
 	statusFilters: TPlayerStatus[];
+	maximumExposure?: number;
 }
