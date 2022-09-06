@@ -5,7 +5,7 @@ import Input from '@/components/form/input';
 
 import { setMaximumExposure } from '../../reducers/Optimize.reducers';
 
-const OptimizeMaximumExposure = () => {
+const OptimizeMaximumExposureForAllPlayers = () => {
 	const { optimize } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
@@ -17,7 +17,7 @@ const OptimizeMaximumExposure = () => {
 		<Input
 			defaultValue={optimize.settings.maximumExposure}
 			id="max-exposure"
-			label="Max exposure"
+			label="Max exposure (all players)"
 			max={1}
 			min={0}
 			step={0.1}
@@ -28,4 +28,4 @@ const OptimizeMaximumExposure = () => {
 	);
 };
 
-export default OptimizeMaximumExposure;
+export default OptimizeMaximumExposureForAllPlayers;
