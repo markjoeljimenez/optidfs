@@ -1,14 +1,10 @@
+import { OptidfsApi } from 'src/api';
+
 import { EProviders } from '@/containers/Providers';
 
-import { IPlayer, TPlayerStatus } from '../models';
+import { IPlayer } from '../models';
+import { IGetPlayersResponse } from '../models/IGetPlayersResponse';
 import { mapDraftKingsPlayers, mapYahooPlayers } from '../services';
-
-interface IGetPlayersResponse {
-	players: IPlayer[];
-	statusFilters: TPlayerStatus[];
-}
-
-import { OptidfsApi } from 'src/api';
 
 export const GetPlayersExtendedApi = OptidfsApi.injectEndpoints({
 	endpoints: (build) => ({

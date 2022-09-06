@@ -18,6 +18,7 @@ export interface IPlayer {
 	image?: string | null;
 
 	// User entered attributes
+	maxExposure?: number;
 	minExposure?: number;
 	projectedOwnership?: number;
 }

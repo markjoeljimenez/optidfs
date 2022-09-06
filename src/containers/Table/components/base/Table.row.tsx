@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { IPlayer, PlayerStatusMap } from '@/containers/Players';
 
 import { TableToggle } from '../Table.toggle';
+import { TableExpandedRow } from './Table.expandedRow';
 
 interface ITableRow {
 	row: Row<IPlayer>;
@@ -63,8 +64,8 @@ export const TableRow = ({ row }: ITableRow) => {
 			</div>
 
 			{row.getIsExpanded() && (
-				<div key={`${row.id}-subrow`} role="row">
-					<div role="cell">Expanded row</div>
+				<div key={`${row.original.id}-subrow`} role="row">
+					<TableExpandedRow player={row.original} />
 				</div>
 			)}
 		</>
