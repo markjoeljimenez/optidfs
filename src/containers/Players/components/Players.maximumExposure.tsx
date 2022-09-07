@@ -22,9 +22,11 @@ export const PlayerMaximumExposure = ({ player }: IPlayerMaximumExposure) => {
 				GetPlayersQueryArgs,
 				(getPlayersResponse) =>
 					mutatePlayerMaxExposure(
-						player.id as string,
-						getPlayersResponse,
-						parseFloat(e.currentTarget.value)
+						{
+							id: player.id as string,
+							maxExposure: parseFloat(e.currentTarget.value),
+						},
+						getPlayersResponse.players
 					)
 			)
 		);
@@ -46,16 +48,13 @@ export const PlayerMaximumExposure = ({ player }: IPlayerMaximumExposure) => {
 };
 
 function mutatePlayerMaxExposure(
-	id: string,
-	getPlayersResponse: IGetPlayersResponse,
-	maxExposure: number
+	{ id, maxExposure }: { id: string; maxExposure: number },
+	players: IGetPlayersResponse['players']
 ) {
-	const foundPlayerIndex = getPlayersResponse.players.findIndex(
-		(player) => player.id === id
-	);
+	const foundPlayerIndex = players.findIndex((player) => player.id === id);
 
-	getPlayersResponse.players[foundPlayerIndex] = {
-		...getPlayersResponse.players[foundPlayerIndex],
+	players[foundPlayerIndex] = {
+		...players[foundPlayerIndex],
 		maxExposure,
 	};
 }
