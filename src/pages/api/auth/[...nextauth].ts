@@ -16,7 +16,8 @@ export const authOptions: any = {
 				url: 'https://api.login.yahoo.com/oauth2/request_auth',
 				params: {
 					client_id: YAHOO_CLIENT_ID,
-					redirect_uri: 'https://auth-test.optidfs.com/',
+					redirect_uri:
+						'https://auth-test.optidfs.com/optimize/start/1',
 					response_type: 'code',
 				},
 			},
