@@ -1,5 +1,6 @@
 /* eslint-disable sort-keys */
 import NextAuth from 'next-auth';
+const { YAHOO_CLIENT_ID, YAHOO_CLIENT_SECRET } = process.env;
 
 export const authOptions: any = {
 	debug: true,
@@ -9,8 +10,8 @@ export const authOptions: any = {
 			id: 'yahoo',
 			name: 'Yahoo',
 			type: 'oauth',
-			clientId:
-				'dj0yJmk9WjA0QXFKSGdvUk40JmQ9WVdrOWIyaEJZMEZDU0hRbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTdm',
+			clientId: YAHOO_CLIENT_ID,
+			clientSecret: YAHOO_CLIENT_SECRET,
 			authorization: {
 				url: 'https://api.login.yahoo.com/oauth2/request_auth',
 				params: {
