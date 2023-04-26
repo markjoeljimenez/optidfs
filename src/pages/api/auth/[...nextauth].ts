@@ -16,7 +16,7 @@ export const authOptions: any = {
 				params: {
 					client_id:
 						'dj0yJmk9WjA0QXFKSGdvUk40JmQ9WVdrOWIyaEJZMEZDU0hRbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PTdm',
-					redirect_uri: 'http://localhost:3000/',
+					redirect_uri: 'https://auth-test.optidfs.com/',
 					response_type: 'code',
 				},
 			},
