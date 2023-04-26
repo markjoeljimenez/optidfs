@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
+import Auth from '../auth';
 import Donate from './donate';
 
 const Nav = () => {
@@ -19,6 +20,8 @@ const Nav = () => {
 			data-testid="nav"
 		>
 			<div className="relative flex justify-between items-center md:block md:min-w-nav">
+				<Auth />
+
 				<button className="md:hidden" type="button" onClick={onClick}>
 					{isActive ? (
 						<svg

@@ -5,6 +5,7 @@ import flagsmith from 'flagsmith/isomorphic';
 import { FlagsmithProvider } from 'flagsmith/react';
 import { IState } from 'flagsmith/types';
 import { AppProps } from 'next/app';
+import { SessionProvider } from 'next-auth/react';
 import { DefaultSeo } from 'next-seo';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -14,11 +15,11 @@ import Notifications from '@/components/toast/notifications';
 import Dashboard from '../layouts/dashboard';
 import store, { persistor } from '../store';
 
-type Props = AppProps & { flagsmithState: IState };
+type Props = AppProps & { flagsmithState: IState } & { session: any };
 
 const { FLAGSMITH_ENVIRONMENT_ID } = process.env;
 
-const App = ({ Component, flagsmithState, pageProps }: Props) => {
+const App = ({ Component, flagsmithState, session, ...pageProps }: Props) => {
 	if (process.env.NODE_ENV !== 'development' && process.env.SENTRY_DSN) {
 		Sentry.init({
 			dsn: process.env.SENTRY_DSN,
@@ -28,18 +29,20 @@ const App = ({ Component, flagsmithState, pageProps }: Props) => {
 
 	return (
 		<FlagsmithProvider flagsmith={flagsmith} serverState={flagsmithState}>
-			<Provider store={store}>
-				<PersistGate loading={null} persistor={persistor}>
-					<Notifications />
-					<DefaultSeo
-						description="A web app that generates the most optimized lineups for DraftKings."
-						title="Optidfs"
-					/>
-					<Dashboard>
-						<Component {...pageProps} />
-					</Dashboard>
-				</PersistGate>
-			</Provider>
+			<SessionProvider session={session}>
+				<Provider store={store}>
+					<PersistGate loading={null} persistor={persistor}>
+						<Notifications />
+						<DefaultSeo
+							description="A web app that generates the most optimized lineups for DraftKings."
+							title="Optidfs"
+						/>
+						<Dashboard>
+							<Component {...pageProps} />
+						</Dashboard>
+					</PersistGate>
+				</Provider>
+			</SessionProvider>
 		</FlagsmithProvider>
 	);
 };
