@@ -1,7 +1,8 @@
+import { Optimize } from '@optidfs.rewrite.2/pages';
 import { useRoutes } from 'react-router-dom';
 
-export const Routes = () => {
-	const commonRoutes = [{ path: '/', element: <div>hi</div> }];
+export const routes = [{ path: '/', element: <Optimize />, name: 'Optimize' }];
 
-	return useRoutes(commonRoutes);
+export const Routes = () => {
+	return useRoutes(routes);
 };

@@ -15,6 +15,7 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
+			"@optidfs.rewrite.2/pages": ["pages/src/index.ts"],
 			"@optidfs.rewrite.2/routes": ["routes/src/index.ts"]
 		}
 	},
