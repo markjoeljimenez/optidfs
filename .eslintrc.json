@@ -18,7 +18,8 @@
               }
             ]
           }
-        ]
+        ],
+        "sort-imports": "error"
       }
     },
     {
