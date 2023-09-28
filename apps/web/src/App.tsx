@@ -1,4 +1,5 @@
 import { AppShell, Burger } from '@mantine/core';
+import { Routes } from '@optidfs.rewrite.2/routes';
 import { useDisclosure } from '@mantine/hooks';
 
 export function App() {
@@ -26,7 +27,9 @@ export function App() {
 
 			<AppShell.Navbar p="md">Navbar</AppShell.Navbar>
 
-			<AppShell.Main>Main</AppShell.Main>
+			<AppShell.Main>
+				<Routes />
+			</AppShell.Main>
 		</AppShell>
 	);
 }
