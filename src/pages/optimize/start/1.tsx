@@ -9,13 +9,13 @@ import { Sports } from '@/containers/Sports';
 const Start = () => {
 	const state = useAppSelector((state) => state);
 
-	function onNext() {
-		if (state.providers.provider && state.sports.selectedSport) {
-			router.push('/optimize/start/2', undefined, {
-				shallow: true,
-			});
-		}
-	}
+	// function onNext() {
+	// 	if (state.providers.provider && state.sports.selectedSport) {
+	// 		router.push('/optimize/start/2', undefined, {
+	// 			shallow: true,
+	// 		});
+	// 	}
+	// }
 
 	return (
 		<div>

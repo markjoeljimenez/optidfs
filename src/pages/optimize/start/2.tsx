@@ -11,11 +11,11 @@ const Start2 = () => {
 	const { contests, providers, sports } = useAppSelector((state) => state);
 	const dispatch = useAppDispatch();
 
-	useEffect(() => {
-		if (!sports.selectedSport || !providers.provider) {
-			router.back();
-		}
-	}, [sports.selectedSport, providers.provider]);
+	// useEffect(() => {
+	// 	if (!sports.selectedSport || !providers.provider) {
+	// 		router.back();
+	// 	}
+	// }, [sports.selectedSport, providers.provider]);
 
 	function onNext() {
 		if (contests.selectedContest) {

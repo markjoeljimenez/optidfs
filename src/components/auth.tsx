@@ -1,12 +1,14 @@
 import { signIn, signOut, useSession } from 'next-auth/react';
 
 export default function Auth() {
-	const { data: session } = useSession();
+	const test = useSession();
 
-	if (session) {
+	console.log(test);
+
+	if (test.data) {
 		return (
 			<>
-				Signed in as {session?.user?.email} <br />
+				Signed in as {test.data?.user?.email} <br />
 				<button onClick={() => signOut()}>Sign out</button>
 			</>
 		);
@@ -15,7 +17,15 @@ export default function Auth() {
 	return (
 		<>
 			Not signed in <br />
-			<button onClick={() => signIn()}>Sign in</button>
+			<button
+				onClick={() =>
+					signIn('yahoo', {
+						callbackUrl: 'https://pbjkqbrh-3000.use.devtunnels.ms/',
+					})
+				}
+			>
+				Sign in
+			</button>
 		</>
 	);
 }

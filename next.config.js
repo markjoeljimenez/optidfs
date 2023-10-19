@@ -15,15 +15,15 @@ const config = {
 		domains: ['www.paypal.com', 'dkn.gs', 's.yimg.com'],
 	},
 	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
-	async redirects() {
-		return [
-			{
-				destination: '/optimize',
-				permanent: true,
-				source: '/',
-			},
-		];
-	},
+	// async redirects() {
+	// 	return [
+	// 		{
+	// 			destination: '/optimize',
+	// 			permanent: true,
+	// 			source: '/',
+	// 		},
+	// 	];
+	// },
 	swcMinify: true,
 };
 
