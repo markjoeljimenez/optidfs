@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys */
 import NextAuth, { AuthOptions } from 'next-auth';
 
-const { YAHOO_CLIENT_ID, YAHOO_CLIENT_SECRET } = process.env;
+const { REDIRECT_URI, YAHOO_CLIENT_ID, YAHOO_CLIENT_SECRET } = process.env;
 
 export const authOptions: AuthOptions = {
 	// debug: true,
@@ -18,8 +18,7 @@ export const authOptions: AuthOptions = {
 			authorization: {
 				params: {
 					client_id: YAHOO_CLIENT_ID,
-					redirect_uri:
-						'https://pbjkqbrh-3000.use.devtunnels.ms/api/auth/callback/yahoo',
+					redirect_uri: REDIRECT_URI,
 					response_type: 'code',
 				},
 			},

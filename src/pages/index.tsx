@@ -27,7 +27,7 @@ const Index = () => {
 	return (
 		<div className="relative flex flex-1">
 			<div className="h-full flex flex-col p-8 flex-1">
-				<div className="flex space-x-4 justify-between">
+				{/* <div className="flex space-x-4 justify-between">
 					<Contests />
 
 					<div className="flex space-x-3">
@@ -38,7 +38,7 @@ const Index = () => {
 
 				<div className="max-h-full overflow-y-hidden mt-6">
 					<Table />
-				</div>
+				</div> */}
 			</div>
 			<RightNavigation />
 		</div>
