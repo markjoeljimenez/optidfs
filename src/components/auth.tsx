@@ -11,13 +11,10 @@ export default function Auth() {
 				Signed in as {test.data?.user?.email} <br />
 				<button
 					onClick={async () => {
-						const test = await fetch(
-							'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games',
-							{
-								credentials: 'include',
-							}
+						const test2 = await fetch(
+							`https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games?access_token=${test.data?.accessToken}`
 						);
-						console.log(await test.json());
+						console.log(await test2.json());
 					}}
 				>
 					Fetch
