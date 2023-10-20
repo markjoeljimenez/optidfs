@@ -105,55 +105,7 @@ const Nav = () => {
 				)}
 			>
 				<ul>
-					<li className="mt-6">
-						<Link href="/optimize">
-							<a
-								className={clsx(
-									router.pathname.includes('optimize') &&
-										'bg-gray-100',
-									'hover:bg-gray-200',
-									'block',
-									'px-4',
-									'py-3',
-									'rounded-md'
-								)}
-							>
-								{/* <svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									className="fill-current absolute top-50"
-									width="24"
-									height="24"
-								>
-									<g data-name="Layer 2">
-										<g data-name="flash">
-											<rect
-												width="24"
-												height="24"
-												opacity="0"
-											/>
-											<path d="M11.11 23a1 1 0 0 1-.34-.06 1 1 0 0 1-.65-1.05l.77-7.09H5a1 1 0 0 1-.83-1.56l7.89-11.8a1 1 0 0 1 1.17-.38 1 1 0 0 1 .65 1l-.77 7.14H19a1 1 0 0 1 .83 1.56l-7.89 11.8a1 1 0 0 1-.83.44zM6.87 12.8H12a1 1 0 0 1 .74.33 1 1 0 0 1 .25.78l-.45 4.15 4.59-6.86H12a1 1 0 0 1-1-1.11l.45-4.15z" />
-										</g>
-									</g>
-								</svg> */}
-								<svg
-									className="h-5 w-5 absolute top-50 text-gray-400"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth="2"
-									/>
-								</svg>
-								<span className="pl-8">Optimize</span>
-							</a>
-						</Link>
-					</li>
+					<li className="mt-6"></li>
 				</ul>
 				<div className="flex items-center flex-col space-y-6 text-center">
 					<Donate />

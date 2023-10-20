@@ -9,6 +9,19 @@ export default function Auth() {
 		return (
 			<>
 				Signed in as {test.data?.user?.email} <br />
+				<button
+					onClick={async () => {
+						const test = await fetch(
+							'https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games',
+							{
+								credentials: 'include',
+							}
+						);
+						console.log(await test.json());
+					}}
+				>
+					Fetch
+				</button>
 				<button onClick={() => signOut()}>Sign out</button>
 			</>
 		);
@@ -17,15 +30,7 @@ export default function Auth() {
 	return (
 		<>
 			Not signed in <br />
-			<button
-				onClick={() =>
-					signIn('yahoo', {
-						callbackUrl: 'https://pbjkqbrh-3000.use.devtunnels.ms/',
-					})
-				}
-			>
-				Sign in
-			</button>
+			<button onClick={() => signIn()}>Sign in</button>
 		</>
 	);
 }

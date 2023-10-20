@@ -1,10 +1,10 @@
 /* eslint-disable sort-keys */
-import NextAuth from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 
-const { YAHOO_CLIENT_ID } = process.env;
+const { YAHOO_CLIENT_ID, YAHOO_CLIENT_SECRET } = process.env;
 
-export const authOptions: any = {
-	debug: true,
+export const authOptions: AuthOptions = {
+	// debug: true,
 	// Configure one or more authentication providers
 	providers: [
 		{
@@ -12,45 +12,45 @@ export const authOptions: any = {
 			name: 'Yahoo',
 			type: 'oauth',
 			clientId: YAHOO_CLIENT_ID,
+			clientSecret: YAHOO_CLIENT_SECRET,
+			wellKnown:
+				'https://api.login.yahoo.com/.well-known/openid-configuration',
 			authorization: {
-				url: 'https://api.login.yahoo.com/oauth2/request_auth',
 				params: {
 					client_id: YAHOO_CLIENT_ID,
-					redirect_uri: 'https://pbjkqbrh-3000.use.devtunnels.ms/',
+					redirect_uri:
+						'https://pbjkqbrh-3000.use.devtunnels.ms/api/auth/callback/yahoo',
 					response_type: 'code',
 				},
+			},
+			profile(profile) {
+				return {
+					id: profile.sub,
+					name: profile.name,
+					email: profile.email,
+					image: profile.picture,
+				};
+			},
+			idToken: true,
+			client: {
+				authorization_signed_response_alg: 'ES256',
+				id_token_signed_response_alg: 'ES256',
 			},
 		},
 	],
 	callbacks: {
-		async signIn(test: any) {
-			const isAllowedToSignIn = true;
-
-			console.log(test, 'signIn');
-			if (isAllowedToSignIn) {
-				return true;
-			} else {
-				// Return false to display a default error message
-				return false;
-				// Or you can return a URL to redirect to:
-				// return '/unauthorized'
-			}
-		},
-		async redirect(test) {
-			// Allows relative callback URLs
-			console.log(test, 'redirect');
-			//   if (url.startsWith("/")) return `${baseUrl}${url}`
-			//   // Allows callback URLs on the same origin
-			//   else if (new URL(url).origin === baseUrl) return url
-			return test.baseUrl;
-		},
-		async jwt(test: any) {
-			// Persist the OAuth access_token and or the user id to the token right after signin
-			console.log(test);
-		},
-		async session(test: any) {
+		async session({ session, token, user }) {
 			// Send properties to the client, like an access_token and user id from a provider.
-			console.log(test);
+			// session.accessToken = token.accessToken;
+			// session.user.id = token.id;
+
+			console.log(session, token, user, 'session');
+
+			return session;
+		},
+		async jwt({ account, profile, token }) {
+			console.log(token, account, profile, 'jwt');
+			return token;
 		},
 	},
 };
