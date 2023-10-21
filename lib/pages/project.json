@@ -1,7 +1,7 @@
 {
 	"name": "pages",
-	"$schema": "../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "pages/src",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "lib/pages/src",
 	"projectType": "library",
 	"tags": [],
 	"targets": {
@@ -9,7 +9,7 @@
 			"executor": "@nx/linter:eslint",
 			"outputs": ["{options.outputFile}"],
 			"options": {
-				"lintFilePatterns": ["pages/**/*.{ts,tsx,js,jsx}"]
+				"lintFilePatterns": ["lib/pages/**/*.{ts,tsx,js,jsx}"]
 			}
 		},
 		"build": {
@@ -17,7 +17,7 @@
 			"outputs": ["{options.outputPath}"],
 			"defaultConfiguration": "production",
 			"options": {
-				"outputPath": "dist/pages"
+				"outputPath": "dist/lib/pages"
 			},
 			"configurations": {
 				"development": {
@@ -33,7 +33,7 @@
 			"outputs": ["{options.reportsDirectory}"],
 			"options": {
 				"passWithNoTests": true,
-				"reportsDirectory": "../coverage/pages"
+				"reportsDirectory": "../../coverage/lib/pages"
 			}
 		}
 	}
