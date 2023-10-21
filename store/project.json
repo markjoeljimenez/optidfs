@@ -1,0 +1,31 @@
+{
+	"name": "store",
+	"$schema": "../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "store/src",
+	"projectType": "library",
+	"targets": {
+		"build": {
+			"executor": "@nx/vite:build",
+			"outputs": ["{options.outputPath}"],
+			"options": {
+				"outputPath": "dist/store"
+			}
+		},
+		"test": {
+			"executor": "@nx/vite:test",
+			"outputs": ["{options.reportsDirectory}"],
+			"options": {
+				"passWithNoTests": true,
+				"reportsDirectory": "../coverage/store"
+			}
+		},
+		"lint": {
+			"executor": "@nx/linter:eslint",
+			"outputs": ["{options.outputFile}"],
+			"options": {
+				"lintFilePatterns": ["store/**/*.ts", "store/package.json"]
+			}
+		}
+	},
+	"tags": []
+}

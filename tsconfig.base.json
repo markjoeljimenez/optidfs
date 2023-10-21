@@ -17,7 +17,8 @@
 		"paths": {
 			"@optidfs.rewrite.2/api": ["api/src/index.ts"],
 			"@optidfs.rewrite.2/pages": ["pages/src/index.ts"],
-			"@optidfs.rewrite.2/routes": ["routes/src/index.ts"]
+			"@optidfs.rewrite.2/routes": ["routes/src/index.ts"],
+			"@optidfs.rewrite.2/store": ["store/src/index.ts"]
 		}
 	},
 	"exclude": ["node_modules", "tmp"]
