@@ -1,14 +1,14 @@
 {
 	"name": "store",
-	"$schema": "../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "store/src",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "lib/store/src",
 	"projectType": "library",
 	"targets": {
 		"build": {
 			"executor": "@nx/vite:build",
 			"outputs": ["{options.outputPath}"],
 			"options": {
-				"outputPath": "dist/store"
+				"outputPath": "dist/lib/store"
 			}
 		},
 		"test": {
@@ -16,14 +16,17 @@
 			"outputs": ["{options.reportsDirectory}"],
 			"options": {
 				"passWithNoTests": true,
-				"reportsDirectory": "../coverage/store"
+				"reportsDirectory": "../../coverage/lib/store"
 			}
 		},
 		"lint": {
 			"executor": "@nx/linter:eslint",
 			"outputs": ["{options.outputFile}"],
 			"options": {
-				"lintFilePatterns": ["store/**/*.ts", "store/package.json"]
+				"lintFilePatterns": [
+					"lib/store/**/*.ts",
+					"lib/store/package.json"
+				]
 			}
 		}
 	},
