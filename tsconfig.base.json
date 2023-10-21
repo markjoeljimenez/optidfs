@@ -17,7 +17,7 @@
 		"paths": {
 			"@optidfs/api": ["lib/api/src/index.ts"],
 			"@optidfs/pages": ["lib/pages/src/index.ts"],
-			"@optidfs/routes": ["routes/src/index.ts"],
+			"@optidfs/routes": ["lib/routes/src/index.ts"],
 			"@optidfs/store": ["store/src/index.ts"]
 		}
 	},
