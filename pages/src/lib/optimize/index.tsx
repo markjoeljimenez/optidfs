@@ -1,4 +1,4 @@
-import { useAppSelector } from '@optidfs.rewrite.2/api';
+import { useAppSelector } from '@optidfs/store';
 
 /* eslint-disable-next-line */
 export interface PagesProps {}

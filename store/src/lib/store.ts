@@ -1,4 +1,4 @@
-import { OptidfsDFSApi } from '@optidfs.rewrite.2/api';
+import { OptidfsDFSApi } from '@optidfs/api';
 import { PayloadAction, configureStore, createSlice } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 

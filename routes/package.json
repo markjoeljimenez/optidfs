@@ -1,5 +1,5 @@
 {
-	"name": "@optidfs.rewrite.2/routes",
+	"name": "@optidfs/routes",
 	"version": "0.0.1",
 	"main": "./index.js",
 	"types": "./index.d.ts",

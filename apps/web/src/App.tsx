@@ -1,5 +1,5 @@
 import { AppShell, Burger } from '@mantine/core';
-import { Routes, routes } from '@optidfs.rewrite.2/routes';
+import { Routes, routes } from '@optidfs/routes';
 import { NavLink } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 

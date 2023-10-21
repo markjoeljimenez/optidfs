@@ -1,5 +1,5 @@
 {
-	"name": "@optidfs.rewrite.2/api",
+	"name": "@optidfs/api",
 	"version": "0.0.1",
 	"main": "./index.js",
 	"types": "./index.d.ts",

@@ -1,5 +1,5 @@
 {
-	"name": "@optidfs.rewrite.2/store",
+	"name": "@optidfs/store",
 	"version": "0.0.1",
 	"dependencies": {},
 	"main": "./index.js",
