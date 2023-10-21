@@ -15,7 +15,6 @@
 		"skipDefaultLibCheck": true,
 		"baseUrl": ".",
 		"paths": {
-			"@optidfs/api": ["lib/api/src/index.ts"],
 			"@optidfs/pages": ["lib/pages/src/index.ts"],
 			"@optidfs/routes": ["lib/routes/src/index.ts"],
 			"@optidfs/store": ["lib/store/src/index.ts"]
