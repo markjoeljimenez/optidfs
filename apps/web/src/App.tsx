@@ -1,5 +1,5 @@
 import { AppShell, Burger } from '@mantine/core';
-import { Routes, routes } from '@optidfs/routes';
+import { Pages, pages } from './pages';
 import { NavLink } from 'react-router-dom';
 import { useDisclosure } from '@mantine/hooks';
 
@@ -27,7 +27,7 @@ export function App() {
 			</AppShell.Header>
 
 			<AppShell.Navbar p="md">
-				{routes.map(({ name, path }) => (
+				{pages.map(({ name, path }) => (
 					<NavLink to={path} key={name}>
 						{name}
 					</NavLink>
@@ -35,7 +35,7 @@ export function App() {
 			</AppShell.Navbar>
 
 			<AppShell.Main>
-				<Routes />
+				<Pages />
 			</AppShell.Main>
 		</AppShell>
 	);
