@@ -12,9 +12,7 @@ export default function Auth() {
 				<button
 					onClick={async () => {
 						const test2 = await fetch(
-							`https://fantasysports.yahooapis.com/fantasy/v2/users;use_login=1/games?access_token=${
-								(test.data as any)?.accessToken
-							}`
+							'https://auth-test.optidfs.com/api/test'
 						);
 						console.log(await test2.json());
 					}}
