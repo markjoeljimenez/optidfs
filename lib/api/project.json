@@ -1,7 +1,7 @@
 {
 	"name": "api",
-	"$schema": "../node_modules/nx/schemas/project-schema.json",
-	"sourceRoot": "api/src",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "lib/api/src",
 	"projectType": "library",
 	"tags": [],
 	"targets": {
@@ -9,7 +9,7 @@
 			"executor": "@nx/linter:eslint",
 			"outputs": ["{options.outputFile}"],
 			"options": {
-				"lintFilePatterns": ["api/**/*.{ts,tsx,js,jsx}"]
+				"lintFilePatterns": ["lib/api/**/*.{ts,tsx,js,jsx}"]
 			}
 		},
 		"build": {
@@ -17,7 +17,7 @@
 			"outputs": ["{options.outputPath}"],
 			"defaultConfiguration": "production",
 			"options": {
-				"outputPath": "dist/api"
+				"outputPath": "dist/lib/api"
 			},
 			"configurations": {
 				"development": {
@@ -33,7 +33,7 @@
 			"outputs": ["{options.reportsDirectory}"],
 			"options": {
 				"passWithNoTests": true,
-				"reportsDirectory": "../coverage/api"
+				"reportsDirectory": "../../coverage/lib/api"
 			}
 		}
 	}
